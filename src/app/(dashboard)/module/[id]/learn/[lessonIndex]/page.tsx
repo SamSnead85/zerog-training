@@ -29,6 +29,7 @@ import { safeScrumMasterContent, leadershipContent, hipaaContent } from "@/lib/c
 import { projectManagementContent, deiContent, softSkillsContent, technologyContent, salesContent } from "@/lib/content/additional-content";
 import { aiNativeContent, agenticAIContent, legacyModernizationContent } from "@/lib/content/ai-training-content";
 import { promptEngineeringContent, ragImplementationContent } from "@/lib/content/extended-ai-content";
+import { cybersecurityContent, changeManagementContent } from "@/lib/content/enterprise-content";
 
 // Map module IDs to content
 const contentMap: Record<string, typeof safeScrumMasterContent> = {
@@ -47,6 +48,9 @@ const contentMap: Record<string, typeof safeScrumMasterContent> = {
     // Extended AI Modules
     "prompt-engineering": promptEngineeringContent,
     "rag-implementation": ragImplementationContent,
+    // Enterprise Modules
+    "cybersecurity-fundamentals": cybersecurityContent,
+    "change-management": changeManagementContent,
 };
 
 interface QuizState {
