@@ -24,9 +24,17 @@ model Organization {
   secondaryColor  String?  @default("#8B5CF6")
   customDomain    String?  @unique
   subscriptionTier String  @default("free") // free, starter, professional, enterprise
+  tier            String   @default("FREE") // FREE, TRIAL, STARTER, PROFESSIONAL, ENTERPRISE
   storageQuotaGb  Int      @default(5)
   storageUsedMb   Float    @default(0)
   gamificationEnabled Boolean @default(false)
+  
+  // Trial
+  trialEndsAt     DateTime?
+  trialCodeId     String?
+  
+  // Feature limits
+  settings        Json?    // Features, limits, branding
   
   // Billing
   stripeCustomerId     String?
@@ -41,8 +49,36 @@ model Organization {
   modules         TrainingModule[]
   assignments     Assignment[]
   llmConfigs      LLMConfiguration[]
+  trialCodes      TrialCode[]
   
   @@map("organizations")
+}
+
+// Trial Access Codes
+model TrialCode {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  description     String?
+  
+  maxUses         Int      @default(10)
+  usedCount       Int      @default(0)
+  
+  // Limits for orgs that use this code
+  maxUsers        Int      @default(5)
+  maxModules      Int      @default(5)
+  durationDays    Int      @default(14)
+  
+  expiresAt       DateTime?
+  isActive        Boolean  @default(true)
+  
+  createdById     String
+  organizationId  String?
+  organization    Organization? @relation(fields: [organizationId], references: [id])
+  
+  createdAt       DateTime @default(now())
+  
+  @@index([code])
+  @@map("trial_codes")
 }
 
 // =============================================================================

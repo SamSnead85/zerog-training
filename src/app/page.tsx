@@ -67,101 +67,217 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-20">
-        {/* Background effects */}
+      {/* Hero Section - Premium Redesign */}
+      <section className="relative min-h-screen overflow-hidden pt-20">
+        {/* Cinematic Background */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
-          <div className="absolute bottom-20 right-1/4 h-96 w-96 rounded-full bg-secondary/10 blur-3xl" />
+          {/* Deep gradient base */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+
+          {/* Animated orbs */}
+          <div className="absolute top-[10%] left-[15%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[120px] animate-pulse" />
+          <div className="absolute bottom-[20%] right-[10%] h-[600px] w-[600px] rounded-full bg-secondary/15 blur-[140px] animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-[60%] left-[50%] h-[400px] w-[400px] rounded-full bg-accent/10 blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
+
+          {/* Grid overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+              backgroundSize: '50px 50px'
+            }}
+          />
+
+          {/* Top fade */}
+          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent" />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 text-center">
-          {/* Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-primary">
-              AI-Powered Training Platform
-            </span>
+        <div className="mx-auto max-w-7xl px-6 py-20 lg:py-32">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left: Content */}
+            <div className="text-center lg:text-left">
+              {/* Badge */}
+              <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-primary/40 bg-primary/10 backdrop-blur-sm px-5 py-2">
+                <div className="flex h-2 w-2">
+                  <span className="animate-ping absolute h-2 w-2 rounded-full bg-primary opacity-75" />
+                  <span className="relative h-2 w-2 rounded-full bg-primary" />
+                </div>
+                <span className="text-sm font-semibold text-primary tracking-wide">
+                  AI-Native Training Platform
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight">
+                <span className="block text-foreground">Enterprise Training</span>
+                <span className="block mt-2">
+                  Powered by{" "}
+                  <span className="relative">
+                    <span className="text-gradient">Your Context</span>
+                    <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" fill="none">
+                      <path d="M2 10C50 4 150 4 298 10" stroke="url(#underline-gradient)" strokeWidth="3" strokeLinecap="round" />
+                      <defs>
+                        <linearGradient id="underline-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#00D4FF" />
+                          <stop offset="100%" stopColor="#8B5CF6" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </span>
+                </span>
+              </h1>
+
+              {/* Subheadline */}
+              <p className="mt-8 text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
+                Connect your knowledge base, policies, and documents.
+                Our AI creates customized training that speaks your language—
+                literally referencing your tools, processes, and culture.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <Link href="/signup">
+                  <Button size="xl" className="group w-full sm:w-auto text-base px-8 py-6 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all">
+                    Start Free Trial
+                    <ArrowRight className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+                <Link href="/try">
+                  <Button size="xl" variant="outline" className="w-full sm:w-auto text-base px-8 py-6 border-2 hover:bg-primary/5">
+                    <Play className="h-5 w-5 mr-2" />
+                    Watch Demo
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Trust badges */}
+              <div className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="h-5 w-5 rounded-full bg-success/20 flex items-center justify-center">
+                    <Check className="h-3 w-3 text-success" />
+                  </div>
+                  SOC 2 Type II Certified
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="h-5 w-5 rounded-full bg-success/20 flex items-center justify-center">
+                    <Check className="h-3 w-3 text-success" />
+                  </div>
+                  GDPR Compliant
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="h-5 w-5 rounded-full bg-success/20 flex items-center justify-center">
+                    <Check className="h-3 w-3 text-success" />
+                  </div>
+                  99.9% Uptime SLA
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Interactive Demo Preview */}
+            <div className="relative">
+              {/* Glow effect behind card */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 rounded-3xl blur-2xl opacity-60" />
+
+              {/* Main demo card */}
+              <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur-xl shadow-2xl overflow-hidden">
+                {/* Browser chrome */}
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-slate-800/50">
+                  <div className="flex gap-1.5">
+                    <div className="h-3 w-3 rounded-full bg-red-500/80" />
+                    <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                    <div className="h-3 w-3 rounded-full bg-green-500/80" />
+                  </div>
+                  <div className="flex-1 mx-4">
+                    <div className="h-6 rounded-md bg-slate-700/50 px-3 flex items-center">
+                      <span className="text-xs text-slate-400">zerogtraining.com/studio</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Demo content */}
+                <div className="p-6">
+                  <div className="text-center mb-6">
+                    <h3 className="text-lg font-semibold mb-1">Create Training Module</h3>
+                    <p className="text-sm text-muted-foreground">Select your content source</p>
+                  </div>
+
+                  {/* Source selection cards */}
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    <div className="p-4 rounded-xl bg-primary/10 border-2 border-primary cursor-pointer transition-all hover:scale-[1.02]">
+                      <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center mb-3">
+                        <Brain className="h-5 w-5 text-primary" />
+                      </div>
+                      <p className="font-medium text-sm">RAG Pipeline</p>
+                      <p className="text-xs text-muted-foreground mt-1">Connect knowledge base</p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-slate-800/50 border border-white/10 cursor-pointer transition-all hover:border-white/20">
+                      <div className="h-10 w-10 rounded-lg bg-slate-700 flex items-center justify-center mb-3">
+                        <Layers className="h-5 w-5 text-slate-400" />
+                      </div>
+                      <p className="font-medium text-sm">File Upload</p>
+                      <p className="text-xs text-muted-foreground mt-1">PDF, DOCX, TXT</p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-slate-800/50 border border-white/10 cursor-pointer transition-all hover:border-white/20">
+                      <div className="h-10 w-10 rounded-lg bg-slate-700 flex items-center justify-center mb-3">
+                        <Target className="h-5 w-5 text-slate-400" />
+                      </div>
+                      <p className="font-medium text-sm">URL Import</p>
+                      <p className="text-xs text-muted-foreground mt-1">Confluence, Notion</p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-slate-800/50 border border-white/10 cursor-pointer transition-all hover:border-white/20">
+                      <div className="h-10 w-10 rounded-lg bg-slate-700 flex items-center justify-center mb-3">
+                        <Sparkles className="h-5 w-5 text-slate-400" />
+                      </div>
+                      <p className="font-medium text-sm">AI Generate</p>
+                      <p className="text-xs text-muted-foreground mt-1">From description</p>
+                    </div>
+                  </div>
+
+                  {/* Organization context preview */}
+                  <div className="p-4 rounded-xl bg-slate-800/30 border border-white/5">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-xs font-bold text-background">
+                        AC
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium">Acme Corp</p>
+                        <p className="text-xs text-muted-foreground">Connected: 24 sources</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2 py-1 text-xs rounded-full bg-primary/20 text-primary">Salesforce</span>
+                      <span className="px-2 py-1 text-xs rounded-full bg-secondary/20 text-secondary">JIRA</span>
+                      <span className="px-2 py-1 text-xs rounded-full bg-accent/20 text-accent">Confluence</span>
+                      <span className="px-2 py-1 text-xs rounded-full bg-slate-700 text-slate-300">+21 more</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating stats */}
+              <div className="absolute -right-4 top-24 p-3 rounded-xl bg-slate-900/90 backdrop-blur border border-white/10 shadow-xl">
+                <p className="text-xs text-muted-foreground">Completion Rate</p>
+                <p className="text-2xl font-bold text-success">98%</p>
+              </div>
+              <div className="absolute -left-4 bottom-24 p-3 rounded-xl bg-slate-900/90 backdrop-blur border border-white/10 shadow-xl">
+                <p className="text-xs text-muted-foreground">Time Saved</p>
+                <p className="text-2xl font-bold text-primary">80%</p>
+              </div>
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="mx-auto max-w-4xl text-5xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl">
-            Context-Aware Training That{" "}
-            <span className="text-gradient">Elevates</span> Your Organization
-          </h1>
-
-          {/* Subheadline */}
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Upload your policies, procedures, and documentation. Our AI learns
-            your organization and creates training that references your actual
-            tools, workflows, and reality.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link href="/signup">
-              <Button size="xl" className="group">
-                Start Free Trial
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-            <Link href="/try">
-              <Button size="xl" variant="outline" className="gap-2">
-                <Play className="h-5 w-5" />
-                Try Demo
-              </Button>
-            </Link>
-          </div>
-
-          {/* Trust indicators */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Check className="h-5 w-5 text-success" />
-              <span className="text-sm">No credit card required</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="h-5 w-5 text-success" />
-              <span className="text-sm">14-day free trial</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="h-5 w-5 text-success" />
-              <span className="text-sm">SOC 2 Certified</span>
-            </div>
-          </div>
-
-          {/* Enterprise Clients Bar */}
-          <div className="mt-20 border-t border-border pt-12">
-            <p className="mb-8 text-center text-sm font-medium uppercase tracking-wider text-muted-foreground">
-              Trusted by Learning Leaders at
+          {/* Client logos */}
+          <div className="mt-24 pt-16 border-t border-white/10">
+            <p className="text-center text-sm font-medium uppercase tracking-widest text-muted-foreground mb-10">
+              Trusted by Learning Leaders at the World&apos;s Best Companies
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8 opacity-60 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-500">
-              {/* Enterprise Brand Logos (SVG text placeholders styled to look premium) */}
-              <div className="text-2xl font-bold tracking-tight">Deloitte</div>
-              <div className="text-2xl font-bold tracking-tight">Accenture</div>
-              <div className="text-2xl font-bold tracking-tight">McKinsey</div>
-              <div className="text-2xl font-bold tracking-tight">KPMG</div>
-              <div className="text-2xl font-bold tracking-tight">PwC</div>
-              <div className="text-2xl font-bold tracking-tight">EY</div>
-            </div>
-          </div>
-
-          {/* Stats Bar */}
-          <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary md:text-4xl">2.4M+</div>
-              <div className="mt-1 text-sm text-muted-foreground">Learners Trained</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary md:text-4xl">500+</div>
-              <div className="mt-1 text-sm text-muted-foreground">Enterprise Clients</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary md:text-4xl">98%</div>
-              <div className="mt-1 text-sm text-muted-foreground">Completion Rate</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary md:text-4xl">4.9★</div>
-              <div className="mt-1 text-sm text-muted-foreground">G2 Rating</div>
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-50 grayscale hover:opacity-70 hover:grayscale-0 transition-all duration-700">
+              <span className="text-2xl font-bold tracking-tight">Deloitte</span>
+              <span className="text-2xl font-bold tracking-tight">Accenture</span>
+              <span className="text-2xl font-bold tracking-tight">McKinsey</span>
+              <span className="text-2xl font-bold tracking-tight">KPMG</span>
+              <span className="text-2xl font-bold tracking-tight">PwC</span>
+              <span className="text-2xl font-bold tracking-tight">EY</span>
             </div>
           </div>
         </div>
