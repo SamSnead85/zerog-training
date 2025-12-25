@@ -27,11 +27,12 @@ import {
 } from "lucide-react";
 
 const categories = [
-    { id: "all", label: "All Courses", icon: BookOpen, count: 50 },
+    { id: "all", label: "All Courses", icon: BookOpen, count: 58 },
+    { id: "ai", label: "AI & Technology", icon: Brain, count: 6 },
     { id: "agile", label: "Agile & SAFe", icon: Target, count: 8 },
     { id: "leadership", label: "Leadership", icon: Crown, count: 6 },
     { id: "compliance", label: "Compliance", icon: Shield, count: 7 },
-    { id: "technology", label: "Technology", icon: Laptop, count: 9 },
+    { id: "technology", label: "Cloud & DevOps", icon: Laptop, count: 9 },
     { id: "soft-skills", label: "Soft Skills", icon: Heart, count: 6 },
     { id: "sales", label: "Sales", icon: Briefcase, count: 5 },
     { id: "dei", label: "DEI", icon: Users, count: 4 },
@@ -39,6 +40,83 @@ const categories = [
 ];
 
 const courses = [
+    // AI & Technology - NEW FEATURED
+    {
+        id: "ai-native-transformation",
+        title: "AI Native & Enterprise AI Transformation",
+        description: "Master the strategy and implementation of AI-first organizations. LLMs, RAG, AI Operating Model.",
+        category: "ai",
+        categoryLabel: "AI & Technology",
+        rating: 4.9,
+        students: 15200,
+        duration: "6h",
+        lessons: 5,
+        level: "Advanced",
+        thumbnail: "bg-gradient-to-br from-cyan-600 to-blue-600",
+        featured: true,
+        prePopulated: true,
+        isNew: true,
+    },
+    {
+        id: "agentic-ai",
+        title: "Agentic AI: Autonomous AI Systems",
+        description: "Design and deploy AI agents that reason, plan, and take action. ReAct, LangGraph, CrewAI.",
+        category: "ai",
+        categoryLabel: "AI & Technology",
+        rating: 4.9,
+        students: 8900,
+        duration: "5h",
+        lessons: 3,
+        level: "Advanced",
+        thumbnail: "bg-gradient-to-br from-violet-600 to-fuchsia-600",
+        featured: true,
+        prePopulated: true,
+        isNew: true,
+    },
+    {
+        id: "legacy-modernization-ai",
+        title: "Legacy Modernization with AI",
+        description: "Transform legacy systems using AI-powered analysis, code translation, and migration strategies.",
+        category: "ai",
+        categoryLabel: "AI & Technology",
+        rating: 4.8,
+        students: 6400,
+        duration: "4h",
+        lessons: 3,
+        level: "Intermediate",
+        thumbnail: "bg-gradient-to-br from-emerald-600 to-teal-600",
+        prePopulated: true,
+        isNew: true,
+    },
+    {
+        id: "prompt-engineering",
+        title: "Prompt Engineering Mastery",
+        description: "Learn advanced prompting techniques for LLMs. Chain-of-thought, few-shot, and system prompts.",
+        category: "ai",
+        categoryLabel: "AI & Technology",
+        rating: 4.8,
+        students: 22100,
+        duration: "3h",
+        lessons: 6,
+        level: "Intermediate",
+        thumbnail: "bg-gradient-to-br from-orange-500 to-red-600",
+        isNew: true,
+    },
+    {
+        id: "rag-implementation",
+        title: "RAG Implementation Guide",
+        description: "Build production-ready RAG systems. Vector databases, embeddings, chunking, and retrieval strategies.",
+        category: "ai",
+        categoryLabel: "AI & Technology",
+        rating: 4.7,
+        students: 11200,
+        duration: "4h",
+        lessons: 5,
+        level: "Advanced",
+        thumbnail: "bg-gradient-to-br from-pink-600 to-rose-600",
+        isNew: true,
+    },
+    // Existing courses
     {
         id: "safe-scrum-master",
         title: "SAFe Scrum Master Certification Prep",
@@ -116,7 +194,7 @@ const courses = [
         title: "Data Analytics Fundamentals",
         description: "Build data analysis skills using modern tools. Learn to derive insights and make data-driven decisions.",
         category: "technology",
-        categoryLabel: "Technology",
+        categoryLabel: "Cloud & DevOps",
         rating: 4.6,
         students: 28400,
         duration: "5h",
@@ -152,6 +230,32 @@ const courses = [
         thumbnail: "bg-gradient-to-br from-amber-600 to-yellow-500",
         prePopulated: true,
     },
+    {
+        id: "cybersecurity-fundamentals",
+        title: "Cybersecurity Fundamentals",
+        description: "Essential security awareness for all employees. Phishing, passwords, data protection, and incident response.",
+        category: "compliance",
+        categoryLabel: "Compliance",
+        rating: 4.8,
+        students: 45200,
+        duration: "2.5h",
+        lessons: 7,
+        level: "Beginner",
+        thumbnail: "bg-gradient-to-br from-slate-600 to-zinc-700",
+    },
+    {
+        id: "change-management",
+        title: "Leading Change",
+        description: "Guide your organization through transformation. Kotter's 8 steps, resistance management, and communication.",
+        category: "leadership",
+        categoryLabel: "Leadership",
+        rating: 4.7,
+        students: 16800,
+        duration: "3h",
+        lessons: 8,
+        level: "Intermediate",
+        thumbnail: "bg-gradient-to-br from-teal-600 to-cyan-600",
+    },
 ];
 
 export default function LibraryPage() {
@@ -180,8 +284,8 @@ export default function LibraryPage() {
                                 <button
                                     onClick={() => setSelectedCategory(cat.id)}
                                     className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${isActive
-                                            ? "bg-primary/10 text-primary font-medium"
-                                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                        ? "bg-primary/10 text-primary font-medium"
+                                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                         }`}
                                 >
                                     <Icon className="h-4 w-4" />

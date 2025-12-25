@@ -26,12 +26,23 @@ import {
     SkipForward,
 } from "lucide-react";
 import { safeScrumMasterContent, leadershipContent, hipaaContent } from "@/lib/content/training-content";
+import { projectManagementContent, deiContent, softSkillsContent, technologyContent, salesContent } from "@/lib/content/additional-content";
+import { aiNativeContent, agenticAIContent, legacyModernizationContent } from "@/lib/content/ai-training-content";
 
 // Map module IDs to content
 const contentMap: Record<string, typeof safeScrumMasterContent> = {
     "safe-scrum-master": safeScrumMasterContent,
     "leadership-fundamentals": leadershipContent,
     "hipaa-essentials": hipaaContent,
+    "project-management": projectManagementContent,
+    "inclusive-leadership": deiContent,
+    "effective-feedback": softSkillsContent,
+    "data-analytics": technologyContent,
+    "consultative-selling": salesContent,
+    // AI Modules
+    "ai-native-transformation": aiNativeContent,
+    "agentic-ai": agenticAIContent,
+    "legacy-modernization-ai": legacyModernizationContent,
 };
 
 interface QuizState {
@@ -126,15 +137,15 @@ export default function LessonPlayerPage() {
                                 key={l.id}
                                 onClick={() => router.push(`/module/${moduleId}/learn/${i}`)}
                                 className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-colors mb-1 ${isCurrent
-                                        ? 'bg-primary/10 text-primary'
-                                        : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'hover:bg-muted text-muted-foreground hover:text-foreground'
                                     }`}
                             >
                                 <div className={`h-6 w-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${isCompleted
-                                        ? 'bg-success text-success-foreground'
-                                        : isCurrent
-                                            ? 'bg-primary text-primary-foreground'
-                                            : 'bg-muted text-muted-foreground'
+                                    ? 'bg-success text-success-foreground'
+                                    : isCurrent
+                                        ? 'bg-primary text-primary-foreground'
+                                        : 'bg-muted text-muted-foreground'
                                     }`}>
                                     {isCompleted ? <Check className="h-3 w-3" /> : i + 1}
                                 </div>
