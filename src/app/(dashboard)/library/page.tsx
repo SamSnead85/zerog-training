@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Card, Badge, Button, Input } from "@/components/ui";
+import { CourseProgress } from "@/components/progress/CourseProgress";
 import {
     Search,
     Filter,
@@ -411,6 +412,11 @@ export default function LibraryPage() {
                                         <Badge variant="secondary" className="text-xs">{course.level}</Badge>
                                         <Badge variant="secondary" className="text-xs">{course.lessons} lessons</Badge>
                                     </div>
+                                    <CourseProgress
+                                        moduleId={course.id}
+                                        totalLessons={course.lessons}
+                                        className="mt-3"
+                                    />
                                 </div>
                             </Card>
                         </Link>
