@@ -1,0 +1,575 @@
+// ZeroG AI Training Platform - Database Schema
+// Multi-tenant SaaS architecture with row-level security
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =============================================================================
+// ORGANIZATION (TENANT)
+// =============================================================================
+
+model Organization {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  industry        String?
+  size            String?  // small, medium, large, enterprise
+  logoUrl         String?
+  primaryColor    String?  @default("#00D9FF")
+  secondaryColor  String?  @default("#8B5CF6")
+  customDomain    String?  @unique
+  subscriptionTier String  @default("free") // free, starter, professional, enterprise
+  storageQuotaGb  Int      @default(5)
+  storageUsedMb   Float    @default(0)
+  gamificationEnabled Boolean @default(false)
+  
+  // Billing
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  users           User[]
+  content         OrganizationalContent[]
+  modules         TrainingModule[]
+  assignments     Assignment[]
+  llmConfigs      LLMConfiguration[]
+  
+  @@map("organizations")
+}
+
+// =============================================================================
+// USER & AUTHENTICATION
+// =============================================================================
+
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  emailVerified   DateTime?
+  name            String?
+  passwordHash    String?
+  avatarUrl       String?
+  role            UserRole @default(LEARNER)
+  
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  lastLoginAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  uploadedContent OrganizationalContent[]
+  createdModules  TrainingModule[]
+  progress        LearnerProgress[]
+  assessmentResults AssessmentResult[]
+  simulationResults SimulationResult[]
+  certificates    Certificate[]
+  assignedBy      Assignment[] @relation("AssignedBy")
+  assignments     UserAssignment[]
+  accounts        Account[]
+  sessions        Session[]
+  
+  @@index([organizationId])
+  @@map("users")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ORG_ADMIN
+  CREATOR
+  MANAGER
+  LEARNER
+}
+
+// NextAuth.js required tables
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// =============================================================================
+// ORGANIZATIONAL CONTENT (Uploaded Documents)
+// =============================================================================
+
+model OrganizationalContent {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?
+  fileType        String   // pdf, docx, pptx, video, etc.
+  fileUrl         String
+  fileSizeBytes   BigInt
+  contentText     String?  @db.Text // Extracted text
+  
+  // AI Analysis
+  detectedTools   String[] // Tools mentioned in content
+  detectedConcepts String[] // Key concepts extracted
+  complianceRefs  String[] // Regulatory references found
+  processed       Boolean  @default(false)
+  processingError String?
+  
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  uploadedById    String
+  uploadedBy      User @relation(fields: [uploadedById], references: [id])
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([organizationId])
+  @@map("organizational_content")
+}
+
+// =============================================================================
+// TRAINING MODULES
+// =============================================================================
+
+model TrainingModule {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?  @db.Text
+  shortDescription String?
+  thumbnailUrl    String?
+  category        String?
+  subcategory     String?
+  difficulty      Difficulty @default(BEGINNER)
+  estimatedDurationMinutes Int @default(60)
+  
+  // Template & Publishing
+  isTemplate      Boolean  @default(false)
+  isPublished     Boolean  @default(false)
+  publishedAt     DateTime?
+  version         Int      @default(1)
+  
+  // Marketplace
+  isMarketplace   Boolean  @default(false)
+  price           Float?
+  currency        String?  @default("USD")
+  
+  // Customization
+  customizedFromId String?
+  customizedFrom   TrainingModule? @relation("ModuleCustomization", fields: [customizedFromId], references: [id])
+  customizations   TrainingModule[] @relation("ModuleCustomization")
+  
+  // Gamification (optional)
+  pointsReward    Int      @default(100)
+  badgeId         String?
+  
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  creatorId       String
+  creator         User @relation(fields: [creatorId], references: [id])
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  lessons         Lesson[]
+  assessments     Assessment[]
+  simulations     Simulation[]
+  moduleContexts  ModuleContext[]
+  progress        LearnerProgress[]
+  certificates    Certificate[]
+  assignments     Assignment[]
+  
+  @@index([organizationId])
+  @@index([category])
+  @@map("training_modules")
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+// =============================================================================
+// MODULE CONTEXT (AI Memory)
+// =============================================================================
+
+model ModuleContext {
+  id          String   @id @default(cuid())
+  contextType String   // organizational, industry, tools, objectives, conversation
+  content     String   @db.Text
+  
+  moduleId    String
+  module      TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([moduleId])
+  @@map("module_contexts")
+}
+
+// =============================================================================
+// LESSONS
+// =============================================================================
+
+model Lesson {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  content     Json     // Rich content structure (Tiptap JSON)
+  orderIndex  Int
+  bloomLevel  BloomLevel @default(UNDERSTAND)
+  
+  // Duration tracking
+  estimatedDurationMinutes Int @default(15)
+  
+  moduleId    String
+  module      TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  assessments Assessment[]
+  simulations Simulation[]
+  progress    LearnerProgress[]
+  
+  @@index([moduleId])
+  @@map("lessons")
+}
+
+enum BloomLevel {
+  REMEMBER
+  UNDERSTAND
+  APPLY
+  ANALYZE
+  EVALUATE
+  CREATE
+}
+
+// =============================================================================
+// SIMULATIONS
+// =============================================================================
+
+model Simulation {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  type        SimulationType
+  
+  // Configuration (varies by type)
+  configuration Json   // Steps, characters, branching logic, etc.
+  assets        Json?  // URLs to images, videos, 360 content
+  
+  estimatedDurationMinutes Int @default(15)
+  difficulty  Difficulty @default(BEGINNER)
+  
+  // Scoring
+  passingScore Int     @default(70)
+  maxScore     Int     @default(100)
+  
+  moduleId    String
+  module      TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  lessonId    String?
+  lesson      Lesson? @relation(fields: [lessonId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  results     SimulationResult[]
+  
+  @@index([moduleId])
+  @@map("simulations")
+}
+
+enum SimulationType {
+  SOFTWARE_INTERFACE   // Clickable software mockups
+  SCENARIO_BRANCHING   // Decision-based scenarios
+  AI_ROLEPLAY          // AI-powered conversations
+  INTERACTIVE_VIDEO    // Video with decision points
+  IMMERSIVE_360        // 360-degree environments
+}
+
+model SimulationResult {
+  id              String   @id @default(cuid())
+  
+  startedAt       DateTime @default(now())
+  completedAt     DateTime?
+  timeSpentSeconds Int     @default(0)
+  
+  score           Int?
+  passed          Boolean  @default(false)
+  errorsMade      Int      @default(0)
+  hintsUsed       Int      @default(0)
+  
+  // Detailed interaction log
+  interactionLog  Json?    // Every click, decision, conversation turn
+  feedback        Json?    // AI-generated feedback
+  
+  userId          String
+  user            User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  simulationId    String
+  simulation      Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([simulationId])
+  @@map("simulation_results")
+}
+
+// =============================================================================
+// ASSESSMENTS
+// =============================================================================
+
+model Assessment {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  type        AssessmentType
+  
+  // Questions and configuration
+  questions   Json     // Array of questions with options, answers, rubrics
+  
+  // Settings
+  passingScore    Int  @default(70)
+  timeLimit       Int? // Minutes, null = no limit
+  shuffleQuestions Boolean @default(true)
+  showCorrectAnswers Boolean @default(true)
+  maxAttempts     Int  @default(3)
+  
+  moduleId    String
+  module      TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  lessonId    String?
+  lesson      Lesson? @relation(fields: [lessonId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  results     AssessmentResult[]
+  
+  @@index([moduleId])
+  @@map("assessments")
+}
+
+enum AssessmentType {
+  PRE_ASSESSMENT
+  KNOWLEDGE_CHECK
+  QUIZ
+  FINAL_ASSESSMENT
+  PRACTICAL_ASSIGNMENT
+}
+
+model AssessmentResult {
+  id          String   @id @default(cuid())
+  
+  score       Int
+  passed      Boolean
+  attemptNumber Int    @default(1)
+  
+  answers     Json     // User's answers
+  feedback    Json?    // AI-generated feedback for each answer
+  
+  startedAt   DateTime @default(now())
+  submittedAt DateTime?
+  gradedAt    DateTime?
+  
+  userId      String
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([assessmentId])
+  @@map("assessment_results")
+}
+
+// =============================================================================
+// LEARNER PROGRESS
+// =============================================================================
+
+model LearnerProgress {
+  id                  String   @id @default(cuid())
+  status              ProgressStatus @default(NOT_STARTED)
+  completionPercentage Int     @default(0)
+  timeSpentSeconds    Int      @default(0)
+  
+  lastAccessedAt      DateTime?
+  completedAt         DateTime?
+  
+  // Gamification
+  pointsEarned        Int      @default(0)
+  
+  userId              String
+  user                User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  moduleId            String
+  module              TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  lessonId            String?
+  lesson              Lesson? @relation(fields: [lessonId], references: [id])
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  @@unique([userId, moduleId, lessonId])
+  @@index([userId])
+  @@index([moduleId])
+  @@map("learner_progress")
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+// =============================================================================
+// CERTIFICATES
+// =============================================================================
+
+model Certificate {
+  id                String   @id @default(cuid())
+  verificationCode  String   @unique @default(cuid())
+  
+  issuedAt          DateTime @default(now())
+  expiresAt         DateTime?
+  
+  // Snapshot of achievement
+  moduleTitle       String
+  userName          String
+  organizationName  String
+  finalScore        Int?
+  
+  userId            String
+  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  moduleId          String
+  module            TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([verificationCode])
+  @@map("certificates")
+}
+
+// =============================================================================
+// ASSIGNMENTS
+// =============================================================================
+
+model Assignment {
+  id              String   @id @default(cuid())
+  
+  dueDate         DateTime?
+  isRequired      Boolean  @default(true)
+  reminderSent    Boolean  @default(false)
+  
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  moduleId        String
+  module          TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  
+  assignedById    String
+  assignedBy      User @relation("AssignedBy", fields: [assignedById], references: [id])
+  
+  createdAt       DateTime @default(now())
+  
+  // Relations
+  assignees       UserAssignment[]
+  
+  @@index([organizationId])
+  @@map("assignments")
+}
+
+model UserAssignment {
+  id              String   @id @default(cuid())
+  
+  assignmentId    String
+  assignment      Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  
+  userId          String
+  user            User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  acknowledgedAt  DateTime?
+  
+  @@unique([assignmentId, userId])
+  @@map("user_assignments")
+}
+
+// =============================================================================
+// LLM CONFIGURATION
+// =============================================================================
+
+model LLMConfiguration {
+  id              String   @id @default(cuid())
+  
+  provider        LLMProvider
+  apiKey          String   // Encrypted
+  modelName       String
+  
+  // Task routing
+  taskType        String?  // content_generation, assessment, simulation, etc.
+  isDefault       Boolean  @default(false)
+  
+  // Settings
+  temperature     Float    @default(0.7)
+  maxTokens       Int      @default(4096)
+  
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([organizationId])
+  @@map("llm_configurations")
+}
+
+enum LLMProvider {
+  OPENAI
+  ANTHROPIC
+  GOOGLE
+  AZURE_OPENAI
+  CUSTOM
+}
