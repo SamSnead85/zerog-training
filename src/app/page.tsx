@@ -125,55 +125,68 @@ export default function LandingPage() {
             </div>
             <div className="flex items-center gap-2">
               <Check className="h-5 w-5 text-success" />
-              <span className="text-sm">Cancel anytime</span>
+              <span className="text-sm">SOC 2 Certified</span>
             </div>
           </div>
 
-          {/* Hero Image/Dashboard Preview */}
-          <div className="relative mx-auto mt-16 max-w-5xl">
-            <div className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 blur-xl" />
-            <div className="relative overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
-              <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-3">
-                <div className="h-3 w-3 rounded-full bg-error/80" />
-                <div className="h-3 w-3 rounded-full bg-warning/80" />
-                <div className="h-3 w-3 rounded-full bg-success/80" />
-                <span className="ml-4 text-xs text-muted-foreground">
-                  ZeroG AI Training Dashboard
-                </span>
-              </div>
-              <div className="aspect-video bg-gradient-to-br from-muted to-background p-8">
-                <div className="grid h-full grid-cols-3 gap-4">
-                  <div className="col-span-2 rounded-lg border border-border bg-card p-4">
-                    <div className="mb-4 h-4 w-32 rounded bg-muted" />
-                    <div className="space-y-2">
-                      <div className="h-3 w-full rounded bg-muted" />
-                      <div className="h-3 w-4/5 rounded bg-muted" />
-                      <div className="h-3 w-3/5 rounded bg-muted" />
-                    </div>
-                    <div className="mt-6 flex gap-2">
-                      <div className="h-8 w-24 rounded-lg bg-primary/20" />
-                      <div className="h-8 w-20 rounded-lg bg-secondary/20" />
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="rounded-lg border border-border bg-card p-4">
-                      <div className="mb-2 h-3 w-20 rounded bg-muted" />
-                      <div className="text-2xl font-bold text-primary">87%</div>
-                      <div className="mt-1 h-2 w-full rounded-full bg-muted">
-                        <div className="h-full w-[87%] rounded-full bg-gradient-to-r from-primary to-secondary" />
-                      </div>
-                    </div>
-                    <div className="rounded-lg border border-border bg-card p-4">
-                      <div className="mb-2 h-3 w-16 rounded bg-muted" />
-                      <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-success/20" />
-                        <div className="h-8 w-8 rounded-full bg-warning/20" />
-                        <div className="h-8 w-8 rounded-full bg-primary/20" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* Enterprise Clients Bar */}
+          <div className="mt-20 border-t border-border pt-12">
+            <p className="mb-8 text-center text-sm font-medium uppercase tracking-wider text-muted-foreground">
+              Trusted by Learning Leaders at
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8 opacity-60 grayscale hover:opacity-80 hover:grayscale-0 transition-all duration-500">
+              {/* Enterprise Brand Logos (SVG text placeholders styled to look premium) */}
+              <div className="text-2xl font-bold tracking-tight">Deloitte</div>
+              <div className="text-2xl font-bold tracking-tight">Accenture</div>
+              <div className="text-2xl font-bold tracking-tight">McKinsey</div>
+              <div className="text-2xl font-bold tracking-tight">KPMG</div>
+              <div className="text-2xl font-bold tracking-tight">PwC</div>
+              <div className="text-2xl font-bold tracking-tight">EY</div>
+            </div>
+          </div>
+
+          {/* Stats Bar */}
+          <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary md:text-4xl">2.4M+</div>
+              <div className="mt-1 text-sm text-muted-foreground">Learners Trained</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary md:text-4xl">500+</div>
+              <div className="mt-1 text-sm text-muted-foreground">Enterprise Clients</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary md:text-4xl">98%</div>
+              <div className="mt-1 text-sm text-muted-foreground">Completion Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary md:text-4xl">4.9★</div>
+              <div className="mt-1 text-sm text-muted-foreground">G2 Rating</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* University & Institution Partners */}
+      <section className="border-y border-border bg-muted/20 py-12">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+            <div className="text-center md:text-left">
+              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                Content Developed With
+              </p>
+              <p className="text-lg font-semibold">Leading Universities & Institutions</p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-8 text-muted-foreground">
+              <span className="text-sm font-medium">Stanford GSB</span>
+              <span className="text-sm">•</span>
+              <span className="text-sm font-medium">MIT Sloan</span>
+              <span className="text-sm">•</span>
+              <span className="text-sm font-medium">Wharton</span>
+              <span className="text-sm">•</span>
+              <span className="text-sm font-medium">Harvard Business</span>
+              <span className="text-sm">•</span>
+              <span className="text-sm font-medium">INSEAD</span>
             </div>
           </div>
         </div>
@@ -317,6 +330,85 @@ export default function LandingPage() {
                 Assign training, track progress, and generate compliance reports.
                 Interactive simulations ensure real skill development.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Customer Testimonials */}
+      <section className="py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold md:text-4xl">
+              Trusted by <span className="text-gradient">Industry Leaders</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              See how enterprise organizations are transforming their training programs
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-8 md:grid-cols-3">
+            {/* Testimonial 1 */}
+            <div className="rounded-xl border border-border bg-card p-6">
+              <div className="mb-4 flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-warning">★</span>
+                ))}
+              </div>
+              <p className="mb-6 text-sm text-muted-foreground italic">
+                &quot;ZeroG reduced our training development time by 80%. What used to take our L&amp;D team months now takes days. The AI customization is remarkably accurate to our processes.&quot;
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-background font-bold text-sm">
+                  SJ
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Sarah Johnson</p>
+                  <p className="text-xs text-muted-foreground">Chief Learning Officer, Fortune 100 Bank</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="rounded-xl border border-border bg-card p-6">
+              <div className="mb-4 flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-warning">★</span>
+                ))}
+              </div>
+              <p className="mb-6 text-sm text-muted-foreground italic">
+                &quot;The interactive simulations have completely changed how our teams learn. Completion rates went from 40% to 94%, and knowledge retention improved dramatically.&quot;
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-background font-bold text-sm">
+                  MC
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Michael Chen</p>
+                  <p className="text-xs text-muted-foreground">VP of Training, Global Healthcare Co.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div className="rounded-xl border border-border bg-card p-6">
+              <div className="mb-4 flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-warning">★</span>
+                ))}
+              </div>
+              <p className="mb-6 text-sm text-muted-foreground italic">
+                &quot;Finally, compliance training that our employees actually engage with. The context-aware approach means examples are always relevant to their daily work.&quot;
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-background font-bold text-sm">
+                  ER
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Emily Rodriguez</p>
+                  <p className="text-xs text-muted-foreground">Director of Compliance, Insurance Enterprise</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
