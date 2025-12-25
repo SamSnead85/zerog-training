@@ -1,11 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
 
-const handler = NextAuth({
-    adapter: PrismaAdapter(prisma) as any,
+// Note: For production, configure with real database adapter
+// For now, using demo credentials for UI development
+
+const authConfig = {
     providers: [
         CredentialsProvider({
             name: "credentials",
@@ -14,49 +13,43 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password) {
-                    throw new Error("Email and password are required");
+                // Demo mode: Accept specific credentials
+                if (
+                    credentials?.email === "sam.sweilem85@gmail.com" &&
+                    credentials?.password === "Winter2022$"
+                ) {
+                    return {
+                        id: "admin-1",
+                        email: "sam.sweilem85@gmail.com",
+                        name: "Sam Sweilem",
+                        role: "SUPER_ADMIN",
+                    };
                 }
 
-                const user = await prisma.user.findUnique({
-                    where: { email: credentials.email },
-                    include: { organization: true },
-                });
-
-                if (!user || !user.passwordHash) {
-                    throw new Error("Invalid email or password");
+                if (
+                    credentials?.email === "demo@zerogtraining.com" &&
+                    credentials?.password === "demo123"
+                ) {
+                    return {
+                        id: "demo-1",
+                        email: "demo@zerogtraining.com",
+                        name: "Demo User",
+                        role: "ORG_ADMIN",
+                    };
                 }
 
-                const isValid = await bcrypt.compare(
-                    credentials.password,
-                    user.passwordHash
-                );
-
-                if (!isValid) {
-                    throw new Error("Invalid email or password");
-                }
-
-                return {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    role: user.role,
-                    organizationId: user.organizationId,
-                    organizationName: user.organization?.name,
-                };
+                return null;
             },
         }),
     ],
     session: {
-        strategy: "jwt",
+        strategy: "jwt" as const,
     },
     callbacks: {
         async jwt({ token, user }: { token: any; user: any }) {
             if (user) {
                 token.id = user.id;
                 token.role = user.role;
-                token.organizationId = user.organizationId;
-                token.organizationName = user.organizationName;
             }
             return token;
         },
@@ -64,8 +57,6 @@ const handler = NextAuth({
             if (session.user) {
                 session.user.id = token.id;
                 session.user.role = token.role;
-                session.user.organizationId = token.organizationId;
-                session.user.organizationName = token.organizationName;
             }
             return session;
         },
@@ -75,6 +66,8 @@ const handler = NextAuth({
         error: "/login",
     },
     secret: process.env.NEXTAUTH_SECRET || "development-secret-change-in-production",
-});
+};
 
-export { handler as GET, handler as POST };
+const { handlers } = NextAuth(authConfig);
+
+export const { GET, POST } = handlers;
