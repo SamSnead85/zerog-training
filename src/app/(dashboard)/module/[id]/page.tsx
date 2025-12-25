@@ -199,14 +199,18 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
                             </div>
 
                             <div className="flex flex-wrap gap-3">
-                                <Button size="lg" className="gap-2">
-                                    <Play className="h-5 w-5" />
-                                    Start Learning
-                                </Button>
-                                <Button size="lg" variant="outline" className="gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20">
-                                    <Sparkles className="h-5 w-5" />
-                                    Customize for My Org
-                                </Button>
+                                <Link href={`/module/${id}/learn/0`}>
+                                    <Button size="lg" className="gap-2">
+                                        <Play className="h-5 w-5" />
+                                        Start Learning
+                                    </Button>
+                                </Link>
+                                <Link href={`/studio/customize/${id}`}>
+                                    <Button size="lg" variant="outline" className="gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20">
+                                        <Sparkles className="h-5 w-5" />
+                                        Customize for My Org
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
 
