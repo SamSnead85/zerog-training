@@ -105,10 +105,10 @@ export default function LandingPage() {
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="/demo">
+            <Link href="/try">
               <Button size="xl" variant="outline" className="gap-2">
                 <Play className="h-5 w-5" />
-                Watch Demo
+                Try Demo
               </Button>
             </Link>
           </div>
@@ -473,9 +473,9 @@ export default function LandingPage() {
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <Link href="/demo">
+              <Link href="/try">
                 <Button size="lg" variant="outline">
-                  Schedule Demo
+                  Try Demo First
                 </Button>
               </Link>
             </div>
