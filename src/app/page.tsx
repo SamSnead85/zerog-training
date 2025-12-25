@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui";
 import {
   Sparkles,
@@ -10,7 +11,6 @@ import {
   BarChart3,
   Users,
   BookOpen,
-  Rocket,
   ChevronRight,
   Play,
   Check,
@@ -23,11 +23,15 @@ export default function LandingPage() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-lg">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
-              <Rocket className="h-5 w-5 text-background" />
-            </div>
-            <span className="text-xl font-bold">
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="ZeroG"
+              width={36}
+              height={36}
+              className="rounded-lg"
+            />
+            <span className="text-xl font-bold tracking-tight">
               Zero<span className="text-gradient">G</span>
             </span>
           </Link>
@@ -696,11 +700,15 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-8 md:grid-cols-4">
             <div>
-              <Link href="/" className="flex items-center gap-2">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
-                  <Rocket className="h-5 w-5 text-background" />
-                </div>
-                <span className="text-xl font-bold">
+              <Link href="/" className="flex items-center gap-3">
+                <Image
+                  src="/logo.png"
+                  alt="ZeroG"
+                  width={36}
+                  height={36}
+                  className="rounded-lg"
+                />
+                <span className="text-xl font-bold tracking-tight">
                   Zero<span className="text-gradient">G</span>
                 </span>
               </Link>

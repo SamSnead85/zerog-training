@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -15,7 +16,6 @@ import {
     FolderOpen,
     ChevronLeft,
     ChevronRight,
-    Rocket,
     Plus,
     Bell,
     Search,
@@ -60,11 +60,15 @@ export function Sidebar() {
             {/* Logo */}
             <div className="h-16 flex items-center justify-between px-4 border-b border-border">
                 <Link href="/dashboard" className="flex items-center gap-2">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary flex-shrink-0">
-                        <Rocket className="h-5 w-5 text-background" />
-                    </div>
+                    <Image
+                        src="/logo.png"
+                        alt="ZeroG"
+                        width={36}
+                        height={36}
+                        className="rounded-lg flex-shrink-0"
+                    />
                     {!collapsed && (
-                        <span className="text-xl font-bold">
+                        <span className="text-xl font-bold tracking-tight">
                             Zero<span className="text-gradient">G</span>
                         </span>
                     )}
