@@ -28,6 +28,7 @@ import {
 import { safeScrumMasterContent, leadershipContent, hipaaContent } from "@/lib/content/training-content";
 import { projectManagementContent, deiContent, softSkillsContent, technologyContent, salesContent } from "@/lib/content/additional-content";
 import { aiNativeContent, agenticAIContent, legacyModernizationContent } from "@/lib/content/ai-training-content";
+import { promptEngineeringContent, ragImplementationContent } from "@/lib/content/extended-ai-content";
 
 // Map module IDs to content
 const contentMap: Record<string, typeof safeScrumMasterContent> = {
@@ -43,6 +44,9 @@ const contentMap: Record<string, typeof safeScrumMasterContent> = {
     "ai-native-transformation": aiNativeContent,
     "agentic-ai": agenticAIContent,
     "legacy-modernization-ai": legacyModernizationContent,
+    // Extended AI Modules
+    "prompt-engineering": promptEngineeringContent,
+    "rag-implementation": ragImplementationContent,
 };
 
 interface QuizState {
@@ -50,6 +54,9 @@ interface QuizState {
     submitted: boolean;
     correct: boolean;
 }
+
+// Progress hook import
+import { useProgress } from "@/hooks/useProgress";
 
 export default function LessonPlayerPage() {
     const params = useParams();
@@ -63,12 +70,30 @@ export default function LessonPlayerPage() {
         submitted: false,
         correct: false,
     });
-    const [completedLessons, setCompletedLessons] = useState<Set<number>>(new Set());
+
+    // Use persistent progress tracking
+    const {
+        currentProgress,
+        currentCompletion,
+        completeLesson,
+        updateLastAccessed,
+        isLoaded
+    } = useProgress(moduleId);
 
     const module = contentMap[moduleId];
     const lesson = module?.lessons[lessonIndex];
     const totalLessons = module?.lessons.length || 0;
-    const progressPercent = ((completedLessons.size / totalLessons) * 100);
+
+    // Use persisted completion or local state
+    const completedLessons = new Set(currentProgress?.completedLessons || []);
+    const progressPercent = currentCompletion;
+
+    // Update last accessed when navigating
+    useEffect(() => {
+        if (isLoaded && module) {
+            updateLastAccessed(moduleId, lessonIndex, totalLessons);
+        }
+    }, [isLoaded, moduleId, lessonIndex, totalLessons, module, updateLastAccessed]);
 
     useEffect(() => {
         setQuizState({ selectedAnswer: null, submitted: false, correct: false });
@@ -93,12 +118,14 @@ export default function LessonPlayerPage() {
         const isCorrect = quizState.selectedAnswer === quiz?.correctIndex;
         setQuizState({ ...quizState, submitted: true, correct: isCorrect });
         if (isCorrect) {
-            setCompletedLessons(new Set([...completedLessons, lessonIndex]));
+            // Persist completion
+            completeLesson(moduleId, lessonIndex, totalLessons, 100);
         }
     };
 
     const handleNext = () => {
-        setCompletedLessons(new Set([...completedLessons, lessonIndex]));
+        // Mark current lesson as complete when navigating next
+        completeLesson(moduleId, lessonIndex, totalLessons);
         if (lessonIndex < totalLessons - 1) {
             router.push(`/module/${moduleId}/learn/${lessonIndex + 1}`);
         }
