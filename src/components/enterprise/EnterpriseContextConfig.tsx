@@ -42,13 +42,13 @@ interface EnterpriseContext {
 
 const defaultContext: EnterpriseContext = {
     companyName: "",
-    industry: "Healthcare",
-    size: "1000+",
+    industry: "Technology",
+    size: "50-200",
     techStack: [],
     aiSdlcPhase: "exploration",
     aiTools: [],
     securityFrameworks: [],
-    complianceRequirements: ["HIPAA", "HITECH"],
+    complianceRequirements: [],
     customTerminology: {},
     workflowsAndProcesses: [],
 };
@@ -61,15 +61,21 @@ const aiSdlcPhases = [
 ];
 
 const commonTechStacks = [
-    { name: "Epic EHR", category: "tool" as const },
-    { name: "Cerner", category: "tool" as const },
+    { name: "Microsoft 365", category: "tool" as const },
+    { name: "Google Workspace", category: "tool" as const },
+    { name: "Salesforce", category: "tool" as const },
     { name: "Microsoft Azure", category: "cloud" as const },
     { name: "AWS", category: "cloud" as const },
+    { name: "Google Cloud", category: "cloud" as const },
     { name: "Python", category: "language" as const },
+    { name: "JavaScript", category: "language" as const },
     { name: "SQL Server", category: "database" as const },
+    { name: "PostgreSQL", category: "database" as const },
     { name: "Snowflake", category: "database" as const },
     { name: "Power BI", category: "tool" as const },
-    { name: "Salesforce Health Cloud", category: "tool" as const },
+    { name: "Tableau", category: "tool" as const },
+    { name: "Slack", category: "tool" as const },
+    { name: "Jira", category: "tool" as const },
 ];
 
 const commonAITools = [
@@ -189,11 +195,16 @@ export function EnterpriseContextConfig() {
                             onChange={(e) => setContext({ ...context, industry: e.target.value })}
                             className="w-full h-10 px-3 rounded-lg bg-muted border-0"
                         >
+                            <option value="Technology">Technology</option>
                             <option value="Healthcare">Healthcare</option>
-                            <option value="Hospital System">Hospital System</option>
-                            <option value="Health Insurance">Health Insurance</option>
-                            <option value="Pharmaceutical">Pharmaceutical</option>
-                            <option value="Medical Devices">Medical Devices</option>
+                            <option value="Financial Services">Financial Services</option>
+                            <option value="Retail">Retail & E-commerce</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Education">Education</option>
+                            <option value="Government">Government</option>
+                            <option value="Professional Services">Professional Services</option>
+                            <option value="Energy">Energy & Utilities</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div>
@@ -203,6 +214,8 @@ export function EnterpriseContextConfig() {
                             onChange={(e) => setContext({ ...context, size: e.target.value })}
                             className="w-full h-10 px-3 rounded-lg bg-muted border-0"
                         >
+                            <option value="1-10">1-10 (Individual/Small Team)</option>
+                            <option value="10-50">10-50 employees</option>
                             <option value="50-200">50-200 employees</option>
                             <option value="200-500">200-500 employees</option>
                             <option value="500-1000">500-1000 employees</option>

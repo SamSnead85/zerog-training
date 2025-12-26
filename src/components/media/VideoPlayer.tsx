@@ -51,7 +51,7 @@ export function VideoPlayer({
     const [showControls, setShowControls] = useState(true);
     const [showSettings, setShowSettings] = useState(false);
     const [buffered, setBuffered] = useState(0);
-    const controlsTimeoutRef = useRef<NodeJS.Timeout>();
+    const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const progress = videoDuration > 0 ? (currentTime / videoDuration) * 100 : 0;
 
