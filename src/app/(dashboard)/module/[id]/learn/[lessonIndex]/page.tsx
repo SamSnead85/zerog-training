@@ -31,6 +31,7 @@ import { aiNativeContent, agenticAIContent, legacyModernizationContent } from "@
 import { promptEngineeringContent, ragImplementationContent } from "@/lib/content/extended-ai-content";
 import { cybersecurityContent, changeManagementContent } from "@/lib/content/enterprise-content";
 import { AITutor } from "@/components/ai/AITutor";
+import { DiscussionThread } from "@/components/social/DiscussionThread";
 
 // Map module IDs to content
 const contentMap: Record<string, typeof safeScrumMasterContent> = {
@@ -356,6 +357,12 @@ export default function LessonPlayerPage() {
                                 </Link>
                             )}
                         </div>
+
+                        {/* Discussion Thread */}
+                        <DiscussionThread
+                            lessonId={lesson.id}
+                            lessonTitle={lesson.title}
+                        />
                     </div>
                 </div>
             </main>

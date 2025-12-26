@@ -22,6 +22,11 @@ import {
     LogOut,
     User,
     HelpCircle,
+    Medal,
+    Award,
+    Route,
+    Plug,
+    ShieldCheck,
 } from "lucide-react";
 import { Button, Avatar, Badge } from "@/components/ui";
 
@@ -37,6 +42,8 @@ const mainNav: NavItem[] = [
     { label: "My Learning", href: "/learning", icon: GraduationCap },
     { label: "Library", href: "/library", icon: BookOpen, badge: "50+" },
     { label: "Achievements", href: "/achievements", icon: Trophy },
+    { label: "Leaderboard", href: "/leaderboard", icon: Medal },
+    { label: "Certificates", href: "/certificates", icon: Award },
 ];
 
 const adminNav: NavItem[] = [

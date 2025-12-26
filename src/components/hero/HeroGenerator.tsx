@@ -48,38 +48,65 @@ export function HeroGenerator() {
 
         setStep("generating");
 
-        // Simulate AI generation (will be replaced with actual Gemini API call)
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+        try {
+            const response = await fetch("/api/generate-training", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    topic: topic.trim(),
+                    context: context.trim() || undefined,
+                }),
+            });
 
-        // Mock generated course - in production, this comes from Gemini
-        setGeneratedCourse({
-            title: topic,
-            description: `Comprehensive training program on ${topic}, customized for your organization's specific needs and context.`,
-            duration: "4-6 hours",
-            audience: "All employees",
-            modules: [
-                {
-                    title: "Foundations & Core Concepts",
-                    duration: "45 min",
-                    topics: ["Key terminology", "Industry standards", "Best practices"],
-                },
-                {
-                    title: "Practical Application",
-                    duration: "60 min",
-                    topics: ["Real-world scenarios", "Hands-on exercises", "Case studies"],
-                },
-                {
-                    title: "Advanced Strategies",
-                    duration: "45 min",
-                    topics: ["Expert techniques", "Optimization methods", "Future trends"],
-                },
-                {
-                    title: "Assessment & Certification",
-                    duration: "30 min",
-                    topics: ["Knowledge check", "Practical evaluation", "Certificate"],
-                },
-            ],
-        });
+            if (!response.ok) {
+                throw new Error("Generation failed");
+            }
+
+            const training = await response.json();
+
+            setGeneratedCourse({
+                title: training.title,
+                description: training.description,
+                duration: training.duration,
+                audience: training.audience,
+                modules: training.modules.map((m: { title: string; duration: string; topics: string[] }) => ({
+                    title: m.title,
+                    duration: m.duration,
+                    topics: m.topics,
+                })),
+            });
+        } catch (error) {
+            console.error("Generation error:", error);
+            // Fallback to default structure
+            setGeneratedCourse({
+                title: topic,
+                description: `Comprehensive training program on ${topic}, customized for your organization's specific needs and context.`,
+                duration: "4-6 hours",
+                audience: "All employees",
+                modules: [
+                    {
+                        title: "Foundations & Core Concepts",
+                        duration: "45 min",
+                        topics: ["Key terminology", "Industry standards", "Best practices"],
+                    },
+                    {
+                        title: "Practical Application",
+                        duration: "60 min",
+                        topics: ["Real-world scenarios", "Hands-on exercises", "Case studies"],
+                    },
+                    {
+                        title: "Advanced Strategies",
+                        duration: "45 min",
+                        topics: ["Expert techniques", "Optimization methods", "Future trends"],
+                    },
+                    {
+                        title: "Assessment & Certification",
+                        duration: "30 min",
+                        topics: ["Knowledge check", "Practical evaluation", "Certificate"],
+                    },
+                ],
+            });
+        }
 
         setStep("preview");
     };
