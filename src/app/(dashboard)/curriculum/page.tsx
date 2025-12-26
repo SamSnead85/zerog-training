@@ -1,9 +1,9 @@
-import { AICurriculumGenerator } from "@/components/ai/AICurriculumGenerator";
+import { UniversalCurriculumGenerator } from "@/components/ai/UniversalCurriculumGenerator";
 
 export default function CurriculumGeneratorPage() {
     return (
-        <div className="p-6 lg:p-8 max-w-5xl mx-auto">
-            <AICurriculumGenerator />
+        <div className="p-6 lg:p-8 max-w-6xl mx-auto">
+            <UniversalCurriculumGenerator />
         </div>
     );
 }
