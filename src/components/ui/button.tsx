@@ -3,17 +3,17 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
     {
         variants: {
             variant: {
                 default:
-                    "bg-primary text-primary-foreground hover:brightness-110 hover:shadow-[0_0_20px_rgba(0,217,255,0.3)]",
+                    "bg-primary text-primary-foreground hover:brightness-110 hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] active:scale-[0.98]",
                 secondary:
-                    "bg-secondary text-secondary-foreground hover:brightness-110 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]",
+                    "bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80 hover:border-border/80",
                 outline:
-                    "border border-border bg-transparent hover:bg-muted hover:border-primary",
-                ghost: "hover:bg-muted",
+                    "border border-border bg-transparent hover:bg-white/5 hover:border-primary/50",
+                ghost: "hover:bg-white/5",
                 link: "text-primary underline-offset-4 hover:underline",
                 destructive:
                     "bg-error text-error-foreground hover:brightness-110",
@@ -21,13 +21,13 @@ const buttonVariants = cva(
                     "bg-success text-success-foreground hover:brightness-110",
             },
             size: {
-                default: "h-10 px-5 py-2",
-                sm: "h-8 px-3 text-xs",
-                lg: "h-12 px-8 text-base",
+                default: "h-11 px-6 py-2.5",
+                sm: "h-9 px-4 text-xs",
+                lg: "h-13 px-8 text-base",
                 xl: "h-14 px-10 text-lg",
-                icon: "h-10 w-10",
-                "icon-sm": "h-8 w-8",
-                "icon-lg": "h-12 w-12",
+                icon: "h-11 w-11",
+                "icon-sm": "h-9 w-9",
+                "icon-lg": "h-13 w-13",
             },
         },
         defaultVariants: {

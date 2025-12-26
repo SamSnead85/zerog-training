@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui";
+import { HeroGenerator } from "@/components/hero/HeroGenerator";
 import {
   Brain,
   Layers,
@@ -12,57 +13,106 @@ import {
   ArrowRight,
   FileText,
   MessageSquare,
+  Sparkles,
 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Navigation - minimal */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="ZeroG" width={32} height={32} className="rounded" />
-            <span className="text-xl font-bold">ZeroG</span>
+    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+      {/* Premium Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute -inset-1 bg-primary/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Image src="/logo.png" alt="ZeroG" width={36} height={36} className="rounded-lg relative" />
+            </div>
+            <span className="text-xl font-semibold tracking-tight">
+              Zero<span className="text-primary">G</span>
+            </span>
           </Link>
 
-          <div className="flex items-center gap-6">
-            <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground">
-              Log in
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Features
             </Link>
+            <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Pricing
+            </Link>
+            <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Sign in
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-3">
             <Link href="/signup">
-              <Button>Get Started</Button>
+              <Button className="gap-2 font-medium">
+                <Sparkles className="h-4 w-4" />
+                Start Free
+              </Button>
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero - Bold & Direct */}
-      <section className="pt-32 pb-24 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
-            Training that actually
-            <br />
-            <span className="text-primary">makes sense</span>
-          </h1>
+      {/* Hero - Dramatic & Premium */}
+      <section className="relative min-h-screen flex items-center justify-center px-6 pt-16">
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Gradient Orbs */}
+          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]" />
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          {/* Radial Fade */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--background)_70%)]" />
+        </div>
 
-          <p className="mt-8 text-xl text-muted-foreground max-w-2xl mx-auto">
-            Built from your docs. Speaks your language.
-            <br />
-            No more generic content that puts people to sleep.
-          </p>
-
-          <div className="mt-12">
-            <Link href="/signup">
-              <Button size="lg" className="text-lg px-12 py-7 font-semibold">
-                Try it free
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+        <div className="relative z-10 mx-auto max-w-5xl text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/50 backdrop-blur-sm mb-8">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+            </span>
+            <span className="text-sm text-muted-foreground">Now with AI-powered simulations</span>
           </div>
 
-          <p className="mt-6 text-sm text-muted-foreground">
-            No credit card required • Setup in 5 minutes
+          {/* Headline */}
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95]">
+            <span className="block">Training that</span>
+            <span className="block mt-2 bg-gradient-to-r from-primary via-primary to-yellow-400 bg-clip-text text-transparent">
+              actually works
+            </span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Transform your internal docs into engaging, context-aware training.
+            <br className="hidden md:block" />
+            <span className="text-foreground/80">No boring slides. No generic content.</span>
           </p>
+
+          {/* Hero Generator */}
+          <div className="mt-14 max-w-3xl mx-auto">
+            <HeroGenerator />
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Check className="h-4 w-4 text-primary" />
+              No credit card required
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Check className="h-4 w-4 text-primary" />
+              5 minute setup
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Check className="h-4 w-4 text-primary" />
+              SOC 2 certified
+            </div>
+          </div>
         </div>
       </section>
 

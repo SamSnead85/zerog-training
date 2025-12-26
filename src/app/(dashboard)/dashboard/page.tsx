@@ -21,7 +21,7 @@ const continuelearning = [
         category: "Agile",
         progress: 65,
         nextLesson: "Facilitating PI Planning",
-        thumbnail: "bg-gradient-to-br from-purple-600 to-pink-500",
+        thumbnail: "bg-gradient-to-br from-amber-600 to-orange-500",
         duration: "35 min left",
     },
     {
@@ -30,7 +30,7 @@ const continuelearning = [
         category: "Leadership",
         progress: 30,
         nextLesson: "Emotional Intelligence",
-        thumbnail: "bg-gradient-to-br from-blue-600 to-cyan-500",
+        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-500",
         duration: "2h 15min left",
     },
 ];
