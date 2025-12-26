@@ -11,9 +11,16 @@ import {
     BookOpen,
     CheckCircle2,
     Star,
+    Calendar,
+    Zap,
+    Award,
+    ChevronRight,
+    BarChart3,
+    Users,
+    Sparkles,
 } from "lucide-react";
 
-// Mock data - will be replaced with real data
+// Mock data - clean, professional gradients
 const continuelearning = [
     {
         id: "safe-scrum-master",
@@ -21,7 +28,7 @@ const continuelearning = [
         category: "Agile",
         progress: 65,
         nextLesson: "Facilitating PI Planning",
-        thumbnail: "bg-gradient-to-br from-amber-600 to-orange-500",
+        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
         duration: "35 min left",
     },
     {
@@ -30,7 +37,7 @@ const continuelearning = [
         category: "Leadership",
         progress: 30,
         nextLesson: "Emotional Intelligence",
-        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-500",
+        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-500",
         duration: "2h 15min left",
     },
 ];
@@ -43,7 +50,7 @@ const recommended = [
         rating: 4.8,
         students: 12500,
         duration: "1h 30min",
-        thumbnail: "bg-gradient-to-br from-red-600 to-orange-500",
+        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
     },
     {
         id: "effective-feedback",
@@ -52,7 +59,7 @@ const recommended = [
         rating: 4.9,
         students: 8900,
         duration: "45min",
-        thumbnail: "bg-gradient-to-br from-green-600 to-emerald-500",
+        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-500",
     },
     {
         id: "data-analytics",
@@ -61,190 +68,237 @@ const recommended = [
         rating: 4.7,
         students: 15200,
         duration: "3h",
-        thumbnail: "bg-gradient-to-br from-indigo-600 to-violet-500",
+        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
+    },
+];
+
+const recentActivity = [
+    {
+        type: "completed",
+        title: "Completed 'Introduction to AI'",
+        time: "2 hours ago",
+        icon: CheckCircle2,
+    },
+    {
+        type: "achievement",
+        title: "Earned 'Quick Learner' badge",
+        time: "Yesterday",
+        icon: Award,
+    },
+    {
+        type: "started",
+        title: "Started 'SAFe Scrum Master'",
+        time: "2 days ago",
+        icon: Play,
     },
 ];
 
 export default function DashboardPage() {
     return (
         <div className="p-6 lg:p-8 max-w-7xl mx-auto">
-            {/* Welcome section */}
-            <div className="mb-8">
-                <h1 className="text-2xl font-bold mb-2">Welcome back, John! 👋</h1>
-                <p className="text-muted-foreground">
-                    You&apos;re on a <span className="text-primary font-medium">5-day streak</span>! Keep up the great work.
-                </p>
-            </div>
-
-            {/* Stats cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <Card variant="glass" className="p-4">
-                    <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <BookOpen className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <p className="text-2xl font-bold">12</p>
-                            <p className="text-xs text-muted-foreground">Courses in progress</p>
-                        </div>
-                    </div>
-                </Card>
-                <Card variant="glass" className="p-4">
-                    <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-success/10 flex items-center justify-center">
-                            <CheckCircle2 className="h-5 w-5 text-success" />
-                        </div>
-                        <div>
-                            <p className="text-2xl font-bold">24</p>
-                            <p className="text-xs text-muted-foreground">Completed</p>
-                        </div>
-                    </div>
-                </Card>
-                <Card variant="glass" className="p-4">
-                    <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-warning/10 flex items-center justify-center">
-                            <Flame className="h-5 w-5 text-warning" />
-                        </div>
-                        <div>
-                            <p className="text-2xl font-bold">5</p>
-                            <p className="text-xs text-muted-foreground">Day streak</p>
-                        </div>
-                    </div>
-                </Card>
-                <Card variant="glass" className="p-4">
-                    <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center">
-                            <Clock className="h-5 w-5 text-secondary" />
-                        </div>
-                        <div>
-                            <p className="text-2xl font-bold">47h</p>
-                            <p className="text-xs text-muted-foreground">Learning time</p>
-                        </div>
-                    </div>
-                </Card>
-            </div>
-
-            {/* Continue Learning */}
-            <div className="mb-10">
-                <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-semibold">Continue Learning</h2>
-                    <Link href="/learning" className="text-sm text-primary hover:underline flex items-center gap-1">
-                        View all <ArrowRight className="h-4 w-4" />
-                    </Link>
+            {/* Welcome section - Clean & Professional */}
+            <div className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-semibold mb-1">Welcome back, John</h1>
+                    <p className="text-muted-foreground text-sm">
+                        You&apos;re on a 5-day streak. Keep it up.
+                    </p>
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                    {continuelearning.map((course) => (
-                        <Link key={course.id} href={`/module/${course.id}`}>
-                            <Card variant="glass" hover="lift" className="overflow-hidden group">
-                                <div className="flex">
-                                    <div className={`w-32 h-32 ${course.thumbnail} flex items-center justify-center flex-shrink-0`}>
-                                        <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center group-hover:scale-110 transition-transform">
-                                            <Play className="h-6 w-6 text-white ml-0.5" />
-                                        </div>
-                                    </div>
-                                    <div className="p-4 flex-1">
-                                        <Badge variant="outline" className="mb-2 text-xs">{course.category}</Badge>
-                                        <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
-                                            {course.title}
-                                        </h3>
-                                        <p className="text-sm text-muted-foreground mb-3">
-                                            Next: {course.nextLesson}
-                                        </p>
-                                        <div className="flex items-center gap-3">
-                                            <Progress value={course.progress} className="flex-1 h-1.5" />
-                                            <span className="text-xs text-muted-foreground">{course.progress}%</span>
-                                        </div>
-                                        <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
-                                            <Clock className="h-3 w-3" /> {course.duration}
-                                        </p>
-                                    </div>
-                                </div>
-                            </Card>
-                        </Link>
-                    ))}
+                <div className="flex items-center gap-3">
+                    <Button variant="outline" size="sm" className="gap-2">
+                        <Calendar className="h-4 w-4" />
+                        Schedule
+                    </Button>
+                    <Button size="sm" className="gap-2">
+                        <Zap className="h-4 w-4" />
+                        Quick Start
+                    </Button>
                 </div>
             </div>
 
-            {/* Recommended for You */}
-            <div className="mb-10">
-                <div className="flex items-center justify-between mb-4">
+            {/* Stats Grid - Clean Minimal */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
+                    <div className="flex items-center justify-between mb-3">
+                        <BookOpen className="h-5 w-5 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">+3 this week</span>
+                    </div>
+                    <p className="text-2xl font-semibold">12</p>
+                    <p className="text-sm text-muted-foreground">Active Courses</p>
+                </div>
+
+                <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
+                    <div className="flex items-center justify-between mb-3">
+                        <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">+5 this month</span>
+                    </div>
+                    <p className="text-2xl font-semibold">24</p>
+                    <p className="text-sm text-muted-foreground">Completed</p>
+                </div>
+
+                <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
+                    <div className="flex items-center justify-between mb-3">
+                        <Flame className="h-5 w-5 text-muted-foreground" />
+                        <span className="text-xs text-primary font-medium">Best streak</span>
+                    </div>
+                    <p className="text-2xl font-semibold">5</p>
+                    <p className="text-sm text-muted-foreground">Day Streak</p>
+                </div>
+
+                <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
+                    <div className="flex items-center justify-between mb-3">
+                        <Clock className="h-5 w-5 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">This month</span>
+                    </div>
+                    <p className="text-2xl font-semibold">47h</p>
+                    <p className="text-sm text-muted-foreground">Learning Time</p>
+                </div>
+            </div>
+
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-3 gap-8">
+                {/* Left Column */}
+                <div className="lg:col-span-2 space-y-10">
+                    {/* Continue Learning */}
                     <div>
-                        <h2 className="text-lg font-semibold">Recommended for You</h2>
-                        <p className="text-sm text-muted-foreground">Based on your role and learning history</p>
+                        <div className="flex items-center justify-between mb-5">
+                            <h2 className="text-lg font-semibold">Continue Learning</h2>
+                            <Link href="/learning" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                                View all
+                            </Link>
+                        </div>
+                        <div className="space-y-3">
+                            {continuelearning.map((course) => (
+                                <Link key={course.id} href={`/module/${course.id}`}>
+                                    <div className="group p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+                                        <div className="flex gap-4">
+                                            <div className={`w-16 h-16 ${course.thumbnail} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                                                <Play className="h-6 w-6 text-white/70" />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-2 mb-1">
+                                                    <div>
+                                                        <p className="text-xs text-muted-foreground mb-1">{course.category}</p>
+                                                        <h3 className="font-medium group-hover:text-primary transition-colors">
+                                                            {course.title}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <p className="text-sm text-muted-foreground mb-3">
+                                                    Next: {course.nextLesson}
+                                                </p>
+                                                <div className="flex items-center gap-3">
+                                                    <Progress value={course.progress} className="flex-1 h-1.5" />
+                                                    <span className="text-xs text-muted-foreground">{course.progress}%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
-                    <Link href="/library" className="text-sm text-primary hover:underline flex items-center gap-1">
-                        Browse library <ArrowRight className="h-4 w-4" />
-                    </Link>
-                </div>
-                <div className="grid md:grid-cols-3 gap-4">
-                    {recommended.map((course) => (
-                        <Link key={course.id} href={`/module/${course.id}`}>
-                            <Card variant="glass" hover="lift" className="overflow-hidden group">
-                                <div className={`h-36 ${course.thumbnail} flex items-center justify-center relative`}>
-                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                                    <div className="h-14 w-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center group-hover:scale-110 transition-transform z-10">
-                                        <Play className="h-7 w-7 text-white ml-0.5" />
-                                    </div>
-                                    <Badge className="absolute top-3 right-3">{course.category}</Badge>
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                                        {course.title}
-                                    </h3>
-                                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                        <span className="flex items-center gap-1">
-                                            <Star className="h-4 w-4 fill-warning text-warning" />
-                                            {course.rating}
-                                        </span>
-                                        <span>{course.students.toLocaleString()} learners</span>
-                                    </div>
-                                    <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
-                                        <Clock className="h-3 w-3" /> {course.duration}
-                                    </p>
-                                </div>
-                            </Card>
-                        </Link>
-                    ))}
-                </div>
-            </div>
 
-            {/* Quick Actions */}
-            <div>
-                <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
-                <div className="grid md:grid-cols-3 gap-4">
-                    <Card variant="outline" className="p-5 hover:border-primary/50 transition-colors cursor-pointer group">
-                        <div className="flex items-center gap-4">
-                            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                                <Target className="h-6 w-6 text-background" />
-                            </div>
+                    {/* Recommended */}
+                    <div>
+                        <div className="flex items-center justify-between mb-5">
                             <div>
-                                <h3 className="font-medium group-hover:text-primary transition-colors">Set Learning Goals</h3>
-                                <p className="text-sm text-muted-foreground">Define your weekly targets</p>
+                                <h2 className="text-lg font-semibold">Recommended</h2>
+                                <p className="text-sm text-muted-foreground">Based on your interests</p>
                             </div>
+                            <Link href="/library" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                                Browse all
+                            </Link>
                         </div>
-                    </Card>
-                    <Card variant="outline" className="p-5 hover:border-primary/50 transition-colors cursor-pointer group">
-                        <div className="flex items-center gap-4">
-                            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center">
-                                <Trophy className="h-6 w-6 text-background" />
-                            </div>
-                            <div>
-                                <h3 className="font-medium group-hover:text-primary transition-colors">View Achievements</h3>
-                                <p className="text-sm text-muted-foreground">3 new badges to earn</p>
-                            </div>
+                        <div className="grid sm:grid-cols-3 gap-4">
+                            {recommended.map((course) => (
+                                <Link key={course.id} href={`/module/${course.id}`}>
+                                    <div className="group rounded-xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all overflow-hidden">
+                                        <div className={`h-24 ${course.thumbnail} flex items-center justify-center`}>
+                                            <Play className="h-8 w-8 text-white/50 group-hover:text-white/70 transition-colors" />
+                                        </div>
+                                        <div className="p-4">
+                                            <p className="text-xs text-muted-foreground mb-1">{course.category}</p>
+                                            <h3 className="font-medium text-sm group-hover:text-primary transition-colors line-clamp-2 min-h-[40px]">
+                                                {course.title}
+                                            </h3>
+                                            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
+                                                <span className="flex items-center gap-1">
+                                                    <Star className="h-3 w-3" />
+                                                    {course.rating}
+                                                </span>
+                                                <span>•</span>
+                                                <span>{course.duration}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
                         </div>
-                    </Card>
-                    <Card variant="outline" className="p-5 hover:border-primary/50 transition-colors cursor-pointer group">
-                        <div className="flex items-center gap-4">
-                            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center">
-                                <TrendingUp className="h-6 w-6 text-background" />
-                            </div>
-                            <div>
-                                <h3 className="font-medium group-hover:text-primary transition-colors">View Progress Report</h3>
-                                <p className="text-sm text-muted-foreground">Track your growth</p>
-                            </div>
+                    </div>
+                </div>
+
+                {/* Right Column */}
+                <div className="space-y-8">
+                    {/* Weekly Progress */}
+                    <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-medium">Weekly Goal</h3>
+                            <span className="text-sm text-muted-foreground">75%</span>
                         </div>
-                    </Card>
+                        <Progress value={75} className="h-2 mb-4" />
+                        <p className="text-sm text-muted-foreground">
+                            2 more lessons to reach your goal
+                        </p>
+                        <div className="flex gap-1 mt-4">
+                            {["M", "T", "W", "T", "F", "S", "S"].map((day, i) => (
+                                <div
+                                    key={day + i}
+                                    className={`flex-1 h-7 rounded flex items-center justify-center text-xs ${i < 5 ? "bg-primary/20 text-primary" : "bg-white/5 text-muted-foreground"
+                                        }`}
+                                >
+                                    {day}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Recent Activity */}
+                    <div>
+                        <h3 className="font-medium mb-4">Recent Activity</h3>
+                        <div className="space-y-2">
+                            {recentActivity.map((activity, i) => (
+                                <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                                    <activity.icon className="h-4 w-4 text-muted-foreground mt-0.5" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm">{activity.title}</p>
+                                        <p className="text-xs text-muted-foreground">{activity.time}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Quick Actions */}
+                    <div>
+                        <h3 className="font-medium mb-4">Quick Actions</h3>
+                        <div className="space-y-2">
+                            {[
+                                { icon: Target, label: "Set Goals" },
+                                { icon: Trophy, label: "Achievements" },
+                                { icon: Users, label: "Team Progress" },
+                            ].map((action) => (
+                                <button
+                                    key={action.label}
+                                    className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all text-left"
+                                >
+                                    <action.icon className="h-4 w-4 text-muted-foreground" />
+                                    <span className="text-sm">{action.label}</span>
+                                    <ChevronRight className="h-4 w-4 ml-auto text-muted-foreground" />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

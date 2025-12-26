@@ -11,18 +11,18 @@
   --background: #09090B;
   --foreground: #FAFAFA;
 
-  /* ZeroG Premium Brand Palette */
+  /* ZeroG Premium Brand Palette - Sophisticated Slate */
   --zerog-black: #09090B;
   --zerog-dark: #18181B;
   --zerog-gray: #27272A;
   --zerog-muted: #3F3F46;
-  --zerog-accent: #F59E0B;
-  --zerog-accent-bright: #FBBF24;
-  --zerog-glow: #FCD34D;
+  --zerog-accent: #64748B;
+  --zerog-accent-bright: #94A3B8;
+  --zerog-glow: #CBD5E1;
 
-  /* Semantic Colors - Premium */
-  --primary: #F59E0B;
-  --primary-foreground: #09090B;
+  /* Semantic Colors - Premium Slate */
+  --primary: #64748B;
+  --primary-foreground: #FFFFFF;
   --secondary: #27272A;
   --secondary-foreground: #FAFAFA;
   --accent: #52525B;
@@ -37,13 +37,13 @@
   --popover-foreground: #FAFAFA;
   --border: #27272A;
   --input: #18181B;
-  --ring: #F59E0B;
+  --ring: #64748B;
 
   /* Status Colors */
   --success: #22C55E;
   --success-foreground: #09090B;
-  --warning: #F59E0B;
-  --warning-foreground: #09090B;
+  --warning: #94A3B8;
+  --warning-foreground: #18181B;
   --error: #EF4444;
   --error-foreground: #FAFAFA;
   --info: #3B82F6;
@@ -62,8 +62,8 @@
   --shadow-md: 0 4px 15px -3px rgb(0 0 0 / 0.6);
   --shadow-lg: 0 10px 40px -10px rgb(0 0 0 / 0.7);
   --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.8);
-  --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.15);
-  --shadow-glow-strong: 0 0 60px rgba(245, 158, 11, 0.25);
+  --shadow-glow: 0 0 40px rgba(100, 116, 139, 0.15);
+  --shadow-glow-strong: 0 0 60px rgba(100, 116, 139, 0.25);
 }
 
 /* Light Mode Override */
@@ -372,6 +372,10 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
+.animate-gradient {
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
 .animate-shimmer {
   background: linear-gradient(90deg,
       var(--muted) 0%,
@@ -661,10 +665,10 @@ body {
   inset: -1px;
   border-radius: var(--radius-2xl);
   background: linear-gradient(135deg,
-      rgba(245, 158, 11, 0.2) 0%,
+      rgba(100, 116, 139, 0.15) 0%,
       transparent 40%,
       transparent 60%,
-      rgba(245, 158, 11, 0.1) 100%);
+      rgba(100, 116, 139, 0.08) 100%);
   z-index: -1;
   opacity: 1;
   pointer-events: none;
@@ -694,10 +698,10 @@ body {
 
 .hero-template-card.selected {
   border-color: var(--primary);
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(100, 116, 139, 0.1);
   box-shadow:
     0 0 0 1px var(--primary),
-    0 0 30px -5px rgba(245, 158, 11, 0.3);
+    0 0 30px -5px rgba(100, 116, 139, 0.25);
 }
 
 /* Content Input - Premium */
@@ -719,8 +723,8 @@ body {
   border-color: var(--primary);
   background: rgba(39, 39, 42, 0.9);
   box-shadow:
-    0 0 0 3px rgba(245, 158, 11, 0.15),
-    0 0 30px -5px rgba(245, 158, 11, 0.2);
+    0 0 0 3px rgba(100, 116, 139, 0.12),
+    0 0 30px -5px rgba(100, 116, 139, 0.15);
 }
 
 .hero-content-input::placeholder {

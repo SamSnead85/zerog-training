@@ -85,7 +85,7 @@ const courses = [
         duration: "4h",
         lessons: 3,
         level: "Intermediate",
-        thumbnail: "bg-gradient-to-br from-emerald-600 to-teal-600",
+        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-700",
         prePopulated: true,
         isNew: true,
     },
@@ -100,7 +100,7 @@ const courses = [
         duration: "3h",
         lessons: 6,
         level: "Intermediate",
-        thumbnail: "bg-gradient-to-br from-orange-500 to-red-600",
+        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-800",
         isNew: true,
     },
     {
@@ -114,7 +114,7 @@ const courses = [
         duration: "4h",
         lessons: 5,
         level: "Advanced",
-        thumbnail: "bg-gradient-to-br from-pink-600 to-rose-600",
+        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-700",
         isNew: true,
     },
     // Existing courses
@@ -159,7 +159,7 @@ const courses = [
         duration: "2h",
         lessons: 6,
         level: "Beginner",
-        thumbnail: "bg-gradient-to-br from-red-600 to-orange-500",
+        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-800",
         prePopulated: true,
     },
     {
@@ -187,7 +187,7 @@ const courses = [
         duration: "45min",
         lessons: 5,
         level: "Beginner",
-        thumbnail: "bg-gradient-to-br from-green-600 to-emerald-500",
+        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-700",
         prePopulated: true,
     },
     {
@@ -214,7 +214,7 @@ const courses = [
         duration: "1.5h",
         lessons: 6,
         level: "All Levels",
-        thumbnail: "bg-gradient-to-br from-pink-600 to-rose-500",
+        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-700",
         prePopulated: true,
     },
     {
@@ -228,7 +228,7 @@ const courses = [
         duration: "3h",
         lessons: 8,
         level: "Intermediate",
-        thumbnail: "bg-gradient-to-br from-amber-600 to-yellow-500",
+        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
         prePopulated: true,
     },
     {
