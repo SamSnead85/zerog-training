@@ -40,17 +40,19 @@ interface NavItem {
 const mainNav: NavItem[] = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { label: "My Learning", href: "/learning", icon: GraduationCap },
-    { label: "Library", href: "/library", icon: BookOpen, badge: "50+" },
-    { label: "Achievements", href: "/achievements", icon: Trophy },
+    { label: "My Progress", href: "/my-progress", icon: Trophy },
+    { label: "Healthcare Library", href: "/healthcare", icon: BookOpen, badge: "New" },
     { label: "Leaderboard", href: "/leaderboard", icon: Medal },
     { label: "Certificates", href: "/certificates", icon: Award },
 ];
 
 const adminNav: NavItem[] = [
-    { label: "Content Studio", href: "/studio", icon: FolderOpen },
-    { label: "Team", href: "/team", icon: Users },
-    { label: "Analytics", href: "/analytics", icon: BarChart3 },
-    { label: "Settings", href: "/settings", icon: Settings },
+    { label: "AI Curriculum", href: "/curriculum", icon: Route },
+    { label: "Compliance", href: "/compliance", icon: ShieldCheck },
+    { label: "Workforce", href: "/workforce", icon: Users },
+    { label: "Assignments", href: "/assignments", icon: FolderOpen },
+    { label: "Reports", href: "/reports", icon: BarChart3 },
+    { label: "Audit Log", href: "/audit", icon: Settings },
 ];
 
 export function Sidebar() {
