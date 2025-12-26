@@ -27,6 +27,10 @@ import {
     Route,
     Plug,
     ShieldCheck,
+    Building2,
+    Sparkles,
+    Target,
+    UserPlus,
 } from "lucide-react";
 import { Button, Avatar, Badge } from "@/components/ui";
 
@@ -39,18 +43,19 @@ interface NavItem {
 
 const mainNav: NavItem[] = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Create Training", href: "/create", icon: Sparkles, badge: "AI" },
     { label: "My Learning", href: "/learning", icon: GraduationCap },
-    { label: "My Progress", href: "/my-progress", icon: Trophy },
-    { label: "Healthcare Library", href: "/healthcare", icon: BookOpen, badge: "New" },
+    { label: "Content Library", href: "/library", icon: BookOpen },
     { label: "Leaderboard", href: "/leaderboard", icon: Medal },
     { label: "Certificates", href: "/certificates", icon: Award },
 ];
 
 const adminNav: NavItem[] = [
-    { label: "AI Curriculum", href: "/curriculum", icon: Route },
-    { label: "Compliance", href: "/compliance", icon: ShieldCheck },
+    { label: "Org Dashboard", href: "/org", icon: Building2 },
+    { label: "Assign Training", href: "/assign", icon: UserPlus },
+    { label: "Team Progress", href: "/progress", icon: Target },
     { label: "Workforce", href: "/workforce", icon: Users },
-    { label: "Assignments", href: "/assignments", icon: FolderOpen },
+    { label: "Compliance", href: "/compliance", icon: ShieldCheck },
     { label: "Reports", href: "/reports", icon: BarChart3 },
     { label: "Audit Log", href: "/audit", icon: Settings },
 ];
