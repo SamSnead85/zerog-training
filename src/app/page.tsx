@@ -3,255 +3,154 @@ import Image from "next/image";
 import { Button } from "@/components/ui";
 import {
   Brain,
-  Target,
   Layers,
-  Zap,
   Shield,
   BarChart3,
   Users,
-  BookOpen,
   ChevronRight,
-  Play,
   Check,
   ArrowRight,
   FileText,
   MessageSquare,
-  Award,
 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Navigation - minimal */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="ZeroG"
-              width={28}
-              height={28}
-              className="rounded"
-            />
-            <span className="text-lg font-semibold">ZeroG</span>
+            <Image src="/logo.png" alt="ZeroG" width={32} height={32} className="rounded" />
+            <span className="text-xl font-bold">ZeroG</span>
           </Link>
 
-          <div className="hidden items-center gap-8 md:flex">
-            <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground">
-              Features
-            </Link>
-            <Link href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground">
-              How it works
-            </Link>
-            <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground">
-              Pricing
-            </Link>
+          <div className="flex items-center gap-6">
             <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground">
               Log in
             </Link>
             <Link href="/signup">
-              <Button size="sm">Get started</Button>
+              <Button>Get Started</Button>
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section - Clean & Minimal */}
-      <section className="pt-32 pb-20">
-        <div className="mx-auto max-w-4xl px-6 text-center">
-          <p className="mb-6 text-sm font-medium text-primary">
-            AI-powered enterprise training
-          </p>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight text-foreground">
-            Training built from
+      {/* Hero - Bold & Direct */}
+      <section className="pt-32 pb-24 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+            Training that actually
             <br />
-            your organization's knowledge
+            <span className="text-primary">makes sense</span>
           </h1>
 
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Connect your documentation, policies, and processes.
-            ZeroG creates personalized training that reflects how your organization actually works.
+          <p className="mt-8 text-xl text-muted-foreground max-w-2xl mx-auto">
+            Built from your docs. Speaks your language.
+            <br />
+            No more generic content that puts people to sleep.
           </p>
 
-          <div className="mt-10 flex items-center justify-center gap-4">
+          <div className="mt-12">
             <Link href="/signup">
-              <Button size="lg" className="px-8">
-                Start free trial
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/demo">
-              <Button size="lg" variant="outline" className="px-8">
-                <Play className="mr-2 h-4 w-4" />
-                Watch demo
+              <Button size="lg" className="text-lg px-12 py-7 font-semibold">
+                Try it free
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </div>
 
-          {/* Social proof */}
-          <div className="mt-16">
-            <p className="text-sm text-muted-foreground mb-4">
-              Trusted by teams at
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-8 text-muted-foreground/60">
-              <span className="text-lg font-medium">Deloitte</span>
-              <span className="text-lg font-medium">Accenture</span>
-              <span className="text-lg font-medium">McKinsey</span>
-              <span className="text-lg font-medium">KPMG</span>
-              <span className="text-lg font-medium">PwC</span>
-            </div>
+          <p className="mt-6 text-sm text-muted-foreground">
+            No credit card required • Setup in 5 minutes
+          </p>
+        </div>
+      </section>
+
+      {/* Social proof - simple */}
+      <section className="py-12 border-y border-border">
+        <div className="mx-auto max-w-4xl px-6">
+          <p className="text-center text-sm text-muted-foreground mb-6">
+            Trusted by teams at
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
+            <span className="text-xl font-semibold text-muted-foreground/60">Deloitte</span>
+            <span className="text-xl font-semibold text-muted-foreground/60">McKinsey</span>
+            <span className="text-xl font-semibold text-muted-foreground/60">Accenture</span>
+            <span className="text-xl font-semibold text-muted-foreground/60">KPMG</span>
+            <span className="text-xl font-semibold text-muted-foreground/60">PwC</span>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 border-y border-border">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-semibold text-foreground">2.4M+</div>
-              <div className="mt-1 text-sm text-muted-foreground">Learners</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-semibold text-foreground">500+</div>
-              <div className="mt-1 text-sm text-muted-foreground">Organizations</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-semibold text-foreground">98%</div>
-              <div className="mt-1 text-sm text-muted-foreground">Completion rate</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-semibold text-foreground">4.9/5</div>
-              <div className="mt-1 text-sm text-muted-foreground">Satisfaction</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section id="how-it-works" className="py-24">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-semibold text-foreground">How it works</h2>
-            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Three steps to transform your organizational knowledge into effective training
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-12">
+      {/* Value props - bold headings */}
+      <section className="py-24 px-6">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid md:grid-cols-2 gap-16 items-center mb-24">
             <div>
-              <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center mb-4">
-                <FileText className="h-5 w-5 text-foreground" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">1. Connect your sources</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Upload documents, connect to Confluence, SharePoint, or any knowledge base.
-                We index and understand your organizational context.
+              <h2 className="text-4xl font-bold mb-6">
+                Connect your knowledge base
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Upload your docs, connect Confluence, SharePoint, Notion—whatever you use.
+                We index everything and actually understand it.
               </p>
             </div>
-            <div>
-              <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center mb-4">
-                <Brain className="h-5 w-5 text-foreground" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">2. AI generates training</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Our AI creates lessons, quizzes, and simulations that reference your actual
-                tools, processes, and terminology.
+            <div className="bg-muted/50 rounded-2xl p-8 flex items-center justify-center aspect-square">
+              <FileText className="h-24 w-24 text-muted-foreground/40" />
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-16 items-center mb-24">
+            <div className="order-2 md:order-1 bg-muted/50 rounded-2xl p-8 flex items-center justify-center aspect-square">
+              <Brain className="h-24 w-24 text-muted-foreground/40" />
+            </div>
+            <div className="order-1 md:order-2">
+              <h2 className="text-4xl font-bold mb-6">
+                AI that gets your context
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Not generic templates. Actual training that references your tools,
+                your processes, your terminology. Like it was written by someone who works there.
               </p>
             </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center mb-4">
-                <Users className="h-5 w-5 text-foreground" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">3. Deploy to your team</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Assign training to individuals or teams. Track progress, completion,
-                and comprehension with detailed analytics.
+              <h2 className="text-4xl font-bold mb-6">
+                Track everything
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Completion rates, quiz scores, time spent, knowledge gaps.
+                Know exactly who knows what, and who needs more help.
               </p>
+            </div>
+            <div className="bg-muted/50 rounded-2xl p-8 flex items-center justify-center aspect-square">
+              <BarChart3 className="h-24 w-24 text-muted-foreground/40" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="py-24 bg-muted/30">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-semibold text-foreground">Built for enterprise</h2>
-            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Everything you need to create, deploy, and measure training at scale
-            </p>
-          </div>
+      {/* Features grid - clean */}
+      <section className="py-24 px-6 bg-muted/30">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-4xl font-bold text-center mb-16">
+            Everything you need
+          </h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <Layers className="h-5 w-5 text-foreground mb-4" />
-              <h3 className="font-medium mb-2">Context-aware content</h3>
-              <p className="text-sm text-muted-foreground">
-                Training that references your specific tools, policies, and workflows—not generic content.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <MessageSquare className="h-5 w-5 text-foreground mb-4" />
-              <h3 className="font-medium mb-2">AI role-play simulations</h3>
-              <p className="text-sm text-muted-foreground">
-                Practice difficult conversations and scenarios with AI that responds like real stakeholders.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <BarChart3 className="h-5 w-5 text-foreground mb-4" />
-              <h3 className="font-medium mb-2">Detailed analytics</h3>
-              <p className="text-sm text-muted-foreground">
-                Track completion, quiz scores, time-on-task, and knowledge retention across your organization.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <Shield className="h-5 w-5 text-foreground mb-4" />
-              <h3 className="font-medium mb-2">Enterprise security</h3>
-              <p className="text-sm text-muted-foreground">
-                SOC 2 Type II certified. SSO integration. Your data never trains our models.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <Target className="h-5 w-5 text-foreground mb-4" />
-              <h3 className="font-medium mb-2">Adaptive learning</h3>
-              <p className="text-sm text-muted-foreground">
-                Content adjusts based on learner performance, focusing on areas that need reinforcement.
-              </p>
-            </div>
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <Award className="h-5 w-5 text-foreground mb-4" />
-              <h3 className="font-medium mb-2">Certifications</h3>
-              <p className="text-sm text-muted-foreground">
-                Issue certificates upon completion. Track compliance and professional development credits.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Use cases */}
-      <section className="py-24">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-semibold text-foreground">Training for every team</h2>
-            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Pre-built modules and custom content for any learning objective
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { title: "Leadership Development", desc: "Executive coaching, management skills" },
-              { title: "Compliance & Risk", desc: "HIPAA, SOX, security awareness" },
-              { title: "Sales Enablement", desc: "Product training, objection handling" },
-              { title: "Technical Skills", desc: "AI/ML, cloud, software development" },
-              { title: "Onboarding", desc: "Role-specific new hire training" },
-              { title: "DEI & Culture", desc: "Inclusive leadership, bias training" },
+              { icon: Layers, title: "Context-aware lessons", desc: "References your actual policies and tools" },
+              { icon: MessageSquare, title: "AI simulations", desc: "Practice conversations with realistic AI" },
+              { icon: BarChart3, title: "Detailed analytics", desc: "Track progress across your org" },
+              { icon: Shield, title: "Enterprise security", desc: "SOC 2 certified, SSO ready" },
+              { icon: Users, title: "Team management", desc: "Assign, track, report on groups" },
+              { icon: Check, title: "Certifications", desc: "Issue certs on completion" },
             ].map((item) => (
-              <div key={item.title} className="p-5 rounded-lg border border-border hover:border-foreground/20 transition-colors">
-                <h3 className="font-medium mb-1">{item.title}</h3>
+              <div key={item.title} className="p-6">
+                <item.icon className="h-6 w-6 mb-4 text-primary" />
+                <h3 className="font-semibold mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.desc}</p>
               </div>
             ))}
@@ -259,92 +158,93 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="py-24 bg-muted/30">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-semibold text-foreground">Simple pricing</h2>
-            <p className="mt-4 text-muted-foreground">
-              Start free, scale as you grow
-            </p>
-          </div>
+      {/* Testimonials - real talk */}
+      <section className="py-24 px-6">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-4xl font-bold text-center mb-16">
+            What people are saying
+          </h2>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <h3 className="font-medium mb-1">Starter</h3>
-              <p className="text-sm text-muted-foreground mb-4">For small teams</p>
-              <div className="text-3xl font-semibold mb-4">$29<span className="text-sm font-normal text-muted-foreground">/user/mo</span></div>
-              <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Up to 25 users</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> 10 custom modules</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Basic analytics</li>
-              </ul>
-              <Button variant="outline" className="w-full">Get started</Button>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-6 rounded-xl border border-border">
+              <p className="text-lg mb-4">
+                "Finally, training that doesn't feel like it was written for a different company.
+                Our team actually completes these."
+              </p>
+              <p className="text-sm text-muted-foreground">— VP of L&D, Fortune 500</p>
             </div>
-            <div className="p-6 rounded-lg border-2 border-foreground bg-background">
-              <h3 className="font-medium mb-1">Professional</h3>
-              <p className="text-sm text-muted-foreground mb-4">For growing organizations</p>
-              <div className="text-3xl font-semibold mb-4">$49<span className="text-sm font-normal text-muted-foreground">/user/mo</span></div>
-              <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Up to 500 users</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Unlimited modules</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Advanced analytics</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> SSO integration</li>
-              </ul>
-              <Button className="w-full">Get started</Button>
-            </div>
-            <div className="p-6 rounded-lg border border-border bg-background">
-              <h3 className="font-medium mb-1">Enterprise</h3>
-              <p className="text-sm text-muted-foreground mb-4">For large organizations</p>
-              <div className="text-3xl font-semibold mb-4">Custom</div>
-              <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Unlimited users</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Dedicated support</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Custom integrations</li>
-                <li className="flex items-center gap-2"><Check className="h-4 w-4" /> SLA guarantee</li>
-              </ul>
-              <Button variant="outline" className="w-full">Contact sales</Button>
+            <div className="p-6 rounded-xl border border-border">
+              <p className="text-lg mb-4">
+                "Setup took 20 minutes. Connected our Confluence, and it generated
+                onboarding training that referenced our actual systems."
+              </p>
+              <p className="text-sm text-muted-foreground">— Head of People Ops, Series B Startup</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-semibold text-foreground mb-4">
-            Ready to transform your training?
+      {/* Pricing - direct */}
+      <section className="py-24 px-6 bg-muted/30">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-4xl font-bold mb-4">Simple pricing</h2>
+          <p className="text-lg text-muted-foreground mb-12">Start free, scale when ready</p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-8 rounded-xl border border-border bg-background text-left">
+              <h3 className="font-semibold mb-2">Starter</h3>
+              <div className="text-4xl font-bold mb-4">$29<span className="text-lg font-normal text-muted-foreground">/user/mo</span></div>
+              <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                <li>• Up to 50 users</li>
+                <li>• Unlimited modules</li>
+                <li>• Basic analytics</li>
+              </ul>
+              <Button variant="outline" className="w-full">Get started</Button>
+            </div>
+            <div className="p-8 rounded-xl border-2 border-primary bg-background text-left">
+              <h3 className="font-semibold mb-2">Enterprise</h3>
+              <div className="text-4xl font-bold mb-4">Custom</div>
+              <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                <li>• Unlimited users</li>
+                <li>• SSO & advanced security</li>
+                <li>• Dedicated support</li>
+                <li>• Custom integrations</li>
+              </ul>
+              <Button className="w-full">Contact sales</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA - bold */}
+      <section className="py-32 px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-5xl font-bold mb-6">
+            Ready to build training
+            <br />that works?
           </h2>
-          <p className="text-muted-foreground mb-8">
-            Start your free trial today. No credit card required.
-          </p>
           <Link href="/signup">
-            <Button size="lg" className="px-8">
-              Get started free
-              <ArrowRight className="ml-2 h-4 w-4" />
+            <Button size="lg" className="text-lg px-12 py-7 font-semibold">
+              Start free trial
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-12">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.png" alt="ZeroG" width={24} height={24} className="rounded" />
-              <span className="font-semibold">ZeroG</span>
-            </Link>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <Link href="#" className="hover:text-foreground">Privacy</Link>
-              <Link href="#" className="hover:text-foreground">Terms</Link>
-              <Link href="#" className="hover:text-foreground">Security</Link>
-              <Link href="#" className="hover:text-foreground">Contact</Link>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              © 2025 ZeroG. All rights reserved.
-            </p>
+      {/* Footer - minimal */}
+      <footer className="py-8 px-6 border-t border-border">
+        <div className="mx-auto max-w-5xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/logo.png" alt="ZeroG" width={24} height={24} className="rounded" />
+            <span className="font-semibold">ZeroG</span>
+          </Link>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <Link href="#" className="hover:text-foreground">Privacy</Link>
+            <Link href="#" className="hover:text-foreground">Terms</Link>
+            <Link href="#" className="hover:text-foreground">Contact</Link>
           </div>
+          <p className="text-sm text-muted-foreground">© 2025 ZeroG</p>
         </div>
       </footer>
     </div>
