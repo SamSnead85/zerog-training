@@ -15,3 +15,4 @@ export { Badge, badgeVariants, type BadgeProps } from "./badge";
 export { Progress, type ProgressProps } from "./progress";
 export { Avatar, AvatarGroup, avatarVariants, type AvatarProps, type AvatarGroupProps } from "./avatar";
 export { Skeleton, SkeletonCard, SkeletonTable, SkeletonAvatar } from "./skeleton";
+export { Switch } from "./switch";

@@ -46,6 +46,24 @@ export function HeroGenerator() {
     const handleGenerate = async () => {
         if (!topic.trim()) return;
 
+        // Check demo usage limit
+        try {
+            const usageCheck = await fetch("/api/demo-usage");
+            const usageData = await usageCheck.json();
+
+            if (!usageData.canGenerate) {
+                // Limit reached - redirect to pricing
+                window.location.href = "/pricing?limit=reached";
+                return;
+            }
+
+            // Record the usage
+            await fetch("/api/demo-usage", { method: "POST" });
+        } catch (error) {
+            console.error("Usage check failed:", error);
+            // Continue anyway if usage tracking fails
+        }
+
         setStep("generating");
 
         try {
@@ -57,6 +75,7 @@ export function HeroGenerator() {
                     context: context.trim() || undefined,
                 }),
             });
+
 
             if (!response.ok) {
                 throw new Error("Generation failed");
