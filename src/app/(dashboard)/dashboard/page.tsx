@@ -7,7 +7,6 @@ import {
     Flame,
     Target,
     TrendingUp,
-    ArrowRight,
     BookOpen,
     CheckCircle2,
     Star,
@@ -15,12 +14,32 @@ import {
     Zap,
     Award,
     ChevronRight,
-    BarChart3,
     Users,
     Sparkles,
+    Medal,
+    Rocket,
+    Brain,
 } from "lucide-react";
 
-// Mock data - clean, professional gradients
+// User gamification data
+const userStats = {
+    xp: 2450,
+    xpToNextLevel: 3000,
+    level: 4,
+    levelName: "Practitioner",
+    streak: 5,
+    coursesCompleted: 24,
+    hoursLearned: 47,
+};
+
+// Recent achievements
+const achievements = [
+    { id: 1, title: "Quick Learner", description: "Complete 5 lessons in one day", icon: Zap, unlocked: true },
+    { id: 2, title: "Streak Master", description: "Maintain a 7-day streak", icon: Flame, unlocked: false, progress: 71 },
+    { id: 3, title: "Knowledge Seeker", description: "Complete 25 courses", icon: Brain, unlocked: false, progress: 96 },
+];
+
+// Continue learning courses
 const continuelearning = [
     {
         id: "safe-scrum-master",
@@ -30,6 +49,7 @@ const continuelearning = [
         nextLesson: "Facilitating PI Planning",
         thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
         duration: "35 min left",
+        xpReward: 150,
     },
     {
         id: "leadership-fundamentals",
@@ -39,9 +59,11 @@ const continuelearning = [
         nextLesson: "Emotional Intelligence",
         thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-500",
         duration: "2h 15min left",
+        xpReward: 200,
     },
 ];
 
+// Recommended courses
 const recommended = [
     {
         id: "hipaa-essentials",
@@ -72,39 +94,74 @@ const recommended = [
     },
 ];
 
+// Recent activity
 const recentActivity = [
-    {
-        type: "completed",
-        title: "Completed 'Introduction to AI'",
-        time: "2 hours ago",
-        icon: CheckCircle2,
-    },
-    {
-        type: "achievement",
-        title: "Earned 'Quick Learner' badge",
-        time: "Yesterday",
-        icon: Award,
-    },
-    {
-        type: "started",
-        title: "Started 'SAFe Scrum Master'",
-        time: "2 days ago",
-        icon: Play,
-    },
+    { type: "completed", title: "Completed 'Introduction to AI'", time: "2 hours ago", xp: 100 },
+    { type: "achievement", title: "Earned 'Quick Learner' badge", time: "Yesterday", xp: 50 },
+    { type: "started", title: "Started 'SAFe Scrum Master'", time: "2 days ago", xp: 25 },
 ];
 
 export default function DashboardPage() {
+    const xpProgress = (userStats.xp / userStats.xpToNextLevel) * 100;
+
     return (
         <div className="p-6 lg:p-8 max-w-7xl mx-auto">
-            {/* Welcome section - Clean & Professional */}
-            <div className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                <div>
-                    <h1 className="text-2xl font-semibold mb-1">Welcome back, John</h1>
-                    <p className="text-muted-foreground text-sm">
-                        You&apos;re on a 5-day streak. Keep it up.
-                    </p>
+            {/* Header with Level & XP */}
+            <div className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div className="flex items-center gap-6">
+                    {/* Level Badge */}
+                    <div className="relative">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/20">
+                            <span className="text-2xl font-bold text-primary">{userStats.level}</span>
+                        </div>
+                        {/* XP Progress Ring */}
+                        <svg className="absolute inset-0 -rotate-90" viewBox="0 0 64 64">
+                            <circle
+                                cx="32"
+                                cy="32"
+                                r="28"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="3"
+                                className="text-white/5"
+                            />
+                            <circle
+                                cx="32"
+                                cy="32"
+                                r="28"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="3"
+                                strokeDasharray={`${xpProgress * 1.76} 176`}
+                                strokeLinecap="round"
+                                className="text-primary transition-all duration-1000"
+                            />
+                        </svg>
+                    </div>
+                    <div>
+                        <div className="flex items-center gap-2 mb-1">
+                            <h1 className="text-2xl font-semibold">Welcome back, John</h1>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm">
+                            <span className="text-muted-foreground">
+                                <span className="text-foreground font-medium">{userStats.levelName}</span> • Level {userStats.level}
+                            </span>
+                            <span className="text-muted-foreground">
+                                <span className="text-primary font-medium">{userStats.xp.toLocaleString()}</span> / {userStats.xpToNextLevel.toLocaleString()} XP
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex items-center gap-3">
+
+                {/* Streak & Actions */}
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.02] border border-white/10">
+                        <Flame className="h-5 w-5 text-primary" />
+                        <div>
+                            <p className="text-lg font-bold">{userStats.streak}</p>
+                            <p className="text-xs text-muted-foreground">Day Streak</p>
+                        </div>
+                    </div>
                     <Button variant="outline" size="sm" className="gap-2">
                         <Calendar className="h-4 w-4" />
                         Schedule
@@ -116,12 +173,14 @@ export default function DashboardPage() {
                 </div>
             </div>
 
-            {/* Stats Grid - Clean Minimal */}
+            {/* Stats Row */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                 <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
                     <div className="flex items-center justify-between mb-3">
                         <BookOpen className="h-5 w-5 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">+3 this week</span>
+                        <span className="text-xs text-primary flex items-center gap-1">
+                            <TrendingUp className="h-3 w-3" /> +3
+                        </span>
                     </div>
                     <p className="text-2xl font-semibold">12</p>
                     <p className="text-sm text-muted-foreground">Active Courses</p>
@@ -130,32 +189,34 @@ export default function DashboardPage() {
                 <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
                     <div className="flex items-center justify-between mb-3">
                         <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">+5 this month</span>
+                        <span className="text-xs text-primary flex items-center gap-1">
+                            <TrendingUp className="h-3 w-3" /> +5
+                        </span>
                     </div>
-                    <p className="text-2xl font-semibold">24</p>
+                    <p className="text-2xl font-semibold">{userStats.coursesCompleted}</p>
                     <p className="text-sm text-muted-foreground">Completed</p>
                 </div>
 
                 <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
                     <div className="flex items-center justify-between mb-3">
-                        <Flame className="h-5 w-5 text-muted-foreground" />
-                        <span className="text-xs text-primary font-medium">Best streak</span>
+                        <Trophy className="h-5 w-5 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">3 new</span>
                     </div>
-                    <p className="text-2xl font-semibold">5</p>
-                    <p className="text-sm text-muted-foreground">Day Streak</p>
+                    <p className="text-2xl font-semibold">8</p>
+                    <p className="text-sm text-muted-foreground">Achievements</p>
                 </div>
 
                 <div className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
                     <div className="flex items-center justify-between mb-3">
                         <Clock className="h-5 w-5 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">This month</span>
+                        <span className="text-xs text-muted-foreground">this month</span>
                     </div>
-                    <p className="text-2xl font-semibold">47h</p>
+                    <p className="text-2xl font-semibold">{userStats.hoursLearned}h</p>
                     <p className="text-sm text-muted-foreground">Learning Time</p>
                 </div>
             </div>
 
-            {/* Main Content Grid */}
+            {/* Main Content */}
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Left Column */}
                 <div className="lg:col-span-2 space-y-10">
@@ -183,6 +244,9 @@ export default function DashboardPage() {
                                                             {course.title}
                                                         </h3>
                                                     </div>
+                                                    <div className="text-right">
+                                                        <span className="text-xs text-primary font-medium">+{course.xpReward} XP</span>
+                                                    </div>
                                                 </div>
                                                 <p className="text-sm text-muted-foreground mb-3">
                                                     Next: {course.nextLesson}
@@ -196,6 +260,48 @@ export default function DashboardPage() {
                                     </div>
                                 </Link>
                             ))}
+                        </div>
+                    </div>
+
+                    {/* Achievements Preview */}
+                    <div>
+                        <div className="flex items-center justify-between mb-5">
+                            <h2 className="text-lg font-semibold">Achievements</h2>
+                            <Link href="/achievements" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                                View all
+                            </Link>
+                        </div>
+                        <div className="grid sm:grid-cols-3 gap-4">
+                            {achievements.map((achievement) => {
+                                const Icon = achievement.icon;
+                                return (
+                                    <div
+                                        key={achievement.id}
+                                        className={`p-4 rounded-xl border transition-all ${achievement.unlocked
+                                                ? "bg-primary/5 border-primary/20"
+                                                : "bg-white/[0.02] border-white/10"
+                                            }`}
+                                    >
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${achievement.unlocked ? "bg-primary/20" : "bg-white/5"
+                                                }`}>
+                                                <Icon className={`h-5 w-5 ${achievement.unlocked ? "text-primary" : "text-muted-foreground"}`} />
+                                            </div>
+                                            {achievement.unlocked && (
+                                                <CheckCircle2 className="h-4 w-4 text-primary ml-auto" />
+                                            )}
+                                        </div>
+                                        <h4 className="font-medium text-sm mb-1">{achievement.title}</h4>
+                                        <p className="text-xs text-muted-foreground mb-2">{achievement.description}</p>
+                                        {!achievement.unlocked && achievement.progress && (
+                                            <div className="flex items-center gap-2">
+                                                <Progress value={achievement.progress} className="flex-1 h-1" />
+                                                <span className="text-xs text-muted-foreground">{achievement.progress}%</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -263,17 +369,17 @@ export default function DashboardPage() {
                         </div>
                     </div>
 
-                    {/* Recent Activity */}
+                    {/* XP Activity */}
                     <div>
-                        <h3 className="font-medium mb-4">Recent Activity</h3>
+                        <h3 className="font-medium mb-4">XP Activity</h3>
                         <div className="space-y-2">
                             {recentActivity.map((activity, i) => (
-                                <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                                    <activity.icon className="h-4 w-4 text-muted-foreground mt-0.5" />
+                                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-white/[0.02] border border-white/5">
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-sm">{activity.title}</p>
+                                        <p className="text-sm truncate">{activity.title}</p>
                                         <p className="text-xs text-muted-foreground">{activity.time}</p>
                                     </div>
+                                    <span className="text-sm text-primary font-medium">+{activity.xp}</span>
                                 </div>
                             ))}
                         </div>
@@ -285,7 +391,7 @@ export default function DashboardPage() {
                         <div className="space-y-2">
                             {[
                                 { icon: Target, label: "Set Goals" },
-                                { icon: Trophy, label: "Achievements" },
+                                { icon: Trophy, label: "Leaderboard" },
                                 { icon: Users, label: "Team Progress" },
                             ].map((action) => (
                                 <button

@@ -1,4 +1,5 @@
 import { Sidebar, TopBar } from "@/components/layout";
+import { CommandPalette } from "@/components/navigation/CommandPalette";
 
 export default function DashboardLayout({
     children,
@@ -12,6 +13,7 @@ export default function DashboardLayout({
                 <TopBar />
                 <main className="flex-1 overflow-y-auto">{children}</main>
             </div>
+            <CommandPalette />
         </div>
     );
 }

@@ -30,6 +30,7 @@ import { projectManagementContent, deiContent, softSkillsContent, technologyCont
 import { aiNativeContent, agenticAIContent, legacyModernizationContent } from "@/lib/content/ai-training-content";
 import { promptEngineeringContent, ragImplementationContent } from "@/lib/content/extended-ai-content";
 import { cybersecurityContent, changeManagementContent } from "@/lib/content/enterprise-content";
+import { AITutor } from "@/components/ai/AITutor";
 
 // Map module IDs to content
 const contentMap: Record<string, typeof safeScrumMasterContent> = {
@@ -358,6 +359,12 @@ export default function LessonPlayerPage() {
                     </div>
                 </div>
             </main>
+            {/* AI Tutor */}
+            <AITutor
+                lessonTitle={lesson.title}
+                lessonContent={lesson.content}
+                moduleId={moduleId}
+            />
         </div>
     );
 }
