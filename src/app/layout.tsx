@@ -18,32 +18,47 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZeroG AI Training | Context-Aware Training That Elevates Your Organization",
+  title: "ZeroG | AI-Powered Training for Modern Teams",
   description:
-    "Revolutionary AI-powered training platform that deeply understands your organization. Upload your content, and we'll create customized training that references your actual tools, workflows, and policies.",
+    "Generate custom training tailored to your organization. Transform your workforce with AI-native learning that adapts to your tech stack, workflows, and industry.",
   keywords: [
     "AI training",
     "corporate training",
     "LMS",
     "learning management system",
-    "interactive simulations",
-    "HIPAA training",
-    "compliance training",
+    "AI curriculum generator",
     "enterprise training",
+    "prompt engineering",
+    "workforce development",
   ],
-  authors: [{ name: "ZeroG AI" }],
+  authors: [{ name: "ZeroG" }],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/logo.png",
+  },
   openGraph: {
-    title: "ZeroG AI Training",
-    description: "Context-Aware Training That Elevates Your Organization",
+    title: "ZeroG | AI-Powered Training for Modern Teams",
+    description: "Generate custom training. Transform your workforce.",
     type: "website",
     locale: "en_US",
-    siteName: "ZeroG AI Training",
+    siteName: "ZeroG",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ZeroG - AI-Powered Training Platform",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZeroG AI Training",
-    description: "Context-Aware Training That Elevates Your Organization",
+    title: "ZeroG | AI-Powered Training for Modern Teams",
+    description: "Generate custom training. Transform your workforce.",
+    images: ["/og-image.png"],
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://zerog.ai"),
 };
 
 export default function RootLayout({
