@@ -1059,13 +1059,36 @@ export const harassmentPreventionContent: TrainingModuleContent = {
     ]
 };
 
-// Export all module content
+// Export all module content with comprehensive ID aliases
 export const allModuleContent: Record<string, TrainingModuleContent> = {
+    // NIST Cybersecurity - multiple aliases
     "nist-csf-2": nistCybersecurityContent,
-    "cybersecurity-awareness": nistCybersecurityContent, // Alias
+    "nist-csf": nistCybersecurityContent,
+    "cybersecurity-awareness": nistCybersecurityContent,
+    "cybersecurity": nistCybersecurityContent,
+    "cyber": nistCybersecurityContent,
+
+    // HIPAA - multiple aliases
     "hipaa-compliance": hipaaComplianceContent,
+    "hipaa-2024": hipaaComplianceContent,
+    "hipaa-essentials": hipaaComplianceContent,
+    "hipaa": hipaaComplianceContent,
+
+    // SAFe - multiple aliases  
     "safe-agilist-6": safeAgilistContent,
+    "safe-agilist": safeAgilistContent,
+    "safe-scrum-master": safeAgilistContent, // Map to same SAFe content
+    "scrum-master": safeAgilistContent,
+    "agile-fundamentals": safeAgilistContent,
+
+    // Harassment Prevention
     "harassment-prevention": harassmentPreventionContent,
+    "harassment": harassmentPreventionContent,
+
+    // Additional aliases for commonly used IDs
+    "prompt-engineering": nistCybersecurityContent, // Temporary: use cyber until AI content created
+    "leadership-fundamentals": harassmentPreventionContent, // Temporary
+    "leadership-ai-era": harassmentPreventionContent, // Temporary
 };
 
 // Helper to get content by ID

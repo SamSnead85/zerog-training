@@ -206,6 +206,216 @@ const cybersecurityModule: ModuleSection[] = [
     },
 ];
 
+// SAFe Agilist Module Content
+const safeAgilistModule: ModuleSection[] = [
+    {
+        id: "intro",
+        title: "Introduction to SAFe",
+        type: "reading",
+        content: {
+            heading: "Welcome to SAFe 6.0",
+            paragraphs: [
+                "The Scaled Agile Framework (SAFe) is the world's leading framework for scaling Agile across the enterprise. SAFe 6.0, released in March 2023, helps organizations achieve business agility through Lean-Agile principles and practices.",
+                "SAFe brings together proven practices from Lean, Agile, and DevOps to help organizations deliver value faster, with higher quality, and better alignment with business goals.",
+                "In this training, you'll learn the core principles of SAFe, how to run PI Planning events, and how to lead Agile Release Trains effectively.",
+            ],
+            keyPoints: [
+                "70% of Fortune 100 companies have SAFe practitioners",
+                "35% faster time-to-market with SAFe",
+                "50% increase in productivity",
+            ],
+        },
+    },
+    {
+        id: "core-values",
+        title: "SAFe Core Values",
+        type: "reading",
+        content: {
+            heading: "The Four Core Values",
+            paragraphs: [
+                "SAFe is built on four core values that guide all decision-making: Alignment, Built-in Quality, Transparency, and Program Execution.",
+                "Alignment ensures everyone is moving toward the same strategic goals. Built-in Quality means never compromising on quality. Transparency builds trust through visibility. Program Execution delivers value reliably.",
+            ],
+            keyPoints: [
+                "Alignment: Keep everyone moving toward the same goals",
+                "Built-in Quality: Never compromise on quality",
+                "Transparency: Trust through visibility",
+                "Program Execution: Deliver value reliably",
+            ],
+            tip: "Leaders must model these values. Your team watches what you do, not just what you say.",
+        },
+    },
+    {
+        id: "quiz-values",
+        title: "Knowledge Check: SAFe Values",
+        type: "quiz",
+        quiz: {
+            question: "Which of the following is NOT one of the four SAFe Core Values?",
+            options: [
+                "Alignment",
+                "Innovation",
+                "Transparency",
+                "Built-in Quality",
+            ],
+            correctIndex: 1,
+            explanation: "The four SAFe Core Values are Alignment, Built-in Quality, Transparency, and Program Execution. Innovation is part of the House of Lean but not a core value.",
+        },
+    },
+    {
+        id: "pi-planning",
+        title: "PI Planning",
+        type: "reading",
+        content: {
+            heading: "The Heartbeat of SAFe",
+            paragraphs: [
+                "PI Planning is a cadence-based, face-to-face event that serves as the heartbeat of the Agile Release Train. It aligns all teams to a shared mission and vision.",
+                "A Program Increment (PI) is typically 8-12 weeks during which an ART delivers incremental value. PI Planning brings 50-125 people together for 2 days to plan the entire PI.",
+                "Key outputs include committed PI Objectives, a Program Board showing dependencies, and a team confidence vote.",
+            ],
+            keyPoints: [
+                "PI Planning is a 2-day event with all ART members",
+                "Creates alignment across 5-12 Agile teams",
+                "Results in committed objectives and visualized dependencies",
+            ],
+            warning: "Never skip PI Planning. It builds alignment and trust that cannot be replicated asynchronously.",
+        },
+    },
+    {
+        id: "scenario-pi",
+        title: "Scenario: PI Planning Challenge",
+        type: "scenario",
+        scenario: {
+            situation: "You're an RTE facilitating PI Planning. On Day 1, two teams discover they have a major dependency that neither anticipated. The dependency could delay both teams' features by a full sprint.",
+            question: "What's the best way to handle this during PI Planning?",
+            options: [
+                "Tell the teams to figure it out later and continue with planning",
+                "Facilitate a discussion between the teams to create a solution and adjust objectives",
+                "Escalate immediately to Product Management for a decision",
+                "Cancel the features to avoid the dependency",
+            ],
+            correctIndex: 1,
+            feedback: "PI Planning is designed to surface and resolve dependencies. Facilitating real-time collaboration between teams is the heart of the event. This is exactly why we do face-to-face planning.",
+        },
+    },
+    {
+        id: "art-roles",
+        title: "Agile Release Train Roles",
+        type: "reading",
+        content: {
+            heading: "Key ART Roles",
+            paragraphs: [
+                "The Agile Release Train has several key roles that ensure smooth operation and value delivery.",
+                "The Release Train Engineer (RTE) is the servant leader and coach for the ART. Product Management owns the Program Backlog. The System Architect provides technical leadership. Business Owners evaluate fitness for use.",
+            ],
+            keyPoints: [
+                "RTE: Servant leader who facilitates ART events",
+                "Product Management: Owns vision and Program Backlog",
+                "System Architect: Technical leader for solution architecture",
+                "Business Owners: Key stakeholders who evaluate value",
+            ],
+            tip: "Think of the ART as a 'team of teams.' Individual team success is less important than overall ART success.",
+        },
+    },
+];
+
+// HIPAA Module Content  
+const hipaaModule: ModuleSection[] = [
+    {
+        id: "intro",
+        title: "Introduction to HIPAA",
+        type: "reading",
+        content: {
+            heading: "What is HIPAA?",
+            paragraphs: [
+                "The Health Insurance Portability and Accountability Act (HIPAA) of 1996 is a federal law that established national standards to protect sensitive patient health information from disclosure without consent or knowledge.",
+                "HIPAA applies to Covered Entities (health plans, healthcare clearinghouses, healthcare providers) and Business Associates who handle PHI on their behalf.",
+                "Violations can result in penalties ranging from $100 to $50,000 per violation, with criminal penalties including imprisonment up to 10 years.",
+            ],
+            keyPoints: [
+                "HIPAA is federal law - compliance is not optional",
+                "Applies to anyone who handles patient information",
+                "Individual employees can be held personally liable",
+            ],
+            warning: "Ignorance of HIPAA requirements is not a valid defense. If you can access patient information, HIPAA applies to you.",
+        },
+    },
+    {
+        id: "phi",
+        title: "Protected Health Information",
+        type: "reading",
+        content: {
+            heading: "Understanding PHI",
+            paragraphs: [
+                "Protected Health Information (PHI) is any individually identifiable health information created, received, maintained, or transmitted by a covered entity.",
+                "HIPAA defines 18 specific identifiers including names, dates, phone numbers, email addresses, Social Security numbers, and medical record numbers.",
+                "Health information + any identifier = PHI. If you can identify who the patient is, it's PHI.",
+            ],
+            keyPoints: [
+                "PHI = Health information + Identifier",
+                "18 identifiers defined by HIPAA",
+                "When in doubt, treat it as PHI",
+            ],
+        },
+    },
+    {
+        id: "quiz-phi",
+        title: "Knowledge Check: PHI",
+        type: "quiz",
+        quiz: {
+            question: "Which of the following is NOT one of the 18 HIPAA identifiers?",
+            options: [
+                "Social Security Number",
+                "Blood type",
+                "Email address",
+                "Vehicle serial number",
+            ],
+            correctIndex: 1,
+            explanation: "Blood type alone is not one of the 18 HIPAA identifiers. However, blood type combined with any identifier (like a name) becomes PHI.",
+        },
+    },
+    {
+        id: "minimum-necessary",
+        title: "Minimum Necessary Standard",
+        type: "reading",
+        content: {
+            heading: "Need-to-Know Principle",
+            paragraphs: [
+                "The Minimum Necessary standard requires that you only access, use, or disclose the minimum amount of PHI needed to accomplish the intended purpose.",
+                "If you need to verify a patient's appointment, you don't need to access their complete medical history. Access only what's required for the task.",
+            ],
+            tip: "Ask yourself: 'Do I need this information to do my job right now?' If not, don't access it.",
+            warning: "'Curiosity snooping' into patient records - even of friends or family - is a HIPAA violation that can result in termination and legal action.",
+        },
+    },
+];
+
+// Function to get module content by ID
+function getModuleSections(moduleId?: string): { sections: ModuleSection[]; title: string } {
+    if (!moduleId) {
+        return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
+    }
+
+    const id = moduleId.toLowerCase();
+
+    // SAFe/Agile related
+    if (id.includes("safe") || id.includes("scrum") || id.includes("agile") || id.includes("agilist")) {
+        return { sections: safeAgilistModule, title: "SAFe 6.0 Agilist Training" };
+    }
+
+    // HIPAA related
+    if (id.includes("hipaa")) {
+        return { sections: hipaaModule, title: "HIPAA Compliance Training" };
+    }
+
+    // Leadership (temporary: use HIPAA for workplace content)
+    if (id.includes("leadership") || id.includes("harassment")) {
+        return { sections: hipaaModule, title: "Leadership & Compliance Training" };
+    }
+
+    // Default to cybersecurity
+    return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
+}
+
 interface TrainingModuleViewerProps {
     moduleId?: string;
 }
@@ -217,7 +427,8 @@ export function TrainingModuleViewer({ moduleId }: TrainingModuleViewerProps) {
     const [showFeedback, setShowFeedback] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
 
-    const sections = cybersecurityModule;
+    // Use module-specific content based on the ID
+    const { sections, title: moduleTitle } = getModuleSections(moduleId);
     const currentSection = sections[currentSectionIndex];
     const progress = (completedSections.size / sections.length) * 100;
 
@@ -275,7 +486,7 @@ export function TrainingModuleViewer({ moduleId }: TrainingModuleViewerProps) {
                             </Button>
                         </Link>
                         <div>
-                            <h1 className="font-semibold">Cybersecurity Awareness Training</h1>
+                            <h1 className="font-semibold">{moduleTitle}</h1>
                             <p className="text-sm text-muted-foreground">
                                 Section {currentSectionIndex + 1} of {sections.length}
                             </p>
