@@ -1,10 +1,35 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button, Input, Card } from "@/components/ui";
-import { Rocket, ArrowLeft } from "lucide-react";
+import { Rocket, ArrowLeft, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        // Simulate login delay
+        await new Promise(r => setTimeout(r, 1000));
+
+        // Store user in localStorage for demo
+        localStorage.setItem("zerog_user", JSON.stringify({
+            email,
+            name: email.split("@")[0],
+            isLoggedIn: true,
+        }));
+
+        // Redirect to dashboard
+        router.push("/dashboard");
+    };
+
     return (
         <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
             {/* Background effects */}
@@ -39,16 +64,22 @@ export default function LoginPage() {
                         Sign in to your account to continue
                     </p>
 
-                    <form className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4">
                         <Input
                             label="Email"
                             type="email"
                             placeholder="john@company.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                         <Input
                             label="Password"
                             type="password"
                             placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
 
                         <div className="flex items-center justify-between text-sm">
@@ -61,10 +92,31 @@ export default function LoginPage() {
                             </Link>
                         </div>
 
-                        <Button className="w-full" size="lg">
-                            Sign in
+                        <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                    Signing in...
+                                </>
+                            ) : (
+                                "Sign in"
+                            )}
                         </Button>
                     </form>
+
+                    {/* Demo credentials */}
+                    <div className="mt-4 p-3 rounded-lg bg-muted text-center text-sm">
+                        <p className="text-muted-foreground mb-1">Demo: Use any email/password</p>
+                        <button
+                            onClick={() => {
+                                setEmail("demo@zerog.ai");
+                                setPassword("demo123");
+                            }}
+                            className="text-primary hover:underline"
+                        >
+                            Fill demo credentials
+                        </button>
+                    </div>
 
                     <div className="mt-6 pt-6 border-t border-border text-center text-sm text-muted-foreground">
                         Don&apos;t have an account?{" "}

@@ -1,14 +1,24 @@
 "use client";
 
+import { useState, Suspense } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Input, Card } from "@/components/ui";
-import { Rocket, ArrowLeft, Check } from "lucide-react";
-import { Suspense } from "react";
+import { Rocket, ArrowLeft, Check, Loader2 } from "lucide-react";
 
 function SignupForm() {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const plan = searchParams.get("plan") || "professional";
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        company: "",
+        password: "",
+    });
 
     const planDetails: Record<string, { name: string; price: string }> = {
         starter: { name: "Starter", price: "$29/user/month" },
@@ -17,6 +27,27 @@ function SignupForm() {
     };
 
     const selectedPlan = planDetails[plan] || planDetails.professional;
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        // Simulate signup delay
+        await new Promise(r => setTimeout(r, 1500));
+
+        // Store user in localStorage for demo
+        localStorage.setItem("zerog_user", JSON.stringify({
+            email: formData.email,
+            name: `${formData.firstName} ${formData.lastName}`,
+            company: formData.company,
+            plan: plan,
+            isLoggedIn: true,
+            trialStarted: new Date().toISOString(),
+        }));
+
+        // Redirect to dashboard
+        router.push("/dashboard");
+    };
 
     return (
         <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
@@ -52,28 +83,56 @@ function SignupForm() {
                         Get started with the {selectedPlan.name} plan. No credit card required.
                     </p>
 
-                    <form className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
-                            <Input label="First name" placeholder="John" />
-                            <Input label="Last name" placeholder="Doe" />
+                            <Input
+                                label="First name"
+                                placeholder="John"
+                                value={formData.firstName}
+                                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                                required
+                            />
+                            <Input
+                                label="Last name"
+                                placeholder="Doe"
+                                value={formData.lastName}
+                                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                                required
+                            />
                         </div>
                         <Input
                             label="Work email"
                             type="email"
                             placeholder="john@company.com"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            required
                         />
                         <Input
                             label="Company name"
                             placeholder="Acme Inc."
+                            value={formData.company}
+                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                            required
                         />
                         <Input
                             label="Password"
                             type="password"
                             placeholder="Create a password"
+                            value={formData.password}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            required
                         />
 
-                        <Button className="w-full" size="lg">
-                            Start 14-day free trial
+                        <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                    Creating account...
+                                </>
+                            ) : (
+                                "Start 14-day free trial"
+                            )}
                         </Button>
                     </form>
 
