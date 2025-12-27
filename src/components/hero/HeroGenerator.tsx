@@ -23,10 +23,18 @@ import {
     Plus,
     X,
     ChevronRight,
+    ChevronLeft,
+    Play,
+    Eye,
+    Edit3,
+    RotateCcw,
+    Lightbulb,
+    GraduationCap,
+    Award,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Step = "select" | "customize" | "generating" | "preview";
+type Step = "select" | "prompt" | "generating" | "preview" | "explore";
 
 interface PrebuiltModule {
     id: string;
@@ -35,25 +43,38 @@ interface PrebuiltModule {
     icon: React.ElementType;
     color: string;
     duration: string;
-    sections: number;
+}
+
+interface GeneratedSection {
+    title: string;
+    type: "reading" | "quiz" | "scenario";
+    duration: string;
+    preview: string;
 }
 
 interface GeneratedCourse {
     title: string;
     description: string;
     duration: string;
-    modules: { title: string; duration: string; topics: string[] }[];
+    sections: GeneratedSection[];
     audience: string;
-    customized: boolean;
+    difficulty: string;
 }
 
 const prebuiltModules: PrebuiltModule[] = [
-    { id: "cybersecurity", title: "Cybersecurity Awareness", description: "Phishing, passwords, data protection", icon: Shield, color: "text-blue-500", duration: "45 min", sections: 8 },
-    { id: "hipaa", title: "HIPAA Compliance", description: "Healthcare privacy & PHI handling", icon: Heart, color: "text-red-500", duration: "60 min", sections: 10 },
-    { id: "ai-tools", title: "AI Tools & Productivity", description: "ChatGPT, Copilot, prompting skills", icon: Brain, color: "text-emerald-500", duration: "35 min", sections: 6 },
-    { id: "leadership", title: "Leadership Fundamentals", description: "Team management & communication", icon: Target, color: "text-purple-500", duration: "90 min", sections: 12 },
-    { id: "data-privacy", title: "Data Privacy (GDPR/CCPA)", description: "Data protection regulations", icon: Scale, color: "text-amber-500", duration: "30 min", sections: 6 },
-    { id: "remote-work", title: "Remote Work Excellence", description: "Productivity & collaboration", icon: Laptop, color: "text-cyan-500", duration: "25 min", sections: 5 },
+    { id: "cybersecurity", title: "Cybersecurity Awareness", description: "Phishing, passwords, data protection", icon: Shield, color: "text-blue-500", duration: "45 min" },
+    { id: "hipaa", title: "HIPAA Compliance", description: "Healthcare privacy & PHI handling", icon: Heart, color: "text-red-500", duration: "60 min" },
+    { id: "ai-tools", title: "AI Tools & Productivity", description: "ChatGPT, Copilot, prompting skills", icon: Brain, color: "text-emerald-500", duration: "35 min" },
+    { id: "leadership", title: "Leadership Fundamentals", description: "Team management & communication", icon: Target, color: "text-purple-500", duration: "90 min" },
+];
+
+const generationStages = [
+    { label: "Analyzing your requirements", icon: Brain },
+    { label: "Loading industry standards", icon: Shield },
+    { label: "Building learning objectives", icon: Target },
+    { label: "Creating interactive content", icon: Lightbulb },
+    { label: "Generating assessments", icon: GraduationCap },
+    { label: "Finalizing module", icon: Award },
 ];
 
 export function HeroGenerator() {
@@ -62,7 +83,8 @@ export function HeroGenerator() {
     const [customPrompt, setCustomPrompt] = useState("");
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [generatedCourse, setGeneratedCourse] = useState<GeneratedCourse | null>(null);
-    const [isCustomMode, setIsCustomMode] = useState(false);
+    const [generationStage, setGenerationStage] = useState(0);
+    const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,51 +96,73 @@ export function HeroGenerator() {
 
     const handleSelectModule = (module: PrebuiltModule) => {
         setSelectedModule(module);
-        setStep("customize");
+        setStep("prompt");
     };
 
     const handleCustomMode = () => {
-        setIsCustomMode(true);
         setSelectedModule(null);
-        setStep("customize");
+        setStep("prompt");
     };
 
     const handleGenerate = async () => {
         setStep("generating");
+        setGenerationStage(0);
 
-        // Simulate generation
-        await new Promise((r) => setTimeout(r, 2500));
-
-        if (selectedModule) {
-            // Pre-built module with customization
-            setGeneratedCourse({
-                title: selectedModule.title,
-                description: `Customized ${selectedModule.description.toLowerCase()} training tailored to your organization.`,
-                duration: selectedModule.duration,
-                audience: "All employees",
-                customized: uploadedFiles.length > 0 || customPrompt.length > 0,
-                modules: [
-                    { title: "Introduction & Overview", duration: "10 min", topics: ["Why this matters", "Your organization's context"] },
-                    { title: "Core Concepts", duration: "20 min", topics: ["Key principles", "Industry standards", "Best practices"] },
-                    { title: "Practical Application", duration: "25 min", topics: ["Real scenarios", "Your policies", "Interactive exercises"] },
-                    { title: "Assessment & Certification", duration: "15 min", topics: ["Knowledge check", "Certificate of completion"] },
-                ],
-            });
-        } else {
-            // Custom training
-            setGeneratedCourse({
-                title: customPrompt || "Custom Training Module",
-                description: "Tailored training program based on your specific requirements and documentation.",
-                duration: "45 min",
-                audience: "All employees",
-                customized: true,
-                modules: [
-                    { title: "Foundations", duration: "15 min", topics: ["Core concepts", "Your context"] },
-                    { title: "Deep Dive", duration: "20 min", topics: ["Detailed content", "Best practices"] },
-                    { title: "Practice & Assessment", duration: "10 min", topics: ["Exercises", "Quiz"] },
-                ],
-            });
+        // Simulate generation with progress through stages
+        for (let i = 0; i < generationStages.length; i++) {
+            setGenerationStage(i);
+            await new Promise((r) => setTimeout(r, 600));
         }
+
+        // Generate course based on selection or custom prompt
+        const title = selectedModule?.title || customPrompt || "Custom Training Module";
+        setGeneratedCourse({
+            title,
+            description: selectedModule
+                ? `Comprehensive ${selectedModule.description.toLowerCase()} training customized for your organization.`
+                : `AI-generated training on "${customPrompt}" tailored to your specific requirements.`,
+            duration: selectedModule?.duration || "45 min",
+            audience: "All employees",
+            difficulty: "Beginner to Intermediate",
+            sections: [
+                {
+                    title: "Introduction & Why This Matters",
+                    type: "reading",
+                    duration: "8 min",
+                    preview: "Understanding the importance of this training and how it applies to your daily work. We'll cover the key concepts and set learning objectives."
+                },
+                {
+                    title: "Core Concepts & Best Practices",
+                    type: "reading",
+                    duration: "12 min",
+                    preview: "Deep dive into the fundamental principles and industry-standard practices. Learn the key terminology and frameworks used by professionals."
+                },
+                {
+                    title: "Knowledge Check",
+                    type: "quiz",
+                    duration: "5 min",
+                    preview: "Test your understanding with interactive questions. Immediate feedback helps reinforce learning."
+                },
+                {
+                    title: "Real-World Scenarios",
+                    type: "scenario",
+                    duration: "10 min",
+                    preview: "Apply what you've learned in realistic workplace situations. Make decisions and see the consequences of your choices."
+                },
+                {
+                    title: "Advanced Topics",
+                    type: "reading",
+                    duration: "8 min",
+                    preview: "Go deeper with advanced strategies and expert techniques. Stay ahead of emerging trends and challenges."
+                },
+                {
+                    title: "Final Assessment & Certification",
+                    type: "quiz",
+                    duration: "10 min",
+                    preview: "Comprehensive assessment to validate your learning. Earn your completion certificate upon passing."
+                },
+            ],
+        });
 
         setStep("preview");
     };
@@ -129,25 +173,24 @@ export function HeroGenerator() {
         setCustomPrompt("");
         setUploadedFiles([]);
         setGeneratedCourse(null);
-        setIsCustomMode(false);
+        setCurrentSectionIndex(0);
     };
 
     return (
         <div className="w-full max-w-2xl mx-auto">
-            {/* Step 1: Select Module */}
+            {/* Step 1: Select Module or Custom */}
             {step === "select" && (
                 <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6 backdrop-blur-xl">
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <Sparkles className="h-5 w-5 text-primary" />
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
+                            <Sparkles className="h-5 w-5 text-primary-foreground" />
                         </div>
                         <div>
-                            <h3 className="font-semibold">Try it free</h3>
-                            <p className="text-sm text-muted-foreground">Select a training or create your own</p>
+                            <h3 className="font-semibold">AI Training Studio</h3>
+                            <p className="text-sm text-muted-foreground">Create professional training in seconds</p>
                         </div>
                     </div>
 
-                    {/* Pre-built Modules Grid */}
                     <div className="grid grid-cols-2 gap-2 mb-4">
                         {prebuiltModules.map((module) => {
                             const Icon = module.icon;
@@ -159,19 +202,14 @@ export function HeroGenerator() {
                                 >
                                     <div className="flex items-center gap-2 mb-1">
                                         <Icon className={cn("h-4 w-4", module.color)} />
-                                        <span className="font-medium text-sm">{module.title}</span>
+                                        <span className="font-medium text-sm group-hover:text-primary transition-colors">{module.title}</span>
                                     </div>
                                     <p className="text-xs text-muted-foreground">{module.description}</p>
-                                    <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
-                                        <Clock className="h-3 w-3" />
-                                        {module.duration}
-                                    </div>
                                 </button>
                             );
                         })}
                     </div>
 
-                    {/* Custom Option */}
                     <button
                         onClick={handleCustomMode}
                         className="w-full p-4 rounded-xl border-2 border-dashed border-white/10 hover:border-primary/30 transition-all flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground"
@@ -181,66 +219,65 @@ export function HeroGenerator() {
                     </button>
 
                     <p className="text-center text-xs text-muted-foreground mt-4">
-                        No sign up required • Customize with your docs
+                        ✨ Powered by AI • No signup required
                     </p>
                 </div>
             )}
 
-            {/* Step 2: Customize */}
-            {step === "customize" && (
-                <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6 backdrop-blur-xl">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                            {selectedModule ? (
-                                <>
-                                    <div className={cn("w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center", selectedModule.color)}>
-                                        <selectedModule.icon className="h-5 w-5" />
+            {/* Step 2: AI Prompt Interface */}
+            {step === "prompt" && (
+                <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl">
+                    {/* Header */}
+                    <div className="p-4 border-b border-white/10 bg-white/[0.01]">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <button onClick={handleReset} className="text-muted-foreground hover:text-foreground">
+                                    <ChevronLeft className="h-5 w-5" />
+                                </button>
+                                {selectedModule ? (
+                                    <div className="flex items-center gap-2">
+                                        <selectedModule.icon className={cn("h-5 w-5", selectedModule.color)} />
+                                        <span className="font-medium">{selectedModule.title}</span>
                                     </div>
-                                    <div>
-                                        <h3 className="font-semibold">{selectedModule.title}</h3>
-                                        <p className="text-xs text-muted-foreground">Customize for your organization</p>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                ) : (
+                                    <div className="flex items-center gap-2">
                                         <Sparkles className="h-5 w-5 text-primary" />
+                                        <span className="font-medium">Custom Training</span>
                                     </div>
-                                    <div>
-                                        <h3 className="font-semibold">Custom Training</h3>
-                                        <p className="text-xs text-muted-foreground">Describe what you need</p>
-                                    </div>
-                                </>
-                            )}
+                                )}
+                            </div>
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                                AI Ready
+                            </div>
                         </div>
-                        <button onClick={handleReset} className="text-muted-foreground hover:text-foreground">
-                            <X className="h-5 w-5" />
-                        </button>
                     </div>
 
-                    <div className="space-y-4">
-                        {/* Custom prompt */}
-                        <div>
-                            <label className="block text-sm font-medium mb-2">
-                                {selectedModule ? "Additional requirements" : "What should this training cover?"}
-                                {selectedModule && <span className="text-muted-foreground"> (optional)</span>}
+                    {/* Prompt Area */}
+                    <div className="p-5">
+                        <div className="mb-4">
+                            <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                                <Brain className="h-4 w-4 text-primary" />
+                                {selectedModule ? "Customize with your context" : "What should this training cover?"}
                             </label>
                             <textarea
                                 value={customPrompt}
                                 onChange={(e) => setCustomPrompt(e.target.value)}
                                 placeholder={selectedModule
-                                    ? "e.g., Focus on our VPN policy, include IT contact info..."
-                                    : "e.g., Train our sales team on the new CRM system..."
+                                    ? "Example: Focus on our password policy (16+ chars, MFA required), include IT team contacts, add scenarios for remote workers..."
+                                    : "Example: Train our sales team on the new CRM system, including lead management, pipeline tracking, and reporting..."
                                 }
-                                rows={3}
-                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm resize-none"
+                                rows={4}
+                                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm resize-none placeholder:text-muted-foreground/60"
                             />
                         </div>
 
-                        {/* File upload */}
-                        <div>
-                            <label className="block text-sm font-medium mb-2">
-                                Upload your docs <span className="text-muted-foreground">(optional)</span>
+                        {/* File Upload */}
+                        <div className="mb-4">
+                            <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                                <FileText className="h-4 w-4 text-primary" />
+                                Add context documents
+                                <span className="text-muted-foreground font-normal">(optional)</span>
                             </label>
                             <input
                                 ref={fileInputRef}
@@ -252,12 +289,12 @@ export function HeroGenerator() {
                             />
                             <button
                                 onClick={() => fileInputRef.current?.click()}
-                                className="w-full h-20 rounded-xl border-2 border-dashed border-white/10 hover:border-white/20 transition-colors flex flex-col items-center justify-center gap-1 text-muted-foreground hover:text-foreground"
+                                className="w-full h-16 rounded-xl border border-dashed border-white/10 hover:border-primary/20 transition-colors flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground"
                             >
                                 {uploadedFiles.length > 0 ? (
                                     <>
                                         <FileText className="h-5 w-5 text-primary" />
-                                        <span className="text-sm">{uploadedFiles.length} file(s) selected</span>
+                                        <span className="text-sm">{uploadedFiles.length} file(s) ready</span>
                                     </>
                                 ) : (
                                     <>
@@ -268,117 +305,281 @@ export function HeroGenerator() {
                             </button>
                         </div>
 
-                        {/* What AI will do */}
-                        {(uploadedFiles.length > 0 || customPrompt) && (
-                            <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
-                                <p className="text-xs text-primary flex items-center gap-2">
-                                    <Sparkles className="h-4 w-4" />
-                                    AI will customize with your specific requirements
-                                </p>
+                        {/* AI Enhancement Indicator */}
+                        <div className="p-3 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/10 mb-4">
+                            <div className="flex items-start gap-2">
+                                <Sparkles className="h-4 w-4 text-primary mt-0.5" />
+                                <div className="text-xs">
+                                    <span className="font-medium text-primary">AI will generate:</span>
+                                    <span className="text-muted-foreground"> Interactive lessons, quizzes, real-world scenarios, and assessments tailored to your requirements.</span>
+                                </div>
                             </div>
-                        )}
+                        </div>
 
-                        {/* Generate */}
+                        {/* Generate Button */}
                         <Button
                             onClick={handleGenerate}
                             disabled={!selectedModule && !customPrompt.trim()}
                             size="lg"
-                            className="w-full h-12 font-semibold"
+                            className="w-full h-14 text-base font-semibold gap-2 bg-gradient-to-r from-primary to-primary/80"
                         >
                             <Zap className="h-5 w-5" />
-                            Generate Training
+                            Generate Training with AI
                             <ArrowRight className="h-5 w-5 ml-auto" />
                         </Button>
                     </div>
                 </div>
             )}
 
-            {/* Step 3: Generating */}
+            {/* Step 3: Generating with Progress */}
             {step === "generating" && (
-                <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-8 backdrop-blur-xl text-center">
-                    <div className="relative w-16 h-16 mx-auto mb-6">
-                        <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
-                        <div className="relative flex items-center justify-center w-full h-full rounded-full bg-primary/10">
-                            <Loader2 className="h-8 w-8 text-primary animate-spin" />
+                <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-8 backdrop-blur-xl">
+                    <div className="text-center mb-8">
+                        <div className="relative w-20 h-20 mx-auto mb-6">
+                            <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+                            <div className="relative flex items-center justify-center w-full h-full rounded-full bg-gradient-to-br from-primary to-primary/60">
+                                <Sparkles className="h-8 w-8 text-primary-foreground animate-pulse" />
+                            </div>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">Creating Your Training</h3>
+                        <p className="text-sm text-muted-foreground">
+                            AI is building an engaging learning experience...
+                        </p>
+                    </div>
+
+                    {/* Progress Steps */}
+                    <div className="space-y-3">
+                        {generationStages.map((stage, i) => {
+                            const Icon = stage.icon;
+                            const isComplete = i < generationStage;
+                            const isCurrent = i === generationStage;
+
+                            return (
+                                <div
+                                    key={i}
+                                    className={cn(
+                                        "flex items-center gap-3 p-3 rounded-lg transition-all",
+                                        isComplete && "bg-primary/5",
+                                        isCurrent && "bg-primary/10 border border-primary/20"
+                                    )}
+                                >
+                                    <div className={cn(
+                                        "w-8 h-8 rounded-lg flex items-center justify-center",
+                                        isComplete && "bg-primary/20 text-primary",
+                                        isCurrent && "bg-primary text-primary-foreground",
+                                        !isComplete && !isCurrent && "bg-muted text-muted-foreground"
+                                    )}>
+                                        {isComplete ? (
+                                            <CheckCircle2 className="h-4 w-4" />
+                                        ) : isCurrent ? (
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                        ) : (
+                                            <Icon className="h-4 w-4" />
+                                        )}
+                                    </div>
+                                    <span className={cn(
+                                        "text-sm",
+                                        (isComplete || isCurrent) ? "text-foreground" : "text-muted-foreground"
+                                    )}>
+                                        {stage.label}
+                                    </span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+
+            {/* Step 4: Preview Generated Course */}
+            {step === "preview" && generatedCourse && (
+                <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl">
+                    {/* Header */}
+                    <div className="p-5 border-b border-white/10 bg-gradient-to-r from-primary/10 to-transparent">
+                        <div className="flex items-center gap-2 mb-2">
+                            <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/20 text-emerald-400">
+                                ✓ Generated
+                            </span>
+                            <span className="px-2 py-0.5 rounded text-xs font-medium bg-primary/20 text-primary">
+                                AI Powered
+                            </span>
+                        </div>
+                        <h2 className="text-xl font-bold mb-1">{generatedCourse.title}</h2>
+                        <p className="text-sm text-muted-foreground">{generatedCourse.description}</p>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-3 gap-4 p-5 border-b border-white/10">
+                        <div className="text-center">
+                            <Clock className="h-5 w-5 mx-auto mb-1 text-muted-foreground" />
+                            <p className="text-sm font-semibold">{generatedCourse.duration}</p>
+                            <p className="text-xs text-muted-foreground">Duration</p>
+                        </div>
+                        <div className="text-center">
+                            <BookOpen className="h-5 w-5 mx-auto mb-1 text-muted-foreground" />
+                            <p className="text-sm font-semibold">{generatedCourse.sections.length}</p>
+                            <p className="text-xs text-muted-foreground">Sections</p>
+                        </div>
+                        <div className="text-center">
+                            <GraduationCap className="h-5 w-5 mx-auto mb-1 text-muted-foreground" />
+                            <p className="text-sm font-semibold">{generatedCourse.sections.filter(s => s.type === "quiz").length}</p>
+                            <p className="text-xs text-muted-foreground">Quizzes</p>
                         </div>
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">Creating your training...</h3>
-                    <div className="space-y-2 text-sm text-muted-foreground">
-                        <div className="flex items-center justify-center gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-primary" />
-                            Analyzing requirements
+
+                    {/* Sections List */}
+                    <div className="p-5">
+                        <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
+                            Course Structure
+                        </h3>
+                        <div className="space-y-2">
+                            {generatedCourse.sections.map((section, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => {
+                                        setCurrentSectionIndex(i);
+                                        setStep("explore");
+                                    }}
+                                    className="w-full flex items-center gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all text-left group"
+                                >
+                                    <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xs font-bold">
+                                        {i + 1}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-medium group-hover:text-primary transition-colors line-clamp-1">
+                                            {section.title}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                            <span className="capitalize">{section.type}</span>
+                                            <span>•</span>
+                                            <span>{section.duration}</span>
+                                        </div>
+                                    </div>
+                                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                                </button>
+                            ))}
                         </div>
-                        <div className="flex items-center justify-center gap-2">
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Building interactive content
+                    </div>
+
+                    {/* Actions */}
+                    <div className="p-5 border-t border-white/10 bg-muted/20">
+                        <div className="flex gap-3 mb-3">
+                            <Link href="/signup" className="flex-1">
+                                <Button className="w-full h-12 font-semibold gap-2">
+                                    <Users className="h-4 w-4" />
+                                    Deploy to Team
+                                </Button>
+                            </Link>
+                            <Button variant="outline" className="h-12 gap-2" onClick={() => setStep("explore")}>
+                                <Eye className="h-4 w-4" />
+                                Preview
+                            </Button>
+                        </div>
+                        <div className="flex justify-center gap-4 text-xs">
+                            <button onClick={() => setStep("prompt")} className="text-muted-foreground hover:text-foreground flex items-center gap-1">
+                                <Edit3 className="h-3 w-3" />
+                                Edit prompt
+                            </button>
+                            <button onClick={handleReset} className="text-muted-foreground hover:text-foreground flex items-center gap-1">
+                                <RotateCcw className="h-3 w-3" />
+                                Start over
+                            </button>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Step 4: Preview */}
-            {step === "preview" && generatedCourse && (
+            {/* Step 5: Explore Section Detail */}
+            {step === "explore" && generatedCourse && (
                 <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl">
-                    <div className="p-6 border-b border-white/10">
-                        <div className="flex items-center gap-2 mb-3">
-                            <span className="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">
-                                AI Generated
-                            </span>
-                            {generatedCourse.customized && (
-                                <span className="px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-500 text-xs font-medium">
-                                    Customized
-                                </span>
-                            )}
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2">{generatedCourse.title}</h3>
-                        <p className="text-sm text-muted-foreground">{generatedCourse.description}</p>
-
-                        <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1.5">
-                                <Clock className="h-4 w-4" />
-                                {generatedCourse.duration}
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                                <BookOpen className="h-4 w-4" />
-                                {generatedCourse.modules.length} modules
+                    {/* Navigation Header */}
+                    <div className="p-4 border-b border-white/10 bg-muted/20">
+                        <div className="flex items-center justify-between">
+                            <button
+                                onClick={() => setStep("preview")}
+                                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                            >
+                                <ChevronLeft className="h-4 w-4" />
+                                Back to overview
+                            </button>
+                            <span className="text-xs text-muted-foreground">
+                                Section {currentSectionIndex + 1} of {generatedCourse.sections.length}
                             </span>
                         </div>
                     </div>
 
+                    {/* Section Content */}
                     <div className="p-6">
-                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
-                            What's included
-                        </p>
-                        <div className="space-y-2">
-                            {generatedCourse.modules.map((module, i) => (
-                                <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02]">
-                                    <div className="w-6 h-6 rounded-md bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center">
-                                        {i + 1}
-                                    </div>
-                                    <div className="flex-1">
-                                        <p className="text-sm font-medium">{module.title}</p>
-                                    </div>
-                                    <span className="text-xs text-muted-foreground">{module.duration}</span>
-                                </div>
-                            ))}
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className={cn(
+                                "px-2 py-1 rounded text-xs font-medium",
+                                generatedCourse.sections[currentSectionIndex].type === "quiz" && "bg-purple-500/20 text-purple-400",
+                                generatedCourse.sections[currentSectionIndex].type === "reading" && "bg-blue-500/20 text-blue-400",
+                                generatedCourse.sections[currentSectionIndex].type === "scenario" && "bg-amber-500/20 text-amber-400"
+                            )}>
+                                {generatedCourse.sections[currentSectionIndex].type}
+                            </div>
+                            <span className="text-xs text-muted-foreground">
+                                {generatedCourse.sections[currentSectionIndex].duration}
+                            </span>
                         </div>
-                    </div>
 
-                    <div className="p-6 border-t border-white/10 bg-white/[0.01]">
-                        <div className="flex gap-3">
-                            <Link href="/signup" className="flex-1">
-                                <Button className="w-full h-12 font-semibold">
-                                    Deploy This Training
-                                    <ArrowRight className="h-4 w-4 ml-2" />
+                        <h2 className="text-lg font-bold mb-4">
+                            {generatedCourse.sections[currentSectionIndex].title}
+                        </h2>
+
+                        <div className="p-4 rounded-xl bg-muted/30 border border-white/5 mb-6">
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                                {generatedCourse.sections[currentSectionIndex].preview}
+                            </p>
+                        </div>
+
+                        <div className="p-3 rounded-lg bg-primary/5 border border-primary/10 text-center">
+                            <p className="text-xs text-muted-foreground mb-2">
+                                Full interactive content available after deployment
+                            </p>
+                            <Link href="/signup">
+                                <Button size="sm" className="gap-1">
+                                    <Play className="h-3 w-3" />
+                                    Start Free Trial
                                 </Button>
                             </Link>
-                            <Button variant="outline" onClick={handleReset} className="h-12">
-                                Try Another
-                            </Button>
                         </div>
-                        <p className="text-center text-xs text-muted-foreground mt-3">
-                            Sign up free to deploy and track learner progress
-                        </p>
+                    </div>
+
+                    {/* Section Navigation */}
+                    <div className="p-4 border-t border-white/10 flex items-center justify-between">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setCurrentSectionIndex(Math.max(0, currentSectionIndex - 1))}
+                            disabled={currentSectionIndex === 0}
+                            className="gap-1"
+                        >
+                            <ChevronLeft className="h-4 w-4" />
+                            Previous
+                        </Button>
+                        <div className="flex gap-1">
+                            {generatedCourse.sections.map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentSectionIndex(i)}
+                                    className={cn(
+                                        "w-2 h-2 rounded-full transition-all",
+                                        i === currentSectionIndex ? "bg-primary w-4" : "bg-muted hover:bg-muted-foreground"
+                                    )}
+                                />
+                            ))}
+                        </div>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setCurrentSectionIndex(Math.min(generatedCourse.sections.length - 1, currentSectionIndex + 1))}
+                            disabled={currentSectionIndex === generatedCourse.sections.length - 1}
+                            className="gap-1"
+                        >
+                            Next
+                            <ChevronRight className="h-4 w-4" />
+                        </Button>
                     </div>
                 </div>
             )}
