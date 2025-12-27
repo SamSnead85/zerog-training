@@ -82,20 +82,27 @@ export default function LandingPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
               </span>
-              <span className="text-sm font-medium text-primary">Now with AI-powered simulations</span>
+              <span className="text-sm font-medium text-primary">60+ Pre-built Courses • AI-Powered Customization</span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9]">
-              <span className="block text-foreground/90">Training that</span>
+              <span className="block text-foreground/90">Enterprise Training</span>
               <span className="block mt-3 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                actually works
+                in Minutes, Not Months
               </span>
             </h1>
 
             <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Transform your docs into engaging training.
-              <span className="text-foreground/70 block mt-1">No slides. No boring content. Just results.</span>
+              AI Training Studio transforms your policies and procedures into
+              <span className="text-foreground/70 block mt-1">engaging, interactive training your team will actually complete.</span>
             </p>
+
+            {/* AI Training Studio Label */}
+            <div className="mt-8 flex items-center justify-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              <span className="text-sm font-semibold text-foreground">Try AI Training Studio Free</span>
+              <span className="text-sm text-muted-foreground">— Create your first course in 60 seconds</span>
+            </div>
           </div>
 
           <div className="max-w-xl mx-auto">
