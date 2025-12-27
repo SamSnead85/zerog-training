@@ -206,7 +206,11 @@ const cybersecurityModule: ModuleSection[] = [
     },
 ];
 
-export function TrainingModuleViewer() {
+interface TrainingModuleViewerProps {
+    moduleId?: string;
+}
+
+export function TrainingModuleViewer({ moduleId }: TrainingModuleViewerProps) {
     const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
     const [completedSections, setCompletedSections] = useState<Set<string>>(new Set());
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
