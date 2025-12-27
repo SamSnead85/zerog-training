@@ -1059,7 +1059,564 @@ export const harassmentPreventionContent: TrainingModuleContent = {
     ]
 };
 
-// Export all module content with comprehensive ID aliases
+// ==================== AGENTIC AI & PROMPT ENGINEERING ====================
+export const agenticAIContent: TrainingModuleContent = {
+    id: "agentic-ai",
+    title: "Agentic AI & Prompt Engineering",
+    subtitle: "Building Autonomous AI Systems",
+    description: "Master the principles of agentic AI systems, multi-agent architectures, and advanced prompt engineering techniques. Learn to design, develop, and deploy AI agents that can reason, plan, and act independently.",
+    learningObjectives: [
+        "Understand the architecture of agentic AI systems",
+        "Design effective system prompts and persona definitions",
+        "Apply chain-of-thought, tree-of-thought, and ReAct patterns",
+        "Build multi-agent systems with tool use and memory",
+        "Evaluate and improve AI agent reliability"
+    ],
+    standards: ["NIST AI RMF", "IEEE 7000", "EU AI Act"],
+    sections: [
+        {
+            id: "ai-intro",
+            title: "Introduction to Agentic AI",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "What is Agentic AI?" },
+                { type: "definition", text: "Agentic AI: AI systems capable of autonomous decision-making, planning, and action-taking to achieve goals with minimal human intervention." },
+                { type: "paragraph", text: "Unlike traditional AI that responds to single prompts, agentic AI systems can break down complex goals, create plans, use tools, and iterate until objectives are achieved. They represent the next evolution in AI capabilities." },
+                { type: "heading", text: "Key Characteristics" },
+                {
+                    type: "list", items: [
+                        "Autonomy: Can operate independently without constant guidance",
+                        "Goal-Directed: Works toward defined objectives",
+                        "Tool Use: Can invoke APIs, databases, and external services",
+                        "Memory: Maintains context across interactions",
+                        "Reflection: Can evaluate and improve its own outputs"
+                    ]
+                },
+                { type: "keypoint", text: "By 2025, Gartner predicts 30% of enterprise AI applications will use agentic AI architectures, up from less than 1% in 2023." },
+                { type: "reference", text: "Gartner Emerging Tech Report 2024", source: "https://www.gartner.com/en/articles/what-is-agentic-ai" }
+            ]
+        },
+        {
+            id: "prompt-fundamentals",
+            title: "Prompt Engineering Fundamentals",
+            type: "reading",
+            duration: "12 min",
+            content: [
+                { type: "heading", text: "The Art of Prompting" },
+                { type: "paragraph", text: "Prompt engineering is the practice of designing inputs that elicit optimal outputs from large language models. It's a critical skill for building reliable AI applications." },
+                { type: "heading", text: "Core Prompt Components" },
+                {
+                    type: "list", items: [
+                        "System Prompt: Defines the AI's role, personality, and constraints",
+                        "Context: Background information the AI needs to respond appropriately",
+                        "Task/Instruction: The specific action you want the AI to perform",
+                        "Examples (Few-Shot): Sample input-output pairs for learning",
+                        "Output Format: Expected structure of the response"
+                    ]
+                },
+                { type: "heading", text: "The 6 Principles of Effective Prompts" },
+                {
+                    type: "list", items: [
+                        "1. Be Specific: Vague prompts get vague answers",
+                        "2. Provide Context: Give the AI the information it needs",
+                        "3. Define Format: Specify JSON, markdown, or structured output",
+                        "4. Use Examples: Show don't just tell (few-shot learning)",
+                        "5. Break Down Tasks: Complex tasks need step-by-step instructions",
+                        "6. Iterate: Refine prompts based on outputs"
+                    ]
+                },
+                { type: "tip", text: "Start with a clear persona: 'You are an expert [role] who specializes in [domain].' This primes the model for domain-specific responses." }
+            ]
+        },
+        {
+            id: "quiz-prompting",
+            title: "Knowledge Check: Prompt Design",
+            type: "quiz",
+            duration: "5 min",
+            content: []
+        },
+        {
+            id: "cot-reasoning",
+            title: "Chain-of-Thought Reasoning",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "Chain-of-Thought (CoT) Prompting" },
+                { type: "definition", text: "Chain-of-Thought: A prompting technique that encourages the AI to show its reasoning step-by-step before arriving at a conclusion." },
+                { type: "paragraph", text: "Research by Google and others shows that CoT prompting dramatically improves performance on complex reasoning tasks - from math problems to logical deduction." },
+                { type: "heading", text: "CoT Variations" },
+                {
+                    type: "list", items: [
+                        "Zero-Shot CoT: Add 'Let's think step by step' to any prompt",
+                        "Few-Shot CoT: Provide examples that demonstrate reasoning",
+                        "Self-Consistency: Generate multiple reasoning paths, take majority vote",
+                        "Tree-of-Thought: Explore multiple solution branches in parallel"
+                    ]
+                },
+                { type: "keypoint", text: "Adding 'Let's think step by step' to prompts improved accuracy on GSM8K math problems from 17.7% to 78.7% - a 4x improvement!" },
+                { type: "reference", text: "Chain-of-Thought Prompting Elicits Reasoning (Wei et al.)", source: "https://arxiv.org/abs/2201.11903" }
+            ]
+        },
+        {
+            id: "react-agents",
+            title: "ReAct: Reasoning + Acting",
+            type: "reading",
+            duration: "12 min",
+            content: [
+                { type: "heading", text: "The ReAct Pattern" },
+                { type: "paragraph", text: "ReAct (Reason + Act) is a paradigm that combines reasoning traces and task-specific actions in an interleaved manner. It allows AI agents to create plans, take actions, observe results, and adapt." },
+                { type: "heading", text: "ReAct Loop" },
+                {
+                    type: "list", items: [
+                        "Thought: The agent reasons about what to do next",
+                        "Action: The agent executes a tool or API call",
+                        "Observation: The agent processes the result",
+                        "Repeat: Continue until goal is achieved or max iterations"
+                    ]
+                },
+                { type: "heading", text: "Tool Definition Best Practices" },
+                {
+                    type: "list", items: [
+                        "Clear descriptions: Tell the AI exactly what each tool does",
+                        "Parameter schemas: Define required vs optional inputs",
+                        "Error handling: Specify what happens on failure",
+                        "Examples: Show when and how to use each tool"
+                    ]
+                },
+                { type: "warning", text: "Always implement guardrails: limit iterations, validate inputs, and have human-in-the-loop escalation for high-stakes actions." }
+            ]
+        },
+        {
+            id: "scenario-agent",
+            title: "Scenario: Designing an AI Agent",
+            type: "scenario",
+            duration: "8 min",
+            content: [
+                { type: "heading", text: "Agent Design Challenge" },
+                { type: "paragraph", text: "You're tasked with designing an AI agent to help customer service representatives. The agent should be able to look up order status, process refunds, and escalate to human supervisors when needed." }
+            ]
+        }
+    ],
+    finalAssessment: [
+        {
+            id: "aq1",
+            question: "What is the key difference between traditional AI and agentic AI?",
+            options: [
+                "Agentic AI uses larger language models",
+                "Agentic AI can autonomously plan, act, and iterate toward goals",
+                "Agentic AI requires more training data",
+                "Agentic AI only works with structured data"
+            ],
+            correctIndex: 1,
+            explanation: "Agentic AI is distinguished by its ability to autonomously break down goals, create plans, use tools, and iterate - operating with minimal human intervention."
+        },
+        {
+            id: "aq2",
+            question: "What technique improved math problem accuracy from 17.7% to 78.7%?",
+            options: [
+                "Fine-tuning",
+                "Larger context windows",
+                "Chain-of-Thought prompting",
+                "Reinforcement learning"
+            ],
+            correctIndex: 2,
+            explanation: "Adding 'Let's think step by step' (zero-shot CoT) to prompts dramatically improved reasoning performance on the GSM8K benchmark."
+        }
+    ]
+};
+
+// ==================== DATA PRIVACY & GDPR ====================
+export const dataPrivacyContent: TrainingModuleContent = {
+    id: "data-privacy",
+    title: "Data Privacy & GDPR Compliance",
+    subtitle: "Protecting Personal Information Globally",
+    description: "Comprehensive training on global data privacy regulations including GDPR, CCPA, and emerging privacy frameworks. Learn to handle personal data responsibly and ensure compliance.",
+    learningObjectives: [
+        "Understand key data privacy regulations (GDPR, CCPA, LGPD)",
+        "Identify personal data and sensitive personal data",
+        "Apply data minimization and purpose limitation principles",
+        "Handle data subject rights requests",
+        "Implement privacy by design in processes"
+    ],
+    standards: ["GDPR", "CCPA", "LGPD", "Privacy Shield"],
+    sections: [
+        {
+            id: "privacy-intro",
+            title: "The Global Privacy Landscape",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "Why Privacy Matters" },
+                { type: "paragraph", text: "Data privacy has become a fundamental right in the digital age. With major regulations like GDPR, CCPA, and LGPD, organizations must protect personal data or face significant penalties and reputational damage." },
+                { type: "heading", text: "Major Privacy Regulations" },
+                {
+                    type: "list", items: [
+                        "GDPR (EU): Up to €20 million or 4% of global revenue in fines",
+                        "CCPA/CPRA (California): Up to $7,500 per intentional violation",
+                        "LGPD (Brazil): Up to 2% of revenue, capped at R$50 million",
+                        "PIPL (China): Up to ¥50 million or 5% of annual revenue"
+                    ]
+                },
+                { type: "keypoint", text: "GDPR fines have exceeded €4 billion since 2018. Meta alone received a €1.2 billion fine in 2023 for data transfer violations." },
+                { type: "reference", text: "GDPR Enforcement Tracker", source: "https://www.enforcementtracker.com/" }
+            ]
+        },
+        {
+            id: "personal-data",
+            title: "What is Personal Data?",
+            type: "reading",
+            duration: "8 min",
+            content: [
+                { type: "heading", text: "Defining Personal Data" },
+                { type: "definition", text: "Personal Data: Any information relating to an identified or identifiable natural person (data subject)." },
+                { type: "heading", text: "Categories of Personal Data" },
+                {
+                    type: "list", items: [
+                        "Direct Identifiers: Name, email, phone, SSN, passport number",
+                        "Indirect Identifiers: IP address, cookies, device IDs, location data",
+                        "Sensitive Data: Race, religion, health, biometrics, sexual orientation, political views",
+                        "Pseudonymized Data: Still personal data under GDPR if re-identification is possible"
+                    ]
+                },
+                { type: "warning", text: "Even data you think is 'anonymous' may be personal data if it can be combined with other data to identify someone." }
+            ]
+        },
+        {
+            id: "gdpr-principles",
+            title: "GDPR Core Principles",
+            type: "reading",
+            duration: "12 min",
+            content: [
+                { type: "heading", text: "The 7 GDPR Principles" },
+                {
+                    type: "list", items: [
+                        "1. Lawfulness, Fairness, Transparency: Process data legally and openly",
+                        "2. Purpose Limitation: Collect only for specific, legitimate purposes",
+                        "3. Data Minimization: Collect only what's necessary",
+                        "4. Accuracy: Keep data accurate and up-to-date",
+                        "5. Storage Limitation: Don't keep data longer than needed",
+                        "6. Integrity & Confidentiality: Protect data with appropriate security",
+                        "7. Accountability: Demonstrate compliance"
+                    ]
+                },
+                { type: "heading", text: "Lawful Bases for Processing" },
+                {
+                    type: "list", items: [
+                        "Consent: Clear, affirmative opt-in (not pre-checked boxes)",
+                        "Contract: Necessary to fulfill a contract with the data subject",
+                        "Legal Obligation: Required by law",
+                        "Vital Interests: Protecting someone's life",
+                        "Public Task: Necessary for official government functions",
+                        "Legitimate Interests: Balanced against data subject rights"
+                    ]
+                },
+                { type: "tip", text: "Consent should be your last resort, not first choice. It can be withdrawn at any time, creating operational complexity." }
+            ]
+        },
+        {
+            id: "quiz-gdpr",
+            title: "Knowledge Check: GDPR",
+            type: "quiz",
+            duration: "5 min",
+            content: []
+        },
+        {
+            id: "data-subject-rights",
+            title: "Data Subject Rights",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "Individual Rights Under GDPR" },
+                {
+                    type: "list", items: [
+                        "Right to Access: Obtain confirmation and copy of their data",
+                        "Right to Rectification: Correct inaccurate data",
+                        "Right to Erasure: 'Right to be forgotten' in certain circumstances",
+                        "Right to Restrict Processing: Limit how data is used",
+                        "Right to Data Portability: Receive data in machine-readable format",
+                        "Right to Object: Object to processing based on legitimate interests",
+                        "Rights Related to Automated Decision-Making: Human review of AI decisions"
+                    ]
+                },
+                { type: "heading", text: "Response Requirements" },
+                { type: "paragraph", text: "Organizations must respond to valid requests within 30 days (extendable by 60 days for complex requests). Failure to respond can result in complaints to data protection authorities." },
+                { type: "keypoint", text: "You must verify the identity of requesters before disclosing personal data. Sending data to the wrong person is itself a data breach." }
+            ]
+        }
+    ],
+    finalAssessment: [
+        {
+            id: "pq1",
+            question: "What is the maximum GDPR fine for serious violations?",
+            options: [
+                "€1 million or 1% of global revenue",
+                "€10 million or 2% of global revenue",
+                "€20 million or 4% of global revenue",
+                "€50 million or 10% of global revenue"
+            ],
+            correctIndex: 2,
+            explanation: "The maximum GDPR fine is €20 million or 4% of total worldwide annual turnover, whichever is higher."
+        },
+        {
+            id: "pq2",
+            question: "Within how many days must you respond to a data subject access request?",
+            options: [
+                "14 days",
+                "30 days",
+                "60 days",
+                "90 days"
+            ],
+            correctIndex: 1,
+            explanation: "Organizations must respond to DSARs within 30 days, with a possible extension of 60 additional days for complex cases."
+        }
+    ]
+};
+
+// ==================== OSHA WORKPLACE SAFETY ====================
+export const oshaWorkplaceSafetyContent: TrainingModuleContent = {
+    id: "osha-safety",
+    title: "OSHA Workplace Safety",
+    subtitle: "Creating a Safe Work Environment",
+    description: "Comprehensive OSHA safety training covering hazard recognition, emergency procedures, PPE requirements, and regulatory compliance for general industry.",
+    learningObjectives: [
+        "Recognize common workplace hazards",
+        "Understand OSHA rights and responsibilities",
+        "Properly use Personal Protective Equipment (PPE)",
+        "Follow emergency and evacuation procedures",
+        "Report safety concerns through proper channels"
+    ],
+    standards: ["OSHA 29 CFR 1910", "OSHA 29 CFR 1926", "NFPA"],
+    sections: [
+        {
+            id: "osha-intro",
+            title: "Introduction to OSHA",
+            type: "reading",
+            duration: "8 min",
+            content: [
+                { type: "heading", text: "What is OSHA?" },
+                { type: "definition", text: "OSHA: The Occupational Safety and Health Administration, a federal agency that sets and enforces workplace safety standards." },
+                { type: "paragraph", text: "OSHA was created by the Occupational Safety and Health Act of 1970 to ensure safe and healthful working conditions. Since then, workplace fatalities have declined by over 60%." },
+                { type: "heading", text: "Your Rights Under OSHA" },
+                {
+                    type: "list", items: [
+                        "Right to a safe workplace free from recognized hazards",
+                        "Right to receive safety training in a language you understand",
+                        "Right to review records of work-related injuries and illnesses",
+                        "Right to file a complaint with OSHA without retaliation",
+                        "Right to participate in OSHA inspections"
+                    ]
+                },
+                { type: "keypoint", text: "OSHA covers most private sector workers. Penalties for serious violations can exceed $15,000 per violation, with willful violations up to $156,000." },
+                { type: "reference", text: "OSHA Workers' Rights", source: "https://www.osha.gov/workers" }
+            ]
+        },
+        {
+            id: "hazard-recognition",
+            title: "Hazard Recognition",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "Types of Workplace Hazards" },
+                {
+                    type: "list", items: [
+                        "Safety Hazards: Slips, trips, falls, machinery, electrical",
+                        "Chemical Hazards: Toxic substances, flammables, corrosives",
+                        "Biological Hazards: Bacteria, viruses, mold, bloodborne pathogens",
+                        "Physical Hazards: Noise, radiation, extreme temperatures",
+                        "Ergonomic Hazards: Repetitive motion, improper lifting, workstation design",
+                        "Psychosocial Hazards: Stress, violence, harassment"
+                    ]
+                },
+                { type: "heading", text: "The Fatal Four" },
+                { type: "paragraph", text: "OSHA's 'Fatal Four' are the leading causes of construction worker deaths:" },
+                {
+                    type: "list", items: [
+                        "Falls (33.5% of deaths): Use fall protection, guardrails, safety nets",
+                        "Struck by Object (11.1%): Wear hard hats, secure tools and materials",
+                        "Electrocution (8.5%): Follow lockout/tagout, maintain safe distances",
+                        "Caught-in/between (5.5%): Machine guarding, trenching protection"
+                    ]
+                },
+                { type: "warning", text: "Eliminating the Fatal Four would save over 500 lives every year in the United States." }
+            ]
+        },
+        {
+            id: "ppe",
+            title: "Personal Protective Equipment",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "PPE Requirements" },
+                { type: "paragraph", text: "Personal Protective Equipment (PPE) is the last line of defense after engineering and administrative controls. Employers must provide appropriate PPE at no cost." },
+                { type: "heading", text: "Types of PPE" },
+                {
+                    type: "list", items: [
+                        "Head Protection: Hard hats, bump caps",
+                        "Eye/Face Protection: Safety glasses, goggles, face shields",
+                        "Hearing Protection: Earplugs, earmuffs (required at 85+ dB)",
+                        "Respiratory Protection: N95 masks, half-face/full-face respirators",
+                        "Hand Protection: Gloves appropriate for the hazard",
+                        "Foot Protection: Safety shoes, steel-toed boots",
+                        "Body Protection: High-visibility vests, flame-resistant clothing"
+                    ]
+                },
+                { type: "heading", text: "PPE Best Practices" },
+                {
+                    type: "list", items: [
+                        "Inspect PPE before each use",
+                        "Ensure proper fit (one size does not fit all)",
+                        "Replace damaged or worn PPE immediately",
+                        "Clean and store PPE properly",
+                        "Never modify or alter PPE"
+                    ]
+                },
+                { type: "tip", text: "PPE only works if you wear it correctly, every time. A hard hat on the shelf provides zero protection." }
+            ]
+        },
+        {
+            id: "quiz-safety",
+            title: "Knowledge Check: Safety",
+            type: "quiz",
+            duration: "5 min",
+            content: []
+        }
+    ],
+    finalAssessment: [
+        {
+            id: "sq1",
+            question: "Which of the following is NOT one of OSHA's Fatal Four?",
+            options: [
+                "Falls",
+                "Struck by Object",
+                "Heat Stroke",
+                "Electrocution"
+            ],
+            correctIndex: 2,
+            explanation: "The Fatal Four are Falls, Struck by Object, Electrocution, and Caught-in/between. Heat stroke, while serious, is not one of the four leading causes."
+        },
+        {
+            id: "sq2",
+            question: "At what decibel level does OSHA require hearing protection?",
+            options: [
+                "70 dB",
+                "80 dB",
+                "85 dB",
+                "90 dB"
+            ],
+            correctIndex: 2,
+            explanation: "OSHA requires hearing protection when employees are exposed to 85 decibels or higher averaged over an 8-hour workday."
+        }
+    ]
+};
+
+// ==================== LEADERSHIP IN THE AI ERA ====================
+export const leadershipAIContent: TrainingModuleContent = {
+    id: "leadership-ai",
+    title: "Leadership in the AI Era",
+    subtitle: "Leading Teams Through AI Transformation",
+    description: "Essential leadership skills for the AI age. Learn to guide your team through technological change, build AI-first cultures, and make strategic decisions about AI adoption.",
+    learningObjectives: [
+        "Understand the strategic implications of AI for your organization",
+        "Build psychological safety during times of technological change",
+        "Make informed decisions about AI tool adoption",
+        "Foster continuous learning and adaptation",
+        "Lead by example in ethical AI use"
+    ],
+    standards: ["IEEE 7000", "World Economic Forum AI Leadership Framework"],
+    sections: [
+        {
+            id: "leader-intro",
+            title: "The AI Leadership Imperative",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "Leading in Times of Change" },
+                { type: "paragraph", text: "AI is transforming every industry at an unprecedented pace. As a leader, your role is not just to adopt AI tools, but to guide your team through the uncertainty and opportunity that comes with this transformation." },
+                { type: "heading", text: "The Leadership Challenge" },
+                {
+                    type: "list", items: [
+                        "62% of employees worry AI will eliminate their jobs",
+                        "78% of executives believe AI is critical to success within 3 years",
+                        "Only 20% of organizations have clear AI strategies",
+                        "Leaders must bridge the gap between fear and opportunity"
+                    ]
+                },
+                { type: "keypoint", text: "The best AI leaders don't just implement technology - they build cultures where humans and AI amplify each other." },
+                { type: "reference", text: "McKinsey: The State of AI in 2024", source: "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" }
+            ]
+        },
+        {
+            id: "psychological-safety",
+            title: "Building Psychological Safety",
+            type: "reading",
+            duration: "12 min",
+            content: [
+                { type: "heading", text: "Why Safety Matters More Than Ever" },
+                { type: "definition", text: "Psychological Safety: A shared belief that the team is safe for interpersonal risk-taking." },
+                { type: "paragraph", text: "In times of rapid change, psychological safety becomes critical. Team members need to feel safe to experiment with new tools, admit what they don't know, and share concerns about AI without fear of judgment." },
+                { type: "heading", text: "Building Safety During AI Adoption" },
+                {
+                    type: "list", items: [
+                        "Acknowledge uncertainty: No one has all the answers about AI",
+                        "Frame AI as augmentation, not replacement",
+                        "Celebrate learning and experimentation, even failures",
+                        "Create safe spaces to discuss concerns about AI",
+                        "Model vulnerability: Share your own AI learning journey"
+                    ]
+                },
+                { type: "tip", text: "Ask your team: 'What would you try if you knew you couldn't fail?' This opens space for innovation." }
+            ]
+        },
+        {
+            id: "strategic-decisions",
+            title: "Strategic AI Decision-Making",
+            type: "reading",
+            duration: "10 min",
+            content: [
+                { type: "heading", text: "When to Adopt AI" },
+                { type: "paragraph", text: "Not every process needs AI. Leaders must evaluate opportunities based on value, feasibility, and risk." },
+                { type: "heading", text: "The AI Adoption Framework" },
+                {
+                    type: "list", items: [
+                        "Value: Does this solve a real business problem?",
+                        "Data: Do we have quality data to support this use case?",
+                        "Risk: What are the consequences of errors?",
+                        "People: Do we have the skills to implement and maintain?",
+                        "Ethics: Does this align with our values?"
+                    ]
+                },
+                { type: "heading", text: "Red Flags for AI Projects" },
+                {
+                    type: "list", items: [
+                        "Technology looking for a problem",
+                        "No clear success metrics",
+                        "Insufficient or biased training data",
+                        "High-stakes decisions with no human oversight",
+                        "No plan for monitoring and maintenance"
+                    ]
+                },
+                { type: "warning", text: "The cost of a failed AI project isn't just money - it's trust. Choose high-impact, lower-risk projects to build momentum." }
+            ]
+        }
+    ],
+    finalAssessment: [
+        {
+            id: "lq1",
+            question: "What percentage of employees worry AI will eliminate their jobs?",
+            options: [
+                "32%",
+                "47%",
+                "62%",
+                "85%"
+            ],
+            correctIndex: 2,
+            explanation: "62% of employees express concern about AI eliminating their jobs, making psychological safety and clear communication critical leadership skills."
+        }
+    ]
+};
+
+// Update the content lookup with new modules
 export const allModuleContent: Record<string, TrainingModuleContent> = {
     // NIST Cybersecurity - multiple aliases
     "nist-csf-2": nistCybersecurityContent,
@@ -1077,7 +1634,7 @@ export const allModuleContent: Record<string, TrainingModuleContent> = {
     // SAFe - multiple aliases  
     "safe-agilist-6": safeAgilistContent,
     "safe-agilist": safeAgilistContent,
-    "safe-scrum-master": safeAgilistContent, // Map to same SAFe content
+    "safe-scrum-master": safeAgilistContent,
     "scrum-master": safeAgilistContent,
     "agile-fundamentals": safeAgilistContent,
 
@@ -1085,10 +1642,28 @@ export const allModuleContent: Record<string, TrainingModuleContent> = {
     "harassment-prevention": harassmentPreventionContent,
     "harassment": harassmentPreventionContent,
 
-    // Additional aliases for commonly used IDs
-    "prompt-engineering": nistCybersecurityContent, // Temporary: use cyber until AI content created
-    "leadership-fundamentals": harassmentPreventionContent, // Temporary
-    "leadership-ai-era": harassmentPreventionContent, // Temporary
+    // Agentic AI & Prompt Engineering
+    "agentic-ai": agenticAIContent,
+    "prompt-engineering": agenticAIContent,
+    "ai-fundamentals": agenticAIContent,
+    "ai-agents": agenticAIContent,
+
+    // Data Privacy & GDPR
+    "data-privacy": dataPrivacyContent,
+    "gdpr": dataPrivacyContent,
+    "ccpa": dataPrivacyContent,
+    "privacy-fundamentals": dataPrivacyContent,
+
+    // OSHA Workplace Safety
+    "osha-safety": oshaWorkplaceSafetyContent,
+    "workplace-safety": oshaWorkplaceSafetyContent,
+    "safety-fundamentals": oshaWorkplaceSafetyContent,
+
+    // Leadership
+    "leadership-ai-era": leadershipAIContent,
+    "leadership-fundamentals": leadershipAIContent,
+    "leadership-ai": leadershipAIContent,
+    "ai-leadership": leadershipAIContent,
 };
 
 // Helper to get content by ID
