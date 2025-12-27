@@ -1,9 +1,5 @@
-import { EnhancedTrainingGeneratorV2 } from "@/components/generator/EnhancedTrainingGenerator";
+import { AITrainingStudio } from "@/components/studio/AITrainingStudio";
 
 export default function CreateTrainingPage() {
-    return (
-        <div className="p-6 lg:p-8">
-            <EnhancedTrainingGeneratorV2 />
-        </div>
-    );
+    return <AITrainingStudio />;
 }
