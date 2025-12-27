@@ -72,7 +72,7 @@ const learningPaths: LearningPath[] = [
         progress: 28,
         certificateOnCompletion: true,
         icon: Brain,
-        gradient: "from-violet-600/30 via-purple-600/20 to-fuchsia-600/10",
+        gradient: "from-slate-700/40 via-slate-600/25 to-slate-500/10",
         enrollments: 15400,
         rating: 4.9,
         courses: [
@@ -96,7 +96,7 @@ const learningPaths: LearningPath[] = [
         progress: 45,
         certificateOnCompletion: true,
         icon: TrendingUp,
-        gradient: "from-amber-600/30 via-orange-600/20 to-yellow-600/10",
+        gradient: "from-stone-700/40 via-stone-600/25 to-stone-500/10",
         enrollments: 28500,
         rating: 4.8,
         courses: [
@@ -118,7 +118,7 @@ const learningPaths: LearningPath[] = [
         progress: 0,
         certificateOnCompletion: true,
         icon: Workflow,
-        gradient: "from-blue-600/30 via-cyan-600/20 to-sky-600/10",
+        gradient: "from-slate-600/40 via-zinc-600/25 to-slate-500/10",
         enrollments: 42000,
         rating: 4.9,
         courses: [
@@ -140,7 +140,7 @@ const learningPaths: LearningPath[] = [
         progress: 100,
         certificateOnCompletion: true,
         icon: Shield,
-        gradient: "from-emerald-600/30 via-green-600/20 to-teal-600/10",
+        gradient: "from-zinc-700/40 via-slate-600/25 to-zinc-500/10",
         enrollments: 65000,
         rating: 4.7,
         courses: [
@@ -163,7 +163,7 @@ const learningPaths: LearningPath[] = [
         progress: 0,
         certificateOnCompletion: true,
         icon: Heart,
-        gradient: "from-red-600/30 via-rose-600/20 to-pink-600/10",
+        gradient: "from-slate-700/40 via-zinc-600/25 to-slate-500/10",
         enrollments: 38000,
         rating: 4.8,
         courses: [

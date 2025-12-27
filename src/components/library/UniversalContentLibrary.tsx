@@ -35,12 +35,12 @@ interface Category {
 }
 
 const categories: Category[] = [
-    { id: "ai-tech", name: "AI & Technology", icon: Brain, color: "text-purple-500" },
-    { id: "agile-safe", name: "Agile & SAFe", icon: Workflow, color: "text-blue-500" },
-    { id: "compliance", name: "Compliance & Security", icon: Shield, color: "text-emerald-500" },
-    { id: "leadership", name: "Leadership", icon: Briefcase, color: "text-amber-500" },
-    { id: "healthcare", name: "Healthcare", icon: Heart, color: "text-red-500" },
-    { id: "onboarding", name: "Onboarding & HR", icon: GraduationCap, color: "text-cyan-500" },
+    { id: "ai-tech", name: "AI & Technology", icon: Brain, color: "text-slate-400" },
+    { id: "agile-safe", name: "Agile & SAFe", icon: Workflow, color: "text-zinc-400" },
+    { id: "compliance", name: "Compliance & Security", icon: Shield, color: "text-slate-500" },
+    { id: "leadership", name: "Leadership", icon: Briefcase, color: "text-stone-400" },
+    { id: "healthcare", name: "Healthcare", icon: Heart, color: "text-zinc-400" },
+    { id: "onboarding", name: "Onboarding & HR", icon: GraduationCap, color: "text-slate-400" },
 ];
 
 // Extended course data with Netflix-style metadata

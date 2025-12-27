@@ -25,13 +25,13 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Category gradients matching netflix-cards
+// Category gradients - Professional, muted enterprise tones
 const categoryConfig: Record<string, { gradient: string; icon: React.ElementType }> = {
-    "Agile & SAFe": { gradient: "from-blue-600/30 via-cyan-600/20 to-sky-600/10", icon: Workflow },
-    "AI & Technology": { gradient: "from-violet-600/30 via-purple-600/20 to-fuchsia-600/10", icon: Brain },
-    "Compliance": { gradient: "from-emerald-600/30 via-green-600/20 to-teal-600/10", icon: Shield },
-    "Leadership": { gradient: "from-amber-600/30 via-orange-600/20 to-yellow-600/10", icon: TrendingUp },
-    "Healthcare": { gradient: "from-red-600/30 via-rose-600/20 to-pink-600/10", icon: Heart },
+    "Agile & SAFe": { gradient: "from-slate-600/40 via-zinc-600/25 to-slate-500/10", icon: Workflow },
+    "AI & Technology": { gradient: "from-slate-700/40 via-slate-600/25 to-slate-500/10", icon: Brain },
+    "Compliance": { gradient: "from-zinc-700/40 via-slate-600/25 to-zinc-500/10", icon: Shield },
+    "Leadership": { gradient: "from-stone-700/40 via-stone-600/25 to-stone-500/10", icon: TrendingUp },
+    "Healthcare": { gradient: "from-slate-700/40 via-zinc-600/25 to-slate-500/10", icon: Heart },
 };
 
 // In-progress courses with proper content

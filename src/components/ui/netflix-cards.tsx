@@ -25,16 +25,16 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Category-based gradient backgrounds for visual distinction
+// Category-based gradient backgrounds - Professional, muted enterprise tones
 const categoryGradients: Record<string, { bg: string; accent: string; icon: React.ElementType }> = {
-    "ai-tech": { bg: "from-violet-600/30 via-purple-600/20 to-fuchsia-600/10", accent: "bg-violet-500", icon: Brain },
-    "agile-safe": { bg: "from-blue-600/30 via-cyan-600/20 to-sky-600/10", accent: "bg-blue-500", icon: Workflow },
-    "compliance": { bg: "from-emerald-600/30 via-green-600/20 to-teal-600/10", accent: "bg-emerald-500", icon: Shield },
-    "leadership": { bg: "from-amber-600/30 via-orange-600/20 to-yellow-600/10", accent: "bg-amber-500", icon: TrendingUp },
-    "industry": { bg: "from-rose-600/30 via-red-600/20 to-pink-600/10", accent: "bg-rose-500", icon: Building2 },
-    "onboarding": { bg: "from-cyan-600/30 via-teal-600/20 to-sky-600/10", accent: "bg-cyan-500", icon: GraduationCap },
-    "healthcare": { bg: "from-red-600/30 via-rose-600/20 to-pink-600/10", accent: "bg-red-500", icon: Heart },
-    "technology": { bg: "from-indigo-600/30 via-blue-600/20 to-violet-600/10", accent: "bg-indigo-500", icon: Code2 },
+    "ai-tech": { bg: "from-slate-700/40 via-slate-600/25 to-slate-500/10", accent: "bg-slate-500", icon: Brain },
+    "agile-safe": { bg: "from-slate-600/40 via-zinc-600/25 to-slate-500/10", accent: "bg-slate-600", icon: Workflow },
+    "compliance": { bg: "from-zinc-700/40 via-slate-600/25 to-zinc-500/10", accent: "bg-zinc-600", icon: Shield },
+    "leadership": { bg: "from-stone-700/40 via-stone-600/25 to-stone-500/10", accent: "bg-stone-600", icon: TrendingUp },
+    "industry": { bg: "from-neutral-700/40 via-neutral-600/25 to-neutral-500/10", accent: "bg-neutral-600", icon: Building2 },
+    "onboarding": { bg: "from-slate-600/40 via-gray-600/25 to-slate-500/10", accent: "bg-slate-500", icon: GraduationCap },
+    "healthcare": { bg: "from-slate-700/40 via-zinc-600/25 to-slate-500/10", accent: "bg-slate-600", icon: Heart },
+    "technology": { bg: "from-zinc-700/40 via-slate-600/25 to-zinc-500/10", accent: "bg-zinc-600", icon: Code2 },
 };
 
 interface ModuleCardProps {
@@ -110,10 +110,10 @@ export function NetflixModuleCard({
                 {/* Top Row - Badges */}
                 <div className="flex items-center gap-2">
                     {isNew && (
-                        <Badge className="bg-emerald-500 text-white text-[10px] px-1.5 py-0">NEW</Badge>
+                        <Badge className="bg-slate-600 text-white text-[10px] px-1.5 py-0">NEW</Badge>
                     )}
                     {isTrending && (
-                        <Badge className="bg-orange-500 text-white text-[10px] px-1.5 py-0">TRENDING</Badge>
+                        <Badge className="bg-zinc-600 text-white text-[10px] px-1.5 py-0">TRENDING</Badge>
                     )}
                     {isAINative && (
                         <Badge className="bg-primary text-primary-foreground text-[10px] px-1.5 py-0 gap-0.5">
@@ -173,9 +173,9 @@ export function NetflixModuleCard({
                                 variant="outline"
                                 className={cn(
                                     "text-[10px]",
-                                    difficulty === "beginner" && "border-emerald-500/50 text-emerald-500",
-                                    difficulty === "intermediate" && "border-blue-500/50 text-blue-500",
-                                    difficulty === "advanced" && "border-purple-500/50 text-purple-500"
+                                    difficulty === "beginner" && "border-slate-500/50 text-slate-400",
+                                    difficulty === "intermediate" && "border-zinc-500/50 text-zinc-400",
+                                    difficulty === "advanced" && "border-stone-500/50 text-stone-400"
                                 )}
                             >
                                 {difficulty}
