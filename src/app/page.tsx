@@ -74,15 +74,6 @@ export default function LandingPage() {
 
         <div className="relative z-10 mx-auto max-w-6xl w-full">
           <div className="text-center mb-12">
-            {/* Enterprise Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-              </span>
-              <span className="text-sm text-muted-foreground">Trusted by <span className="text-white font-medium">Fortune 500</span> L&D Teams</span>
-            </div>
-
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95]">
               <span className="block text-white">Enterprise Training</span>
               <span className="block mt-2 text-white/60">
