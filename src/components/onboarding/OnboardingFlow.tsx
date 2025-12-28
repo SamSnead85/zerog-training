@@ -1,272 +1,405 @@
 "use client";
 
-import { useState } from "react";
-import { Button, Progress } from "@/components/ui";
-import {
-    Sparkles,
-    Target,
-    BookOpen,
-    Trophy,
-    ArrowRight,
-    Check,
-    Users,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+/**
+ * Enhanced Onboarding Flow
+ * 
+ * Multi-step onboarding wizard for individuals, teams, and enterprises
+ * with role selection, profile completion, and goal setting.
+ */
 
-interface OnboardingStep {
-    id: string;
-    title: string;
-    description: string;
-    icon: React.ElementType;
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Button, Progress, Input, Badge } from "@/components/ui";
+import {
+    User,
+    Building2,
+    Users,
+    Rocket,
+    Target,
+    GraduationCap,
+    Shield,
+    BrainCircuit,
+    ArrowRight,
+    ArrowLeft,
+    CheckCircle2,
+    Sparkles,
+    Briefcase,
+    Code,
+    HeadphonesIcon,
+} from "lucide-react";
+
+// =============================================================================
+// TYPES
+// =============================================================================
+
+interface OnboardingData {
+    userType: "individual" | "team" | "enterprise" | null;
+    role: string | null;
+    goals: string[];
+    interests: string[];
+    experienceLevel: "beginner" | "intermediate" | "advanced" | null;
+    teamSize?: string;
+    companyName?: string;
+    firstName?: string;
+    lastName?: string;
 }
 
-const steps: OnboardingStep[] = [
+interface OnboardingFlowProps {
+    onComplete: (data: OnboardingData) => void;
+    initialData?: Partial<OnboardingData>;
+}
+
+// =============================================================================
+// STEP COMPONENTS
+// =============================================================================
+
+const userTypes = [
     {
-        id: "welcome",
-        title: "Welcome to ZeroG",
-        description: "Your AI-powered learning platform for professional development",
-        icon: Sparkles,
+        id: "individual",
+        title: "Individual Learner",
+        description: "I'm learning for myself or career growth",
+        icon: User,
+        color: "from-blue-500/20 to-blue-600/20",
     },
     {
-        id: "goals",
-        title: "Set Your Goals",
-        description: "Tell us what you want to achieve",
-        icon: Target,
+        id: "team",
+        title: "Team Manager",
+        description: "I'm training a team (2-50 people)",
+        icon: Users,
+        color: "from-emerald-500/20 to-emerald-600/20",
     },
     {
-        id: "interests",
-        title: "Choose Your Interests",
-        description: "Select topics you'd like to explore",
-        icon: BookOpen,
+        id: "enterprise",
+        title: "Enterprise",
+        description: "Large organization (50+ employees)",
+        icon: Building2,
+        color: "from-purple-500/20 to-purple-600/20",
     },
-    {
-        id: "complete",
-        title: "You're All Set!",
-        description: "Start your learning journey",
-        icon: Trophy,
-    },
+];
+
+const roles = [
+    { id: "developer", label: "Developer / Engineer", icon: Code },
+    { id: "manager", label: "Manager / Lead", icon: Briefcase },
+    { id: "executive", label: "Executive / C-Level", icon: Building2 },
+    { id: "hr", label: "HR / L&D Professional", icon: Users },
+    { id: "support", label: "Customer Support", icon: HeadphonesIcon },
+    { id: "other", label: "Other", icon: User },
 ];
 
 const goals = [
-    { id: "leadership", label: "Develop leadership skills", icon: "👔" },
-    { id: "technical", label: "Learn technical skills", icon: "💻" },
-    { id: "certification", label: "Get certified", icon: "📜" },
-    { id: "compliance", label: "Complete compliance training", icon: "✅" },
-    { id: "career", label: "Advance my career", icon: "🚀" },
-    { id: "team", label: "Improve team performance", icon: "👥" },
+    { id: "compliance", label: "Meet Compliance Requirements", icon: Shield },
+    { id: "upskill", label: "Upskill My Team", icon: GraduationCap },
+    { id: "ai-readiness", label: "AI Readiness & Adoption", icon: BrainCircuit },
+    { id: "productivity", label: "Boost Productivity", icon: Rocket },
+    { id: "onboarding", label: "Streamline Onboarding", icon: Users },
+    { id: "certification", label: "Earn Certifications", icon: Target },
 ];
 
 const interests = [
-    { id: "agile", label: "Agile & Scrum" },
-    { id: "leadership", label: "Leadership" },
-    { id: "security", label: "Cybersecurity" },
-    { id: "compliance", label: "Compliance" },
-    { id: "data", label: "Data & Analytics" },
-    { id: "communication", label: "Communication" },
-    { id: "management", label: "Project Management" },
-    { id: "ai", label: "AI & Technology" },
+    "AI & Machine Learning",
+    "Cybersecurity",
+    "Leadership",
+    "Project Management",
+    "Data Privacy & Compliance",
+    "DevOps",
+    "Cloud Computing",
+    "Agile & Scrum",
 ];
 
-interface OnboardingFlowProps {
-    onComplete: () => void;
-}
+// =============================================================================
+// MAIN COMPONENT
+// =============================================================================
 
-export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
-    const [currentStep, setCurrentStep] = useState(0);
-    const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
-    const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-    const [weeklyTime, setWeeklyTime] = useState<string>("3-5");
+export function OnboardingFlow({ onComplete, initialData }: OnboardingFlowProps) {
+    const [step, setStep] = useState(0);
+    const [data, setData] = useState<OnboardingData>({
+        userType: initialData?.userType || null,
+        role: initialData?.role || null,
+        goals: initialData?.goals || [],
+        interests: initialData?.interests || [],
+        experienceLevel: initialData?.experienceLevel || null,
+        teamSize: initialData?.teamSize,
+        companyName: initialData?.companyName,
+        firstName: initialData?.firstName,
+        lastName: initialData?.lastName,
+    });
 
-    const progress = ((currentStep + 1) / steps.length) * 100;
-    const step = steps[currentStep];
-    const Icon = step.icon;
+    const totalSteps = 5;
+    const progress = ((step + 1) / totalSteps) * 100;
+
+    const canProceed = () => {
+        switch (step) {
+            case 0:
+                return data.userType !== null;
+            case 1:
+                return data.role !== null;
+            case 2:
+                return data.goals.length > 0;
+            case 3:
+                return data.interests.length > 0;
+            case 4:
+                return data.experienceLevel !== null;
+            default:
+                return true;
+        }
+    };
 
     const handleNext = () => {
-        if (currentStep < steps.length - 1) {
-            setCurrentStep(currentStep + 1);
+        if (step < totalSteps - 1) {
+            setStep(step + 1);
         } else {
-            onComplete();
+            onComplete(data);
         }
     };
 
     const handleBack = () => {
-        if (currentStep > 0) {
-            setCurrentStep(currentStep - 1);
+        if (step > 0) {
+            setStep(step - 1);
         }
     };
 
-    const toggleGoal = (id: string) => {
-        setSelectedGoals(
-            selectedGoals.includes(id)
-                ? selectedGoals.filter((g) => g !== id)
-                : [...selectedGoals, id]
-        );
+    const toggleGoal = (goalId: string) => {
+        setData((prev) => ({
+            ...prev,
+            goals: prev.goals.includes(goalId)
+                ? prev.goals.filter((g) => g !== goalId)
+                : [...prev.goals, goalId],
+        }));
     };
 
-    const toggleInterest = (id: string) => {
-        setSelectedInterests(
-            selectedInterests.includes(id)
-                ? selectedInterests.filter((i) => i !== id)
-                : [...selectedInterests, id]
-        );
+    const toggleInterest = (interest: string) => {
+        setData((prev) => ({
+            ...prev,
+            interests: prev.interests.includes(interest)
+                ? prev.interests.filter((i) => i !== interest)
+                : [...prev.interests, interest],
+        }));
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-background via-background to-primary/5">
+        <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-background to-muted/30">
             <div className="w-full max-w-2xl">
                 {/* Progress */}
                 <div className="mb-8">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-muted-foreground">
-                            Step {currentStep + 1} of {steps.length}
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                            {Math.round(progress)}%
-                        </span>
+                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
+                        <span>Step {step + 1} of {totalSteps}</span>
+                        <span>{Math.round(progress)}% complete</span>
                     </div>
                     <Progress value={progress} className="h-2" />
                 </div>
 
-                {/* Step Content */}
-                <div className="bg-card rounded-2xl border border-border p-8 shadow-xl">
-                    {/* Header */}
-                    <div className="text-center mb-8">
-                        <div className="w-16 h-16 rounded-2xl bg-primary/10 mx-auto mb-4 flex items-center justify-center">
-                            <Icon className="h-8 w-8 text-primary" />
-                        </div>
-                        <h1 className="text-2xl font-bold mb-2">{step.title}</h1>
-                        <p className="text-muted-foreground">{step.description}</p>
-                    </div>
-
-                    {/* Step-specific Content */}
-                    {currentStep === 0 && (
-                        <div className="space-y-6">
-                            <div className="grid grid-cols-3 gap-4 text-center">
-                                {[
-                                    { label: "AI-Powered", icon: Sparkles },
-                                    { label: "Interactive", icon: BookOpen },
-                                    { label: "Gamified", icon: Trophy },
-                                ].map((feature, i) => {
-                                    const FeatureIcon = feature.icon;
+                {/* Card */}
+                <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8">
+                    {/* Step 0: User Type */}
+                    {step === 0 && (
+                        <div>
+                            <h1 className="text-2xl font-bold mb-2">Welcome to ZeroG! 👋</h1>
+                            <p className="text-muted-foreground mb-8">
+                                How will you be using ZeroG?
+                            </p>
+                            <div className="grid gap-4">
+                                {userTypes.map((type) => {
+                                    const Icon = type.icon;
+                                    const isSelected = data.userType === type.id;
                                     return (
-                                        <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/10">
-                                            <FeatureIcon className="h-6 w-6 text-primary mx-auto mb-2" />
-                                            <p className="text-sm font-medium">{feature.label}</p>
-                                        </div>
+                                        <button
+                                            key={type.id}
+                                            onClick={() =>
+                                                setData({ ...data, userType: type.id as OnboardingData["userType"] })
+                                            }
+                                            className={cn(
+                                                "flex items-center gap-4 p-4 rounded-xl border transition-all text-left",
+                                                isSelected
+                                                    ? "border-primary bg-primary/10"
+                                                    : "border-white/10 hover:border-white/20 hover:bg-white/5"
+                                            )}
+                                        >
+                                            <div
+                                                className={cn(
+                                                    "w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br",
+                                                    type.color
+                                                )}
+                                            >
+                                                <Icon className="h-6 w-6" />
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className="font-medium">{type.title}</p>
+                                                <p className="text-sm text-muted-foreground">
+                                                    {type.description}
+                                                </p>
+                                            </div>
+                                            {isSelected && (
+                                                <CheckCircle2 className="h-5 w-5 text-primary" />
+                                            )}
+                                        </button>
                                     );
                                 })}
                             </div>
                         </div>
                     )}
 
-                    {currentStep === 1 && (
-                        <div className="space-y-6">
+                    {/* Step 1: Role */}
+                    {step === 1 && (
+                        <div>
+                            <h1 className="text-2xl font-bold mb-2">What's your role?</h1>
+                            <p className="text-muted-foreground mb-8">
+                                This helps us personalize your experience
+                            </p>
                             <div className="grid grid-cols-2 gap-3">
-                                {goals.map((goal) => (
-                                    <button
-                                        key={goal.id}
-                                        onClick={() => toggleGoal(goal.id)}
-                                        className={cn(
-                                            "p-4 rounded-xl border text-left transition-all",
-                                            selectedGoals.includes(goal.id)
-                                                ? "bg-primary/10 border-primary/30"
-                                                : "bg-white/[0.02] border-white/10 hover:border-white/20"
-                                        )}
-                                    >
-                                        <span className="text-xl mr-2">{goal.icon}</span>
-                                        <span className="text-sm font-medium">{goal.label}</span>
-                                    </button>
-                                ))}
-                            </div>
-
-                            <div>
-                                <p className="text-sm font-medium mb-3">How much time can you dedicate per week?</p>
-                                <div className="flex gap-2">
-                                    {["1-2", "3-5", "5-10", "10+"].map((time) => (
+                                {roles.map((role) => {
+                                    const Icon = role.icon;
+                                    const isSelected = data.role === role.id;
+                                    return (
                                         <button
-                                            key={time}
-                                            onClick={() => setWeeklyTime(time)}
+                                            key={role.id}
+                                            onClick={() => setData({ ...data, role: role.id })}
                                             className={cn(
-                                                "flex-1 py-2 rounded-lg text-sm transition-all",
-                                                weeklyTime === time
-                                                    ? "bg-primary text-primary-foreground"
-                                                    : "bg-muted hover:bg-muted/80"
+                                                "flex items-center gap-3 p-4 rounded-xl border transition-all text-left",
+                                                isSelected
+                                                    ? "border-primary bg-primary/10"
+                                                    : "border-white/10 hover:border-white/20 hover:bg-white/5"
                                             )}
                                         >
-                                            {time} hrs
+                                            <Icon className="h-5 w-5 text-muted-foreground" />
+                                            <span className="text-sm font-medium">{role.label}</span>
                                         </button>
-                                    ))}
-                                </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
 
-                    {currentStep === 2 && (
-                        <div className="flex flex-wrap gap-2">
-                            {interests.map((interest) => (
-                                <button
-                                    key={interest.id}
-                                    onClick={() => toggleInterest(interest.id)}
-                                    className={cn(
-                                        "px-4 py-2 rounded-full text-sm transition-all",
-                                        selectedInterests.includes(interest.id)
-                                            ? "bg-primary text-primary-foreground"
-                                            : "bg-muted hover:bg-muted/80"
-                                    )}
-                                >
-                                    {selectedInterests.includes(interest.id) && (
-                                        <Check className="h-4 w-4 inline mr-1" />
-                                    )}
-                                    {interest.label}
-                                </button>
-                            ))}
+                    {/* Step 2: Goals */}
+                    {step === 2 && (
+                        <div>
+                            <h1 className="text-2xl font-bold mb-2">What are your goals?</h1>
+                            <p className="text-muted-foreground mb-8">
+                                Select all that apply
+                            </p>
+                            <div className="grid grid-cols-2 gap-3">
+                                {goals.map((goal) => {
+                                    const Icon = goal.icon;
+                                    const isSelected = data.goals.includes(goal.id);
+                                    return (
+                                        <button
+                                            key={goal.id}
+                                            onClick={() => toggleGoal(goal.id)}
+                                            className={cn(
+                                                "flex items-center gap-3 p-4 rounded-xl border transition-all text-left",
+                                                isSelected
+                                                    ? "border-primary bg-primary/10"
+                                                    : "border-white/10 hover:border-white/20 hover:bg-white/5"
+                                            )}
+                                        >
+                                            <Icon className="h-5 w-5 text-muted-foreground" />
+                                            <span className="text-sm font-medium">{goal.label}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
                         </div>
                     )}
 
-                    {currentStep === 3 && (
-                        <div className="text-center space-y-6">
-                            <div className="w-24 h-24 rounded-full bg-emerald-500/10 mx-auto flex items-center justify-center">
-                                <Check className="h-12 w-12 text-emerald-500" />
+                    {/* Step 3: Interests */}
+                    {step === 3 && (
+                        <div>
+                            <h1 className="text-2xl font-bold mb-2">Topics you're interested in</h1>
+                            <p className="text-muted-foreground mb-8">
+                                We'll recommend courses based on your selections
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {interests.map((interest) => {
+                                    const isSelected = data.interests.includes(interest);
+                                    return (
+                                        <button
+                                            key={interest}
+                                            onClick={() => toggleInterest(interest)}
+                                            className={cn(
+                                                "px-4 py-2 rounded-full border text-sm font-medium transition-all",
+                                                isSelected
+                                                    ? "border-primary bg-primary/20 text-primary"
+                                                    : "border-white/20 hover:border-white/40 hover:bg-white/5"
+                                            )}
+                                        >
+                                            {interest}
+                                        </button>
+                                    );
+                                })}
                             </div>
-                            <div className="space-y-2">
-                                <p className="text-lg">
-                                    Based on your preferences, we've personalized your learning path.
-                                </p>
-                                <p className="text-muted-foreground">
-                                    You'll receive AI-powered recommendations tailored to your goals.
-                                </p>
+                        </div>
+                    )}
+
+                    {/* Step 4: Experience Level */}
+                    {step === 4 && (
+                        <div>
+                            <h1 className="text-2xl font-bold mb-2">Your experience level</h1>
+                            <p className="text-muted-foreground mb-8">
+                                This helps us suggest the right starting point
+                            </p>
+                            <div className="grid gap-3">
+                                {[
+                                    { id: "beginner", label: "Beginner", desc: "New to most of these topics" },
+                                    { id: "intermediate", label: "Intermediate", desc: "Some experience with these topics" },
+                                    { id: "advanced", label: "Advanced", desc: "Experienced professional" },
+                                ].map((level) => {
+                                    const isSelected = data.experienceLevel === level.id;
+                                    return (
+                                        <button
+                                            key={level.id}
+                                            onClick={() =>
+                                                setData({
+                                                    ...data,
+                                                    experienceLevel: level.id as OnboardingData["experienceLevel"],
+                                                })
+                                            }
+                                            className={cn(
+                                                "flex items-center justify-between p-4 rounded-xl border transition-all text-left",
+                                                isSelected
+                                                    ? "border-primary bg-primary/10"
+                                                    : "border-white/10 hover:border-white/20 hover:bg-white/5"
+                                            )}
+                                        >
+                                            <div>
+                                                <p className="font-medium">{level.label}</p>
+                                                <p className="text-sm text-muted-foreground">{level.desc}</p>
+                                            </div>
+                                            {isSelected && <CheckCircle2 className="h-5 w-5 text-primary" />}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
 
                     {/* Navigation */}
                     <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
-                        {currentStep > 0 ? (
-                            <Button variant="ghost" onClick={handleBack}>
-                                Back
-                            </Button>
-                        ) : (
-                            <div />
-                        )}
-                        <Button onClick={handleNext} className="gap-2">
-                            {currentStep === steps.length - 1 ? "Get Started" : "Continue"}
-                            <ArrowRight className="h-4 w-4" />
+                        <Button
+                            variant="ghost"
+                            onClick={handleBack}
+                            disabled={step === 0}
+                            className={step === 0 ? "invisible" : ""}
+                        >
+                            <ArrowLeft className="h-4 w-4 mr-2" />
+                            Back
+                        </Button>
+                        <Button onClick={handleNext} disabled={!canProceed()}>
+                            {step === totalSteps - 1 ? (
+                                <>
+                                    <Sparkles className="h-4 w-4 mr-2" />
+                                    Get Started
+                                </>
+                            ) : (
+                                <>
+                                    Continue
+                                    <ArrowRight className="h-4 w-4 ml-2" />
+                                </>
+                            )}
                         </Button>
                     </div>
                 </div>
-
-                {/* Skip Link */}
-                {currentStep < steps.length - 1 && (
-                    <p className="text-center mt-4">
-                        <button
-                            onClick={onComplete}
-                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                            Skip onboarding
-                        </button>
-                    </p>
-                )}
             </div>
         </div>
     );
 }
+
+export default OnboardingFlow;
