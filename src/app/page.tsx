@@ -67,10 +67,16 @@ export default function LandingPage() {
 
       {/* Hero - Dramatic & Premium */}
       <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 pb-16">
-        {/* Premium Background Effects - Innovative Animated Design */}
+        {/* Premium Background Effects - AI-Generated Image + Animated Design */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Base gradient layer */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+          {/* AI-Generated Hero Background Image */}
+          <img
+            src="/images/hero-background.png"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+          />
+          {/* Base gradient layer for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background" />
 
           {/* Animated mesh gradient blobs */}
           <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 via-blue-600/10 to-transparent rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '8s' }} />
