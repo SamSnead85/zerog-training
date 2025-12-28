@@ -164,6 +164,97 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* AI-Native Training - Flagship Program */}
+      <section className="py-24 px-6 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-500/5" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]" />
+
+        <div className="relative mx-auto max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Content */}
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-6">
+                <Brain className="h-4 w-4" />
+                Flagship Curriculum
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                AI-Native Training
+              </h2>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                Transform your workforce into AI-native professionals. Our comprehensive
+                curriculum covers everything from prompt engineering to deploying
+                production AI agents.
+              </p>
+
+              {/* Stats */}
+              <div className="flex gap-8 mb-8">
+                <div>
+                  <div className="text-3xl font-bold text-primary">8</div>
+                  <div className="text-sm text-muted-foreground">Modules</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold">90+</div>
+                  <div className="text-sm text-muted-foreground">Hours</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-emerald-500">3</div>
+                  <div className="text-sm text-muted-foreground">Certifications</div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Link href="/ai-native/sample-lesson">
+                  <Button size="lg" className="gap-2">
+                    <Play className="h-5 w-5" />
+                    Try Sample Lesson Free
+                  </Button>
+                </Link>
+                <Link href="/ai-native">
+                  <Button size="lg" variant="outline" className="gap-2">
+                    View Full Curriculum
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right - Module Preview Cards */}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { num: "01", title: "AI Foundations", desc: "Understand LLMs & transformers", color: "from-blue-500/20" },
+                { num: "02", title: "Prompt Engineering", desc: "Master effective prompts", color: "from-purple-500/20" },
+                { num: "03", title: "Agentic AI", desc: "Build autonomous agents", color: "from-primary/20" },
+                { num: "04", title: "RAG & Vector DBs", desc: "Production AI systems", color: "from-emerald-500/20" },
+              ].map((module) => (
+                <Link
+                  key={module.num}
+                  href={`/ai-native/module-${parseInt(module.num)}`}
+                  className="group p-5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-primary/30 hover:bg-white/[0.05] transition-all"
+                >
+                  <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${module.color} to-transparent flex items-center justify-center mb-3`}>
+                    <span className="text-xs font-bold text-white/80">{module.num}</span>
+                  </div>
+                  <h4 className="font-semibold mb-1 group-hover:text-primary transition-colors">{module.title}</h4>
+                  <p className="text-xs text-muted-foreground">{module.desc}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom - Skills Preview */}
+          <div className="mt-12 pt-8 border-t border-white/10">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+              <span className="text-muted-foreground">Skills you'll master:</span>
+              {["Prompt Engineering", "Agentic AI", "RAG", "LangChain", "Multi-Agent Systems", "AI Security"].map((skill) => (
+                <span key={skill} className="px-3 py-1 rounded-full bg-white/5 border border-white/10">{skill}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Value Props - Glassmorphism Cards */}
       <section className="py-32 px-6 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
