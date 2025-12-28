@@ -63,12 +63,39 @@ export default function LandingPage() {
 
       {/* Hero - Dramatic & Premium */}
       <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 pb-16">
-        {/* Premium Background Effects */}
+        {/* Premium Background Effects - Innovative Animated Design */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-[20%] left-[15%] w-[800px] h-[800px] bg-gradient-to-br from-primary/15 via-primary/5 to-transparent rounded-full blur-[150px]" />
-          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-gradient-to-tl from-primary/8 via-primary/3 to-transparent rounded-full blur-[120px]" />
-          <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[400px] bg-gradient-to-r from-transparent via-primary/5 to-transparent rounded-full blur-[100px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:72px_72px]" />
+          {/* Base gradient layer */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+
+          {/* Animated mesh gradient blobs */}
+          <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 via-blue-600/10 to-transparent rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '8s' }} />
+          <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-gradient-to-tl from-indigo-500/15 via-purple-500/8 to-transparent rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
+          <div className="absolute bottom-[20%] left-[30%] w-[700px] h-[400px] bg-gradient-to-r from-primary/10 via-cyan-400/8 to-transparent rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+
+          {/* Floating orbs with subtle movement */}
+          <div className="absolute top-[15%] left-[40%] w-4 h-4 bg-cyan-400/30 rounded-full blur-sm animate-bounce" style={{ animationDuration: '6s' }} />
+          <div className="absolute top-[45%] right-[25%] w-3 h-3 bg-primary/40 rounded-full blur-sm animate-bounce" style={{ animationDuration: '8s', animationDelay: '1s' }} />
+          <div className="absolute bottom-[35%] left-[15%] w-2 h-2 bg-indigo-400/30 rounded-full blur-sm animate-bounce" style={{ animationDuration: '7s', animationDelay: '3s' }} />
+          <div className="absolute top-[60%] right-[35%] w-3 h-3 bg-cyan-300/20 rounded-full blur-sm animate-bounce" style={{ animationDuration: '9s', animationDelay: '2s' }} />
+
+          {/* Subtle grid pattern with enhanced visibility */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+          {/* Neural network-style connecting lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="neural-pattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+                <circle cx="100" cy="100" r="1" fill="currentColor" className="text-cyan-400" />
+                <line x1="0" y1="0" x2="100" y2="100" stroke="currentColor" strokeWidth="0.5" className="text-cyan-400" />
+                <line x1="200" y1="0" x2="100" y2="100" stroke="currentColor" strokeWidth="0.5" className="text-cyan-400" />
+                <line x1="100" y1="100" x2="100" y2="200" stroke="currentColor" strokeWidth="0.5" className="text-cyan-400" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#neural-pattern)" />
+          </svg>
+
+          {/* Radial fade to ensure content readability */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,transparent_0%,var(--background)_100%)]" />
         </div>
 

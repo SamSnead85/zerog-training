@@ -2,7 +2,9 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui";
+import { saveTraining, type StoredTraining } from "@/lib/training-storage";
 import {
     Sparkles,
     Upload,
@@ -78,6 +80,7 @@ const generationStages = [
 ];
 
 export function HeroGenerator() {
+    const router = useRouter();
     const [step, setStep] = useState<Step>("select");
     const [selectedModule, setSelectedModule] = useState<PrebuiltModule | null>(null);
     const [customPrompt, setCustomPrompt] = useState("");
@@ -85,6 +88,7 @@ export function HeroGenerator() {
     const [generatedCourse, setGeneratedCourse] = useState<GeneratedCourse | null>(null);
     const [generationStage, setGenerationStage] = useState(0);
     const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+    const [isSaving, setIsSaving] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -463,13 +467,46 @@ export function HeroGenerator() {
                     {/* Actions */}
                     <div className="p-5 border-t border-white/10 bg-muted/20">
                         <div className="flex gap-3 mb-3">
-                            <Link href="/signup" className="flex-1">
-                                <Button className="w-full h-12 font-semibold gap-2">
-                                    <Users className="h-4 w-4" />
-                                    Deploy to Team
-                                </Button>
-                            </Link>
-                            <Button variant="outline" className="h-12 gap-2" onClick={() => setStep("explore")}>
+                            <Button
+                                className="flex-1 h-12 font-semibold gap-2"
+                                onClick={() => {
+                                    if (generatedCourse) {
+                                        setIsSaving(true);
+                                        // Save to localStorage
+                                        saveTraining({
+                                            title: generatedCourse.title,
+                                            description: generatedCourse.description,
+                                            status: 'published',
+                                            duration: generatedCourse.duration,
+                                            sections: generatedCourse.sections.map(s => ({
+                                                title: s.title,
+                                                type: s.type,
+                                                duration: s.duration,
+                                                preview: s.preview,
+                                            })),
+                                            category: selectedModule?.id || 'custom',
+                                            targetAudience: generatedCourse.audience,
+                                        });
+                                        // Navigate to dashboard
+                                        router.push('/dashboard?deployed=true');
+                                    }
+                                }}
+                                disabled={isSaving}
+                            >
+                                {isSaving ? (
+                                    <><Loader2 className="h-4 w-4 animate-spin" /> Deploying...</>
+                                ) : (
+                                    <><Users className="h-4 w-4" /> Deploy to Team</>
+                                )}
+                            </Button>
+                            <Button
+                                variant="outline"
+                                className="h-12 gap-2"
+                                onClick={() => {
+                                    setCurrentSectionIndex(0);
+                                    setStep("explore");
+                                }}
+                            >
                                 <Eye className="h-4 w-4" />
                                 Preview
                             </Button>

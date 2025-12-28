@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Card, Badge, Progress, Button } from "@/components/ui";
+import { UserCreatedTrainings } from "@/components/dashboard/UserCreatedTrainings";
 import {
     Play,
     Clock,
@@ -220,6 +221,20 @@ export default function DashboardPage() {
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Left Column */}
                 <div className="lg:col-span-2 space-y-10">
+                    {/* Your Created Trainings */}
+                    <div>
+                        <div className="flex items-center justify-between mb-5">
+                            <div>
+                                <h2 className="text-lg font-semibold">Your Trainings</h2>
+                                <p className="text-sm text-muted-foreground">AI-generated modules you&apos;ve created</p>
+                            </div>
+                            <Link href="/studio/create" className="text-sm text-primary hover:underline">
+                                + Create new
+                            </Link>
+                        </div>
+                        <UserCreatedTrainings />
+                    </div>
+
                     {/* Continue Learning */}
                     <div>
                         <div className="flex items-center justify-between mb-5">
@@ -278,8 +293,8 @@ export default function DashboardPage() {
                                     <div
                                         key={achievement.id}
                                         className={`p-4 rounded-xl border transition-all ${achievement.unlocked
-                                                ? "bg-primary/5 border-primary/20"
-                                                : "bg-white/[0.02] border-white/10"
+                                            ? "bg-primary/5 border-primary/20"
+                                            : "bg-white/[0.02] border-white/10"
                                             }`}
                                     >
                                         <div className="flex items-center gap-3 mb-3">
