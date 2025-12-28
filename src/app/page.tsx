@@ -75,8 +75,8 @@ export default function LandingPage() {
         <div className="relative z-10 mx-auto max-w-5xl w-full">
           <div className="text-center mb-10">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-              <span className="block text-foreground">Enterprise Training</span>
-              <span className="block mt-2 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="block text-white">Enterprise Training</span>
+              <span className="block mt-2 text-muted-foreground">
                 in Minutes
               </span>
             </h1>
