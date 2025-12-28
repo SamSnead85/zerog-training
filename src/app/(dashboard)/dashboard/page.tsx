@@ -64,34 +64,34 @@ const continuelearning = [
     },
 ];
 
-// Recommended courses
+// Recommended courses with AI-generated visuals
 const recommended = [
     {
-        id: "hipaa-essentials",
+        id: "cybersecurity-awareness",
+        title: "Cybersecurity Awareness",
+        category: "Security",
+        rating: 4.9,
+        students: 18500,
+        duration: "45min",
+        thumbnail: "/images/training/cybersecurity-hero.png",
+    },
+    {
+        id: "hipaa-compliance",
         title: "HIPAA Compliance Essentials",
         category: "Compliance",
         rating: 4.8,
         students: 12500,
         duration: "1h 30min",
-        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
+        thumbnail: "/images/training/compliance-hipaa.png",
     },
     {
-        id: "effective-feedback",
-        title: "Giving & Receiving Feedback",
-        category: "Soft Skills",
-        rating: 4.9,
-        students: 8900,
-        duration: "45min",
-        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-500",
-    },
-    {
-        id: "data-analytics",
-        title: "Data Analytics Fundamentals",
-        category: "Technology",
+        id: "data-protection",
+        title: "Data Protection Fundamentals",
+        category: "Security",
         rating: 4.7,
         students: 15200,
-        duration: "3h",
-        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
+        duration: "1h",
+        thumbnail: "/images/training/data-protection.png",
     },
 ];
 
@@ -335,8 +335,14 @@ export default function DashboardPage() {
                             {recommended.map((course) => (
                                 <Link key={course.id} href={`/module/${course.id}`}>
                                     <div className="group rounded-xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all overflow-hidden">
-                                        <div className={`h-24 ${course.thumbnail} flex items-center justify-center`}>
-                                            <Play className="h-8 w-8 text-white/50 group-hover:text-white/70 transition-colors" />
+                                        <div className="h-24 relative overflow-hidden">
+                                            <img
+                                                src={course.thumbnail}
+                                                alt={course.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                            <Play className="absolute inset-0 m-auto h-8 w-8 text-white/50 group-hover:text-white/80 transition-colors" />
                                         </div>
                                         <div className="p-4">
                                             <p className="text-xs text-muted-foreground mb-1">{course.category}</p>
