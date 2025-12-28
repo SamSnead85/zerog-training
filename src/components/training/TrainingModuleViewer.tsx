@@ -861,7 +861,7 @@ const harassmentPreventionModule: ModuleSection[] = [
     },
 ];
 
-// Function to get module content by ID
+// Function to get module content by ID - COMPREHENSIVE ROUTING
 function getModuleSections(moduleId?: string): { sections: ModuleSection[]; title: string } {
     if (!moduleId) {
         return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
@@ -869,44 +869,67 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
 
     const id = moduleId.toLowerCase();
 
-    // AI & Prompt Engineering related
-    if (id.includes("prompt") || id.includes("ai-") || id.includes("agentic") || id.includes("llm") || id.includes("chatgpt") || id.includes("claude") || id.includes("gemini")) {
+    // AI & Prompt Engineering - covers: prompt-engineering, prompt-eng, agentic-ai, llm-*, chatgpt-*, ai-*, gemini, claude
+    if (id.includes("prompt") || id.includes("agentic") || id.includes("llm") ||
+        id.includes("chatgpt") || id.includes("claude") || id.includes("gemini") ||
+        id.includes("copilot") || id.includes("vector") || id.includes("rag") ||
+        (id.startsWith("ai-") || id.includes("-ai-") || id.endsWith("-ai"))) {
         return { sections: aiPromptEngineeringModule, title: "Prompt Engineering Masterclass" };
     }
 
-    // Data Privacy & GDPR related
+    // Data Privacy & GDPR - covers: gdpr, privacy, ccpa, data-protection
     if (id.includes("gdpr") || id.includes("privacy") || id.includes("ccpa") || id.includes("data-protection")) {
         return { sections: dataPrivacyModule, title: "Data Privacy & GDPR Training" };
     }
 
-    // Leadership related
-    if (id.includes("leadership") || id.includes("management") || id.includes("coaching") || id.includes("feedback")) {
+    // Leadership - covers: leadership-*, change-management, executive-*, dei-*, coaching, feedback, management
+    if (id.includes("leadership") || id.includes("management") || id.includes("coaching") ||
+        id.includes("feedback") || id.includes("executive") || id.includes("dei-") ||
+        id.includes("change-") || id.includes("-leader")) {
         return { sections: leadershipModule, title: "Leadership Fundamentals" };
     }
 
-    // SAFe/Agile related
-    if (id.includes("safe") || id.includes("scrum") || id.includes("agile") || id.includes("agilist")) {
+    // SAFe/Agile/Scrum - covers: safe-*, scrum-*, agile-*, kanban, pi-planning, product-owner
+    if (id.includes("safe") || id.includes("scrum") || id.includes("agile") ||
+        id.includes("agilist") || id.includes("kanban") || id.includes("pi-planning") ||
+        id.includes("product-owner")) {
         return { sections: safeAgilistModule, title: "SAFe 6.0 Agilist Training" };
     }
 
-    // HIPAA related
-    if (id.includes("hipaa") || id.includes("phi") || id.includes("health-privacy")) {
+    // HIPAA & Healthcare - covers: hipaa-*, bloodborne, patient-safety, clinical-*, infection-*, healthcare
+    if (id.includes("hipaa") || id.includes("phi") || id.includes("health-privacy") ||
+        id.includes("bloodborne") || id.includes("patient") || id.includes("clinical") ||
+        id.includes("infection") || id.includes("healthcare") || id.includes("osha")) {
         return { sections: hipaaModule, title: "HIPAA Compliance Training" };
     }
 
-    // Harassment/Workplace related  
-    if (id.includes("harassment") || id.includes("discrimination") || id.includes("eeoc") || id.includes("title-vii")) {
+    // Harassment/Workplace/HR - covers: harassment-*, discrimination, eeoc, title-vii, workplace-*, new-hire-*
+    if (id.includes("harassment") || id.includes("discrimination") || id.includes("eeoc") ||
+        id.includes("title-vii") || id.includes("workplace") || id.includes("new-hire") ||
+        id.includes("onboarding") || id.includes("hr-")) {
         return { sections: harassmentPreventionModule, title: "Workplace Harassment Prevention" };
     }
 
-    // Cybersecurity/NIST related (explicit match)
-    if (id.includes("cyber") || id.includes("nist") || id.includes("security") || id.includes("phishing")) {
+    // Compliance/Security Frameworks - covers: nist-*, soc2, iso27001, cyber-*, security-*, phishing
+    if (id.includes("cyber") || id.includes("nist") || id.includes("security") ||
+        id.includes("phishing") || id.includes("soc2") || id.includes("iso27001") ||
+        id.includes("soc-2") || id.includes("iso-27001") || id.includes("compliance")) {
         return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
     }
 
-    // Default: Instead of defaulting to cyber, try to match title words
-    // This is the fallback for modules we haven't explicitly mapped
-    return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
+    // Analytics/Data - covers: data-analytics, analytics-*, reporting
+    if (id.includes("analytics") || id.includes("reporting") || id.includes("data-")) {
+        return { sections: leadershipModule, title: "Data Analytics Fundamentals" };
+    }
+
+    // AI Ethics - specific match before general fallback
+    if (id.includes("ethics") || id.includes("responsible-ai") || id.includes("governance")) {
+        return { sections: aiPromptEngineeringModule, title: "AI Ethics & Responsible AI" };
+    }
+
+    // Default fallback - use leadership as a more generic option
+    console.warn(`No specific content found for module ID: ${moduleId}, using default content`);
+    return { sections: leadershipModule, title: "Professional Development" };
 }
 
 interface TrainingModuleViewerProps {
