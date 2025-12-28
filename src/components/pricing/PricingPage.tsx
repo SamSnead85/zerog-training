@@ -33,34 +33,37 @@ const pricingTiers: PricingTier[] = [
     {
         id: "starter",
         name: "Starter",
-        description: "For individuals getting started",
-        price: 29,
+        description: "Perfect for individuals and solopreneurs",
+        price: 49,
         period: "month",
-        generationsPerMonth: 50,
+        generationsPerMonth: 5,
         stripePriceId: "price_starter_monthly",
         features: [
-            "50 AI training generations/month",
-            "Access to all templates",
+            "5 training modules per month",
+            "1 user license",
+            "Unlimited access to your modules",
+            "All templates included",
+            "Export to PDF & SCORM",
             "Basic analytics",
             "Email support",
-            "Export to PDF",
         ],
     },
     {
         id: "professional",
-        name: "Professional",
-        description: "For growing teams",
-        price: 79,
+        name: "Pro",
+        description: "For small teams and growing businesses",
+        price: 129,
         period: "month",
-        generationsPerMonth: 200,
+        generationsPerMonth: 15,
         highlighted: true,
         badge: "Most Popular",
         stripePriceId: "price_professional_monthly",
         features: [
-            "200 AI training generations/month",
-            "Everything in Starter",
-            "Team collaboration (up to 10)",
-            "Advanced analytics",
+            "15 training modules per month",
+            "Up to 10 team members",
+            "Team invite links & codes",
+            "Share training with your team",
+            "Advanced analytics & reporting",
             "Priority support",
             "Custom branding",
             "API access",
@@ -70,19 +73,19 @@ const pricingTiers: PricingTier[] = [
         id: "enterprise",
         name: "Enterprise",
         description: "For large organizations",
-        price: 299,
+        price: 0, // Custom pricing
         period: "month",
         generationsPerMonth: "unlimited",
         stripePriceId: "price_enterprise_monthly",
         features: [
-            "Unlimited AI generations",
-            "Everything in Professional",
+            "Unlimited training modules",
             "Unlimited team members",
-            "SSO & SAML",
+            "SSO & SAML authentication",
             "Dedicated success manager",
             "Custom integrations",
             "SLA guarantee",
-            "On-premise option",
+            "On-premise deployment option",
+            "Volume discounts",
         ],
     },
 ];
@@ -215,17 +218,23 @@ export function PricingPage({ onSelectPlan }: PricingPageProps) {
 
                         <div className="mb-6">
                             <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-bold">
-                                    ${billingPeriod === "month" ? tier.price : getYearlyPrice(tier.price)}
-                                </span>
-                                <span className="text-muted-foreground">
-                                    /{billingPeriod === "month" ? "mo" : "yr"}
-                                </span>
+                                {tier.price === 0 ? (
+                                    <span className="text-3xl font-bold">Custom</span>
+                                ) : (
+                                    <>
+                                        <span className="text-4xl font-bold">
+                                            ${billingPeriod === "month" ? tier.price : getYearlyPrice(tier.price)}
+                                        </span>
+                                        <span className="text-muted-foreground">
+                                            /{billingPeriod === "month" ? "mo" : "yr"}
+                                        </span>
+                                    </>
+                                )}
                             </div>
                             <p className="text-sm text-muted-foreground mt-1">
                                 {tier.generationsPerMonth === "unlimited"
-                                    ? "Unlimited generations"
-                                    : `${tier.generationsPerMonth} generations/month`}
+                                    ? "Unlimited modules & users"
+                                    : `${tier.generationsPerMonth} modules/month`}
                             </p>
                         </div>
 

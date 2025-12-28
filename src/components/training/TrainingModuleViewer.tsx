@@ -389,6 +389,478 @@ const hipaaModule: ModuleSection[] = [
     },
 ];
 
+// AI & Prompt Engineering Module Content
+const aiPromptEngineeringModule: ModuleSection[] = [
+    {
+        id: "intro",
+        title: "Introduction to Prompt Engineering",
+        type: "reading",
+        content: {
+            heading: "What is Prompt Engineering?",
+            paragraphs: [
+                "Prompt engineering is the art and science of designing inputs for AI language models to get the most useful, accurate, and relevant outputs. As AI becomes integral to work, prompt engineering is becoming an essential skill.",
+                "The same AI model can give vastly different results based on how you ask. A well-crafted prompt can mean the difference between a useless response and a highly valuable one.",
+                "This training will equip you with techniques to write clear, effective prompts that get accurate results from ChatGPT, Claude, Gemini, and other AI assistants.",
+            ],
+            keyPoints: [
+                "AI is only as good as the prompts you give it",
+                "Specific prompts get specific, useful results",
+                "Vague prompts lead to generic, unhelpful outputs",
+            ],
+        },
+    },
+    {
+        id: "craft-framework",
+        title: "The CRAFT Framework",
+        type: "reading",
+        content: {
+            heading: "Structuring Effective Prompts",
+            paragraphs: [
+                "Use CRAFT to structure effective prompts: Context, Role, Action, Format, and Tone.",
+                "Context provides background information. Role tells the AI what persona to adopt. Action clearly states what you want. Format specifies the desired output structure. Tone indicates style and formality.",
+            ],
+            keyPoints: [
+                "Context: Provide background and situation",
+                "Role: Tell the AI what expertise to adopt",
+                "Action: Clearly state what you want done",
+                "Format: Specify the desired output format",
+                "Tone: Indicate style, formality, voice",
+            ],
+            tip: "Combining all CRAFT elements creates prompts that consistently produce professional, actionable outputs.",
+        },
+    },
+    {
+        id: "quiz-basics",
+        title: "Knowledge Check: Prompt Basics",
+        type: "quiz",
+        quiz: {
+            question: "Which prompt will likely produce a better result?",
+            options: [
+                "'Write about marketing'",
+                "'Write 5 email subject lines for a B2B SaaS launch targeting CTOs, emphasizing time savings and ROI'",
+                "'Help me write something'",
+                "'Do marketing stuff'",
+            ],
+            correctIndex: 1,
+            explanation: "Specific prompts get specific results. The second option includes context (B2B SaaS), role (targeting CTOs), action (write subject lines), format (5 items), and tone (emphasizing benefits).",
+        },
+    },
+    {
+        id: "advanced-techniques",
+        title: "Advanced Prompting Techniques",
+        type: "reading",
+        content: {
+            heading: "Chain-of-Thought & Few-Shot Learning",
+            paragraphs: [
+                "Chain-of-Thought prompting asks the AI to 'think step by step.' This dramatically improves accuracy on complex reasoning tasks—research shows it improved math accuracy from 17.7% to 78.7%.",
+                "Few-Shot Learning means providing examples of the input-output pattern you want. Show the AI 2-3 examples of what you're looking for, then ask for similar output.",
+                "Role-based prompting assigns a persona: 'You are an expert financial analyst...' This primes the model for domain-specific, professional responses.",
+            ],
+            keyPoints: [
+                "Chain-of-Thought: Add 'Let's think step by step'",
+                "Few-Shot: Provide 2-3 input/output examples",
+                "Role-based: Assign expert personas for better responses",
+            ],
+            warning: "AI can be confidently wrong ('hallucinate'). Always fact-check important information before using it.",
+        },
+    },
+    {
+        id: "scenario-prompt",
+        title: "Scenario: Improving a Prompt",
+        type: "scenario",
+        scenario: {
+            situation: "Your colleague asks AI: 'Write an email.' The AI produces a generic, unhelpful response.",
+            question: "How would you improve this prompt?",
+            options: [
+                "Add 'please' to be more polite",
+                "Make it longer by repeating the request",
+                "Add context, role, format, and tone specifications",
+                "Ask the AI to try again with the same prompt",
+            ],
+            correctIndex: 2,
+            feedback: "Adding context (what the email is about), role (who it's from), format (length, structure), and tone (professional, casual) will dramatically improve the output quality.",
+        },
+    },
+    {
+        id: "ai-ethics",
+        title: "AI Ethics and Responsible Use",
+        type: "reading",
+        content: {
+            heading: "Using AI Responsibly at Work",
+            paragraphs: [
+                "AI is a powerful tool that comes with responsibilities. Using AI ethically protects you, your organization, and the people your work affects.",
+                "Never input confidential customer data, PII, trade secrets, or anything covered by NDA into external AI tools without proper authorization. Verify outputs before using them.",
+            ],
+            keyPoints: [
+                "Verify outputs: AI can hallucinate confidently",
+                "Protect privacy: Don't share confidential data",
+                "Maintain oversight: AI assists, humans decide",
+                "Be transparent: Disclose AI use where appropriate",
+            ],
+            warning: "You are responsible for reviewing and validating all AI-assisted work. AI outputs can contain errors, biases, or fabricated information.",
+        },
+    },
+    {
+        id: "final-quiz",
+        title: "Final Assessment",
+        type: "quiz",
+        quiz: {
+            question: "What does 'chain-of-thought' prompting encourage the AI to do?",
+            options: [
+                "Write longer responses automatically",
+                "Think and reason step by step before answering",
+                "Connect multiple conversations together",
+                "Search the internet for current information",
+            ],
+            correctIndex: 1,
+            explanation: "Chain-of-thought prompting encourages the AI to reason through a problem step by step, which significantly improves accuracy on complex reasoning tasks.",
+        },
+    },
+];
+
+// Data Privacy & GDPR Module Content
+const dataPrivacyModule: ModuleSection[] = [
+    {
+        id: "intro",
+        title: "Introduction to Data Privacy",
+        type: "reading",
+        content: {
+            heading: "The Global Privacy Landscape",
+            paragraphs: [
+                "Data privacy has become a fundamental right in the digital age. With regulations like GDPR, CCPA, and LGPD, organizations must protect personal data or face significant penalties.",
+                "GDPR fines have exceeded €4 billion since 2018. Meta alone received a €1.2 billion fine in 2023 for data transfer violations.",
+                "This training covers key privacy principles that apply across major regulations worldwide.",
+            ],
+            keyPoints: [
+                "GDPR (EU): Up to €20 million or 4% of global revenue",
+                "CCPA (California): Up to $7,500 per intentional violation",
+                "Privacy laws apply even to companies outside their jurisdiction",
+            ],
+            warning: "Privacy violations can result in massive fines, reputational damage, and loss of customer trust.",
+        },
+    },
+    {
+        id: "personal-data",
+        title: "What is Personal Data?",
+        type: "reading",
+        content: {
+            heading: "Identifying Personal Data",
+            paragraphs: [
+                "Personal Data is any information relating to an identified or identifiable natural person (called a 'data subject').",
+                "This includes obvious identifiers like names and emails, but also indirect identifiers like IP addresses, cookies, and location data.",
+                "Special category data (sensitive data) includes race, religion, health, biometrics, and political views—requiring extra protection.",
+            ],
+            keyPoints: [
+                "Direct identifiers: Name, email, phone, SSN",
+                "Indirect identifiers: IP address, cookies, device IDs",
+                "Sensitive data requires additional safeguards",
+            ],
+        },
+    },
+    {
+        id: "quiz-gdpr",
+        title: "Knowledge Check: Privacy Basics",
+        type: "quiz",
+        quiz: {
+            question: "Which of the following is considered 'personal data' under GDPR?",
+            options: [
+                "A random number with no connection to anyone",
+                "An IP address that can be linked to a user",
+                "Fully anonymized aggregate statistics",
+                "The current weather forecast",
+            ],
+            correctIndex: 1,
+            explanation: "An IP address is personal data because it can be used to identify a specific individual, either directly or when combined with other information.",
+        },
+    },
+    {
+        id: "data-rights",
+        title: "Data Subject Rights",
+        type: "reading",
+        content: {
+            heading: "Individual Rights Under GDPR",
+            paragraphs: [
+                "GDPR gives individuals powerful rights: Right of Access, Right to Rectification, Right to Erasure ('right to be forgotten'), Right to Data Portability, and Right to Object.",
+                "You have ONE MONTH to respond to data subject requests. This deadline is strict and failure to respond can result in complaints and fines.",
+            ],
+            keyPoints: [
+                "Right of Access: People can request copies of their data",
+                "Right to Erasure: People can request deletion",
+                "Right to Portability: People can request data transfer",
+                "Response deadline: 1 month (extendable to 3 for complex cases)",
+            ],
+            tip: "When you receive a data request, log it immediately and forward to your data protection team—don't try to handle it yourself.",
+        },
+    },
+    {
+        id: "scenario-breach",
+        title: "Scenario: Potential Data Breach",
+        type: "scenario",
+        scenario: {
+            situation: "You accidentally sent a spreadsheet containing customer names and email addresses to the wrong external recipient. You realize the mistake immediately after clicking send.",
+            question: "What should you do first?",
+            options: [
+                "Wait to see if the recipient notices and returns it",
+                "Send a follow-up email asking them to delete it",
+                "Report the incident to your data protection/security team immediately",
+                "Delete the sent email and hope no one notices",
+            ],
+            correctIndex: 2,
+            feedback: "Data breaches must be reported immediately. GDPR requires notification to authorities within 72 hours. Your team can assess the risk and take appropriate action—don't try to handle it alone.",
+        },
+    },
+    {
+        id: "final-quiz",
+        title: "Final Assessment",
+        type: "quiz",
+        quiz: {
+            question: "How long do you have to respond to a Data Subject Access Request under GDPR?",
+            options: [
+                "72 hours",
+                "One week",
+                "One month",
+                "Three months",
+            ],
+            correctIndex: 2,
+            explanation: "You have one month to respond to a DSAR. This can be extended by two more months for complex requests, but you must inform the individual within the first month.",
+        },
+    },
+];
+
+// Leadership Module Content
+const leadershipModule: ModuleSection[] = [
+    {
+        id: "intro",
+        title: "What Makes a Great Leader?",
+        type: "reading",
+        content: {
+            heading: "Leadership vs. Management",
+            paragraphs: [
+                "While management focuses on processes and maintaining order, leadership is about inspiring people, creating vision, and driving change.",
+                "Research shows the #1 reason people leave their jobs is their manager. Your leadership directly impacts retention, engagement, and performance.",
+            ],
+            keyPoints: [
+                "Great leaders are also good managers—but the reverse isn't always true",
+                "The #1 reason employees leave is their direct manager",
+                "Leadership is learned, not just inherited",
+            ],
+        },
+    },
+    {
+        id: "situational",
+        title: "Situational Leadership",
+        type: "reading",
+        content: {
+            heading: "Adapting Your Style",
+            paragraphs: [
+                "There is no single 'best' style of leadership. Effective leaders adapt their style based on the development level of the person they are leading.",
+                "The four styles are: Telling (for enthusiastic beginners), Selling (for disillusioned learners), Participating (for capable but cautious performers), and Delegating (for self-reliant achievers).",
+            ],
+            keyPoints: [
+                "S1 Telling: High directive, low supportive",
+                "S2 Selling: High directive, high supportive",
+                "S3 Participating: Low directive, high supportive",
+                "S4 Delegating: Low directive, low supportive",
+            ],
+            tip: "Development level is task-specific. Someone might be D4 on one task and D1 on another.",
+        },
+    },
+    {
+        id: "quiz-leadership",
+        title: "Knowledge Check: Leadership Styles",
+        type: "quiz",
+        quiz: {
+            question: "An enthusiastic beginner needs which leadership style?",
+            options: [
+                "Delegating",
+                "Participating",
+                "Selling",
+                "Telling",
+            ],
+            correctIndex: 3,
+            explanation: "Enthusiastic beginners (D1) need Telling/Directing (S1). They are new to the task but motivated, so they need clear structure and instructions.",
+        },
+    },
+    {
+        id: "feedback",
+        title: "Delivering Effective Feedback",
+        type: "reading",
+        content: {
+            heading: "The SBI Feedback Model",
+            paragraphs: [
+                "The Situation-Behavior-Impact (SBI) model provides a clear structure for feedback that is specific, objective, and actionable.",
+                "Describe the Situation, the Behavior you observed, and the Impact of that behavior. Avoid personality judgments—focus on observable actions.",
+            ],
+            keyPoints: [
+                "Situation: 'In yesterday's client meeting...'",
+                "Behavior: 'You interrupted three times...'",
+                "Impact: 'The client seemed frustrated...'",
+            ],
+            warning: "Avoid 'you are' statements (personality). Focus on 'you did' statements (behavior).",
+        },
+    },
+    {
+        id: "scenario-feedback",
+        title: "Scenario: Giving Difficult Feedback",
+        type: "scenario",
+        scenario: {
+            situation: "A team member has been consistently late to morning standups for the past two weeks. Other team members are starting to notice and comment.",
+            question: "How should you approach this conversation?",
+            options: [
+                "Send a passive-aggressive email copying the whole team",
+                "Wait to see if it resolves itself",
+                "Have a private conversation using the SBI model",
+                "Dock their performance review without discussing it",
+            ],
+            correctIndex: 2,
+            feedback: "A private conversation using SBI is most effective. 'In our last 10 standups (Situation), you've arrived 10-15 minutes late (Behavior). This delays the team and signals that the meeting isn't a priority (Impact).'",
+        },
+    },
+    {
+        id: "final-quiz",
+        title: "Final Assessment",
+        type: "quiz",
+        quiz: {
+            question: "What does 'SBI' stand for in the SBI Feedback Model?",
+            options: [
+                "Specific, Bold, Immediate",
+                "Situation, Behavior, Impact",
+                "Summary, Background, Insights",
+                "Start, Build, Improve",
+            ],
+            correctIndex: 1,
+            explanation: "SBI stands for Situation, Behavior, Impact. This framework helps deliver specific, objective feedback that focuses on observable actions rather than personality judgments.",
+        },
+    },
+];
+
+// Workplace Harassment Prevention Module Content
+const harassmentPreventionModule: ModuleSection[] = [
+    {
+        id: "intro",
+        title: "Understanding Workplace Harassment",
+        type: "reading",
+        content: {
+            heading: "What is Workplace Harassment?",
+            paragraphs: [
+                "Workplace harassment is unwelcome conduct based on a protected characteristic that is severe or pervasive enough to create a hostile work environment or results in adverse employment action.",
+                "Protected characteristics include race, color, religion, sex (including pregnancy, sexual orientation, gender identity), national origin, age (40 or older), disability, and genetic information.",
+            ],
+            keyPoints: [
+                "Harassment is about impact, not intent",
+                "Even well-meaning comments can constitute harassment",
+                "The harasser can be anyone: supervisors, co-workers, customers",
+            ],
+            warning: "Ignorance is not a defense. If you witness harassment, you have a responsibility to report it.",
+        },
+    },
+    {
+        id: "types",
+        title: "Types of Harassment",
+        type: "reading",
+        content: {
+            heading: "Recognizing Different Forms",
+            paragraphs: [
+                "Sexual harassment includes unwelcome sexual advances, requests for sexual favors, and other verbal or physical harassment of a sexual nature.",
+                "Quid Pro Quo harassment occurs when employment decisions are based on submission to sexual conduct. Hostile Work Environment occurs when conduct is severe or pervasive enough to create an intimidating environment.",
+            ],
+            keyPoints: [
+                "Quid Pro Quo: 'This for that' harassment tied to job decisions",
+                "Hostile Environment: Pervasive conduct creating intimidation",
+                "Non-sexual harassment based on any protected characteristic",
+            ],
+        },
+    },
+    {
+        id: "quiz-types",
+        title: "Knowledge Check: Types of Harassment",
+        type: "quiz",
+        quiz: {
+            question: "What is the legal standard for a hostile work environment?",
+            options: [
+                "The harasser intended to cause harm",
+                "The victim is offended",
+                "Conduct is severe or pervasive enough to create an intimidating environment",
+                "Multiple complaints have been filed",
+            ],
+            correctIndex: 2,
+            explanation: "A hostile work environment exists when conduct is severe or pervasive enough that a reasonable person would find it intimidating, hostile, or offensive.",
+        },
+    },
+    {
+        id: "bystander",
+        title: "Bystander Intervention",
+        type: "reading",
+        content: {
+            heading: "The 5 D's of Bystander Intervention",
+            paragraphs: [
+                "Bystanders play a crucial role in preventing harassment. Research shows that harassment is less likely to continue when bystanders intervene.",
+                "You don't have to be confrontational. Sometimes just asking 'Is everything OK here?' can interrupt inappropriate behavior.",
+            ],
+            keyPoints: [
+                "Direct: Address the behavior directly",
+                "Distract: Create a distraction to interrupt",
+                "Delegate: Ask someone else to help (HR, manager)",
+                "Delay: Check in with the target after the incident",
+                "Document: Write down what you saw for potential reports",
+            ],
+            tip: "Consider your safety first. If a situation seems dangerous, call for help rather than intervening directly.",
+        },
+    },
+    {
+        id: "scenario-harassment",
+        title: "Scenario: Overheard Comments",
+        type: "scenario",
+        scenario: {
+            situation: "You're in the break room and overhear colleagues making jokes about a coworker's religious practices. The targeted coworker is not present.",
+            question: "What should you do?",
+            options: [
+                "Ignore it - the person isn't present so no harm done",
+                "Join in to fit in with the group",
+                "Speak up that the comments are inappropriate, then report to HR",
+                "Wait to see if it happens again",
+            ],
+            correctIndex: 2,
+            feedback: "Even if the target isn't present, these comments contribute to a hostile environment. Speaking up and reporting helps prevent escalation and protects the workplace culture.",
+        },
+    },
+    {
+        id: "reporting",
+        title: "Reporting Procedures",
+        type: "reading",
+        content: {
+            heading: "How to Report Harassment",
+            paragraphs: [
+                "If you experience or witness harassment, you have multiple options for reporting: your supervisor (unless involved), HR, your company's designated harassment officer, or anonymous reporting hotlines.",
+                "Document what happened, when, where, who was involved, and any witnesses. Preserve evidence like emails or texts.",
+            ],
+            keyPoints: [
+                "Report immediately - don't wait",
+                "Document: who, what, when, where, witnesses",
+                "Preserve any evidence (emails, texts, photos)",
+                "Retaliation for good-faith reports is illegal",
+            ],
+            warning: "It is illegal for employers to retaliate against employees who report harassment in good faith.",
+        },
+    },
+    {
+        id: "final-quiz",
+        title: "Final Assessment",
+        type: "quiz",
+        quiz: {
+            question: "Which of the following is NOT one of the 5 D's of Bystander Intervention?",
+            options: [
+                "Direct",
+                "Distract",
+                "Deny",
+                "Delegate",
+            ],
+            correctIndex: 2,
+            explanation: "The 5 D's are Direct, Distract, Delegate, Delay, and Document. 'Deny' is not part of the framework.",
+        },
+    },
+];
+
 // Function to get module content by ID
 function getModuleSections(moduleId?: string): { sections: ModuleSection[]; title: string } {
     if (!moduleId) {
@@ -397,22 +869,43 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
 
     const id = moduleId.toLowerCase();
 
+    // AI & Prompt Engineering related
+    if (id.includes("prompt") || id.includes("ai-") || id.includes("agentic") || id.includes("llm") || id.includes("chatgpt") || id.includes("claude") || id.includes("gemini")) {
+        return { sections: aiPromptEngineeringModule, title: "Prompt Engineering Masterclass" };
+    }
+
+    // Data Privacy & GDPR related
+    if (id.includes("gdpr") || id.includes("privacy") || id.includes("ccpa") || id.includes("data-protection")) {
+        return { sections: dataPrivacyModule, title: "Data Privacy & GDPR Training" };
+    }
+
+    // Leadership related
+    if (id.includes("leadership") || id.includes("management") || id.includes("coaching") || id.includes("feedback")) {
+        return { sections: leadershipModule, title: "Leadership Fundamentals" };
+    }
+
     // SAFe/Agile related
     if (id.includes("safe") || id.includes("scrum") || id.includes("agile") || id.includes("agilist")) {
         return { sections: safeAgilistModule, title: "SAFe 6.0 Agilist Training" };
     }
 
     // HIPAA related
-    if (id.includes("hipaa")) {
+    if (id.includes("hipaa") || id.includes("phi") || id.includes("health-privacy")) {
         return { sections: hipaaModule, title: "HIPAA Compliance Training" };
     }
 
-    // Leadership (temporary: use HIPAA for workplace content)
-    if (id.includes("leadership") || id.includes("harassment")) {
-        return { sections: hipaaModule, title: "Leadership & Compliance Training" };
+    // Harassment/Workplace related  
+    if (id.includes("harassment") || id.includes("discrimination") || id.includes("eeoc") || id.includes("title-vii")) {
+        return { sections: harassmentPreventionModule, title: "Workplace Harassment Prevention" };
     }
 
-    // Default to cybersecurity
+    // Cybersecurity/NIST related (explicit match)
+    if (id.includes("cyber") || id.includes("nist") || id.includes("security") || id.includes("phishing")) {
+        return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
+    }
+
+    // Default: Instead of defaulting to cyber, try to match title words
+    // This is the fallback for modules we haven't explicitly mapped
     return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
 }
 
