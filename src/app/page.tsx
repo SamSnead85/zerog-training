@@ -72,41 +72,52 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,transparent_0%,var(--background)_100%)]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-5xl w-full">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+        <div className="relative z-10 mx-auto max-w-6xl w-full">
+          <div className="text-center mb-12">
+            {/* Enterprise Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
+              <span className="text-sm text-muted-foreground">Trusted by <span className="text-white font-medium">Fortune 500</span> L&D Teams</span>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95]">
               <span className="block text-white">Enterprise Training</span>
-              <span className="block mt-2 text-muted-foreground">
-                in Minutes
+              <span className="block mt-2 text-white/60">
+                in Minutes, Not Months
               </span>
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-md mx-auto leading-relaxed px-4">
-              Transform policies into engaging courses your team completes.
+            <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              AI-powered training that transforms your policies, SOPs, and knowledge base
+              into interactive courses your workforce will actually complete.
             </p>
 
-            <div className="mt-6 flex items-center justify-center gap-2 text-sm">
-              <Sparkles className="h-4 w-4 text-cyan-400" />
-              <span className="text-cyan-400 font-medium">Create your first course in 60 seconds</span>
+            <div className="mt-8 flex items-center justify-center gap-2 text-sm">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-primary font-medium">Try AI Training Studio Free</span>
+              <span className="text-muted-foreground">— Create your first course in 60 seconds</span>
             </div>
           </div>
 
-          <div className="max-w-lg mx-auto px-4">
+          <div className="max-w-xl mx-auto">
             <HeroGenerator />
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-            <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
-              <Check className="h-3.5 w-3.5 text-cyan-400" />
-              No credit card
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Check className="h-4 w-4 text-primary" />
+              No credit card required
             </div>
-            <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
-              <Check className="h-3.5 w-3.5 text-cyan-400" />
-              5 min setup
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Check className="h-4 w-4 text-primary" />
+              5 minute setup
             </div>
-            <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
-              <Check className="h-3.5 w-3.5 text-cyan-400" />
-              SOC 2
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Check className="h-4 w-4 text-primary" />
+              SOC 2 Type II Certified
             </div>
           </div>
         </div>
