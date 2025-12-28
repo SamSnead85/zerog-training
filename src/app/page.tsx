@@ -73,7 +73,7 @@ export default function LandingPage() {
           <img
             src="/images/hero-background.png"
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-40"
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
           {/* Base gradient layer for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background" />
