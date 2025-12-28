@@ -7,43 +7,45 @@
 
 /* CSS Variables for ZeroG Premium Theme - DARK FIRST */
 :root {
-  /* Core Colors - Dark Premium (Default) */
-  --background: #09090B;
+  /* Core Colors - Modern Dark with Better Contrast */
+  --background: #0A0A0F;
   --foreground: #FAFAFA;
 
-  /* ZeroG Premium Brand Palette - Sophisticated Slate */
-  --zerog-black: #09090B;
-  --zerog-dark: #18181B;
-  --zerog-gray: #27272A;
-  --zerog-muted: #3F3F46;
-  --zerog-accent: #64748B;
-  --zerog-accent-bright: #94A3B8;
-  --zerog-glow: #CBD5E1;
+  /* ZeroG Premium Brand Palette - Vibrant Cyan + Amber */
+  --zerog-black: #0A0A0F;
+  --zerog-dark: #121218;
+  --zerog-gray: #1E1E26;
+  --zerog-muted: #2A2A35;
+  --zerog-accent: #0EA5E9;
+  --zerog-accent-bright: #38BDF8;
+  --zerog-glow: #7DD3FC;
+  --zerog-amber: #F59E0B;
+  --zerog-amber-bright: #FBBF24;
 
-  /* Semantic Colors - Premium Slate */
-  --primary: #64748B;
+  /* Semantic Colors - Vibrant Cyan Primary */
+  --primary: #0EA5E9;
   --primary-foreground: #FFFFFF;
-  --secondary: #27272A;
+  --secondary: #1E1E26;
   --secondary-foreground: #FAFAFA;
-  --accent: #52525B;
-  --accent-foreground: #FAFAFA;
+  --accent: #F59E0B;
+  --accent-foreground: #0A0A0F;
 
-  /* UI Colors - Dark Premium */
-  --muted: #18181B;
-  --muted-foreground: #71717A;
-  --card: #18181B;
+  /* UI Colors - Modern Dark with Better Contrast */
+  --muted: #121218;
+  --muted-foreground: #94A3B8;
+  --card: #121218;
   --card-foreground: #FAFAFA;
-  --popover: #18181B;
+  --popover: #121218;
   --popover-foreground: #FAFAFA;
-  --border: #27272A;
-  --input: #18181B;
-  --ring: #64748B;
+  --border: #1E1E26;
+  --input: #121218;
+  --ring: #0EA5E9;
 
   /* Status Colors */
   --success: #22C55E;
-  --success-foreground: #09090B;
-  --warning: #94A3B8;
-  --warning-foreground: #18181B;
+  --success-foreground: #0A0A0F;
+  --warning: #F59E0B;
+  --warning-foreground: #0A0A0F;
   --error: #EF4444;
   --error-foreground: #FAFAFA;
   --info: #3B82F6;
@@ -56,14 +58,15 @@
   --radius-xl: 1.5rem;
   --radius-2xl: 2rem;
 
-  /* Premium Shadows */
+  /* Premium Shadows - Cyan Glow */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
   --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
   --shadow-md: 0 4px 15px -3px rgb(0 0 0 / 0.6);
   --shadow-lg: 0 10px 40px -10px rgb(0 0 0 / 0.7);
   --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.8);
-  --shadow-glow: 0 0 40px rgba(100, 116, 139, 0.15);
-  --shadow-glow-strong: 0 0 60px rgba(100, 116, 139, 0.25);
+  --shadow-glow: 0 0 40px rgba(14, 165, 233, 0.15);
+  --shadow-glow-strong: 0 0 60px rgba(14, 165, 233, 0.25);
+  --shadow-glow-amber: 0 0 40px rgba(245, 158, 11, 0.15);
 }
 
 /* Light Mode Override */

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, Input } from "@/components/ui";
+import { Input } from "@/components/ui";
+import { PremiumButton } from "@/components/ui/premium-buttons";
 import {
     Mail,
     Lock,
@@ -11,7 +12,6 @@ import {
     EyeOff,
     Loader2,
     Building2,
-    Chrome,
     ArrowRight,
     Shield,
     Zap,
@@ -49,12 +49,13 @@ export default function LoginPage() {
         <div className="min-h-screen flex">
             {/* Left Panel - Branded Hero */}
             <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative overflow-hidden">
-                {/* Gradient Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/50 to-cyan-950/30" />
+                {/* Gradient Background - Vibrant Cyan to Indigo */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-950 via-blue-950 to-indigo-950" />
 
-                {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(139,92,246,0.15),transparent_50%)]" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.15),transparent_50%)]" />
+                {/* Animated gradient overlay - Brighter, more vibrant */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(14,165,233,0.25),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(99,102,241,0.2),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.1),transparent_70%)]" />
 
                 {/* Grid pattern overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
@@ -179,20 +180,18 @@ export default function LoginPage() {
                             </div>
                         </div>
 
-                        <Button
+                        <PremiumButton
                             type="submit"
-                            className="w-full h-11 bg-primary hover:bg-primary/90"
-                            disabled={isLoading}
+                            variant="gradient"
+                            size="lg"
+                            glow
+                            loading={isLoading}
+                            icon={!isLoading ? <ArrowRight className="h-4 w-4" /> : undefined}
+                            iconPosition="right"
+                            className="w-full"
                         >
-                            {isLoading ? (
-                                <>
-                                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                                    Signing in...
-                                </>
-                            ) : (
-                                "Sign in"
-                            )}
-                        </Button>
+                            {isLoading ? "Signing in..." : "Sign in"}
+                        </PremiumButton>
                     </form>
 
                     {/* Divider */}
