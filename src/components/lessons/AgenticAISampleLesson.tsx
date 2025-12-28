@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Card, Button, Badge, Progress } from "@/components/ui";
 import {
@@ -128,6 +128,28 @@ export function AgenticAISampleLesson() {
     }>({ currentQuestion: 0, answers: Array(sampleQuestions.length).fill(null), showResults: false });
     const [expandedCode, setExpandedCode] = useState(true);
 
+    // Load saved progress on mount
+    useEffect(() => {
+        const savedProgress = localStorage.getItem('ai-native-lesson-progress');
+        if (savedProgress) {
+            try {
+                const { section, quiz } = JSON.parse(savedProgress);
+                if (section !== undefined) setActiveSection(section);
+                if (quiz) setQuizState(quiz);
+            } catch (e) {
+                // Ignore parse errors
+            }
+        }
+    }, []);
+
+    // Save progress on change
+    useEffect(() => {
+        localStorage.setItem('ai-native-lesson-progress', JSON.stringify({
+            section: activeSection,
+            quiz: quizState,
+        }));
+    }, [activeSection, quizState]);
+
     const handleAnswer = (optionIndex: number) => {
         const newAnswers = [...quizState.answers];
         newAnswers[quizState.currentQuestion] = optionIndex;
@@ -143,7 +165,8 @@ export function AgenticAISampleLesson() {
     };
 
     const resetQuiz = () => {
-        setQuizState({ currentQuestion: 0, answers: [null, null, null], showResults: false });
+        setQuizState({ currentQuestion: 0, answers: Array(sampleQuestions.length).fill(null), showResults: false });
+        localStorage.removeItem('ai-native-lesson-progress');
     };
 
     const correctCount = quizState.answers.filter((a, i) => a === sampleQuestions[i].correctIndex).length;
@@ -231,6 +254,20 @@ export function AgenticAISampleLesson() {
                                 <span>Production agents need evaluation and optimization</span>
                             </li>
                         </ul>
+                    </Card>
+
+                    {/* Certificate Preview */}
+                    <Card className="p-4 mt-4 border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent">
+                        <div className="text-center">
+                            <div className="text-2xl mb-1">🏆</div>
+                            <h3 className="font-semibold text-sm mb-1">Earn Your Certificate</h3>
+                            <p className="text-xs text-muted-foreground mb-2">
+                                AI-Native Developer Foundation
+                            </p>
+                            <Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500 border-amber-500/30">
+                                Upon Completion
+                            </Badge>
+                        </div>
                     </Card>
 
                     <Card className="p-4 mt-4">

@@ -377,6 +377,22 @@ export default function AINativeTrainingPage() {
                         Join thousands of professionals transforming their careers with AI-native skills
                     </p>
 
+                    {/* Social Proof */}
+                    <div className="flex flex-wrap justify-center gap-8 mb-8">
+                        <div className="text-center">
+                            <div className="text-3xl font-bold text-primary">2,500+</div>
+                            <div className="text-sm text-muted-foreground">Professionals Enrolled</div>
+                        </div>
+                        <div className="text-center">
+                            <div className="text-3xl font-bold">4.9/5</div>
+                            <div className="text-sm text-muted-foreground">Average Rating</div>
+                        </div>
+                        <div className="text-center">
+                            <div className="text-3xl font-bold text-emerald-500">94%</div>
+                            <div className="text-sm text-muted-foreground">Completion Rate</div>
+                        </div>
+                    </div>
+
                     {/* Enterprise Benefits */}
                     <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1"><CheckCircle2 className="h-4 w-4 text-emerald-500" /> Enterprise SSO</span>
@@ -397,6 +413,23 @@ export default function AINativeTrainingPage() {
                             </Button>
                         </Link>
                     </div>
+                </div>
+            </section>
+
+            {/* Newsletter Signup */}
+            <section className="py-12 px-4 border-t border-border bg-muted/30">
+                <div className="max-w-xl mx-auto text-center">
+                    <h3 className="text-lg font-semibold mb-2">Stay Updated</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Get notified when new modules and certifications launch</p>
+                    <div className="flex gap-2 max-w-md mx-auto">
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="flex-1 px-4 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        />
+                        <Button>Subscribe</Button>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2">No spam. Unsubscribe anytime.</p>
                 </div>
             </section>
         </div>
