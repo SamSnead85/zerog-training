@@ -3,14 +3,29 @@
 import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Input, Card } from "@/components/ui";
-import { Rocket, ArrowLeft, Check, Loader2 } from "lucide-react";
+import { Button, Input } from "@/components/ui";
+import {
+    Mail,
+    Lock,
+    Eye,
+    EyeOff,
+    Loader2,
+    Building2,
+    User,
+    CheckCircle2,
+    Shield,
+    Zap,
+    Award,
+    Sparkles,
+} from "lucide-react";
+import { LogoIcon } from "@/components/brand/Logo";
 
 function SignupForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const plan = searchParams.get("plan") || "professional";
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -50,81 +65,202 @@ function SignupForm() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
-            {/* Background effects */}
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-                <div className="absolute top-20 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
-                <div className="absolute bottom-20 right-1/4 h-96 w-96 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="min-h-screen flex">
+            {/* Left Panel - Branded Hero */}
+            <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative overflow-hidden">
+                {/* Gradient Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/50 to-cyan-950/30" />
+
+                {/* Animated gradient overlay */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(139,92,246,0.15),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.15),transparent_50%)]" />
+
+                {/* Grid pattern overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col justify-between p-12 xl:p-16">
+                    {/* Logo */}
+                    <Link href="/" className="flex items-center gap-3">
+                        <LogoIcon size={40} />
+                        <span className="text-2xl font-semibold text-white">
+                            Zero<span className="text-cyan-400">G</span>
+                            <span className="text-white/60 font-light ml-2">Training</span>
+                        </span>
+                    </Link>
+
+                    {/* Main Headline */}
+                    <div className="space-y-6 max-w-lg">
+                        <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight">
+                            Start Your
+                            <br />
+                            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">14-Day Free</span>
+                            <br />
+                            <span className="text-white/60">Trial Today</span>
+                        </h1>
+
+                        <p className="text-lg text-white/60 leading-relaxed">
+                            Join thousands of organizations using AI-powered training
+                            to develop their workforce faster than ever.
+                        </p>
+
+                        {/* Features list */}
+                        <div className="flex flex-col gap-4 pt-4">
+                            <div className="flex items-center gap-3 text-white/70">
+                                <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                                    <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                                </div>
+                                <span className="text-sm">No credit card required</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-white/70">
+                                <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                                    <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                                </div>
+                                <span className="text-sm">Full access to all features</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-white/70">
+                                <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                                    <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                                </div>
+                                <span className="text-sm">Create unlimited courses during trial</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-white/70">
+                                <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                                    <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                                </div>
+                                <span className="text-sm">Cancel anytime, no questions asked</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Footer - Company URL */}
+                    <div className="text-white/40 text-sm">
+                        zerog.training
+                    </div>
+                </div>
             </div>
 
-            <div className="w-full max-w-md">
-                {/* Back link */}
-                <Link
-                    href="/"
-                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8"
-                >
-                    <ArrowLeft className="h-4 w-4" />
-                    Back to home
-                </Link>
-
-                {/* Logo */}
-                <div className="flex items-center gap-2 mb-8">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
-                        <Rocket className="h-6 w-6 text-background" />
+            {/* Right Panel - Sign Up Form */}
+            <div className="flex-1 flex items-center justify-center p-6 sm:p-12 bg-background overflow-y-auto">
+                <div className="w-full max-w-md">
+                    {/* Mobile Logo */}
+                    <div className="lg:hidden flex items-center gap-2 mb-10">
+                        <LogoIcon size={32} />
+                        <span className="text-xl font-semibold">
+                            Zero<span className="text-cyan-400">G</span>
+                            <span className="text-muted-foreground font-light ml-1">Training</span>
+                        </span>
                     </div>
-                    <span className="text-2xl font-bold">
-                        Zero<span className="text-gradient">G</span>
-                    </span>
-                </div>
 
-                <Card variant="glass" padding="lg" className="backdrop-blur-xl">
-                    <h1 className="text-2xl font-bold mb-2">Start your free trial</h1>
-                    <p className="text-muted-foreground mb-6">
-                        Get started with the {selectedPlan.name} plan. No credit card required.
-                    </p>
+                    {/* Header */}
+                    <div className="mb-8">
+                        <h2 className="text-2xl font-semibold text-foreground">Create your account</h2>
+                        <p className="text-muted-foreground mt-1">
+                            Already have an account?{" "}
+                            <Link href="/login" className="text-primary hover:underline">
+                                Sign in
+                            </Link>
+                        </p>
+                    </div>
 
+                    {/* Plan Badge */}
+                    <div className="mb-6 p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <Sparkles className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                            <div className="text-sm font-medium">{selectedPlan.name} Plan</div>
+                            <div className="text-xs text-muted-foreground">14-day free trial • {selectedPlan.price}</div>
+                        </div>
+                    </div>
+
+                    {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
-                            <Input
-                                label="First name"
-                                placeholder="John"
-                                value={formData.firstName}
-                                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                                required
-                            />
-                            <Input
-                                label="Last name"
-                                placeholder="Doe"
-                                value={formData.lastName}
-                                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                                required
-                            />
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-foreground">First name</label>
+                                <div className="relative">
+                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                    <input
+                                        type="text"
+                                        placeholder="John"
+                                        value={formData.firstName}
+                                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                                        required
+                                        className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-foreground">Last name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Doe"
+                                    value={formData.lastName}
+                                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                                    required
+                                    className="w-full h-11 px-4 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                                />
+                            </div>
                         </div>
-                        <Input
-                            label="Work email"
-                            type="email"
-                            placeholder="john@company.com"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            required
-                        />
-                        <Input
-                            label="Company name"
-                            placeholder="Acme Inc."
-                            value={formData.company}
-                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                            required
-                        />
-                        <Input
-                            label="Password"
-                            type="password"
-                            placeholder="Create a password"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            required
-                        />
 
-                        <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-foreground">Work email</label>
+                            <div className="relative">
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <input
+                                    type="email"
+                                    placeholder="john@company.com"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    required
+                                    className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-foreground">Company name</label>
+                            <div className="relative">
+                                <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <input
+                                    type="text"
+                                    placeholder="Acme Inc."
+                                    value={formData.company}
+                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                    required
+                                    className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-foreground">Password</label>
+                            <div className="relative">
+                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Create a strong password"
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                    required
+                                    className="w-full h-11 pl-10 pr-12 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                >
+                                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </button>
+                            </div>
+                        </div>
+
+                        <Button
+                            type="submit"
+                            className="w-full h-11 bg-primary hover:bg-primary/90 mt-2"
+                            disabled={isLoading}
+                        >
                             {isLoading ? (
                                 <>
                                     <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -136,39 +272,57 @@ function SignupForm() {
                         </Button>
                     </form>
 
-                    <div className="mt-6 space-y-2">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Check className="h-4 w-4 text-success" />
-                            No credit card required
+                    {/* Divider */}
+                    <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-border" />
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Check className="h-4 w-4 text-success" />
-                            14 days free access to all features
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Check className="h-4 w-4 text-success" />
-                            Cancel anytime
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-background px-2 text-muted-foreground">or sign up with</span>
                         </div>
                     </div>
 
-                    <div className="mt-6 pt-6 border-t border-border text-center text-sm text-muted-foreground">
-                        Already have an account?{" "}
-                        <Link href="/login" className="text-primary hover:underline">
-                            Log in
+                    {/* SSO Options */}
+                    <div className="grid grid-cols-2 gap-3">
+                        <button
+                            type="button"
+                            className="h-11 flex items-center justify-center gap-2 rounded-lg border border-border bg-background hover:bg-muted/50 transition-colors text-sm font-medium"
+                        >
+                            <svg className="h-4 w-4" viewBox="0 0 24 24">
+                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                            </svg>
+                            Google
+                        </button>
+                        <button
+                            type="button"
+                            className="h-11 flex items-center justify-center gap-2 rounded-lg border border-border bg-background hover:bg-muted/50 transition-colors text-sm font-medium"
+                        >
+                            <svg className="h-4 w-4" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-13zm2.5-1a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-13a1 1 0 0 0-1-1h-13z" />
+                                <path fill="#00A4EF" d="M4.5 4.5h6.75v6.75H4.5z" />
+                                <path fill="#FFB900" d="M12.75 4.5h6.75v6.75h-6.75z" />
+                                <path fill="#7FBA00" d="M4.5 12.75h6.75v6.75H4.5z" />
+                                <path fill="#F25022" d="M12.75 12.75h6.75v6.75h-6.75z" />
+                            </svg>
+                            Microsoft
+                        </button>
+                    </div>
+
+                    {/* Terms */}
+                    <div className="mt-8 text-center text-xs text-muted-foreground">
+                        By creating an account, you agree to our{" "}
+                        <Link href="/terms" className="underline hover:text-foreground">
+                            Terms of Use
+                        </Link>
+                        {" "}and{" "}
+                        <Link href="/privacy" className="underline hover:text-foreground">
+                            Privacy Policy
                         </Link>
                     </div>
-                </Card>
-
-                <p className="mt-6 text-center text-xs text-muted-foreground">
-                    By signing up, you agree to our{" "}
-                    <Link href="/terms" className="underline hover:text-foreground">
-                        Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link href="/privacy" className="underline hover:text-foreground">
-                        Privacy Policy
-                    </Link>
-                </p>
+                </div>
             </div>
         </div>
     );
@@ -177,8 +331,11 @@ function SignupForm() {
 export default function SignupPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
-                <div className="animate-pulse text-muted-foreground">Loading...</div>
+            <div className="min-h-screen bg-background flex items-center justify-center">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>Loading...</span>
+                </div>
             </div>
         }>
             <SignupForm />
