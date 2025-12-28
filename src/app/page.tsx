@@ -133,37 +133,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Social Proof - Premium Logos */}
-      <section className="py-16 border-y border-white/5 bg-gradient-to-b from-background to-background/50">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
-            <p className="text-sm text-muted-foreground">
-              Trusted by <span className="text-foreground font-semibold">50,000+</span> learners at leading companies
-            </p>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                <Shield className="h-4 w-4 text-primary" />
-                <span className="text-xs font-medium">SOC 2 Type II</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                <Lock className="h-4 w-4 text-primary" />
-                <span className="text-xs font-medium">GDPR Ready</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-6">
-            {["Deloitte", "McKinsey", "Accenture", "KPMG", "PwC", "EY"].map((company) => (
-              <span
-                key={company}
-                className="text-2xl font-bold text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors cursor-default"
-              >
-                {company}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* AI-Native Training - Flagship Program */}
       <section className="py-24 px-6 relative overflow-hidden">
         {/* Background Effects */}
@@ -251,6 +220,37 @@ export default function LandingPage() {
                 <span key={skill} className="px-3 py-1 rounded-full bg-white/5 border border-white/10">{skill}</span>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof - Premium Logos */}
+      <section className="py-16 border-y border-white/5 bg-gradient-to-b from-background to-background/50">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
+            <p className="text-sm text-muted-foreground">
+              Trusted by <span className="text-foreground font-semibold">50,000+</span> learners at leading companies
+            </p>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                <Shield className="h-4 w-4 text-primary" />
+                <span className="text-xs font-medium">SOC 2 Type II</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                <Lock className="h-4 w-4 text-primary" />
+                <span className="text-xs font-medium">GDPR Ready</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-6">
+            {["Deloitte", "McKinsey", "Accenture", "KPMG", "PwC", "EY"].map((company) => (
+              <span
+                key={company}
+                className="text-2xl font-bold text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors cursor-default"
+              >
+                {company}
+              </span>
+            ))}
           </div>
         </div>
       </section>
