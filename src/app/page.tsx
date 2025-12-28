@@ -28,18 +28,19 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative">
-              <div className="absolute -inset-1 bg-cyan-500/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-              <LogoIcon size={32} className="relative" />
-            </div>
+            <LogoIcon size={32} />
             <span className="text-lg sm:text-xl font-semibold tracking-tight">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Zero G</span>
+              <span className="text-foreground">Zero G</span>
               <span className="text-muted-foreground ml-1 font-light hidden sm:inline">Training</span>
             </span>
           </Link>
 
 
           <div className="hidden md:flex items-center gap-8">
+            <Link href="/ai-native" className="text-sm text-primary font-medium hover:text-primary/80 transition-colors flex items-center gap-1">
+              <Sparkles className="h-3.5 w-3.5" />
+              AI-Native Training
+            </Link>
             <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Features
             </Link>
@@ -65,45 +66,26 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero - Dramatic & Premium */}
+      {/* Hero - Enterprise Premium */}
       <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 pb-16">
-        {/* Premium Background Effects - AI-Generated Image + Animated Design */}
+        {/* Premium Background Effects - Clean Enterprise Design */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* AI-Generated Hero Background Image */}
+          {/* Hero Background Image */}
           <img
             src="/images/hero-background.png"
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            className="absolute inset-0 w-full h-full object-cover opacity-50"
           />
           {/* Base gradient layer for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background" />
 
-          {/* Animated mesh gradient blobs */}
-          <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 via-blue-600/10 to-transparent rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '8s' }} />
-          <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-gradient-to-tl from-indigo-500/15 via-purple-500/8 to-transparent rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
-          <div className="absolute bottom-[20%] left-[30%] w-[700px] h-[400px] bg-gradient-to-r from-primary/10 via-cyan-400/8 to-transparent rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+          {/* Subtle enterprise gradient overlays - muted slate/gray tones only */}
+          <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-gradient-to-br from-slate-600/10 via-slate-700/5 to-transparent rounded-full blur-[120px]" />
+          <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-gradient-to-tl from-slate-500/8 via-zinc-600/5 to-transparent rounded-full blur-[100px]" />
+          <div className="absolute bottom-[20%] left-[30%] w-[700px] h-[400px] bg-gradient-to-r from-slate-700/8 via-gray-600/5 to-transparent rounded-full blur-[120px]" />
 
-          {/* Floating orbs with subtle movement */}
-          <div className="absolute top-[15%] left-[40%] w-4 h-4 bg-cyan-400/30 rounded-full blur-sm animate-bounce" style={{ animationDuration: '6s' }} />
-          <div className="absolute top-[45%] right-[25%] w-3 h-3 bg-primary/40 rounded-full blur-sm animate-bounce" style={{ animationDuration: '8s', animationDelay: '1s' }} />
-          <div className="absolute bottom-[35%] left-[15%] w-2 h-2 bg-indigo-400/30 rounded-full blur-sm animate-bounce" style={{ animationDuration: '7s', animationDelay: '3s' }} />
-          <div className="absolute top-[60%] right-[35%] w-3 h-3 bg-cyan-300/20 rounded-full blur-sm animate-bounce" style={{ animationDuration: '9s', animationDelay: '2s' }} />
-
-          {/* Subtle grid pattern with enhanced visibility */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
-
-          {/* Neural network-style connecting lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="neural-pattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-                <circle cx="100" cy="100" r="1" fill="currentColor" className="text-cyan-400" />
-                <line x1="0" y1="0" x2="100" y2="100" stroke="currentColor" strokeWidth="0.5" className="text-cyan-400" />
-                <line x1="200" y1="0" x2="100" y2="100" stroke="currentColor" strokeWidth="0.5" className="text-cyan-400" />
-                <line x1="100" y1="100" x2="100" y2="200" stroke="currentColor" strokeWidth="0.5" className="text-cyan-400" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#neural-pattern)" />
-          </svg>
+          {/* Subtle grid pattern - muted */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
           {/* Radial fade to ensure content readability */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,transparent_0%,var(--background)_100%)]" />
@@ -502,7 +484,7 @@ export default function LandingPage() {
             <div className="col-span-2">
               <Link href="/" className="flex items-center gap-2 mb-4">
                 <LogoIcon size={28} />
-                <span className="text-lg font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">ZeroG</span>
+                <span className="text-lg font-semibold text-foreground">ZeroG</span>
               </Link>
               <p className="text-sm text-muted-foreground mb-6 max-w-xs">
                 AI-powered training that adapts to your organization's unique context and knowledge.

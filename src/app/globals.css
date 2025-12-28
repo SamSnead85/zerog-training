@@ -1,72 +1,71 @@
 @import "tailwindcss";
 
 /* =============================================================================
-   ZeroG AI Training - Premium Design System
-   Award-winning aesthetic: Linear, Vercel, Stripe inspired
+   ZeroG AI Training - Enterprise Design System
+   Fortune 100 aesthetic: McKinsey, Deloitte, Accenture inspired
    ============================================================================= */
 
-/* CSS Variables for ZeroG Premium Theme - DARK FIRST */
+/* CSS Variables for Premium Enterprise Theme */
 :root {
-  /* Core Colors - Modern Dark with Better Contrast */
-  --background: #0A0A0F;
+  /* Core Colors - Deep, Sophisticated Dark */
+  --background: #09090B;
   --foreground: #FAFAFA;
 
-  /* ZeroG Premium Brand Palette - Vibrant Cyan + Amber */
-  --zerog-black: #0A0A0F;
-  --zerog-dark: #121218;
-  --zerog-gray: #1E1E26;
-  --zerog-muted: #2A2A35;
-  --zerog-accent: #0EA5E9;
-  --zerog-accent-bright: #38BDF8;
-  --zerog-glow: #7DD3FC;
-  --zerog-amber: #F59E0B;
-  --zerog-amber-bright: #FBBF24;
+  /* Enterprise Palette - Refined Slate/Navy */
+  --zerog-black: #09090B;
+  --zerog-dark: #0F0F12;
+  --zerog-gray: #18181B;
+  --zerog-muted: #27272A;
+  --zerog-accent: #64748B;
+  --zerog-accent-bright: #94A3B8;
+  --zerog-glow: #CBD5E1;
+  --zerog-gold: #B8860B;
+  --zerog-gold-bright: #D4A84B;
 
-  /* Semantic Colors - Vibrant Cyan Primary */
-  --primary: #0EA5E9;
+  /* Semantic Colors - Professional Steel Blue */
+  --primary: #475569;
   --primary-foreground: #FFFFFF;
-  --secondary: #1E1E26;
+  --secondary: #18181B;
   --secondary-foreground: #FAFAFA;
-  --accent: #F59E0B;
-  --accent-foreground: #0A0A0F;
+  --accent: #64748B;
+  --accent-foreground: #FFFFFF;
 
-  /* UI Colors - Modern Dark with Better Contrast */
-  --muted: #121218;
-  --muted-foreground: #94A3B8;
-  --card: #121218;
+  /* UI Colors - Enterprise Dark */
+  --muted: #0F0F12;
+  --muted-foreground: #71717A;
+  --card: #0F0F12;
   --card-foreground: #FAFAFA;
-  --popover: #121218;
+  --popover: #0F0F12;
   --popover-foreground: #FAFAFA;
-  --border: #1E1E26;
-  --input: #121218;
-  --ring: #0EA5E9;
+  --border: #27272A;
+  --input: #0F0F12;
+  --ring: #64748B;
 
   /* Status Colors */
   --success: #22C55E;
-  --success-foreground: #0A0A0F;
-  --warning: #F59E0B;
-  --warning-foreground: #0A0A0F;
-  --error: #EF4444;
+  --success-foreground: #09090B;
+  --warning: #EAB308;
+  --warning-foreground: #09090B;
+  --error: #DC2626;
   --error-foreground: #FAFAFA;
-  --info: #3B82F6;
+  --info: #64748B;
   --info-foreground: #FAFAFA;
 
   /* Sizing */
-  --radius: 0.75rem;
-  --radius-sm: 0.5rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
+  --radius: 0.5rem;
+  --radius-sm: 0.375rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
 
-  /* Premium Shadows - Cyan Glow */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
-  --shadow-md: 0 4px 15px -3px rgb(0 0 0 / 0.6);
-  --shadow-lg: 0 10px 40px -10px rgb(0 0 0 / 0.7);
-  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.8);
-  --shadow-glow: 0 0 40px rgba(14, 165, 233, 0.15);
-  --shadow-glow-strong: 0 0 60px rgba(14, 165, 233, 0.25);
-  --shadow-glow-amber: 0 0 40px rgba(245, 158, 11, 0.15);
+  /* Premium Shadows - Subtle Enterprise */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 15px -3px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 10px 40px -10px rgb(0 0 0 / 0.6);
+  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.7);
+  --shadow-glow: 0 0 30px rgba(100, 116, 139, 0.1);
+  --shadow-glow-strong: 0 0 40px rgba(100, 116, 139, 0.15);
 }
 
 /* Light Mode Override */

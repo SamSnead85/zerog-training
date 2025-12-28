@@ -53,6 +53,8 @@ const cybersecurityModule: ModuleSection[] = [
         type: "reading",
         content: {
             heading: "What is Phishing?",
+            imageUrl: "/images/training/phishing-awareness.png",
+            imageCaption: "Example of a suspicious phishing email with red flags highlighted",
             paragraphs: [
                 "Phishing is a type of social engineering attack where criminals attempt to trick you into revealing sensitive information, such as passwords, credit card numbers, or personal data.",
                 "Phishing attacks often come in the form of emails, text messages, or phone calls that appear to be from legitimate sources. Attackers create urgency or fear to pressure you into acting quickly without thinking.",
@@ -1035,6 +1037,22 @@ export function TrainingModuleViewer({ moduleId }: TrainingModuleViewerProps) {
                             </div>
                             <h2 className="text-2xl font-bold">{currentSection.content.heading}</h2>
                         </div>
+
+                        {/* Visual Content Image */}
+                        {currentSection.content.imageUrl && (
+                            <div className="rounded-xl overflow-hidden border border-border">
+                                <img
+                                    src={currentSection.content.imageUrl}
+                                    alt={currentSection.content.imageCaption || currentSection.content.heading}
+                                    className="w-full h-auto object-cover"
+                                />
+                                {currentSection.content.imageCaption && (
+                                    <div className="px-4 py-2 bg-muted text-sm text-muted-foreground">
+                                        {currentSection.content.imageCaption}
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
                         {currentSection.content.paragraphs.map((para, i) => (
                             <p key={i} className="text-muted-foreground leading-relaxed">

@@ -17,6 +17,8 @@ export interface ReadingContent {
     keyPoints?: string[];
     warning?: string;
     tip?: string;
+    imageUrl?: string;
+    imageCaption?: string;
 }
 
 export interface QuizContent {

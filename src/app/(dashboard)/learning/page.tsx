@@ -34,7 +34,7 @@ const categoryConfig: Record<string, { gradient: string; icon: React.ElementType
     "Healthcare": { gradient: "from-slate-700/40 via-zinc-600/25 to-slate-500/10", icon: Heart },
 };
 
-// In-progress courses with proper content
+// In-progress courses with proper content and thumbnails
 const inProgressCourses = [
     {
         id: "safe-agilist",
@@ -48,6 +48,7 @@ const inProgressCourses = [
         totalLessons: 20,
         lastAccessed: "2 hours ago",
         rating: 4.9,
+        thumbnail: "/images/training/network-security.png",
     },
     {
         id: "leadership-ai-era",
@@ -61,6 +62,7 @@ const inProgressCourses = [
         totalLessons: 14,
         lastAccessed: "Yesterday",
         rating: 4.8,
+        thumbnail: "/images/training/data-protection.png",
     },
     {
         id: "prompt-engineering",
@@ -74,6 +76,7 @@ const inProgressCourses = [
         totalLessons: 12,
         lastAccessed: "1 hour ago",
         rating: 4.8,
+        thumbnail: "/images/training/cybersecurity-hero.png",
     },
 ];
 
@@ -88,6 +91,7 @@ const completedCourses = [
         completedDate: "Dec 20, 2024",
         certificateId: "HIPAA-2024-12345",
         rating: 4.8,
+        thumbnail: "/images/training/compliance-hipaa.png",
     },
     {
         id: "nist-csf",
@@ -98,6 +102,7 @@ const completedCourses = [
         completedDate: "Dec 15, 2024",
         certificateId: "NIST-2024-67890",
         rating: 4.9,
+        thumbnail: "/images/training/security-visual.png",
     },
 ];
 
@@ -145,14 +150,14 @@ export default function LearningPage() {
                                 onClick={() => handleModuleClick(course.id)}
                             >
                                 <div className="flex">
-                                    {/* Gradient Thumbnail */}
-                                    <div className={cn(
-                                        "w-48 relative bg-gradient-to-br flex-shrink-0",
-                                        config.gradient
-                                    )}>
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <CategoryIcon className="h-16 w-16 opacity-20" />
-                                        </div>
+                                    {/* Image Thumbnail */}
+                                    <div className="w-48 relative flex-shrink-0 overflow-hidden">
+                                        <img
+                                            src={course.thumbnail}
+                                            alt={course.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black/30" />
                                         <div className="absolute inset-0 flex items-center justify-center">
                                             <div className="h-14 w-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                                                 <Play className="h-6 w-6 text-white ml-0.5" />
@@ -242,12 +247,14 @@ export default function LearningPage() {
                                 onClick={() => handleModuleClick(course.id)}
                             >
                                 <div className="flex">
-                                    {/* Completed Thumbnail */}
-                                    <div className={cn(
-                                        "w-28 relative bg-gradient-to-br flex-shrink-0",
-                                        config.gradient
-                                    )}>
-                                        <div className="absolute inset-0 bg-emerald-500/30 flex items-center justify-center">
+                                    {/* Completed Thumbnail with Image */}
+                                    <div className="w-28 relative flex-shrink-0 overflow-hidden">
+                                        <img
+                                            src={course.thumbnail}
+                                            alt={course.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-emerald-500/40 flex items-center justify-center">
                                             <CheckCircle2 className="h-10 w-10 text-white" />
                                         </div>
                                     </div>

@@ -52,6 +52,7 @@ interface ModuleCardProps {
     difficulty?: "beginner" | "intermediate" | "advanced";
     instructor?: string;
     sections?: number;
+    thumbnail?: string;
     onClick?: () => void;
 }
 
@@ -71,6 +72,7 @@ export function NetflixModuleCard({
     difficulty,
     instructor,
     sections,
+    thumbnail,
     onClick,
 }: ModuleCardProps) {
     const [isHovered, setIsHovered] = useState(false);
@@ -88,22 +90,33 @@ export function NetflixModuleCard({
             onMouseLeave={() => setIsHovered(false)}
             onClick={onClick}
         >
-            {/* Background Gradient with Category Theme */}
-            <div className={cn(
-                "absolute inset-0 bg-gradient-to-br",
-                gradient.bg
-            )} />
-
-            {/* Subtle Pattern Overlay */}
-            <div className="absolute inset-0 opacity-10" style={{
-                backgroundImage: `radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%)`
-            }} />
-
-            {/* Category Icon Watermark */}
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-10">
-                <CategoryIcon className="h-24 w-24" />
-            </div>
+            {/* Background - Image or Gradient */}
+            {thumbnail ? (
+                <>
+                    <img
+                        src={thumbnail}
+                        alt={title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/40" />
+                </>
+            ) : (
+                <>
+                    <div className={cn(
+                        "absolute inset-0 bg-gradient-to-br",
+                        gradient.bg
+                    )} />
+                    {/* Subtle Pattern Overlay */}
+                    <div className="absolute inset-0 opacity-10" style={{
+                        backgroundImage: `radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                                          radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%)`
+                    }} />
+                    {/* Category Icon Watermark */}
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-10">
+                        <CategoryIcon className="h-24 w-24" />
+                    </div>
+                </>
+            )}
 
             {/* Content */}
             <div className="relative h-full p-4 flex flex-col justify-between">

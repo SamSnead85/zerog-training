@@ -41,6 +41,7 @@ import {
     FileText,
     Zap,
     Boxes,
+    Brain,
 } from "lucide-react";
 import { Button, Avatar, Badge } from "@/components/ui";
 
@@ -82,6 +83,7 @@ const navGroups: NavGroup[] = [
         title: "Overview",
         items: [
             { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+            { label: "AI-Native Training", href: "/ai-native", icon: Brain, badge: "New", badgeVariant: "success" },
             { label: "Create Training", href: "/create", icon: Sparkles, badge: "AI", badgeVariant: "primary" },
         ],
     },
