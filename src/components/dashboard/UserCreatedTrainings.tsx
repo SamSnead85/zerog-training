@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getSavedTrainings, type StoredTraining } from "@/lib/training-storage";
+import { useAuthSafe } from "@/lib/auth/AuthContext";
+import { getSavedTrainingsAsync, getSavedTrainings, type StoredTraining } from "@/lib/training-storage";
 import { Card, Badge, Button } from "@/components/ui";
 import {
     Sparkles,
@@ -12,19 +13,53 @@ import {
     GraduationCap,
     FolderOpen,
     Plus,
+    Building2,
 } from "lucide-react";
 
 export function UserCreatedTrainings() {
+    const auth = useAuthSafe();
+    const user = auth?.user || null;
+    const isAuthenticated = auth?.isAuthenticated || false;
     const [trainings, setTrainings] = useState<StoredTraining[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-        setTrainings(getSavedTrainings());
-    }, []);
+
+        async function fetchTrainings() {
+            setIsLoading(true);
+            try {
+                if (user) {
+                    // Fetch from API for authenticated users (org-scoped)
+                    const apiTrainings = await getSavedTrainingsAsync(user);
+                    setTrainings(apiTrainings);
+                } else {
+                    // Fall back to localStorage for unauthenticated
+                    setTrainings(getSavedTrainings());
+                }
+            } catch (error) {
+                console.error('Error fetching trainings:', error);
+                setTrainings(getSavedTrainings());
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchTrainings();
+    }, [user]);
 
     // Only render on client to avoid hydration issues
     if (!isClient) return null;
+
+    if (isLoading) {
+        return (
+            <div className="p-6 rounded-xl bg-white/[0.02] border border-white/10 animate-pulse">
+                <div className="h-4 bg-muted rounded w-1/3 mb-4"></div>
+                <div className="h-3 bg-muted/50 rounded w-2/3"></div>
+            </div>
+        );
+    }
 
     if (trainings.length === 0) {
         return (
@@ -32,7 +67,9 @@ export function UserCreatedTrainings() {
                 <FolderOpen className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
                 <h3 className="font-medium mb-1">No training modules yet</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                    Create your first AI-powered training module
+                    {isAuthenticated
+                        ? "Create your first AI-powered training module for your team"
+                        : "Create your first AI-powered training module"}
                 </p>
                 <Link href="/studio/create">
                     <Button size="sm" className="gap-2">
@@ -46,6 +83,14 @@ export function UserCreatedTrainings() {
 
     return (
         <div className="space-y-4">
+            {/* Org context indicator for authenticated users */}
+            {isAuthenticated && user && (
+                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                    <Building2 className="h-3 w-3" />
+                    <span>Showing trainings for <span className="text-foreground font-medium">{user.organizationName}</span></span>
+                </div>
+            )}
+
             {trainings.slice(0, 3).map((training) => (
                 <div
                     key={training.id}
@@ -85,6 +130,11 @@ export function UserCreatedTrainings() {
                                     <GraduationCap className="h-3 w-3" />
                                     {training.sections.filter(s => s.type === "quiz").length} quizzes
                                 </span>
+                                {training.creatorName && (
+                                    <span className="text-primary/70">
+                                        by {training.creatorName}
+                                    </span>
+                                )}
                             </div>
                         </div>
                         <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />

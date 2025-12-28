@@ -2,11 +2,16 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+// User roles matching Prisma schema
+export type UserRole = "SUPER_ADMIN" | "ORG_ADMIN" | "CREATOR" | "MANAGER" | "LEARNER";
+
 export interface User {
     id: string;
     email: string;
     name: string;
-    role: "admin" | "manager" | "employee" | "compliance_officer";
+    role: UserRole;
+    organizationId: string;
+    organizationName: string;
     department: string;
     employeeId: string;
     hireDate: string;
@@ -24,7 +29,9 @@ interface AuthContextType {
     resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
     updateProfile: (data: Partial<User>) => Promise<{ success: boolean; error?: string }>;
     hasPermission: (permission: string) => boolean;
-    hasRole: (role: string | string[]) => boolean;
+    hasRole: (role: UserRole | UserRole[]) => boolean;
+    isSuperAdmin: () => boolean;
+    isOrgAdmin: () => boolean;
 }
 
 interface RegisterData {
@@ -37,14 +44,62 @@ interface RegisterData {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Mock user for demo
+// Demo organizations
+const DEMO_ORGS = {
+    zerog: { id: "org_zerog", name: "ZeroG AI Training" },
+    acme: { id: "org_acme", name: "Acme Corporation" },
+    healthcare: { id: "org_healthcare", name: "Healthcare Inc" },
+};
+
+// Mock users for demo - includes sam.sweilem85@gmail.com as SUPER_ADMIN
 const DEMO_USERS: Record<string, User & { password: string }> = {
+    "sam.sweilem85@gmail.com": {
+        id: "usr_superadmin",
+        email: "sam.sweilem85@gmail.com",
+        password: "admin123",
+        name: "Sam Sweilem",
+        role: "SUPER_ADMIN",
+        organizationId: DEMO_ORGS.zerog.id,
+        organizationName: DEMO_ORGS.zerog.name,
+        department: "Administration",
+        employeeId: "SUPER001",
+        hireDate: "2024-01-01",
+        permissions: ["manage_all", "manage_users", "manage_courses", "view_reports", "manage_compliance", "manage_settings", "manage_orgs"],
+    },
+    "admin@zerog.ai": {
+        id: "usr_zerog_admin",
+        email: "admin@zerog.ai",
+        password: "admin123",
+        name: "ZeroG Admin",
+        role: "ORG_ADMIN",
+        organizationId: DEMO_ORGS.zerog.id,
+        organizationName: DEMO_ORGS.zerog.name,
+        department: "IT Administration",
+        employeeId: "ZG001",
+        hireDate: "2024-01-15",
+        permissions: ["manage_users", "manage_courses", "view_reports", "manage_compliance", "manage_settings"],
+    },
+    "admin@acme.com": {
+        id: "usr_acme_admin",
+        email: "admin@acme.com",
+        password: "admin123",
+        name: "Acme Admin",
+        role: "ORG_ADMIN",
+        organizationId: DEMO_ORGS.acme.id,
+        organizationName: DEMO_ORGS.acme.name,
+        department: "IT Administration",
+        employeeId: "ACME001",
+        hireDate: "2024-02-01",
+        permissions: ["manage_users", "manage_courses", "view_reports", "manage_compliance", "manage_settings"],
+    },
     "admin@healthcare.org": {
         id: "usr_001",
         email: "admin@healthcare.org",
         password: "admin123",
         name: "Sarah Chen",
-        role: "admin",
+        role: "ORG_ADMIN",
+        organizationId: DEMO_ORGS.healthcare.id,
+        organizationName: DEMO_ORGS.healthcare.name,
         department: "IT Administration",
         employeeId: "EMP001",
         hireDate: "2020-01-15",
@@ -55,7 +110,9 @@ const DEMO_USERS: Record<string, User & { password: string }> = {
         email: "manager@healthcare.org",
         password: "manager123",
         name: "Marcus Johnson",
-        role: "manager",
+        role: "MANAGER",
+        organizationId: DEMO_ORGS.healthcare.id,
+        organizationName: DEMO_ORGS.healthcare.name,
         department: "Nursing",
         employeeId: "EMP002",
         hireDate: "2019-06-01",
@@ -66,7 +123,9 @@ const DEMO_USERS: Record<string, User & { password: string }> = {
         email: "employee@healthcare.org",
         password: "employee123",
         name: "Emily Rodriguez",
-        role: "employee",
+        role: "LEARNER",
+        organizationId: DEMO_ORGS.healthcare.id,
+        organizationName: DEMO_ORGS.healthcare.name,
         department: "Nursing",
         employeeId: "EMP003",
         hireDate: "2023-03-15",
@@ -128,7 +187,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 id: `usr_${Date.now()}`,
                 email: data.email,
                 name: data.name,
-                role: "employee",
+                role: "LEARNER",
+                organizationId: DEMO_ORGS.zerog.id, // Default to ZeroG org for demo
+                organizationName: DEMO_ORGS.zerog.name,
                 department: data.department || "General",
                 employeeId: data.employeeId || `EMP${Date.now()}`,
                 hireDate: new Date().toISOString().split("T")[0],
@@ -159,13 +220,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const hasPermission = (permission: string) => {
-        return user?.permissions.includes(permission) || user?.role === "admin";
+        return user?.permissions.includes(permission) || user?.role === "SUPER_ADMIN" || user?.role === "ORG_ADMIN";
     };
 
-    const hasRole = (role: string | string[]) => {
+    const hasRole = (role: UserRole | UserRole[]) => {
         if (!user) return false;
         const roles = Array.isArray(role) ? role : [role];
         return roles.includes(user.role);
+    };
+
+    const isSuperAdmin = () => {
+        return user?.role === "SUPER_ADMIN";
+    };
+
+    const isOrgAdmin = () => {
+        return user?.role === "SUPER_ADMIN" || user?.role === "ORG_ADMIN";
     };
 
     return (
@@ -181,6 +250,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 updateProfile,
                 hasPermission,
                 hasRole,
+                isSuperAdmin,
+                isOrgAdmin,
             }}
         >
             {children}
@@ -196,6 +267,15 @@ export function useAuth() {
     return context;
 }
 
+/**
+ * Safe version of useAuth that returns null when outside AuthProvider
+ * Use this in components that may render outside the auth context (e.g., landing page)
+ */
+export function useAuthSafe() {
+    const context = useContext(AuthContext);
+    return context || null;
+}
+
 // Protected route wrapper
 export function RequireAuth({
     children,
@@ -204,7 +284,7 @@ export function RequireAuth({
     fallback,
 }: {
     children: ReactNode;
-    roles?: string[];
+    roles?: UserRole[];
     permissions?: string[];
     fallback?: ReactNode;
 }) {
@@ -228,3 +308,4 @@ export function RequireAuth({
 
     return <>{children}</>;
 }
+

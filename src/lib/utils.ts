@@ -162,13 +162,20 @@ export function isClient(): boolean {
 
 /**
  * Get the base URL for the application
+ * Supports: Netlify, local development
  */
 export function getBaseUrl(): string {
   if (isClient()) {
     return window.location.origin;
   }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
+  // Netlify deployment
+  if (process.env.URL) {
+    return process.env.URL;
   }
+  // Netlify deploy preview
+  if (process.env.DEPLOY_PRIME_URL) {
+    return process.env.DEPLOY_PRIME_URL;
+  }
+  // Local development
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }

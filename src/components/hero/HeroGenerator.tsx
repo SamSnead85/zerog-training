@@ -4,7 +4,8 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui";
-import { saveTraining, type StoredTraining } from "@/lib/training-storage";
+import { useAuthSafe } from "@/lib/auth/AuthContext";
+import { saveTrainingAsync, saveTraining, type StoredTraining } from "@/lib/training-storage";
 import {
     Sparkles,
     Upload,
@@ -81,6 +82,8 @@ const generationStages = [
 
 export function HeroGenerator() {
     const router = useRouter();
+    const auth = useAuthSafe();
+    const user = auth?.user || null;
     const [step, setStep] = useState<Step>("select");
     const [selectedModule, setSelectedModule] = useState<PrebuiltModule | null>(null);
     const [customPrompt, setCustomPrompt] = useState("");
@@ -469,26 +472,31 @@ export function HeroGenerator() {
                         <div className="flex gap-3 mb-3">
                             <Button
                                 className="flex-1 h-12 font-semibold gap-2"
-                                onClick={() => {
+                                onClick={async () => {
                                     if (generatedCourse) {
                                         setIsSaving(true);
-                                        // Save to localStorage
-                                        saveTraining({
-                                            title: generatedCourse.title,
-                                            description: generatedCourse.description,
-                                            status: 'published',
-                                            duration: generatedCourse.duration,
-                                            sections: generatedCourse.sections.map(s => ({
-                                                title: s.title,
-                                                type: s.type,
-                                                duration: s.duration,
-                                                preview: s.preview,
-                                            })),
-                                            category: selectedModule?.id || 'custom',
-                                            targetAudience: generatedCourse.audience,
-                                        });
-                                        // Navigate to dashboard
-                                        router.push('/dashboard?deployed=true');
+                                        try {
+                                            // Save to API if authenticated, localStorage otherwise
+                                            await saveTrainingAsync({
+                                                title: generatedCourse.title,
+                                                description: generatedCourse.description,
+                                                status: 'published',
+                                                duration: generatedCourse.duration,
+                                                sections: generatedCourse.sections.map(s => ({
+                                                    title: s.title,
+                                                    type: s.type,
+                                                    duration: s.duration,
+                                                    preview: s.preview,
+                                                })),
+                                                category: selectedModule?.id || 'custom',
+                                                targetAudience: generatedCourse.audience,
+                                            }, user);
+                                            // Navigate to dashboard
+                                            router.push('/dashboard?deployed=true');
+                                        } catch (error) {
+                                            console.error('Error deploying:', error);
+                                            setIsSaving(false);
+                                        }
                                     }
                                 }}
                                 disabled={isSaving}
