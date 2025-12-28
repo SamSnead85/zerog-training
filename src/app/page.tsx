@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui";
 import { HeroGenerator } from "@/components/hero/HeroGenerator";
+import { LogoIcon } from "@/components/brand/Logo";
 import {
   ArrowRight,
   Check,
@@ -19,7 +19,6 @@ import {
   Lock,
   Star,
   Play,
-  ChevronRight,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -28,16 +27,14 @@ export default function LandingPage() {
       {/* Premium Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative">
-              <div className="absolute -inset-1 bg-primary/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Image src="/logo.png" alt="ZeroG" width={36} height={36} className="rounded-lg relative" />
+              <div className="absolute -inset-1 bg-cyan-500/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+              <LogoIcon size={32} className="relative" />
             </div>
-            <span className="text-xl font-semibold tracking-tight">
-              Zero<span className="text-primary">G</span>
-            </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-              v3.0 DEC-27
+            <span className="text-lg sm:text-xl font-semibold tracking-tight">
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Zero G</span>
+              <span className="text-muted-foreground ml-1 font-light hidden sm:inline">Training</span>
             </span>
           </Link>
 
@@ -75,52 +72,41 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,transparent_0%,var(--background)_100%)]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-6xl w-full">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-              </span>
-              <span className="text-sm font-medium text-primary">60+ Pre-built Courses • AI-Powered Customization</span>
-            </div>
-
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9]">
-              <span className="block text-foreground/90">Enterprise Training</span>
-              <span className="block mt-3 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                in Minutes, Not Months
+        <div className="relative z-10 mx-auto max-w-5xl w-full">
+          <div className="text-center mb-10">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+              <span className="block text-foreground">Enterprise Training</span>
+              <span className="block mt-2 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                in Minutes
               </span>
             </h1>
 
-            <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              AI Training Studio transforms your policies and procedures into
-              <span className="text-foreground/70 block mt-1">engaging, interactive training your team will actually complete.</span>
+            <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-md mx-auto leading-relaxed px-4">
+              Transform policies into engaging courses your team completes.
             </p>
 
-            {/* AI Training Studio Label */}
-            <div className="mt-8 flex items-center justify-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
-              <span className="text-sm font-semibold text-foreground">Try AI Training Studio Free</span>
-              <span className="text-sm text-muted-foreground">— Create your first course in 60 seconds</span>
+            <div className="mt-6 flex items-center justify-center gap-2 text-sm">
+              <Sparkles className="h-4 w-4 text-cyan-400" />
+              <span className="text-cyan-400 font-medium">Create your first course in 60 seconds</span>
             </div>
           </div>
 
-          <div className="max-w-xl mx-auto">
+          <div className="max-w-lg mx-auto px-4">
             <HeroGenerator />
           </div>
 
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Check className="h-4 w-4 text-primary" />
-              No credit card required
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
+              <Check className="h-3.5 w-3.5 text-cyan-400" />
+              No credit card
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Check className="h-4 w-4 text-primary" />
-              5 minute setup
+            <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
+              <Check className="h-3.5 w-3.5 text-cyan-400" />
+              5 min setup
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Check className="h-4 w-4 text-primary" />
-              SOC 2 certified
+            <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
+              <Check className="h-3.5 w-3.5 text-cyan-400" />
+              SOC 2
             </div>
           </div>
         </div>
@@ -476,8 +462,8 @@ export default function LandingPage() {
             {/* Brand */}
             <div className="col-span-2">
               <Link href="/" className="flex items-center gap-2 mb-4">
-                <Image src="/logo.png" alt="ZeroG" width={32} height={32} className="rounded-lg" />
-                <span className="text-lg font-semibold">ZeroG</span>
+                <LogoIcon size={28} />
+                <span className="text-lg font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">ZeroG</span>
               </Link>
               <p className="text-sm text-muted-foreground mb-6 max-w-xs">
                 AI-powered training that adapts to your organization's unique context and knowledge.
