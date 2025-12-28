@@ -48,7 +48,7 @@ const continuelearning = [
         category: "Agile",
         progress: 65,
         nextLesson: "Facilitating PI Planning",
-        thumbnail: "bg-gradient-to-br from-zinc-700 to-zinc-600",
+        thumbnail: "/images/training/network-security.png",
         duration: "35 min left",
         xpReward: 150,
     },
@@ -58,7 +58,7 @@ const continuelearning = [
         category: "Leadership",
         progress: 30,
         nextLesson: "Emotional Intelligence",
-        thumbnail: "bg-gradient-to-br from-zinc-600 to-zinc-500",
+        thumbnail: "/images/training/security-visual.png",
         duration: "2h 15min left",
         xpReward: 200,
     },
@@ -248,8 +248,15 @@ export default function DashboardPage() {
                                 <Link key={course.id} href={`/module/${course.id}`}>
                                     <div className="group p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
                                         <div className="flex gap-4">
-                                            <div className={`w-16 h-16 ${course.thumbnail} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                                                <Play className="h-6 w-6 text-white/70" />
+                                            <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                                <img
+                                                    src={course.thumbnail}
+                                                    alt={course.title}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                                                    <Play className="h-6 w-6 text-white/70" />
+                                                </div>
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-start justify-between gap-2 mb-1">
