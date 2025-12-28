@@ -31,6 +31,41 @@ interface PricingTier {
 
 const pricingTiers: PricingTier[] = [
     {
+        id: "starter",
+        name: "Starter",
+        description: "For individuals and small businesses",
+        price: 29,
+        period: "month",
+        generationsPerMonth: 5,
+        stripePriceId: "price_starter_monthly",
+        features: [
+            "5 training modules access",
+            "Up to 5 users",
+            "Self-paced learning",
+            "Basic progress tracking",
+            "Export to PDF",
+            "Email support",
+        ],
+    },
+    {
+        id: "pro",
+        name: "Pro",
+        description: "Create training and share with your team",
+        price: 99,
+        period: "month",
+        generationsPerMonth: 15,
+        stripePriceId: "price_pro_monthly",
+        features: [
+            "15 training modules access",
+            "Up to 25 users",
+            "Create custom training content",
+            "Team invite links & sharing",
+            "Advanced analytics & reporting",
+            "Custom branding",
+            "Priority support",
+        ],
+    },
+    {
         id: "enterprise-access",
         name: "Enterprise Access",
         description: "Full AI-Native training for your team",
@@ -178,7 +213,7 @@ export function PricingPage({ onSelectPlan }: PricingPageProps) {
             </Card>
 
             {/* Pricing Cards */}
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {pricingTiers.map((tier) => (
                     <Card
                         key={tier.id}
@@ -216,7 +251,11 @@ export function PricingPage({ onSelectPlan }: PricingPageProps) {
                             <p className="text-sm text-muted-foreground mt-1">
                                 {tier.id === "enterprise-access"
                                     ? "per user, per month"
-                                    : "Custom pricing for your organization"}
+                                    : tier.price === 0
+                                        ? "Custom pricing"
+                                        : tier.generationsPerMonth === "unlimited"
+                                            ? "Unlimited access"
+                                            : `${tier.generationsPerMonth} modules included`}
                             </p>
                         </div>
 
