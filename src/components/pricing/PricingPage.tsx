@@ -31,61 +31,43 @@ interface PricingTier {
 
 const pricingTiers: PricingTier[] = [
     {
-        id: "starter",
-        name: "Starter",
-        description: "Perfect for individuals and solopreneurs",
-        price: 49,
+        id: "enterprise-access",
+        name: "Enterprise Access",
+        description: "Full AI-Native training for your team",
+        price: 75,
         period: "month",
-        generationsPerMonth: 5,
-        stripePriceId: "price_starter_monthly",
-        features: [
-            "5 training modules per month",
-            "1 user license",
-            "Unlimited access to your modules",
-            "All templates included",
-            "Export to PDF & SCORM",
-            "Basic analytics",
-            "Email support",
-        ],
-    },
-    {
-        id: "professional",
-        name: "Pro",
-        description: "For small teams and growing businesses",
-        price: 129,
-        period: "month",
-        generationsPerMonth: 15,
+        generationsPerMonth: "unlimited",
         highlighted: true,
-        badge: "Most Popular",
-        stripePriceId: "price_professional_monthly",
+        badge: "Per User",
+        stripePriceId: "price_enterprise_access_monthly",
         features: [
-            "15 training modules per month",
-            "Up to 10 team members",
-            "Team invite links & codes",
-            "Share training with your team",
-            "Advanced analytics & reporting",
-            "Priority support",
-            "Custom branding",
-            "API access",
+            "Unlimited training modules",
+            "Full AI-Native curriculum access",
+            "All 8 certification modules",
+            "Interactive labs & exercises",
+            "Team analytics dashboard",
+            "Progress tracking & reporting",
+            "Export to PDF & SCORM",
+            "Priority email support",
         ],
     },
     {
         id: "enterprise",
         name: "Enterprise",
-        description: "For large organizations",
-        price: 0, // Custom pricing
+        description: "Custom solutions for large organizations",
+        price: 0, // Contact support
         period: "month",
         generationsPerMonth: "unlimited",
-        stripePriceId: "price_enterprise_monthly",
+        stripePriceId: "price_enterprise_custom",
         features: [
-            "Unlimited training modules",
-            "Unlimited team members",
+            "Everything in Enterprise Access",
             "SSO & SAML authentication",
             "Dedicated success manager",
-            "Custom integrations",
+            "Custom integrations (HRIS, LMS)",
+            "SCIM user provisioning",
             "SLA guarantee",
             "On-premise deployment option",
-            "Volume discounts",
+            "Volume discounts available",
         ],
     },
 ];
@@ -182,7 +164,7 @@ export function PricingPage({ onSelectPlan }: PricingPageProps) {
                         <div>
                             <h3 className="font-semibold">Try Before You Buy</h3>
                             <p className="text-sm text-muted-foreground">
-                                Get 2 free AI generations per day - no credit card required
+                                Try a sample lesson free - no credit card required
                             </p>
                         </div>
                     </div>
@@ -196,7 +178,7 @@ export function PricingPage({ onSelectPlan }: PricingPageProps) {
             </Card>
 
             {/* Pricing Cards */}
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {pricingTiers.map((tier) => (
                     <Card
                         key={tier.id}
@@ -232,18 +214,18 @@ export function PricingPage({ onSelectPlan }: PricingPageProps) {
                                 )}
                             </div>
                             <p className="text-sm text-muted-foreground mt-1">
-                                {tier.generationsPerMonth === "unlimited"
-                                    ? "Unlimited modules & users"
-                                    : `${tier.generationsPerMonth} modules/month`}
+                                {tier.id === "enterprise-access"
+                                    ? "per user, per month"
+                                    : "Custom pricing for your organization"}
                             </p>
                         </div>
 
                         <Button
                             className={cn("w-full mb-6", tier.highlighted ? "" : "bg-muted text-foreground hover:bg-muted/80")}
-                            onClick={() => handleSelectPlan(tier)}
-                            disabled={isLoading !== null}
+                            onClick={() => tier.price === 0 ? window.location.href = '/contact' : handleSelectPlan(tier)}
+                            disabled={isLoading !== null && tier.price !== 0}
                         >
-                            {isLoading === tier.id ? "Loading..." : `Get ${tier.name}`}
+                            {tier.price === 0 ? "Contact Support" : (isLoading === tier.id ? "Loading..." : `Get Started`)}
                         </Button>
 
                         <ul className="space-y-3">
