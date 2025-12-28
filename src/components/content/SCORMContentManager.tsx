@@ -45,8 +45,8 @@ const mockPackages: SCORMPackage[] = [
     { id: "1", name: "Compliance Essentials 2024", version: "2004", status: "completed", uploadedAt: "Dec 20, 2024", size: "45 MB", scos: 8, duration: "2 hours", completions: 234, averageScore: 87 },
     { id: "2", name: "Cybersecurity Fundamentals", version: "1.2", status: "completed", uploadedAt: "Dec 15, 2024", size: "78 MB", scos: 12, duration: "4 hours", completions: 156, averageScore: 82 },
     { id: "3", name: "Data Privacy Masterclass", version: "2004", status: "completed", uploadedAt: "Dec 10, 2024", size: "52 MB", scos: 6, duration: "1.5 hours", completions: 89, averageScore: 91 },
-    { id: "4", name: "Leadership Development", version: "1.2", status: "processing", uploadedAt: "Just now", size: "120 MB", scos: 0 },
-    { id: "5", name: "Anti-Harassment Training", version: "2004", status: "error", uploadedAt: "Dec 25, 2024", size: "34 MB", scos: 0 },
+    { id: "4", name: "Leadership Development", version: "1.2", status: "processing", uploadedAt: "Just now", size: "120 MB", scos: 0, completions: 0 },
+    { id: "5", name: "Anti-Harassment Training", version: "2004", status: "error", uploadedAt: "Dec 25, 2024", size: "34 MB", scos: 0, completions: 0 },
 ];
 
 export function SCORMContentManager() {

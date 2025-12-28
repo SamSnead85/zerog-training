@@ -194,10 +194,14 @@ export function SCIMProvisioning() {
                                                 size="sm"
                                                 className="gap-1"
                                                 onClick={() => handleSync(provider.id)}
-                                                disabled={provider.status === "syncing"}
                                             >
-                                                <RefreshCw className={cn("h-3 w-3", provider.status === "syncing" && "animate-spin")} />
+                                                <RefreshCw className="h-3 w-3" />
                                                 Sync
+                                            </Button>
+                                        ) : provider.status === "syncing" ? (
+                                            <Button variant="outline" size="sm" className="gap-1" disabled>
+                                                <RefreshCw className="h-3 w-3 animate-spin" />
+                                                Syncing
                                             </Button>
                                         ) : (
                                             <Button variant="default" size="sm">Connect</Button>
