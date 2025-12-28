@@ -56,7 +56,7 @@ const DEMO_USERS: Record<string, User & { password: string }> = {
     "sam.sweilem85@gmail.com": {
         id: "usr_superadmin",
         email: "sam.sweilem85@gmail.com",
-        password: "admin123",
+        password: "Winter2022$",
         name: "Sam Sweilem",
         role: "SUPER_ADMIN",
         organizationId: DEMO_ORGS.zerog.id,
