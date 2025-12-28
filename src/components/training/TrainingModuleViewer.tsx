@@ -20,37 +20,13 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-interface ModuleSection {
-    id: string;
-    title: string;
-    type: "reading" | "quiz" | "scenario";
-    content?: ReadingContent;
-    quiz?: QuizContent;
-    scenario?: ScenarioContent;
-}
+// Import expanded curriculum modules
+import { expandedAIPromptEngineeringModule } from "@/lib/curriculum/expanded-ai-curriculum";
+import { expandedHIPAAModule } from "@/lib/curriculum/expanded-hipaa-curriculum";
+import { expandedSAFeModule } from "@/lib/curriculum/expanded-safe-curriculum";
+import type { ModuleSection, ReadingContent, QuizContent, ScenarioContent } from "@/lib/curriculum/types";
 
-interface ReadingContent {
-    heading: string;
-    paragraphs: string[];
-    keyPoints?: string[];
-    warning?: string;
-    tip?: string;
-}
-
-interface QuizContent {
-    question: string;
-    options: string[];
-    correctIndex: number;
-    explanation: string;
-}
-
-interface ScenarioContent {
-    situation: string;
-    question: string;
-    options: string[];
-    correctIndex: number;
-    feedback: string;
-}
+// Types imported from @/lib/curriculum/types
 
 const cybersecurityModule: ModuleSection[] = [
     {
@@ -874,7 +850,7 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
         id.includes("chatgpt") || id.includes("claude") || id.includes("gemini") ||
         id.includes("copilot") || id.includes("vector") || id.includes("rag") ||
         (id.startsWith("ai-") || id.includes("-ai-") || id.endsWith("-ai"))) {
-        return { sections: aiPromptEngineeringModule, title: "Prompt Engineering Masterclass" };
+        return { sections: expandedAIPromptEngineeringModule, title: "Prompt Engineering Masterclass" };
     }
 
     // Data Privacy & GDPR - covers: gdpr, privacy, ccpa, data-protection
@@ -893,14 +869,14 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
     if (id.includes("safe") || id.includes("scrum") || id.includes("agile") ||
         id.includes("agilist") || id.includes("kanban") || id.includes("pi-planning") ||
         id.includes("product-owner")) {
-        return { sections: safeAgilistModule, title: "SAFe 6.0 Agilist Training" };
+        return { sections: expandedSAFeModule, title: "SAFe 6.0 Agilist Training" };
     }
 
     // HIPAA & Healthcare - covers: hipaa-*, bloodborne, patient-safety, clinical-*, infection-*, healthcare
     if (id.includes("hipaa") || id.includes("phi") || id.includes("health-privacy") ||
         id.includes("bloodborne") || id.includes("patient") || id.includes("clinical") ||
         id.includes("infection") || id.includes("healthcare") || id.includes("osha")) {
-        return { sections: hipaaModule, title: "HIPAA Compliance Training" };
+        return { sections: expandedHIPAAModule, title: "HIPAA Compliance Training" };
     }
 
     // Harassment/Workplace/HR - covers: harassment-*, discrimination, eeoc, title-vii, workplace-*, new-hire-*
@@ -924,7 +900,7 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
 
     // AI Ethics - specific match before general fallback
     if (id.includes("ethics") || id.includes("responsible-ai") || id.includes("governance")) {
-        return { sections: aiPromptEngineeringModule, title: "AI Ethics & Responsible AI" };
+        return { sections: expandedAIPromptEngineeringModule, title: "AI Ethics & Responsible AI" };
     }
 
     // Default fallback - use leadership as a more generic option
