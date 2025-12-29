@@ -83,7 +83,7 @@ const navGroups: NavGroup[] = [
         title: "Overview",
         items: [
             { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-            { label: "AI-Native Training", href: "/ai-native", icon: Brain, badge: "New", badgeVariant: "success" },
+            { label: "AI-Native Training", href: "/training", icon: Brain, badge: "New", badgeVariant: "success" },
             { label: "Create Training", href: "/create", icon: Sparkles, badge: "AI", badgeVariant: "primary" },
         ],
     },
@@ -290,8 +290,8 @@ export function EnhancedSidebar() {
                             <Boxes className="h-5 w-5 text-primary" />
                         </div>
                         {isExpanded && (
-                            <span className="text-xl font-bold tracking-tight">
-                                Zero<span className="text-primary">G</span>
+                            <span className="font-playfair text-xl font-medium tracking-tight italic">
+                                Scaled<span className="text-primary">Native</span>
                             </span>
                         )}
                     </Link>
