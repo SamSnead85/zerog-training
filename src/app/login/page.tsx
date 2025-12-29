@@ -66,7 +66,7 @@ export default function LoginPage() {
                     <Link href="/" className="flex items-center gap-3">
                         <LogoIcon size={40} />
                         <span className="text-2xl font-semibold text-white">
-                            Zero<span className="text-cyan-400">G</span>
+                            Scaled<span className="text-cyan-400">Native</span>
                             <span className="text-white/60 font-light ml-2">Training</span>
                         </span>
                     </Link>
@@ -125,7 +125,7 @@ export default function LoginPage() {
                     <div className="lg:hidden flex items-center gap-2 mb-10">
                         <LogoIcon size={32} />
                         <span className="text-xl font-semibold">
-                            Zero<span className="text-cyan-400">G</span>
+                            Scaled<span className="text-cyan-400">Native</span>
                             <span className="text-muted-foreground font-light ml-1">Training</span>
                         </span>
                     </div>

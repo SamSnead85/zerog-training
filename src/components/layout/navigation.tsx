@@ -83,7 +83,7 @@ export function Sidebar() {
                     />
                     {!collapsed && (
                         <span className="text-xl font-bold tracking-tight">
-                            Zero<span className="text-gradient">G</span>
+                            Scaled<span className="text-gradient">Native</span>
                         </span>
                     )}
                 </Link>

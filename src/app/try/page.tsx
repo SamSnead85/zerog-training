@@ -153,7 +153,7 @@ export default function TryDemoPage() {
                             <Rocket className="h-5 w-5 text-background" />
                         </div>
                         <span className="text-xl font-bold">
-                            Zero<span className="text-gradient">G</span>
+                            Scaled<span className="text-gradient">Native</span>
                         </span>
                     </Link>
                     <div className="flex items-center gap-4">

@@ -18,7 +18,7 @@ export default function PrivacyPage() {
                         <Rocket className="h-6 w-6 text-background" />
                     </div>
                     <span className="text-2xl font-bold">
-                        Zero<span className="text-gradient">G</span>
+                        Scaled<span className="text-gradient">Native</span>
                     </span>
                 </div>
 
