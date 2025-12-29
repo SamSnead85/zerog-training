@@ -17,7 +17,8 @@ import {
     Target,
     Lightbulb,
     Copy,
-    ExternalLink
+    ExternalLink,
+    GraduationCap
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -179,24 +180,56 @@ export function AgenticAISampleLesson() {
     ];
 
     return (
-        <div className="min-h-screen bg-background">
-            {/* Header */}
-            <div className="border-b border-border bg-muted/30 py-3 sm:py-4 px-4 sm:px-6">
-                <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-                    <div className="flex items-center gap-3 sm:gap-4">
-                        <Link href="/training" className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center hover:bg-primary/30 transition-colors shrink-0">
-                            <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+        <div className="min-h-screen bg-black text-white">
+            {/* Breadcrumb Header showing certification context */}
+            <div className="border-b border-white/5 bg-black/50 backdrop-blur-xl sticky top-0 z-40">
+                {/* Top nav */}
+                <div className="max-w-6xl mx-auto flex items-center justify-between h-14 px-4 sm:px-6">
+                    <Link href="/" className="font-playfair text-lg font-medium italic tracking-tight">
+                        ScaledNative<sup className="text-[10px] align-super ml-0.5">™</sup>
+                    </Link>
+                    <div className="flex items-center gap-2">
+                        <Progress value={40} className="w-24 h-2" />
+                        <span className="text-xs text-white/50">40%</span>
+                    </div>
+                </div>
+
+                {/* Breadcrumb */}
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 border-t border-white/5">
+                    <div className="flex items-center gap-2 text-sm">
+                        <Link href="/training" className="text-white/40 hover:text-white transition-colors">
+                            Training
                         </Link>
+                        <span className="text-white/20">→</span>
+                        <Link href="/training" className="text-blue-400/80 hover:text-blue-400 transition-colors flex items-center gap-1">
+                            <span className="text-base">🎓</span>
+                            Foundation Certification
+                        </Link>
+                        <span className="text-white/20">→</span>
+                        <span className="text-white/60 font-medium">Module 3: Agentic AI</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Module Context Banner */}
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-b border-white/5">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+                            <Brain className="h-6 w-6 text-blue-400" />
+                        </div>
                         <div>
-                            <Badge variant="outline" className="text-[10px] sm:text-xs mb-0.5 bg-primary/10 text-primary border-primary/30">
-                                Module 3 • Sample
+                            <Badge variant="outline" className="text-[10px] mb-1 bg-blue-500/10 text-blue-400 border-blue-500/30">
+                                Module 3 of 4 • Foundation
                             </Badge>
-                            <h1 className="text-base sm:text-xl font-bold leading-tight">Agentic AI</h1>
+                            <h1 className="text-lg sm:text-xl font-bold">Agentic AI - Building Autonomous Systems</h1>
                         </div>
                     </div>
-                    <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
-                        <Progress value={40} className="w-full sm:w-32 h-2 max-w-[100px] sm:max-w-none" />
-                        <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">40%</span>
+                    <div className="hidden sm:flex flex-col items-end gap-1">
+                        <span className="text-xs text-white/40">Lesson 2 of 7</span>
+                        <Badge className="bg-white/10 text-white/80 border-0 text-[10px]">
+                            Implementing Reflection
+                        </Badge>
                     </div>
                 </div>
             </div>
@@ -204,23 +237,23 @@ export function AgenticAISampleLesson() {
             <div className="max-w-6xl mx-auto py-4 sm:py-8 px-4 sm:px-6 grid lg:grid-cols-4 gap-4 sm:gap-8">
                 {/* Sidebar - Lesson Navigation */}
                 <div className="lg:col-span-1">
-                    <Card className="p-4">
-                        <h3 className="font-semibold mb-4 text-sm">Lesson Sections</h3>
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                        <h3 className="font-semibold mb-4 text-sm text-white/80">Lesson Sections</h3>
                         <div className="space-y-2">
                             {lessonSections.map((section, i) => (
                                 <button
                                     key={section.id}
                                     onClick={() => setActiveSection(i)}
                                     className={cn(
-                                        "w-full flex items-center gap-3 p-2 rounded-lg text-left text-sm transition-colors",
-                                        activeSection === i ? "bg-primary/10 text-primary" : "hover:bg-muted",
-                                        section.completed && "text-muted-foreground"
+                                        "w-full flex items-center gap-3 p-2 rounded-xl text-left text-sm transition-colors",
+                                        activeSection === i ? "bg-blue-500/10 text-blue-400" : "hover:bg-white/5 text-white/60",
+                                        section.completed && "text-white/40"
                                     )}
                                 >
                                     <div className={cn(
                                         "w-6 h-6 rounded-full flex items-center justify-center text-xs",
-                                        section.completed ? "bg-emerald-500/20 text-emerald-500" :
-                                            activeSection === i ? "bg-primary text-primary-foreground" : "bg-muted"
+                                        section.completed ? "bg-emerald-500/20 text-emerald-400" :
+                                            activeSection === i ? "bg-blue-500 text-white" : "bg-white/10"
                                     )}>
                                         {section.completed ? <CheckCircle2 className="h-3 w-3" /> : i + 1}
                                     </div>
@@ -228,56 +261,72 @@ export function AgenticAISampleLesson() {
                                 </button>
                             ))}
                         </div>
-                    </Card>
+                    </div>
+
+                    {/* Certification Progress */}
+                    <div className="p-4 mt-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20">
+                        <h3 className="font-semibold mb-3 text-sm flex items-center gap-2 text-white/80">
+                            <GraduationCap className="h-4 w-4 text-blue-400" />
+                            Foundation Progress
+                        </h3>
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between text-xs">
+                                <span className="text-white/40">Modules Completed</span>
+                                <span className="text-white font-medium">1 of 4</span>
+                            </div>
+                            <Progress value={25} className="h-1.5" />
+                            <p className="text-[11px] text-white/30 mt-2">Complete all 4 modules to earn your Foundation Certification</p>
+                        </div>
+                    </div>
 
                     {/* Key Takeaways */}
-                    <Card className="p-4 mt-4 bg-primary/5 border-primary/20">
-                        <h3 className="font-semibold mb-3 text-sm flex items-center gap-2">
-                            <Lightbulb className="h-4 w-4 text-primary" />
+                    <div className="p-4 mt-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                        <h3 className="font-semibold mb-3 text-sm flex items-center gap-2 text-white/80">
+                            <Lightbulb className="h-4 w-4 text-amber-400" />
                             Key Takeaways
                         </h3>
-                        <ul className="space-y-2 text-xs text-muted-foreground">
+                        <ul className="space-y-2 text-xs text-white/50">
                             <li className="flex items-start gap-2">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-500 mt-0.5 shrink-0" />
+                                <CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5 shrink-0" />
                                 <span>Agentic AI iterates to improve quality</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-500 mt-0.5 shrink-0" />
+                                <CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5 shrink-0" />
                                 <span>4 patterns: Reflection, Tool Use, Planning, Multi-Agent</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-500 mt-0.5 shrink-0" />
+                                <CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5 shrink-0" />
                                 <span>Agents can critique and refine their own work</span>
                             </li>
                             <li className="flex items-start gap-2">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-500 mt-0.5 shrink-0" />
+                                <CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5 shrink-0" />
                                 <span>Production agents need evaluation and optimization</span>
                             </li>
                         </ul>
-                    </Card>
+                    </div>
 
                     {/* Certificate Preview */}
-                    <Card className="p-4 mt-4 border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent">
+                    <div className="p-4 mt-4 rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent">
                         <div className="text-center">
                             <div className="text-2xl mb-1">🏆</div>
-                            <h3 className="font-semibold text-sm mb-1">Earn Your Certificate</h3>
-                            <p className="text-xs text-muted-foreground mb-2">
+                            <h3 className="font-semibold text-sm mb-1 text-white/80">Earn Your Certificate</h3>
+                            <p className="text-xs text-white/40 mb-2">
                                 AI-Native Developer Foundation
                             </p>
-                            <Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500 border-amber-500/30">
+                            <Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-400 border-amber-500/30">
                                 Upon Completion
                             </Badge>
                         </div>
-                    </Card>
+                    </div>
 
-                    <Card className="p-4 mt-4">
+                    <div className="p-4 mt-4 rounded-2xl bg-white/[0.02] border border-white/5">
                         <Link href="/training">
-                            <Button variant="outline" className="w-full gap-2">
+                            <button className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-white/10 text-white/60 hover:text-white hover:bg-white/5 transition-colors text-sm">
                                 <ArrowLeft className="h-4 w-4" />
-                                Back to Curriculum
-                            </Button>
+                                Back to Training
+                            </button>
                         </Link>
-                    </Card>
+                    </div>
                 </div>
 
                 {/* Main Content */}
