@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui";
-import { HeroGenerator } from "@/components/hero/HeroGenerator";
 import { LogoIcon } from "@/components/brand/Logo";
 import {
   ArrowRight,
@@ -66,94 +65,39 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero - Enterprise Premium */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 pb-16">
-        {/* Premium Background Effects - Clean Enterprise Design */}
+      {/* Hero - AI-Native Training */}
+      <section className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-16">
+        {/* Premium Background Effects */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Hero Background Image */}
           <img
             src="/images/hero-background.png"
             alt=""
             className="absolute inset-0 w-full h-full object-cover opacity-50"
           />
-          {/* Base gradient layer for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background" />
-
-          {/* Subtle enterprise gradient overlays - muted slate/gray tones only */}
-          <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-gradient-to-br from-slate-600/10 via-slate-700/5 to-transparent rounded-full blur-[120px]" />
-          <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-gradient-to-tl from-slate-500/8 via-zinc-600/5 to-transparent rounded-full blur-[100px]" />
-          <div className="absolute bottom-[20%] left-[30%] w-[700px] h-[400px] bg-gradient-to-r from-slate-700/8 via-gray-600/5 to-transparent rounded-full blur-[120px]" />
-
-          {/* Subtle grid pattern - muted */}
+          <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-gradient-to-br from-primary/20 via-purple-500/10 to-transparent rounded-full blur-[120px]" />
+          <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-gradient-to-tl from-blue-500/10 via-primary/5 to-transparent rounded-full blur-[100px]" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
-
-          {/* Radial fade to ensure content readability */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,transparent_0%,var(--background)_100%)]" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl w-full">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95]">
-              <span className="block text-white">Enterprise Training</span>
-              <span className="block mt-2 text-white/60">
-                in Minutes, Not Months
-              </span>
-            </h1>
-
-            <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              AI-powered training that transforms your policies, SOPs, and knowledge base
-              into interactive courses your workforce will actually complete.
-            </p>
-
-            <div className="mt-8 flex items-center justify-center gap-2 text-sm">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-primary font-medium">Try AI Training Studio Free</span>
-              <span className="text-muted-foreground">— Create your first course in 60 seconds</span>
-            </div>
-          </div>
-
-          <div className="max-w-xl mx-auto">
-            <HeroGenerator />
-          </div>
-
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Check className="h-4 w-4 text-primary" />
-              No credit card required
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Check className="h-4 w-4 text-primary" />
-              5 minute setup
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Check className="h-4 w-4 text-primary" />
-              SOC 2 Type II Certified
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* AI-Native Training - Flagship Program */}
-      <section className="py-24 px-6 relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-500/5" />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]" />
-
-        <div className="relative mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left - Content */}
+            {/* Left - Hero Content */}
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-6">
                 <Brain className="h-4 w-4" />
-                Flagship Curriculum
+                AI-Native Training Platform
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                AI-Native Training
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Transform your workforce into AI-native professionals. Our comprehensive
-                curriculum covers everything from prompt engineering to deploying
-                production AI agents.
+
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter leading-[0.95] mb-6">
+                <span className="block text-white">Master AI.</span>
+                <span className="block text-white/60">Transform Your Career.</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8">
+                Comprehensive curriculum covering prompt engineering, agentic AI,
+                RAG systems, and production deployments. From fundamentals to architect-level expertise.
               </p>
 
               {/* Stats */}
@@ -173,37 +117,49 @@ export default function LandingPage() {
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 mb-8">
                 <Link href="/ai-native/sample-lesson">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2 text-base">
                     <Play className="h-5 w-5" />
                     Try Sample Lesson Free
                   </Button>
                 </Link>
                 <Link href="/ai-native">
-                  <Button size="lg" variant="outline" className="gap-2">
+                  <Button size="lg" variant="outline" className="gap-2 text-base">
                     View Full Curriculum
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-primary" />
+                  No credit card required
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-primary" />
+                  Industry certifications
+                </div>
               </div>
             </div>
 
             {/* Right - Module Preview Cards */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                { num: "01", title: "AI Foundations", desc: "Understand LLMs & transformers", color: "from-blue-500/20" },
-                { num: "02", title: "Prompt Engineering", desc: "Master effective prompts", color: "from-purple-500/20" },
-                { num: "03", title: "Agentic AI", desc: "Build autonomous agents", color: "from-primary/20" },
-                { num: "04", title: "RAG & Vector DBs", desc: "Production AI systems", color: "from-emerald-500/20" },
+                { num: "01", title: "AI Foundations", desc: "Understand LLMs & transformers", color: "from-blue-500/30" },
+                { num: "02", title: "Prompt Engineering", desc: "Master effective prompts", color: "from-purple-500/30" },
+                { num: "03", title: "Agentic AI", desc: "Build autonomous agents", color: "from-primary/30" },
+                { num: "04", title: "RAG & Vector DBs", desc: "Production AI systems", color: "from-emerald-500/30" },
               ].map((module) => (
                 <Link
                   key={module.num}
                   href={`/ai-native/module-${parseInt(module.num)}`}
-                  className="group p-5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-primary/30 hover:bg-white/[0.05] transition-all"
+                  className="group p-5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-primary/40 hover:bg-white/[0.06] transition-all backdrop-blur-sm"
                 >
                   <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${module.color} to-transparent flex items-center justify-center mb-3`}>
-                    <span className="text-xs font-bold text-white/80">{module.num}</span>
+                    <span className="text-sm font-bold text-white">{module.num}</span>
                   </div>
                   <h4 className="font-semibold mb-1 group-hover:text-primary transition-colors">{module.title}</h4>
                   <p className="text-xs text-muted-foreground">{module.desc}</p>
@@ -213,10 +169,10 @@ export default function LandingPage() {
           </div>
 
           {/* Bottom - Skills Preview */}
-          <div className="mt-12 pt-8 border-t border-white/10">
+          <div className="mt-16 pt-8 border-t border-white/10">
             <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
               <span className="text-muted-foreground">Skills you'll master:</span>
-              {["Prompt Engineering", "Agentic AI", "RAG", "LangChain", "Multi-Agent Systems", "AI Security"].map((skill) => (
+              {["Prompt Engineering", "Agentic AI", "RAG", "LangChain", "CrewAI", "AI Security"].map((skill) => (
                 <span key={skill} className="px-3 py-1 rounded-full bg-white/5 border border-white/10">{skill}</span>
               ))}
             </div>
