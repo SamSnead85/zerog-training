@@ -447,82 +447,104 @@ export default function LandingPage() {
             <p className="text-lg text-muted-foreground">Start free, scale when ready</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Starter */}
-            <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
               <h3 className="font-semibold mb-2">Starter</h3>
-              <div className="text-4xl font-bold mb-1">$0</div>
-              <p className="text-sm text-muted-foreground mb-6">Free forever</p>
-              <ul className="space-y-3 text-sm mb-8">
+              <div className="text-3xl font-bold mb-1">$29<span className="text-base font-normal text-muted-foreground">/mo</span></div>
+              <p className="text-sm text-muted-foreground mb-4">For individuals & small businesses</p>
+              <ul className="space-y-2 text-sm mb-6">
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
-                  Up to 10 users
+                  5 training modules
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
-                  5 modules
+                  Up to 5 users
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
                   Basic analytics
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">Get started</Button>
+              <Link href="/pricing">
+                <Button variant="outline" className="w-full">Get started</Button>
+              </Link>
             </div>
 
-            {/* Pro - Popular */}
-            <div className="relative p-8 rounded-2xl bg-gradient-to-b from-primary/10 to-transparent border-2 border-primary/50 hover:border-primary transition-colors">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
-                Most Popular
-              </div>
+            {/* Pro */}
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
               <h3 className="font-semibold mb-2">Pro</h3>
-              <div className="text-4xl font-bold mb-1">$29<span className="text-lg font-normal text-muted-foreground">/user/mo</span></div>
-              <p className="text-sm text-muted-foreground mb-6">For growing teams</p>
-              <ul className="space-y-3 text-sm mb-8">
+              <div className="text-3xl font-bold mb-1">$99<span className="text-base font-normal text-muted-foreground">/mo</span></div>
+              <p className="text-sm text-muted-foreground mb-4">Create & share training</p>
+              <ul className="space-y-2 text-sm mb-6">
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
-                  Up to 100 users
+                  15 training modules
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
-                  Unlimited modules
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-primary" />
-                  AI simulations
+                  Up to 25 users
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
                   Advanced analytics
                 </li>
               </ul>
-              <Button className="w-full">Start free trial</Button>
+              <Link href="/pricing">
+                <Button variant="outline" className="w-full">Get started</Button>
+              </Link>
+            </div>
+
+            {/* Enterprise Access - Popular */}
+            <div className="relative p-6 rounded-2xl bg-gradient-to-b from-primary/10 to-transparent border-2 border-primary/50 hover:border-primary transition-colors">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
+                Per User
+              </div>
+              <h3 className="font-semibold mb-2">Enterprise Access</h3>
+              <div className="text-3xl font-bold mb-1">$75<span className="text-base font-normal text-muted-foreground">/user/mo</span></div>
+              <p className="text-sm text-muted-foreground mb-4">Full AI-Native curriculum</p>
+              <ul className="space-y-2 text-sm mb-6">
+                <li className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-primary" />
+                  Unlimited modules
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-primary" />
+                  All 8 certifications
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-primary" />
+                  Interactive labs
+                </li>
+              </ul>
+              <Link href="/pricing">
+                <Button className="w-full">Start free trial</Button>
+              </Link>
             </div>
 
             {/* Enterprise */}
-            <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
               <h3 className="font-semibold mb-2">Enterprise</h3>
-              <div className="text-4xl font-bold mb-1">Custom</div>
-              <p className="text-sm text-muted-foreground mb-6">For large organizations</p>
-              <ul className="space-y-3 text-sm mb-8">
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-primary" />
-                  Unlimited users
-                </li>
+              <div className="text-3xl font-bold mb-1">Custom</div>
+              <p className="text-sm text-muted-foreground mb-4">For large organizations</p>
+              <ul className="space-y-2 text-sm mb-6">
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
                   SSO & SAML
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
-                  Custom integrations
+                  Dedicated support
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-primary" />
-                  Dedicated support
+                  Custom integrations
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">Contact sales</Button>
+              <Link href="/contact">
+                <Button variant="outline" className="w-full">Contact sales</Button>
+              </Link>
             </div>
           </div>
 
