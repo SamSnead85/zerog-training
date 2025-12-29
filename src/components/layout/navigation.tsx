@@ -73,7 +73,7 @@ export function Sidebar() {
         >
             {/* Logo */}
             <div className="h-16 flex items-center justify-between px-4 border-b border-border">
-                <Link href="/dashboard" className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-2">
                     <Image
                         src="/logo.png"
                         alt="ZeroG"

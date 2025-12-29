@@ -289,14 +289,14 @@ export default function LandingPage() {
 
           {/* Bento Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Large Card */}
-            <div className="md:col-span-2 lg:col-span-2 group relative p-8 rounded-2xl bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 hover:border-primary/20 transition-all">
+            {/* Large Card - AI Simulations */}
+            <Link href="/ai-native/sample-lesson" className="md:col-span-2 lg:col-span-2 group relative p-8 rounded-2xl bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 hover:border-primary/30 transition-all cursor-pointer">
               <div className="flex flex-col md:flex-row gap-6 items-start">
                 <div className="flex-1">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                     <MessageSquare className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">AI Simulations</h3>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">AI Simulations</h3>
                   <p className="text-muted-foreground mb-4">
                     Practice difficult conversations with realistic AI personas. From sales calls to HR scenarios—safe space to learn.
                   </p>
@@ -306,11 +306,11 @@ export default function LandingPage() {
                     <span className="px-3 py-1 rounded-full bg-white/5 text-xs">Leadership</span>
                   </div>
                 </div>
-                <div className="w-full md:w-48 h-32 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                  <Play className="h-10 w-10 text-primary/60" />
+                <div className="w-full md:w-48 h-32 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all">
+                  <Play className="h-10 w-10 text-primary/60 group-hover:text-primary group-hover:scale-110 transition-all" />
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* Small Cards */}
             {[
