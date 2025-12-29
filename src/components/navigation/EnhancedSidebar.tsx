@@ -284,15 +284,14 @@ export function EnhancedSidebar() {
                 )}
             >
                 {/* Logo & Collapse Toggle */}
-                <div className="h-16 flex items-center justify-between px-4 border-b border-border">
-                    <Link href="/dashboard" className="flex items-center gap-2">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Boxes className="h-5 w-5 text-primary" />
-                        </div>
-                        {isExpanded && (
-                            <span className="font-playfair text-xl font-medium tracking-tight italic">
-                                Scaled<span className="text-primary">Native</span>
+                <div className="h-16 flex items-center justify-between px-4 border-b border-white/5">
+                    <Link href="/" className="flex items-center gap-2">
+                        {isExpanded ? (
+                            <span className="font-playfair text-xl font-medium tracking-tight italic text-white">
+                                ScaledNative<sup className="text-[10px] align-super ml-0.5">™</sup>
                             </span>
+                        ) : (
+                            <span className="font-playfair text-xl font-bold italic text-white">S</span>
                         )}
                     </Link>
                     {isExpanded && (
@@ -300,7 +299,7 @@ export function EnhancedSidebar() {
                             variant="ghost"
                             size="icon"
                             onClick={() => setCollapsed(!collapsed)}
-                            className="h-8 w-8"
+                            className="h-8 w-8 text-white/40 hover:text-white"
                         >
                             {collapsed ? (
                                 <PanelLeft className="h-4 w-4" />
