@@ -295,7 +295,7 @@ export default function CertificationsPage() {
                         Begin with Foundation or talk to our team about enterprise certification programs.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button size="lg" className="gap-2">
                                 Try Sample Lesson Free
                                 <ArrowRight className="h-4 w-4" />

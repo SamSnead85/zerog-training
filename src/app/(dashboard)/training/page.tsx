@@ -91,7 +91,7 @@ function CertificationCard({ track }: { track: CertificationTrack }) {
                 </div>
             )}
 
-            <Link href="/ai-native/sample-lesson">
+            <Link href="/training/sample-lesson">
                 <Button className="w-full group-hover:bg-primary transition-colors">
                     Start {track.level === 'foundation' ? 'Learning' : 'Track'}
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -105,7 +105,7 @@ function ModuleCard({ module }: { module: AIModule }) {
     const config = levelConfig[module.level];
 
     return (
-        <Link href={`/ai-native/${module.id}`}>
+        <Link href={`/training/${module.id}`}>
             <Card className="p-4 sm:p-5 hover:border-primary/30 hover:shadow-lg transition-all group cursor-pointer h-full">
                 <div className="flex items-start gap-3 sm:gap-4">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center text-base sm:text-lg font-bold shrink-0">
@@ -160,7 +160,7 @@ export default function AINativeTrainingPage() {
                     </p>
 
                     <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button size="lg" className="gap-2">
                                 <Play className="h-5 w-5" />
                                 Start AI-Native Journey
@@ -265,7 +265,7 @@ export default function AINativeTrainingPage() {
                                 <Badge className="mt-2 text-xs">Current</Badge>
                             </Card>
                         </Link>
-                        <Link href="/ai-native/product-managers">
+                        <Link href="/training/product-managers">
                             <Card className="p-4 text-center hover:border-primary/50 transition-all cursor-pointer h-full">
                                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/10 flex items-center justify-center mx-auto mb-3">
                                     <span className="text-2xl">📊</span>
@@ -273,7 +273,7 @@ export default function AINativeTrainingPage() {
                                 <h3 className="font-semibold text-sm">Product Managers</h3>
                             </Card>
                         </Link>
-                        <Link href="/ai-native/business-analysts">
+                        <Link href="/training/business-analysts">
                             <Card className="p-4 text-center hover:border-primary/50 transition-all cursor-pointer h-full">
                                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/10 flex items-center justify-center mx-auto mb-3">
                                     <span className="text-2xl">📈</span>
@@ -281,7 +281,7 @@ export default function AINativeTrainingPage() {
                                 <h3 className="font-semibold text-sm">Business Analysts</h3>
                             </Card>
                         </Link>
-                        <Link href="/ai-native/project-managers">
+                        <Link href="/training/project-managers">
                             <Card className="p-4 text-center hover:border-primary/50 transition-all cursor-pointer h-full">
                                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/10 flex items-center justify-center mx-auto mb-3">
                                     <span className="text-2xl">📋</span>
@@ -289,7 +289,7 @@ export default function AINativeTrainingPage() {
                                 <h3 className="font-semibold text-sm">Project Managers</h3>
                             </Card>
                         </Link>
-                        <Link href="/ai-native/everyone">
+                        <Link href="/training/everyone">
                             <Card className="p-4 text-center hover:border-primary/50 transition-all cursor-pointer h-full">
                                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/10 flex items-center justify-center mx-auto mb-3">
                                     <span className="text-2xl">🌟</span>
@@ -401,7 +401,7 @@ export default function AINativeTrainingPage() {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-4">
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button size="lg" className="gap-2">
                                 <Zap className="h-5 w-5" />
                                 Start Free Trial

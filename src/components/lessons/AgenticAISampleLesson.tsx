@@ -184,7 +184,7 @@ export function AgenticAISampleLesson() {
             <div className="border-b border-border bg-muted/30 py-3 sm:py-4 px-4 sm:px-6">
                 <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                     <div className="flex items-center gap-3 sm:gap-4">
-                        <Link href="/ai-native" className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center hover:bg-primary/30 transition-colors shrink-0">
+                        <Link href="/training" className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center hover:bg-primary/30 transition-colors shrink-0">
                             <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                         </Link>
                         <div>
@@ -271,7 +271,7 @@ export function AgenticAISampleLesson() {
                     </Card>
 
                     <Card className="p-4 mt-4">
-                        <Link href="/ai-native">
+                        <Link href="/training">
                             <Button variant="outline" className="w-full gap-2">
                                 <ArrowLeft className="h-4 w-4" />
                                 Back to Curriculum
@@ -559,7 +559,7 @@ def reflection_agent(task: str, max_iterations: int = 3):
                                 Each step requires you to write real code that gets validated before you can proceed.
                             </p>
                             <div className="flex items-center justify-center gap-4">
-                                <Link href="/ai-native/lab">
+                                <Link href="/training/lab">
                                     <Button size="lg" className="gap-2">
                                         <Play className="h-5 w-5" />
                                         Start Interactive Lab

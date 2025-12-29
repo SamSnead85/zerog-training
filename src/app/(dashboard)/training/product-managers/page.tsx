@@ -70,7 +70,7 @@ export default function ProductManagersPage() {
                             </div>
 
                             <div className="flex gap-4">
-                                <Link href="/ai-native/sample-lesson">
+                                <Link href="/training/sample-lesson">
                                     <Button size="lg" className="gap-2 bg-purple-500 hover:bg-purple-600">
                                         <Play className="h-5 w-5" />
                                         Start Learning
@@ -198,7 +198,7 @@ export default function ProductManagersPage() {
                     <p className="text-muted-foreground mb-8">
                         Join the next cohort of AI-Native Product Managers
                     </p>
-                    <Link href="/ai-native/sample-lesson">
+                    <Link href="/training/sample-lesson">
                         <Button size="lg" className="gap-2 bg-purple-500 hover:bg-purple-600">
                             <Sparkles className="h-5 w-5" />
                             Start Your Transformation

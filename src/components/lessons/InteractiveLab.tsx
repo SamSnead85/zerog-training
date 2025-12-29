@@ -221,7 +221,7 @@ export function InteractiveLab() {
             <div className="border-b border-border bg-muted/30 py-3 sm:py-4 px-4 sm:px-6">
                 <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                     <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button variant="ghost" size="sm" className="gap-1 sm:gap-2 px-2 sm:px-3">
                                 <ArrowLeft className="h-4 w-4" />
                                 <span className="hidden sm:inline">Back to Lesson</span>
@@ -385,7 +385,7 @@ export function InteractiveLab() {
                                         <ArrowRight className="h-4 w-4 ml-2" />
                                     </Button>
                                 ) : (
-                                    <Link href="/ai-native">
+                                    <Link href="/training">
                                         <Button
                                             className="bg-emerald-500 hover:bg-emerald-600"
                                             disabled={!canProceed}

@@ -116,14 +116,14 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                     </div>
 
                     <div className="mt-6 flex items-center gap-4">
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button size="lg" className="gap-2">
                                 <Play className="h-5 w-5" />
                                 Start Module
                             </Button>
                         </Link>
                         {module.id === "module-3" && (
-                            <Link href="/ai-native/lab">
+                            <Link href="/training/lab">
                                 <Button size="lg" variant="secondary" className="gap-2">
                                     <Code className="h-5 w-5" />
                                     Interactive Lab
@@ -235,7 +235,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                         <h3 className="font-semibold mb-4">Module Progress</h3>
                         <Progress value={0} className="h-2 mb-2" />
                         <p className="text-sm text-muted-foreground">Not started</p>
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button className="w-full mt-4 gap-2">
                                 <Play className="h-4 w-4" />
                                 Start Module
@@ -301,7 +301,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                         <h3 className="font-semibold mb-4">Module Navigation</h3>
                         <div className="space-y-2">
                             {prevModule && (
-                                <Link href={`/ai-native/${prevModule.id}`}>
+                                <Link href={`/training/${prevModule.id}`}>
                                     <Button variant="outline" className="w-full justify-start gap-2">
                                         <ChevronLeft className="h-4 w-4" />
                                         <span className="truncate">{prevModule.title}</span>
@@ -309,7 +309,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                                 </Link>
                             )}
                             {nextModule && (
-                                <Link href={`/ai-native/${nextModule.id}`}>
+                                <Link href={`/training/${nextModule.id}`}>
                                     <Button variant="outline" className="w-full justify-end gap-2">
                                         <span className="truncate">{nextModule.title}</span>
                                         <ChevronRight className="h-4 w-4" />

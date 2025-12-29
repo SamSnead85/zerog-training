@@ -66,7 +66,7 @@ export default function ProjectManagersPage() {
                             </div>
 
                             <div className="flex gap-4">
-                                <Link href="/ai-native/sample-lesson">
+                                <Link href="/training/sample-lesson">
                                     <Button size="lg" className="gap-2 bg-amber-500 hover:bg-amber-600 text-black">
                                         <Play className="h-5 w-5" />
                                         Start Learning
@@ -194,7 +194,7 @@ export default function ProjectManagersPage() {
                     <p className="text-muted-foreground mb-8">
                         Join the next cohort of AI-Native Project Managers
                     </p>
-                    <Link href="/ai-native/sample-lesson">
+                    <Link href="/training/sample-lesson">
                         <Button size="lg" className="gap-2 bg-amber-500 hover:bg-amber-600 text-black">
                             <Sparkles className="h-5 w-5" />
                             Start Your Transformation

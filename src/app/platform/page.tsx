@@ -272,7 +272,7 @@ export default function PlatformPage() {
                                 <ArrowRight className="h-4 w-4" />
                             </Button>
                         </Link>
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button size="lg" variant="outline" className="gap-2">
                                 Try Sample Lesson
                             </Button>

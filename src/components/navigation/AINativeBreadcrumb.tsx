@@ -18,7 +18,7 @@ export function AINativeBreadcrumb({ items, className }: AINativeBreadcrumbProps
     return (
         <nav className={cn("flex items-center gap-2 text-sm", className)}>
             <Link
-                href="/ai-native"
+                href="/training"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
             >
                 <Home className="h-4 w-4" />

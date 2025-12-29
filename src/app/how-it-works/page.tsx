@@ -378,7 +378,7 @@ export default function HowItWorksPage() {
                                 <ArrowRight className="h-4 w-4" />
                             </Button>
                         </Link>
-                        <Link href="/ai-native/sample-lesson">
+                        <Link href="/training/sample-lesson">
                             <Button size="lg" variant="outline">
                                 Try Sample Lesson Free
                             </Button>
