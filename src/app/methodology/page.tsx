@@ -85,7 +85,7 @@ export default function MethodologyPage() {
                     <Link href="/" className="flex items-center gap-2.5 group">
                         <LogoIcon size={32} />
                         <span className="text-lg font-semibold tracking-tight">
-                            <span className="font-playfair italic">ScaledNative<sup class="text-[10px]">™</sup></span>
+                            <span className="font-playfair italic">ScaledNative<sup className="text-[10px]">™</sup></span>
                             <span className="text-muted-foreground ml-1 font-light hidden sm:inline">Training</span>
                         </span>
                     </Link>
