@@ -40,14 +40,14 @@ export default function LandingPage() {
               <Sparkles className="h-3.5 w-3.5" />
               AI-Native Training
             </Link>
-            <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Features
+            <Link href="/native" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              NATIVE Framework
             </Link>
-            <Link href="/methodology" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Methodology
+            <Link href="/how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              How It Works
             </Link>
-            <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Pricing
+            <Link href="/enterprise" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Enterprise
             </Link>
             <Link href="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Sign in
@@ -91,13 +91,13 @@ export default function LandingPage() {
               </div>
 
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter leading-[0.95] mb-6">
-                <span className="block text-white">Master AI.</span>
-                <span className="block text-white/60">Transform Your Career.</span>
+                <span className="block text-white">Stop Watching.</span>
+                <span className="block text-primary">Start Doing.</span>
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8">
-                Comprehensive curriculum covering prompt engineering, agentic AI,
-                RAG systems, and production deployments. From fundamentals to architect-level expertise.
+                AI-powered training that adapts to you. Learn by doing with hands-on labs,
+                AI tutoring, and skill verification. Real training. Real results.
               </p>
 
               {/* Stats */}
