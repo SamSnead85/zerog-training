@@ -16,7 +16,7 @@ import {
     Award,
 } from "lucide-react";
 
-export default function EnterprisePage() {
+export default function PremiumEnterprisePage() {
     const enterpriseFeatures = [
         {
             icon: Users,
@@ -64,20 +64,20 @@ export default function EnterprisePage() {
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl">
                 <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">
-                    <Link href="/" className="flex items-center gap-3 group">
+                    <Link href="/premium-preview" className="flex items-center gap-3 group">
                         <span className="font-playfair text-2xl font-medium tracking-tight italic">
                             ScaledNative<sup className="text-[10px] align-super ml-0.5">™</sup>
                         </span>
                     </Link>
 
                     <div className="hidden md:flex items-center gap-10">
-                        <Link href="/native" className="text-sm text-white/40 hover:text-white transition-colors">
+                        <Link href="/premium-preview/native" className="text-sm text-white/40 hover:text-white transition-colors">
                             Framework
                         </Link>
-                        <Link href="/ai-native" className="text-sm text-white/40 hover:text-white transition-colors">
+                        <Link href="/premium-preview/platform" className="text-sm text-white/40 hover:text-white transition-colors">
                             Platform
                         </Link>
-                        <Link href="/enterprise" className="text-sm text-white hover:text-white transition-colors">
+                        <Link href="/premium-preview/enterprise" className="text-sm text-white hover:text-white transition-colors">
                             Enterprise
                         </Link>
                     </div>
@@ -123,7 +123,7 @@ export default function EnterprisePage() {
                                 Schedule Demo
                             </button>
                         </Link>
-                        <Link href="/ai-native">
+                        <Link href="/premium-preview/platform">
                             <button className="px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all">
                                 Explore Platform
                             </button>
@@ -271,8 +271,8 @@ export default function EnterprisePage() {
                 <div className="mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
                     <span className="font-playfair text-lg italic">ScaledNative<sup className="text-[8px]">™</sup></span>
                     <div className="flex gap-8 text-sm text-white/30">
-                        <Link href="/native" className="hover:text-white transition-colors">Framework</Link>
-                        <Link href="/enterprise" className="hover:text-white transition-colors">Enterprise</Link>
+                        <Link href="/premium-preview/native" className="hover:text-white transition-colors">Framework</Link>
+                        <Link href="/premium-preview/enterprise" className="hover:text-white transition-colors">Enterprise</Link>
                         <Link href="/about" className="hover:text-white transition-colors">About</Link>
                         <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
                     </div>
