@@ -76,7 +76,7 @@ export function Sidebar() {
                 <Link href="/" className="flex items-center gap-2">
                     <Image
                         src="/logo.png"
-                        alt="ZeroG"
+                        alt="ScaledNative"
                         width={36}
                         height={36}
                         className="rounded-lg flex-shrink-0"

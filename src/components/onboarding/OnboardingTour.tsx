@@ -26,7 +26,7 @@ interface TourStep {
 const tourSteps: TourStep[] = [
     {
         id: "welcome",
-        title: "Welcome to ZeroG!",
+        title: "Welcome to ScaledNative!",
         description: "Let's take a quick tour of your new AI-powered training platform. We'll show you how to create training, manage your team, and track progress.",
         icon: Sparkles,
     },

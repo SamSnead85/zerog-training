@@ -47,7 +47,7 @@ function ContactForm() {
                         </h1>
                         <p className="text-muted-foreground mb-8">
                             {isEnterprise
-                                ? "Let's discuss how ZeroG can transform training at your organization."
+                                ? "Let's discuss how ScaledNative can transform training at your organization."
                                 : "Have questions? We'd love to hear from you."}
                         </p>
 

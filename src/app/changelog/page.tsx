@@ -71,7 +71,7 @@ export default function ChangelogPage() {
                 <div className="max-w-4xl mx-auto text-center">
                     <h1 className="text-5xl md:text-6xl font-bold mb-6">Changelog</h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                        All the latest updates, improvements, and fixes to ZeroG Training.
+                        All the latest updates, improvements, and fixes to ScaledNative.
                     </p>
                 </div>
             </section>
@@ -114,7 +114,7 @@ export default function ChangelogPage() {
             {/* Footer */}
             <footer className="py-8 px-6 border-t border-white/5">
                 <div className="max-w-6xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
-                    <p>© 2024 ZeroG AI Training. All rights reserved.</p>
+                    <p>© 2024 ScaledNative. All rights reserved.</p>
                     <Link href="/" className="hover:text-foreground">Back to Home</Link>
                 </div>
             </footer>

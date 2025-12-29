@@ -106,7 +106,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                         <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
                             <span className="font-bold text-primary text-sm">Z</span>
                         </div>
-                        <span className="font-semibold">ZeroG Training</span>
+                        <span className="font-semibold">ScaledNative</span>
                     </div>
                     <Button variant="ghost" size="icon" onClick={onClose}>
                         <X className="h-5 w-5" />
@@ -166,7 +166,7 @@ export function MobileHeader() {
                         <div className="w-7 h-7 rounded-lg bg-primary/20 flex items-center justify-center">
                             <span className="font-bold text-primary text-xs">Z</span>
                         </div>
-                        <span className="font-semibold text-sm">ZeroG</span>
+                        <span className="font-semibold text-sm">ScaledNative</span>
                     </div>
 
                     <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-xs font-medium">

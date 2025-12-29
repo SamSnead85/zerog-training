@@ -77,7 +77,7 @@ export function IntegrationsPage() {
                 <div>
                     <h1 className="text-2xl font-bold">Integrations</h1>
                     <p className="text-muted-foreground">
-                        Connect ZeroG with your existing tools • {connectedCount} of {integrations.length} connected
+                        Connect ScaledNative with your existing tools • {connectedCount} of {integrations.length} connected
                     </p>
                 </div>
             </div>

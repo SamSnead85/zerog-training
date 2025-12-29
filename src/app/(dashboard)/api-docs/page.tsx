@@ -17,7 +17,7 @@ export default function ApiDocsPage() {
                 <div>
                     <h1 className="text-3xl font-bold mb-2">API Documentation</h1>
                     <p className="text-muted-foreground">
-                        Integrate ZeroG into your applications with our REST API
+                        Integrate ScaledNative into your applications with our REST API
                     </p>
                 </div>
 

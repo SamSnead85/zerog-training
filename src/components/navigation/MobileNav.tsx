@@ -101,7 +101,7 @@ interface MobileHeaderProps {
 }
 
 export function MobileHeader({
-    title = "ZeroG",
+    title = "ScaledNative",
     showSearch = true,
     showNotifications = true,
     onMenuClick,
@@ -117,7 +117,7 @@ export function MobileHeader({
                         <Menu className="h-5 w-5" />
                     </button>
                     <span className="font-bold text-lg">
-                        Zero<span className="text-primary">G</span>
+                        Scaled<span className="text-primary">Native</span>
                     </span>
                 </div>
 
@@ -181,7 +181,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-border">
                     <span className="font-bold text-xl">
-                        Zero<span className="text-primary">G</span>
+                        Scaled<span className="text-primary">Native</span>
                     </span>
                     <button
                         onClick={onClose}

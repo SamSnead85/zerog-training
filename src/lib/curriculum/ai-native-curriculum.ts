@@ -1,4 +1,4 @@
-// AI-Native Training Curriculum - Flagship ZeroG Offering
+// AI-Native Training Curriculum - Flagship ScaledNative Offering
 // Based on SAFe, DeepLearning.AI, Google Cloud, Microsoft
 
 export type CertificationLevel = "foundation" | "professional" | "architect";

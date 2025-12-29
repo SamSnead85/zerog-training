@@ -32,7 +32,7 @@ interface FAQ {
 }
 
 const popularArticles: HelpArticle[] = [
-    { id: "1", title: "Getting Started with ZeroG", category: "Getting Started", views: 1250 },
+    { id: "1", title: "Getting Started with ScaledNative", category: "Getting Started", views: 1250 },
     { id: "2", title: "How to Complete a Course", category: "Learning", views: 980 },
     { id: "3", title: "Understanding XP and Levels", category: "Gamification", views: 876 },
     { id: "4", title: "Managing Your Team", category: "Admin", views: 654 },

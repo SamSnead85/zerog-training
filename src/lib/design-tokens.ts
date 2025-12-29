@@ -1,5 +1,5 @@
 /**
- * ZeroG Design Tokens
+ * ScaledNative Design Tokens
  * 
  * Centralized design system tokens for consistent styling across the platform.
  * Based on research from leading LMS platforms and modern design practices.

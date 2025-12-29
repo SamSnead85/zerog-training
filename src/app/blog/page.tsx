@@ -95,7 +95,7 @@ export default function BlogPage() {
             {/* Footer */}
             <footer className="py-8 px-6 border-t border-white/5">
                 <div className="max-w-6xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
-                    <p>© 2024 ZeroG AI Training. All rights reserved.</p>
+                    <p>© 2024 ScaledNative. All rights reserved.</p>
                     <Link href="/" className="hover:text-foreground">Back to Home</Link>
                 </div>
             </footer>

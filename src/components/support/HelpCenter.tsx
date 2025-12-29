@@ -54,7 +54,7 @@ const categories: HelpCategory[] = [
         id: "getting-started",
         name: "Getting Started",
         icon: Sparkles,
-        description: "New to ZeroG? Start here",
+        description: "New to ScaledNative? Start here",
         articleCount: 12,
     },
     {
@@ -121,7 +121,7 @@ const faqs: FAQItem[] = [
     },
     {
         id: "faq-5",
-        question: "Can I connect ZeroG to my existing LMS?",
+        question: "Can I connect ScaledNative to my existing LMS?",
         answer: "Yes! We offer SCORM export and LTI integration. Enterprise plans also include API access for custom integrations. Contact our team for help setting up your integration.",
         category: "integrations",
     },

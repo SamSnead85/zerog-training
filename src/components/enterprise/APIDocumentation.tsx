@@ -168,7 +168,7 @@ export function APIDocumentation() {
                         API Documentation
                     </h2>
                     <p className="text-sm text-muted-foreground">
-                        Integrate ZeroG Training with your systems
+                        Integrate ScaledNative with your systems
                     </p>
                 </div>
                 <div className="flex items-center gap-2">

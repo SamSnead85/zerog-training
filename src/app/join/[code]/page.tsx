@@ -114,12 +114,12 @@ export default function JoinTeamPage() {
                     <Link href="/" className="flex items-center gap-2">
                         <Image
                             src="/logo.png"
-                            alt="ZeroG"
+                            alt="ScaledNative"
                             width={32}
                             height={32}
                             className="rounded-lg"
                         />
-                        <span className="text-xl font-bold">ZeroG Training</span>
+                        <span className="text-xl font-bold">ScaledNative</span>
                     </Link>
                     <Link href="/login">
                         <Button variant="outline" size="sm" className="border-white/10">

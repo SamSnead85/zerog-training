@@ -46,7 +46,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Demo organizations
 const DEMO_ORGS = {
-    zerog: { id: "org_zerog", name: "ZeroG AI Training" },
+    zerog: { id: "org_zerog", name: "ScaledNative" },
     acme: { id: "org_acme", name: "Acme Corporation" },
     healthcare: { id: "org_healthcare", name: "Healthcare Inc" },
 };
@@ -70,7 +70,7 @@ const DEMO_USERS: Record<string, User & { password: string }> = {
         id: "usr_zerog_admin",
         email: "admin@zerog.ai",
         password: "admin123",
-        name: "ZeroG Admin",
+        name: "ScaledNative Admin",
         role: "ORG_ADMIN",
         organizationId: DEMO_ORGS.zerog.id,
         organizationName: DEMO_ORGS.zerog.name,
@@ -188,7 +188,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 email: data.email,
                 name: data.name,
                 role: "LEARNER",
-                organizationId: DEMO_ORGS.zerog.id, // Default to ZeroG org for demo
+                organizationId: DEMO_ORGS.zerog.id, // Default to ScaledNative org for demo
                 organizationName: DEMO_ORGS.zerog.name,
                 department: data.department || "General",
                 employeeId: data.employeeId || `EMP${Date.now()}`,

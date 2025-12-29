@@ -56,7 +56,7 @@ export default function SecurityPage() {
                         Security First
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Your data security is our top priority. We've built ZeroG with enterprise-grade security from the ground up.
+                        Your data security is our top priority. We've built ScaledNative with enterprise-grade security from the ground up.
                     </p>
                 </div>
             </section>
@@ -94,7 +94,7 @@ export default function SecurityPage() {
             {/* Footer */}
             <footer className="py-8 px-6 border-t border-white/5">
                 <div className="max-w-6xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
-                    <p>© 2024 ZeroG AI Training. All rights reserved.</p>
+                    <p>© 2024 ScaledNative. All rights reserved.</p>
                     <Link href="/" className="hover:text-foreground">Back to Home</Link>
                 </div>
             </footer>

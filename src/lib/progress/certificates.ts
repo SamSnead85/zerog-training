@@ -42,7 +42,7 @@ export interface CertificateTemplate {
 
 const DEFAULT_TEMPLATE: CertificateTemplate = {
     id: 'default',
-    name: 'ZeroG Standard Certificate',
+    name: 'ScaledNative Standard Certificate',
     design: 'modern',
     primaryColor: '#00D9FF',
     secondaryColor: '#8B5CF6',

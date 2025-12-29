@@ -128,7 +128,7 @@ const megaMenus: MegaMenuConfig[] = [
         ],
         featured: {
             title: "Enterprise Demo",
-            description: "See how ZeroG Training transforms organizational learning",
+            description: "See how ScaledNative transforms organizational learning",
             href: "/demo",
         },
     },

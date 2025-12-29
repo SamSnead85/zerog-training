@@ -80,7 +80,7 @@ export function IntegrationHub() {
                         <Link2 className="h-5 w-5 text-primary" />
                         Integrations
                     </h2>
-                    <p className="text-sm text-muted-foreground">Connect ZeroG with your enterprise tools</p>
+                    <p className="text-sm text-muted-foreground">Connect ScaledNative with your enterprise tools</p>
                 </div>
                 <Button variant="outline" size="sm" className="gap-1">
                     <ExternalLink className="h-4 w-4" />

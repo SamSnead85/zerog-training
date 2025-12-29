@@ -1,4 +1,4 @@
-// ZeroG Training Platform - Comprehensive Training Module Content Library
+// ScaledNative Platform - Comprehensive Training Module Content Library
 // Real industry-standard content from NIST, HIPAA, OSHA, EEOC, SAFe, and other sources
 
 export interface ModuleSection {

@@ -1,4 +1,4 @@
-// ZeroG Training Platform - Extended Module Content Library
+// ScaledNative Platform - Extended Module Content Library
 // Additional training modules with context-aware placeholders for organizational customization
 
 import type { TrainingModuleContent, ModuleSection, QuizQuestion } from "./module-content";

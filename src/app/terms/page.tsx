@@ -29,7 +29,7 @@ export default function TermsPage() {
 
                     <section>
                         <h2 className="text-xl font-semibold text-foreground mt-8 mb-4">1. Acceptance of Terms</h2>
-                        <p>By accessing ZeroG AI Training, you agree to be bound by these terms of service.</p>
+                        <p>By accessing ScaledNative, you agree to be bound by these terms of service.</p>
                     </section>
 
                     <section>

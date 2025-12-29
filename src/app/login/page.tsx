@@ -134,7 +134,7 @@ export default function LoginPage() {
                     <div className="mb-8">
                         <h2 className="text-2xl font-semibold text-foreground">Sign in</h2>
                         <p className="text-muted-foreground mt-1">
-                            New to ZeroG?{" "}
+                            New to ScaledNative?{" "}
                             <Link href="/signup" className="text-primary hover:underline">
                                 Create an account
                             </Link>

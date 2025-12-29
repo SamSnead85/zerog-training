@@ -129,17 +129,17 @@ function emailWrapper(content: string, previewText?: string): string {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ZeroG Training</title>
+    <title>ScaledNative</title>
     ${previewText ? `<span style="display:none;font-size:0;line-height:0;max-height:0;max-width:0;opacity:0;overflow:hidden;visibility:hidden;">${previewText}</span>` : ""}
 </head>
 <body style="margin:0;padding:0;background-color:#0a0a0a;">
     <div style="${containerStyle}">
         <div style="${headerStyle}">
-            <a href="https://zerog.ai" style="${logoStyle}">ZeroG</a>
+            <a href="https://zerog.ai" style="${logoStyle}">ScaledNative</a>
         </div>
         ${content}
         <div style="${footerStyle}">
-            <p style="${smallTextStyle}">© ${new Date().getFullYear()} ZeroG Training. All rights reserved.</p>
+            <p style="${smallTextStyle}">© ${new Date().getFullYear()} ScaledNative. All rights reserved.</p>
             <p style="${smallTextStyle}; margin-top: 8px;">
                 <a href="https://zerog.ai/unsubscribe" style="color: rgba(255,255,255,0.5); text-decoration: underline;">Unsubscribe</a>
                 ·
@@ -158,9 +158,9 @@ function emailWrapper(content: string, previewText?: string): string {
 
 export function welcomeEmail({ firstName, loginUrl, previewText }: WelcomeEmailProps): string {
     const content = `
-        <h1 style="${headingStyle}">Welcome to ZeroG, ${firstName}! 🚀</h1>
+        <h1 style="${headingStyle}">Welcome to ScaledNative, ${firstName}! 🚀</h1>
         <p style="${paragraphStyle}">
-            We're thrilled to have you join us. ZeroG is your AI-powered learning platform
+            We're thrilled to have you join us. ScaledNative is your AI-powered learning platform
             designed to help you and your team develop critical skills faster.
         </p>
         <p style="${paragraphStyle}">
@@ -179,7 +179,7 @@ export function welcomeEmail({ firstName, loginUrl, previewText }: WelcomeEmailP
         </p>
     `;
 
-    return emailWrapper(content, previewText || `Welcome to ZeroG, ${firstName}!`);
+    return emailWrapper(content, previewText || `Welcome to ScaledNative, ${firstName}!`);
 }
 
 export function passwordResetEmail({ firstName, resetUrl, expiresIn, previewText }: PasswordResetEmailProps): string {
@@ -200,7 +200,7 @@ export function passwordResetEmail({ firstName, resetUrl, expiresIn, previewText
         </p>
     `;
 
-    return emailWrapper(content, previewText || "Reset your ZeroG password");
+    return emailWrapper(content, previewText || "Reset your ScaledNative password");
 }
 
 export function courseCompletionEmail({ firstName, courseName, certificateUrl, nextCourseUrl, previewText }: CourseCompletionEmailProps): string {
@@ -230,7 +230,7 @@ export function teamInviteEmail({ inviterName, organizationName, inviteUrl, expi
         <h1 style="${headingStyle}">You're Invited!</h1>
         <p style="${paragraphStyle}">
             <strong>${inviterName}</strong> has invited you to join 
-            <strong style="color: #f59e0b;">${organizationName}</strong> on ZeroG Training.
+            <strong style="color: #f59e0b;">${organizationName}</strong> on ScaledNative.
         </p>
         <p style="${paragraphStyle}">
             Get access to exclusive training content, track your progress, 

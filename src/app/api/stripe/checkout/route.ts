@@ -123,7 +123,7 @@ export async function GET() {
     const isConfigured = !!stripe;
 
     return NextResponse.json({
-        message: "ZeroG Training - Stripe Checkout API",
+        message: "ScaledNative - Stripe Checkout API",
         mode: isConfigured ? "production" : "demo",
         configured: isConfigured,
         plans: Object.entries(PLANS).map(([id, plan]) => ({

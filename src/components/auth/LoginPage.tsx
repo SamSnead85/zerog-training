@@ -54,7 +54,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                         <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
                             <span className="text-xl font-bold text-primary-foreground">Z</span>
                         </div>
-                        <span className="text-2xl font-bold">ZeroG</span>
+                        <span className="text-2xl font-bold">ScaledNative</span>
                     </Link>
                     <p className="text-muted-foreground mt-2">Enterprise Healthcare Training</p>
                 </div>

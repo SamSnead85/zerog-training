@@ -34,9 +34,9 @@ export default function DemoPage() {
                 <div className="grid md:grid-cols-2 gap-12">
                     {/* Video section */}
                     <div>
-                        <h1 className="text-3xl font-bold mb-4">See ZeroG in Action</h1>
+                        <h1 className="text-3xl font-bold mb-4">See ScaledNative in Action</h1>
                         <p className="text-muted-foreground mb-8">
-                            Watch how organizations are using ZeroG to create context-aware training
+                            Watch how organizations are using ScaledNative to create context-aware training
                             that actually works.
                         </p>
 

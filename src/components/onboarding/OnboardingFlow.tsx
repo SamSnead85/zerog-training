@@ -193,9 +193,9 @@ export function OnboardingFlow({ onComplete, initialData }: OnboardingFlowProps)
                     {/* Step 0: User Type */}
                     {step === 0 && (
                         <div>
-                            <h1 className="text-2xl font-bold mb-2">Welcome to ZeroG! 👋</h1>
+                            <h1 className="text-2xl font-bold mb-2">Welcome to ScaledNative! 👋</h1>
                             <p className="text-muted-foreground mb-8">
-                                How will you be using ZeroG?
+                                How will you be using ScaledNative?
                             </p>
                             <div className="grid gap-4">
                                 {userTypes.map((type) => {

@@ -1,4 +1,4 @@
-// ZeroG Training - Additional Training Modules
+// ScaledNative - Additional Training Modules
 // Tech, Onboarding, and Specialized Content
 
 import type { TrainingModuleContent } from "./module-content";

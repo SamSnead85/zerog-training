@@ -44,7 +44,7 @@ export default function AboutPage() {
                                 Training shouldn't be one-size-fits-all. Every organization has unique processes, terminology, and culture. Yet most training platforms force you into generic templates that don't resonate with your team.
                             </p>
                             <p className="text-muted-foreground">
-                                ZeroG uses AI to create training that references your actual policies, tools, and workflows. Training that feels like it was built specifically for your organization—because it was.
+                                ScaledNative uses AI to create training that references your actual policies, tools, and workflows. Training that feels like it was built specifically for your organization—because it was.
                             </p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
@@ -81,7 +81,7 @@ export default function AboutPage() {
             {/* Footer */}
             <footer className="py-8 px-6 border-t border-white/5">
                 <div className="max-w-6xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
-                    <p>© 2024 ZeroG AI Training. All rights reserved.</p>
+                    <p>© 2024 ScaledNative. All rights reserved.</p>
                     <Link href="/" className="hover:text-foreground">Back to Home</Link>
                 </div>
             </footer>

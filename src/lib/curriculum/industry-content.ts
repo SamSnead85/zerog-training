@@ -1,4 +1,4 @@
-// ZeroG Training - Industry & Compliance Training Content
+// ScaledNative - Industry & Compliance Training Content
 // More specialized modules with context-aware placeholders
 
 import type { TrainingModuleContent } from "./module-content";

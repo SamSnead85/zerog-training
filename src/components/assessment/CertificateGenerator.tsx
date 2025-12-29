@@ -69,7 +69,7 @@ export function CertificateGenerator({ data, onDownload, onShare }: CertificateG
                             <div className="flex items-center justify-center gap-2 mb-4">
                                 <Shield className="h-8 w-8 text-amber-400" />
                                 <span className="text-amber-400 font-semibold tracking-widest uppercase text-sm">
-                                    ZeroG Training
+                                    ScaledNative
                                 </span>
                             </div>
                             <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-2">

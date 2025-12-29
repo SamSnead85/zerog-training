@@ -1,4 +1,4 @@
-// ZeroG Training Platform - Comprehensive Curriculum Library
+// ScaledNative Platform - Comprehensive Curriculum Library
 // 100+ pre-built training modules from industry experts
 
 export interface CurriculumModule {

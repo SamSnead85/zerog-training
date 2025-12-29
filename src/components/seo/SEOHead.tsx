@@ -26,7 +26,7 @@ interface SEOProps {
     jsonLd?: Record<string, unknown>;
 }
 
-const SITE_NAME = "ZeroG Training";
+const SITE_NAME = "ScaledNative";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://zerog.ai";
 const DEFAULT_OG_IMAGE = "/og-image.jpg";
 

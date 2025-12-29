@@ -100,7 +100,7 @@ export function APIPlatform() {
                         API Platform
                     </h2>
                     <p className="text-muted-foreground mt-1">
-                        Integrate ZeroG Training with your applications
+                        Integrate ScaledNative with your applications
                     </p>
                 </div>
                 <Button className="gap-2">
