@@ -29,8 +29,8 @@ export default function LandingPage() {
           <Link href="/" className="flex items-center gap-2.5 group">
             <LogoIcon size={32} />
             <span className="text-lg sm:text-xl font-semibold tracking-tight">
-              <span className="text-foreground">Zero G</span>
-              <span className="text-muted-foreground ml-1 font-light hidden sm:inline">Training</span>
+              <span className="text-foreground">Scaled</span>
+              <span className="text-primary">Native</span>
             </span>
           </Link>
 

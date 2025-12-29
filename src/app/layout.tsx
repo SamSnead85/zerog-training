@@ -19,47 +19,47 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZeroG | AI-Powered Training for Modern Teams",
+  title: "ScaledNative | AI-Powered Training for AI-Native Transformation",
   description:
-    "Generate custom training tailored to your organization. Transform your workforce with AI-native learning that adapts to your tech stack, workflows, and industry.",
+    "The enterprise platform for AI-Native transformation. AI-powered training that adapts to you with hands-on labs, skill verification, and the NATIVE framework.",
   keywords: [
     "AI training",
-    "corporate training",
-    "LMS",
-    "learning management system",
-    "AI curriculum generator",
+    "AI-Native transformation",
+    "NATIVE framework",
     "enterprise training",
+    "LMS",
+    "adaptive learning",
     "prompt engineering",
     "workforce development",
   ],
-  authors: [{ name: "ZeroG" }],
+  authors: [{ name: "ScaledNative" }],
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
     apple: "/logo.png",
   },
   openGraph: {
-    title: "ZeroG | AI-Powered Training for Modern Teams",
-    description: "Generate custom training. Transform your workforce.",
+    title: "ScaledNative | AI-Powered Training for AI-Native Transformation",
+    description: "Stop watching. Start doing. Real training. Real results.",
     type: "website",
     locale: "en_US",
-    siteName: "ZeroG",
+    siteName: "ScaledNative",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "ZeroG - AI-Powered Training Platform",
+        alt: "ScaledNative - AI-Powered Training Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZeroG | AI-Powered Training for Modern Teams",
-    description: "Generate custom training. Transform your workforce.",
+    title: "ScaledNative | AI-Powered Training for AI-Native Transformation",
+    description: "Stop watching. Start doing. Real training. Real results.",
     images: ["/og-image.png"],
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://zerog.ai"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://scalednative.com"),
 };
 
 export default function RootLayout({

@@ -46,28 +46,26 @@ export function Logo({
 
     const content = (
         <div className={cn("flex items-center gap-2", className)}>
-            {/* Icon: Z inside hexagon with rocket styling */}
+            {/* Icon: S for ScaledNative */}
             <div
-                className="relative flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 via-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20"
+                className="relative flex items-center justify-center rounded-xl bg-gradient-to-br from-primary via-orange-500 to-orange-600 shadow-lg shadow-primary/20"
                 style={{ width: config.icon, height: config.icon }}
             >
                 <span
                     className="font-bold text-white"
                     style={{ fontSize: config.icon * 0.5 }}
                 >
-                    Z
+                    S
                 </span>
-                {/* Rocket trail effect */}
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-2 bg-gradient-to-b from-cyan-400 to-transparent rounded-full opacity-60" />
             </div>
 
             {showText && (
                 <div className="flex items-baseline">
-                    <span className={cn("font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent", config.text)}>
-                        Zero G
+                    <span className={cn("font-bold text-foreground", config.text)}>
+                        Scaled
                     </span>
-                    <span className={cn("font-light text-muted-foreground ml-1", config.text)}>
-                        Training
+                    <span className={cn("font-bold text-primary ml-0.5", config.text)}>
+                        Native
                     </span>
                 </div>
             )}
@@ -98,12 +96,12 @@ export function LogoIcon({ size = 32, className }: LogoIconProps) {
     return (
         <div
             className={cn(
-                "relative rounded-xl bg-gradient-to-br from-cyan-400 via-cyan-500 to-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-cyan-500/20",
+                "relative rounded-xl bg-gradient-to-br from-primary via-orange-500 to-orange-600 flex items-center justify-center font-bold text-white shadow-lg shadow-primary/20",
                 className
             )}
             style={{ width: size, height: size, fontSize: size * 0.5 }}
         >
-            Z
+            S
         </div>
     );
 }
@@ -126,10 +124,10 @@ export function LogoWordmark({ size = "md", className }: LogoWordmarkProps) {
 
     return (
         <span className={cn("font-bold", sizes[size], className)}>
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Zero G
+            <span className="text-foreground">
+                Scaled
             </span>
-            <span className="text-white ml-1">Training</span>
+            <span className="text-primary ml-0.5">Native</span>
         </span>
     );
 }
