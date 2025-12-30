@@ -113,29 +113,36 @@ export default function EnterprisePage() {
             </header>
 
             {/* Hero */}
-            <section className="py-24 px-6 border-b border-white/5 bg-gradient-to-b from-purple-500/5 to-transparent">
-                <div className="max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full mb-6">
-                        <Building2 className="h-4 w-4" />
-                        <span className="text-sm">Enterprise AI Training</span>
+            <section className="py-28 px-6 border-b border-white/5 relative overflow-hidden">
+                {/* Subtle background */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-10">
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/40 to-blue-500/40 blur-3xl" />
                     </div>
-                    <h1 className="font-montserrat text-4xl md:text-6xl font-bold tracking-tight mb-6">
-                        Transform Your Workforce Into AI-Native Talent
+                </div>
+
+                <div className="relative max-w-4xl mx-auto text-center">
+                    <p className="text-sm text-white/40 uppercase tracking-[0.2em] mb-6">
+                        Enterprise AI Training Solutions
+                    </p>
+                    <h1 className="font-playfair text-5xl md:text-6xl font-medium tracking-tight mb-6">
+                        Transform Your Organization<br />
+                        <span className="text-white/40">Into an AI-Native Enterprise</span>
                     </h1>
-                    <p className="text-xl text-white/50 max-w-2xl mx-auto mb-10">
+                    <p className="text-lg text-white/50 max-w-2xl mx-auto mb-12 leading-relaxed">
                         Comprehensive AI training at scale. Custom content, enterprise security,
-                        and the support you need to build an AI-ready organization.
+                        and dedicated support to build an AI-ready workforce.
                     </p>
                     <div className="flex items-center justify-center gap-4">
                         <Link href="/contact?type=enterprise">
                             <button className="px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-white/90 transition-colors flex items-center gap-2">
-                                Talk to Sales
+                                Contact Sales
                                 <ArrowRight className="h-4 w-4" />
                             </button>
                         </Link>
-                        <Link href="/catalog">
-                            <button className="px-8 py-4 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 transition-colors">
-                                Explore Curriculum
+                        <Link href="/demo">
+                            <button className="px-8 py-4 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-colors">
+                                Schedule Demo
                             </button>
                         </Link>
                     </div>
