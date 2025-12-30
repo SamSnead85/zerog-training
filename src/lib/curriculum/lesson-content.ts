@@ -1770,8 +1770,300 @@ class PriorityQueue:
     }
 ];
 
+// =============================================================================
+// MODULE 6 LESSON CONTENT - RAG & Advanced Retrieval
+// =============================================================================
+
+export const module6Lessons: LessonContent[] = [
+    {
+        id: "m6-l1",
+        moduleId: "module-6",
+        topicId: "6-1",
+        lessonNumber: 1,
+        title: "RAG Architecture Deep Dive",
+        duration: "45 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Retrieval-Augmented Generation" },
+            {
+                type: "text",
+                content: `RAG is the most practical way to add knowledge to LLMs without fine-tuning. In this lesson, we'll explore production-grade RAG architectures.
+
+**Why RAG?**
+- Ground LLM responses in your data
+- Reduce hallucinations with citations
+- Update knowledge without retraining
+- Control access to sensitive information`
+            },
+            { type: "heading", level: 2, text: "The RAG Pipeline" },
+            {
+                type: "code",
+                language: "python",
+                code: `# Production RAG Pipeline
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Pinecone
+from langchain.chains import RetrievalQA
+
+class ProductionRAG:
+    def __init__(self, index_name: str):
+        self.embeddings = OpenAIEmbeddings()
+        self.vectorstore = Pinecone.from_existing_index(
+            index_name=index_name,
+            embedding=self.embeddings
+        )
+        self.retriever = self.vectorstore.as_retriever(
+            search_type="mmr",  # Maximum Marginal Relevance
+            search_kwargs={"k": 5, "fetch_k": 20}
+        )
+    
+    def query(self, question: str) -> dict:
+        # Retrieve relevant documents
+        docs = self.retriever.get_relevant_documents(question)
+        
+        # Build context from documents
+        context = "\\n\\n".join([doc.page_content for doc in docs])
+        
+        # Generate response with citations
+        response = self.llm.generate(
+            prompt=f"Context:\\n{context}\\n\\nQuestion: {question}",
+            system="Answer based only on the provided context. Cite sources."
+        )
+        
+        return {
+            "answer": response,
+            "sources": [doc.metadata for doc in docs]
+        }`,
+                caption: "Production RAG pipeline with retrieval and citations"
+            },
+            { type: "heading", level: 2, text: "Chunking Strategies" },
+            {
+                type: "text",
+                content: `**Chunking is critical for RAG quality:**
+
+| Strategy | Best For | Chunk Size |
+|----------|----------|------------|
+| Fixed-size | General text | 500-1000 tokens |
+| Semantic | Technical docs | Varies by topic |
+| Sentence | Q&A systems | 3-5 sentences |
+| Hierarchical | Long documents | Parent + children |
+
+**Key considerations:**
+- Overlap chunks by 10-20% for context continuity
+- Preserve document structure (headers, sections)
+- Include metadata for filtering`
+            },
+            {
+                type: "quiz",
+                title: "RAG Quiz",
+                questions: [
+                    {
+                        id: "rag-q1",
+                        type: "multiple-choice",
+                        question: "What does MMR (Maximum Marginal Relevance) do in retrieval?",
+                        options: [
+                            { id: "a", text: "Maximizes document length" },
+                            { id: "b", text: "Balances relevance with diversity" },
+                            { id: "c", text: "Minimizes token usage" },
+                            { id: "d", text: "Ranks by recency" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "MMR balances relevance with diversity to avoid retrieving nearly identical chunks."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m6-l2",
+        moduleId: "module-6",
+        topicId: "6-2",
+        lessonNumber: 2,
+        title: "Vector Databases & Embeddings",
+        duration: "40 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Vector Search at Scale" },
+            {
+                type: "text",
+                content: `Embeddings convert text into numerical vectors that capture semantic meaning. Vector databases store and search these efficiently.
+
+**Popular Vector Databases:**
+- **Pinecone**: Managed, scalable, enterprise-ready
+- **Weaviate**: Open-source, GraphQL API
+- **Chroma**: Lightweight, great for prototyping
+- **Qdrant**: High performance, Rust-based
+- **pgvector**: PostgreSQL extension`
+            },
+            { type: "heading", level: 2, text: "Embedding Models" },
+            {
+                type: "callout",
+                style: "tip",
+                content: "OpenAI's text-embedding-3-large offers the best quality. For cost savings, use text-embedding-3-small with higher dimensions."
+            },
+            {
+                type: "code",
+                language: "python",
+                code: `# Embedding comparison
+from openai import OpenAI
+
+client = OpenAI()
+
+# High quality (3072 dimensions)
+embedding_large = client.embeddings.create(
+    model="text-embedding-3-large",
+    input="Your document text here"
+).data[0].embedding
+
+# Cost-effective (1536 dimensions)
+embedding_small = client.embeddings.create(
+    model="text-embedding-3-small", 
+    input="Your document text here",
+    dimensions=1024  # Can reduce dimensions
+).data[0].embedding
+
+# Similarity search
+import numpy as np
+
+def cosine_similarity(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+similarity = cosine_similarity(query_embedding, doc_embedding)`,
+                caption: "Working with embedding models"
+            },
+            { type: "heading", level: 2, text: "Indexing Strategies" },
+            {
+                type: "text",
+                content: `**Index types for different scales:**
+
+- **HNSW (Hierarchical Navigable Small World)**: Best balance of speed/accuracy. Use for most cases.
+- **IVF (Inverted File)**: Faster for very large datasets (100M+ vectors)
+- **Flat**: Exact search, slow but 100% accurate. Use for small datasets.
+
+**Optimization tips:**
+1. Choose embedding dimensions based on your accuracy needs
+2. Use metadata filters to narrow search scope
+3. Implement hybrid search (vector + keyword) for best results`
+            },
+            {
+                type: "quiz",
+                title: "Vector DB Quiz",
+                questions: [
+                    {
+                        id: "vec-q1",
+                        type: "multi-select",
+                        question: "Which are valid vector database options?",
+                        options: [
+                            { id: "a", text: "Pinecone" },
+                            { id: "b", text: "MongoDB" },
+                            { id: "c", text: "Weaviate" },
+                            { id: "d", text: "pgvector" },
+                        ],
+                        correctAnswers: ["a", "c", "d"],
+                        explanation: "Pinecone, Weaviate, and pgvector are purpose-built for vector search. MongoDB has Atlas Vector Search but isn't primarily a vector DB."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m6-l3",
+        moduleId: "module-6",
+        topicId: "6-3",
+        lessonNumber: 3,
+        title: "Advanced RAG Techniques",
+        duration: "45 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Beyond Basic RAG" },
+            {
+                type: "text",
+                content: `Basic RAG often isn't enough for production. These advanced techniques significantly improve quality.
+
+**Common RAG Failures:**
+- Wrong documents retrieved
+- Answer not in retrieved context
+- Context too long for LLM
+- Contradictory information`
+            },
+            { type: "heading", level: 2, text: "Query Transformation" },
+            {
+                type: "code",
+                language: "python",
+                code: `# HyDE: Hypothetical Document Embeddings
+class HyDERetriever:
+    def retrieve(self, query: str):
+        # Generate hypothetical answer
+        hypothetical = self.llm.generate(
+            f"Write a detailed answer to: {query}"
+        )
+        
+        # Embed the hypothetical answer (not the query!)
+        embedding = self.embeddings.embed(hypothetical)
+        
+        # Search with hypothetical embedding
+        return self.vectorstore.similarity_search(embedding)
+
+# Multi-Query: Generate query variations
+class MultiQueryRetriever:
+    def retrieve(self, query: str):
+        # Generate 3-5 query variations
+        variations = self.llm.generate(
+            f"Generate 5 different ways to ask: {query}"
+        )
+        
+        # Retrieve for each variation
+        all_docs = []
+        for q in variations:
+            docs = self.vectorstore.search(q)
+            all_docs.extend(docs)
+        
+        # Deduplicate and rank
+        return self.rerank(all_docs)`,
+                caption: "Query transformation techniques"
+            },
+            { type: "heading", level: 2, text: "Re-ranking & Filtering" },
+            {
+                type: "callout",
+                style: "info",
+                content: "Re-ranking with a cross-encoder can improve top-5 accuracy by 10-20% over embedding similarity alone."
+            },
+            {
+                type: "text",
+                content: `**Re-ranking pipeline:**
+1. Retrieve top-K documents (K=20-50)
+2. Re-rank with cross-encoder model
+3. Take top-N for context (N=3-5)
+
+**Cross-encoder models:**
+- \`cross-encoder/ms-marco-MiniLM-L-6-v2\` (fast)
+- \`BAAI/bge-reranker-large\` (accurate)
+- Cohere Rerank API (managed service)`
+            },
+            {
+                type: "quiz",
+                title: "Advanced RAG Quiz",
+                questions: [
+                    {
+                        id: "adv-q1",
+                        type: "multiple-choice",
+                        question: "What does HyDE (Hypothetical Document Embeddings) do?",
+                        options: [
+                            { id: "a", text: "Generates fake documents for training" },
+                            { id: "b", text: "Embeds a hypothetical answer to improve retrieval" },
+                            { id: "c", text: "Hides sensitive data in embeddings" },
+                            { id: "d", text: "Compresses embeddings" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "HyDE generates a hypothetical answer and embeds that instead of the query, often improving retrieval quality."
+                    },
+                ]
+            }
+        ]
+    }
+];
+
 // Combine all lessons
-const allLessons = [...module1Lessons, ...module2Lessons, ...module3Lessons, ...module4Lessons, ...module5Lessons];
+const allLessons = [...module1Lessons, ...module2Lessons, ...module3Lessons, ...module4Lessons, ...module5Lessons, ...module6Lessons];
 
 // =============================================================================
 // LESSON LOOKUP HELPERS
