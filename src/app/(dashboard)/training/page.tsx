@@ -174,7 +174,8 @@ function CertificationPathCard({
                                 strokeDasharray={`${progress * 1.76} 176`}
                                 className={cn(
                                     track.level === "foundations" ? "text-blue-400" :
-                                        track.level === "professional" ? "text-purple-400" : "text-amber-400"
+                                        track.level === "associate" ? "text-emerald-400" :
+                                            track.level === "professional" ? "text-purple-400" : "text-amber-400"
                                 )}
                             />
                         </svg>
@@ -399,9 +400,46 @@ export default function TrainingDashboard() {
             <div className="px-6 py-8 max-w-7xl mx-auto">
                 {/* Certifications Tab */}
                 {activeTab === "certifications" && (
-                    <div className="space-y-4">
-                        <p className="text-white/50 text-sm mb-6">
-                            Complete modules in order to earn certifications. Each certification builds on the previous level.
+                    <div className="space-y-6">
+                        {/* Learning Journey Visual */}
+                        <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 mb-8">
+                            <h3 className="text-sm font-medium text-white/60 mb-4 text-center uppercase tracking-wider">Your Learning Path</h3>
+                            <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2">
+                                {certificationTracks.map((t, i) => (
+                                    <div key={t.id} className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => setExpandedCert(t.id)}
+                                            className={cn(
+                                                "flex flex-col items-center p-4 rounded-xl transition-all min-w-[120px]",
+                                                expandedCert === t.id
+                                                    ? "bg-white/10 border border-white/20"
+                                                    : "bg-white/[0.02] border border-white/5 hover:bg-white/[0.05]"
+                                            )}
+                                        >
+                                            <span className="text-2xl mb-1">{t.badge}</span>
+                                            <span className={cn(
+                                                "text-xs font-medium",
+                                                t.level === "foundations" ? "text-blue-400" :
+                                                    t.level === "associate" ? "text-emerald-400" :
+                                                        t.level === "professional" ? "text-purple-400" : "text-amber-400"
+                                            )}>
+                                                {t.shortTitle}
+                                            </span>
+                                            <span className="text-[10px] text-white/30 mt-1">{t.certificationCode}</span>
+                                        </button>
+                                        {i < certificationTracks.length - 1 && (
+                                            <ChevronRight className="h-4 w-4 text-white/20 flex-shrink-0" />
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                            <p className="text-center text-white/30 text-xs mt-4">
+                                Start with Foundations → Progress through each level → Unlock certifications
+                            </p>
+                        </div>
+
+                        <p className="text-white/50 text-sm">
+                            Complete modules in order to earn NATIVE certifications. Each level requires completing the previous level.
                         </p>
 
                         {certificationTracks.map((track) => (
