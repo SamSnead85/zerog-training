@@ -1,170 +1,313 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { Button, Card } from "@/components/ui";
-import { Rocket, ArrowLeft, Mail, MessageSquare, Building2 } from "lucide-react";
-import { Suspense } from "react";
+import {
+    Mail,
+    MessageCircle,
+    Building2,
+    Phone,
+    MapPin,
+    Send,
+    Check,
+    ChevronDown,
+    Loader2,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
-function ContactForm() {
-    const searchParams = useSearchParams();
-    const type = searchParams.get("type");
-    const isEnterprise = type === "enterprise";
+// =============================================================================
+// CONTACT FORM DATA
+// =============================================================================
+
+const inquiryTypes = [
+    { id: "demo", label: "Request a Demo" },
+    { id: "enterprise", label: "Enterprise Sales" },
+    { id: "support", label: "Technical Support" },
+    { id: "partnership", label: "Partnership Inquiry" },
+    { id: "press", label: "Press & Media" },
+    { id: "other", label: "Other" },
+];
+
+const companySizes = [
+    "1-10 employees",
+    "11-50 employees",
+    "51-200 employees",
+    "201-1000 employees",
+    "1000+ employees",
+];
+
+// =============================================================================
+// CONTACT PAGE
+// =============================================================================
+
+export default function ContactPage() {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        company: "",
+        companySize: "",
+        inquiryType: "",
+        message: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    };
 
     return (
-        <div className="min-h-screen bg-gradient-hero">
-            {/* Background effects */}
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-                <div className="absolute top-20 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
-                <div className="absolute bottom-20 right-1/4 h-96 w-96 rounded-full bg-secondary/10 blur-3xl" />
-            </div>
-
-            <div className="mx-auto max-w-4xl px-6 py-16">
-                {/* Back link */}
-                <Link
-                    href="/"
-                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8"
-                >
-                    <ArrowLeft className="h-4 w-4" />
-                    Back to home
-                </Link>
-
-                {/* Logo */}
-                <div className="flex items-center gap-2 mb-12">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
-                        <Rocket className="h-6 w-6 text-background" />
-                    </div>
-                    <span className="text-2xl font-bold">
-                        Scaled<span className="text-gradient">Native</span>
-                    </span>
+        <div className="min-h-screen bg-black text-white">
+            {/* Header */}
+            <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-xl border-b border-white/5">
+                <div className="flex items-center justify-between h-16 px-6 max-w-6xl mx-auto">
+                    <Link href="/" className="font-playfair text-xl font-medium italic tracking-tight">
+                        ScaledNative<sup className="text-[8px] align-super ml-0.5">™</sup>
+                    </Link>
+                    <nav className="hidden md:flex items-center gap-8">
+                        <Link href="/catalog" className="text-sm text-white/60 hover:text-white transition-colors">Catalog</Link>
+                        <Link href="/enterprise" className="text-sm text-white/60 hover:text-white transition-colors">Enterprise</Link>
+                        <Link href="/pricing" className="text-sm text-white/60 hover:text-white transition-colors">Pricing</Link>
+                        <Link href="/contact" className="text-sm text-white font-medium">Contact</Link>
+                    </nav>
                 </div>
+            </header>
 
-                <div className="grid md:grid-cols-2 gap-12">
-                    {/* Contact info */}
+            <main className="px-6 py-16 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    {/* Left Column - Info */}
                     <div>
-                        <h1 className="text-3xl font-bold mb-4">
-                            {isEnterprise ? "Enterprise Sales" : "Get in Touch"}
-                        </h1>
-                        <p className="text-muted-foreground mb-8">
-                            {isEnterprise
-                                ? "Let's discuss how ScaledNative can transform training at your organization."
-                                : "Have questions? We'd love to hear from you."}
+                        <h1 className="font-montserrat text-4xl font-bold mb-4">Get in Touch</h1>
+                        <p className="text-lg text-white/50 mb-8">
+                            Have questions about our AI training platform? We'd love to hear from you.
+                            Our team is here to help.
                         </p>
 
-                        <div className="space-y-6">
+                        {/* Contact Info */}
+                        <div className="space-y-6 mb-12">
                             <div className="flex items-start gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                    <Mail className="h-5 w-5 text-primary" />
+                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                                    <Mail className="h-5 w-5 text-white/60" />
                                 </div>
                                 <div>
-                                    <h3 className="font-medium">Email</h3>
-                                    <p className="text-muted-foreground">hello@zerogtraining.com</p>
+                                    <p className="font-medium mb-1">Email Us</p>
+                                    <a href="mailto:hello@scalednative.com" className="text-white/50 hover:text-white">
+                                        hello@scalednative.com
+                                    </a>
                                 </div>
                             </div>
-
                             <div className="flex items-start gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center">
-                                    <MessageSquare className="h-5 w-5 text-secondary" />
+                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                                    <Phone className="h-5 w-5 text-white/60" />
                                 </div>
                                 <div>
-                                    <h3 className="font-medium">Live Chat</h3>
-                                    <p className="text-muted-foreground">Available Mon-Fri, 9am-6pm EST</p>
+                                    <p className="font-medium mb-1">Call Us</p>
+                                    <a href="tel:+18005551234" className="text-white/50 hover:text-white">
+                                        +1 (800) 555-1234
+                                    </a>
                                 </div>
                             </div>
-
                             <div className="flex items-start gap-4">
-                                <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                                    <Building2 className="h-5 w-5 text-accent" />
+                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                                    <MapPin className="h-5 w-5 text-white/60" />
                                 </div>
                                 <div>
-                                    <h3 className="font-medium">Office</h3>
-                                    <p className="text-muted-foreground">San Francisco, CA</p>
+                                    <p className="font-medium mb-1">Office</p>
+                                    <p className="text-white/50">
+                                        123 Innovation Way<br />
+                                        San Francisco, CA 94105
+                                    </p>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Quick Links */}
+                        <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10">
+                            <h3 className="font-semibold mb-4">Quick Links</h3>
+                            <div className="space-y-3">
+                                <Link href="/demo" className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors">
+                                    <span className="text-sm">Schedule a Demo</span>
+                                    <span className="text-white/40">→</span>
+                                </Link>
+                                <Link href="/enterprise" className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors">
+                                    <span className="text-sm">Enterprise Solutions</span>
+                                    <span className="text-white/40">→</span>
+                                </Link>
+                                <Link href="/pricing" className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors">
+                                    <span className="text-sm">View Pricing</span>
+                                    <span className="text-white/40">→</span>
+                                </Link>
                             </div>
                         </div>
                     </div>
 
-                    {/* Contact form */}
-                    <Card variant="glass" padding="lg">
-                        <form className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-medium mb-2">First Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="John"
-                                        className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-2">Last Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Doe"
-                                        className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Work Email</label>
-                                <input
-                                    type="email"
-                                    placeholder="john@company.com"
-                                    className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                                />
-                            </div>
-
-                            {isEnterprise && (
-                                <>
+                    {/* Right Column - Form */}
+                    <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10">
+                        {!isSubmitted ? (
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium mb-2">Company</label>
+                                        <label className="block text-sm text-white/40 mb-2">Full Name *</label>
                                         <input
                                             type="text"
-                                            placeholder="Your company name"
-                                            className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                                            name="name"
+                                            required
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20"
+                                            placeholder="John Smith"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium mb-2">Number of Employees</label>
-                                        <select className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary">
-                                            <option>500-1,000</option>
-                                            <option>1,000-5,000</option>
-                                            <option>5,000-10,000</option>
-                                            <option>10,000+</option>
+                                        <label className="block text-sm text-white/40 mb-2">Work Email *</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            required
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20"
+                                            placeholder="john@company.com"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm text-white/40 mb-2">Company</label>
+                                        <input
+                                            type="text"
+                                            name="company"
+                                            value={formData.company}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20"
+                                            placeholder="Your Company"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm text-white/40 mb-2">Company Size</label>
+                                        <select
+                                            name="companySize"
+                                            value={formData.companySize}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20 appearance-none"
+                                        >
+                                            <option value="">Select size</option>
+                                            {companySizes.map(size => (
+                                                <option key={size} value={size}>{size}</option>
+                                            ))}
                                         </select>
                                     </div>
-                                </>
-                            )}
+                                </div>
 
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Message</label>
-                                <textarea
-                                    rows={4}
-                                    placeholder="How can we help?"
-                                    className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                                />
+                                <div>
+                                    <label className="block text-sm text-white/40 mb-2">Inquiry Type *</label>
+                                    <select
+                                        name="inquiryType"
+                                        required
+                                        value={formData.inquiryType}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20 appearance-none"
+                                    >
+                                        <option value="">Select inquiry type</option>
+                                        {inquiryTypes.map(type => (
+                                            <option key={type.id} value={type.id}>{type.label}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm text-white/40 mb-2">Message *</label>
+                                    <textarea
+                                        name="message"
+                                        required
+                                        rows={5}
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20 resize-none"
+                                        placeholder="Tell us about your needs..."
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className={cn(
+                                        "w-full py-4 rounded-full font-medium transition-all flex items-center justify-center gap-2",
+                                        isSubmitting
+                                            ? "bg-white/50 cursor-not-allowed"
+                                            : "bg-white text-black hover:bg-white/90"
+                                    )}
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                            Sending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Send className="h-4 w-4" />
+                                            Send Message
+                                        </>
+                                    )}
+                                </button>
+
+                                <p className="text-xs text-white/30 text-center">
+                                    By submitting, you agree to our <Link href="/privacy" className="underline">Privacy Policy</Link>.
+                                </p>
+                            </form>
+                        ) : (
+                            <div className="py-12 text-center">
+                                <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
+                                    <Check className="h-8 w-8 text-emerald-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold mb-2">Message Sent!</h2>
+                                <p className="text-white/50 mb-6">
+                                    Thank you for reaching out. We'll get back to you within 24 hours.
+                                </p>
+                                <button
+                                    onClick={() => {
+                                        setIsSubmitted(false);
+                                        setFormData({
+                                            name: "",
+                                            email: "",
+                                            company: "",
+                                            companySize: "",
+                                            inquiryType: "",
+                                            message: "",
+                                        });
+                                    }}
+                                    className="text-sm text-white/40 hover:text-white"
+                                >
+                                    Send another message
+                                </button>
                             </div>
-
-                            <Button className="w-full" size="lg">
-                                {isEnterprise ? "Contact Sales Team" : "Send Message"}
-                            </Button>
-                        </form>
-                    </Card>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </div>
-    );
-}
+            </main>
 
-export default function ContactPage() {
-    return (
-        <Suspense fallback={
-            <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
-                <div className="animate-pulse text-muted-foreground">Loading...</div>
-            </div>
-        }>
-            <ContactForm />
-        </Suspense>
+            {/* Footer */}
+            <footer className="px-6 py-8 border-t border-white/5">
+                <div className="max-w-6xl mx-auto flex items-center justify-between text-xs text-white/30">
+                    <span>© 2025 ScaledNative™. All rights reserved.</span>
+                    <div className="flex gap-6">
+                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+                        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+                    </div>
+                </div>
+            </footer>
+        </div>
     );
 }

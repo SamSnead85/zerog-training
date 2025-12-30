@@ -471,17 +471,353 @@ swim → `,
 ];
 
 // =============================================================================
+// MODULE 2 LESSON CONTENT - RAG & Embeddings
+// =============================================================================
+
+export const module2Lessons: LessonContent[] = [
+    {
+        id: "m2-l1",
+        moduleId: "module-2",
+        topicId: "2-1",
+        lessonNumber: 1,
+        title: "Introduction to RAG Architecture",
+        duration: "30 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Retrieval-Augmented Generation (RAG)" },
+            {
+                type: "text",
+                content: `RAG is one of the most powerful patterns for building AI applications. It combines the reasoning capabilities of LLMs with the accuracy of your own data sources.
+
+**Why RAG?**
+- LLMs have knowledge cutoffs (GPT-4: April 2023)
+- LLMs can hallucinate facts
+- You need answers from YOUR data
+- RAG grounds responses in real documents`
+            },
+            { type: "heading", level: 2, text: "RAG Architecture Overview" },
+            {
+                type: "callout",
+                style: "info",
+                content: "RAG = Retrieve relevant documents → Augment the prompt with them → Generate a grounded response"
+            },
+            {
+                type: "code",
+                language: "python",
+                code: `# Basic RAG Flow
+from openai import OpenAI
+from vectordb import VectorStore
+
+def rag_query(user_question: str) -> str:
+    # 1. RETRIEVE: Find relevant documents
+    docs = vector_store.search(
+        query=user_question,
+        top_k=5  # Get top 5 relevant chunks
+    )
+    
+    # 2. AUGMENT: Build context from documents
+    context = "\\n\\n".join([doc.text for doc in docs])
+    
+    # 3. GENERATE: Ask LLM with context
+    prompt = f"""Answer based on the following context:
+    
+Context:
+{context}
+
+Question: {user_question}
+
+Answer:"""
+    
+    response = openai.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    
+    return response.choices[0].message.content`,
+                caption: "The three-step RAG pattern"
+            },
+            {
+                type: "quiz",
+                title: "RAG Fundamentals",
+                questions: [
+                    {
+                        id: "rag-q1",
+                        type: "multiple-choice",
+                        question: "What problem does RAG primarily solve?",
+                        options: [
+                            { id: "a", text: "Making LLMs run faster" },
+                            { id: "b", text: "Reducing token costs" },
+                            { id: "c", text: "Grounding LLM responses in up-to-date or private data" },
+                            { id: "d", text: "Training custom models" },
+                        ],
+                        correctAnswers: ["c"],
+                        explanation: "RAG solves the problem of knowledge cutoffs and hallucination by retrieving real documents to ground the LLM's responses."
+                    },
+                    {
+                        id: "rag-q2",
+                        type: "multi-select",
+                        question: "Which are the three steps in RAG?",
+                        options: [
+                            { id: "a", text: "Retrieve" },
+                            { id: "b", text: "Train" },
+                            { id: "c", text: "Augment" },
+                            { id: "d", text: "Generate" },
+                        ],
+                        correctAnswers: ["a", "c", "d"],
+                        explanation: "RAG = Retrieve → Augment → Generate. There's no training step in basic RAG."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m2-l2",
+        moduleId: "module-2",
+        topicId: "2-2",
+        lessonNumber: 2,
+        title: "Understanding Embeddings",
+        duration: "35 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Vector Embeddings Explained" },
+            {
+                type: "text",
+                content: `Embeddings are the secret sauce behind semantic search. They convert text into numerical vectors that capture meaning—allowing us to find documents by concept, not just keywords.
+
+**Key Insight:** Similar meanings → Similar vectors → Similar positions in vector space`
+            },
+            { type: "heading", level: 2, text: "How Embeddings Work" },
+            {
+                type: "code",
+                language: "python",
+                code: `# Creating embeddings with OpenAI
+from openai import OpenAI
+import numpy as np
+
+client = OpenAI()
+
+def get_embedding(text: str) -> list[float]:
+    """Convert text to a 1536-dimensional vector"""
+    response = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=text
+    )
+    return response.data[0].embedding
+
+# Example: Compare two sentences
+text1 = "The cat sat on the mat"
+text2 = "A feline rested on the rug"
+text3 = "Python is a programming language"
+
+emb1 = get_embedding(text1)
+emb2 = get_embedding(text2)
+emb3 = get_embedding(text3)
+
+# Cosine similarity: 1 = identical, 0 = unrelated
+def cosine_similarity(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+print(f"Cat sentences: {cosine_similarity(emb1, emb2):.3f}")  # ~0.92
+print(f"Cat vs Python: {cosine_similarity(emb1, emb3):.3f}")  # ~0.45`,
+                caption: "Embeddings capture semantic similarity"
+            },
+            {
+                type: "callout",
+                style: "tip",
+                content: "Embedding models are different from chat models. Use text-embedding-3-small for embeddings, gpt-4 for generation."
+            },
+            { type: "heading", level: 2, text: "Chunking Strategies" },
+            {
+                type: "text",
+                content: `Before embedding documents, you need to split them into chunks. Chunk size affects retrieval quality:
+
+**Too small (100 tokens):** Missing context, fragmented information
+**Too large (2000 tokens):** Diluted relevance, wasted context window
+**Sweet spot (200-500 tokens):** Often best for most use cases
+
+**Chunking Methods:**
+1. **Fixed-size:** Split every N characters/tokens
+2. **Sentence-based:** Split on sentence boundaries
+3. **Recursive text splitting:** Split on paragraphs, then sentences, then words
+4. **Semantic chunking:** Group by topic (advanced)`
+            },
+            {
+                type: "exercise",
+                exercise: {
+                    id: "ex-chunk-1",
+                    title: "Implement Basic Chunking",
+                    description: "Complete the function to split text into chunks of approximately 500 characters with 50-character overlap.",
+                    language: "python",
+                    starterCode: `def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50):
+    """Split text into overlapping chunks"""
+    chunks = []
+    start = 0
+    
+    while start < len(text):
+        # Get chunk from start position
+        end = start + chunk_size
+        chunk = text[start:end]
+        
+        # Add chunk to list
+        chunks.append(chunk)
+        
+        # Move start position (with overlap)
+        # TODO: Update start for the next iteration
+        start = ???
+    
+    return chunks
+
+# Test
+sample = "A" * 1200  # 1200 character string
+result = chunk_text(sample)
+print(f"Created {len(result)} chunks")`,
+                    solution: `def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50):
+    """Split text into overlapping chunks"""
+    chunks = []
+    start = 0
+    
+    while start < len(text):
+        # Get chunk from start position
+        end = start + chunk_size
+        chunk = text[start:end]
+        
+        # Add chunk to list
+        chunks.append(chunk)
+        
+        # Move start position (with overlap)
+        start = start + chunk_size - overlap
+    
+    return chunks
+
+# Test
+sample = "A" * 1200  # 1200 character string
+result = chunk_text(sample)
+print(f"Created {len(result)} chunks")`,
+                    expectedOutput: "Created 3 chunks",
+                    hint: "To create overlap, move forward by (chunk_size - overlap) instead of chunk_size"
+                }
+            }
+        ]
+    },
+    {
+        id: "m2-l3",
+        moduleId: "module-2",
+        topicId: "2-3",
+        lessonNumber: 3,
+        title: "Building a Vector Search Pipeline",
+        duration: "45 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "End-to-End Vector Search" },
+            {
+                type: "text",
+                content: `Now let's put it all together: document loading, chunking, embedding, and searching. This is the foundation of every RAG system.`
+            },
+            { type: "heading", level: 2, text: "The Complete Pipeline" },
+            {
+                type: "code",
+                language: "python",
+                code: `# Complete RAG Pipeline with ChromaDB
+import chromadb
+from openai import OpenAI
+
+client = OpenAI()
+chroma = chromadb.Client()
+
+# 1. Create a collection (like a table for vectors)
+collection = chroma.create_collection(name="my_docs")
+
+# 2. Add documents (ChromaDB handles embeddings!)
+documents = [
+    "The quick brown fox jumps over the lazy dog",
+    "Machine learning is a subset of artificial intelligence",
+    "Python is a popular programming language for data science",
+    "Neural networks are inspired by the human brain",
+]
+
+collection.add(
+    documents=documents,
+    ids=[f"doc_{i}" for i in range(len(documents))]
+)
+
+# 3. Query the collection
+results = collection.query(
+    query_texts=["What is AI?"],
+    n_results=2
+)
+
+print("Most relevant documents:")
+for doc in results['documents'][0]:
+    print(f"  - {doc}")`,
+                caption: "A minimal but complete RAG pipeline"
+            },
+            {
+                type: "callout",
+                style: "warning",
+                content: "In production, use a persistent vector store like Pinecone, Weaviate, or Qdrant. ChromaDB is great for prototyping."
+            },
+            { type: "heading", level: 2, text: "Improving Retrieval Quality" },
+            {
+                type: "text",
+                content: `**Techniques for better retrieval:**
+
+1. **Hybrid Search:** Combine vector + keyword search
+2. **Re-ranking:** Use a second model to score relevance
+3. **Query Expansion:** Rephrase queries multiple ways
+4. **Metadata Filtering:** Filter by date, source, category
+5. **Parent-Child Chunking:** Retrieve chunks, return parent docs`
+            },
+            {
+                type: "quiz",
+                title: "Vector Search Check",
+                questions: [
+                    {
+                        id: "vs-q1",
+                        type: "multiple-choice",
+                        question: "What is cosine similarity used for in RAG?",
+                        options: [
+                            { id: "a", text: "Calculating token costs" },
+                            { id: "b", text: "Measuring how similar two vectors are" },
+                            { id: "c", text: "Training the embedding model" },
+                            { id: "d", text: "Compressing documents" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "Cosine similarity measures the angle between vectors. A score of 1 means identical direction (similar meaning), 0 means perpendicular (unrelated)."
+                    },
+                    {
+                        id: "vs-q2",
+                        type: "multiple-choice",
+                        question: "What's a typical 'sweet spot' chunk size for embedding documents?",
+                        options: [
+                            { id: "a", text: "10-50 tokens" },
+                            { id: "b", text: "200-500 tokens" },
+                            { id: "c", text: "2000-5000 tokens" },
+                            { id: "d", text: "The entire document" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "200-500 tokens is often the sweet spot—large enough for context, small enough for relevance. But always test for your use case!"
+                    },
+                ]
+            }
+        ]
+    }
+];
+
+// Combine all lessons
+const allLessons = [...module1Lessons, ...module2Lessons];
+
+// =============================================================================
 // LESSON LOOKUP HELPERS
 // =============================================================================
 
 export function getLessonsByModule(moduleId: string): LessonContent[] {
-    return module1Lessons.filter(l => l.moduleId === moduleId);
+    return allLessons.filter(l => l.moduleId === moduleId);
 }
 
 export function getLessonById(lessonId: string): LessonContent | undefined {
-    return module1Lessons.find(l => l.id === lessonId);
+    return allLessons.find(l => l.id === lessonId);
 }
 
 export function getLessonByModuleAndNumber(moduleId: string, lessonNumber: number): LessonContent | undefined {
-    return module1Lessons.find(l => l.moduleId === moduleId && l.lessonNumber === lessonNumber);
+    return allLessons.find(l => l.moduleId === moduleId && l.lessonNumber === lessonNumber);
 }
