@@ -75,48 +75,41 @@ interface NavGroup {
     title: string;
     items: NavItem[];
     collapsible?: boolean;
+    managerOnly?: boolean;
 }
 
-// Navigation Configuration
+// Simplified Navigation Configuration - Role-Based
 const navGroups: NavGroup[] = [
     {
         title: "Overview",
         items: [
             { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-            { label: "AI-Native Training", href: "/training", icon: Brain, badge: "New", badgeVariant: "success" },
-            { label: "Create Training", href: "/create", icon: Sparkles, badge: "AI", badgeVariant: "primary" },
-        ],
-    },
-    {
-        title: "Learn",
-        collapsible: true,
-        items: [
             { label: "My Learning", href: "/learning", icon: GraduationCap },
-            { label: "Content Library", href: "/library", icon: BookOpen },
-            { label: "Learning Paths", href: "/paths", icon: Route },
-            { label: "Leaderboard", href: "/leaderboard", icon: Medal },
-            { label: "Certificates", href: "/certificates", icon: Award },
         ],
     },
     {
-        title: "Manage",
-        collapsible: true,
+        title: "NATIVE Training",
         items: [
-            { label: "Org Dashboard", href: "/org", icon: Building2 },
+            { label: "AI-Native Courses", href: "/training", icon: Brain, badge: "NATIVE", badgeVariant: "success" },
+            { label: "Certifications", href: "/certificates", icon: Award },
+        ],
+    },
+    {
+        title: "Manager View",
+        collapsible: true,
+        managerOnly: true,
+        items: [
+            { label: "Team Overview", href: "/team", icon: Users },
             { label: "Assign Training", href: "/assign", icon: UserPlus, badge: "3", badgeVariant: "default" },
-            { label: "Team Progress", href: "/progress", icon: Target },
-            { label: "Workforce", href: "/workforce", icon: Users },
+            { label: "Progress Reports", href: "/reports", icon: BarChart3 },
             { label: "Compliance", href: "/compliance", icon: ShieldCheck },
-            { label: "Reports", href: "/reports", icon: BarChart3 },
-            { label: "Audit Log", href: "/audit", icon: FileText },
         ],
     },
     {
         title: "Settings",
         items: [
-            { label: "Integrations", href: "/integrations", icon: Plug },
             { label: "Settings", href: "/settings", icon: Settings },
-            { label: "Help & Support", href: "/help", icon: HelpCircle },
+            { label: "Help", href: "/help", icon: HelpCircle },
         ],
     },
 ];
@@ -260,8 +253,18 @@ export function EnhancedSidebar() {
     const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
     const pathname = usePathname();
 
+    // Role-based visibility - In production, this would come from auth context
+    // For demo, we default to showing manager view (can be toggled in a real implementation)
+    const [isManager] = useState(true);
+
     // Auto-expand collapsed state on hover
     const isExpanded = !collapsed || hovering;
+
+    // Filter navigation groups based on user role
+    const filteredNavGroups = navGroups.filter(group => {
+        if (group.managerOnly && !isManager) return false;
+        return true;
+    });
 
     const toggleGroup = (title: string) => {
         const newCollapsed = new Set(collapsedGroups);
@@ -315,7 +318,7 @@ export function EnhancedSidebar() {
 
                 {/* Navigation Groups */}
                 <nav className="flex-1 overflow-y-auto py-4">
-                    {navGroups.map((group) => {
+                    {filteredNavGroups.map((group) => {
                         const isGroupCollapsed = collapsedGroups.has(group.title);
 
                         return (

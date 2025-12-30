@@ -157,6 +157,73 @@ export default function PremiumLandingPage() {
         </div>
       </section>
 
+      {/* Trusted By Elite Companies - Scrolling Logos */}
+      <section className="py-16 px-8 border-t border-white/5 overflow-hidden">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-center text-xs text-white/30 uppercase tracking-widest mb-10">
+            Trusted by leading organizations worldwide
+          </p>
+
+          {/* Scrolling Logo Marquee */}
+          <div className="relative">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
+
+            {/* Scrolling container */}
+            <div className="flex animate-[scroll_30s_linear_infinite]">
+              {[...Array(2)].map((_, setIdx) => (
+                <div key={setIdx} className="flex shrink-0">
+                  {[
+                    "NVIDIA",
+                    "Google",
+                    "OpenAI",
+                    "Microsoft",
+                    "Amazon",
+                    "Anthropic",
+                    "Meta",
+                    "IBM",
+                    "Salesforce",
+                    "Oracle",
+                    "ServiceNow",
+                    "Snowflake",
+                  ].map((company, i) => (
+                    <div
+                      key={`${setIdx}-${i}`}
+                      className="px-10 py-4 mx-4 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors"
+                    >
+                      <span className="text-sm font-medium text-white/50 whitespace-nowrap">
+                        {company}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Compliance Badges */}
+          <div className="flex flex-wrap justify-center gap-6 mt-12 text-xs text-white/40 uppercase tracking-wider">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
+              <Shield className="h-4 w-4 text-emerald-500" />
+              HITRUST Certified
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
+              <Shield className="h-4 w-4 text-blue-500" />
+              SOC 2 Type II
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
+              <Shield className="h-4 w-4 text-purple-500" />
+              HIPAA Compliant
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
+              <Shield className="h-4 w-4 text-amber-500" />
+              GDPR Ready
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Problem Section - Editorial */}
       <section className="py-32 px-8">
         <div className="mx-auto max-w-4xl text-center">

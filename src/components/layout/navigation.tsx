@@ -31,6 +31,8 @@ import {
     Sparkles,
     Target,
     UserPlus,
+    Brain,
+    ChevronDown,
 } from "lucide-react";
 import { Button, Avatar, Badge } from "@/components/ui";
 
@@ -39,30 +41,75 @@ interface NavItem {
     href: string;
     icon: React.ElementType;
     badge?: string;
+    badgeVariant?: "default" | "primary" | "success" | "warning";
 }
 
-const mainNav: NavItem[] = [
-    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Create Training", href: "/create", icon: Sparkles, badge: "AI" },
-    { label: "My Learning", href: "/learning", icon: GraduationCap },
-    { label: "Content Library", href: "/library", icon: BookOpen },
-    { label: "Leaderboard", href: "/leaderboard", icon: Medal },
-    { label: "Certificates", href: "/certificates", icon: Award },
-];
+interface NavGroup {
+    title: string;
+    items: NavItem[];
+    collapsible?: boolean;
+    managerOnly?: boolean;
+}
 
-const adminNav: NavItem[] = [
-    { label: "Org Dashboard", href: "/org", icon: Building2 },
-    { label: "Assign Training", href: "/assign", icon: UserPlus },
-    { label: "Team Progress", href: "/progress", icon: Target },
-    { label: "Workforce", href: "/workforce", icon: Users },
-    { label: "Compliance", href: "/compliance", icon: ShieldCheck },
-    { label: "Reports", href: "/reports", icon: BarChart3 },
-    { label: "Audit Log", href: "/audit", icon: Settings },
+// Simplified Navigation Configuration - Role-Based
+const navGroups: NavGroup[] = [
+    {
+        title: "Overview",
+        items: [
+            { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+            { label: "My Learning", href: "/learning", icon: GraduationCap },
+        ],
+    },
+    {
+        title: "NATIVE Training",
+        items: [
+            { label: "AI-Native Courses", href: "/training", icon: Brain, badge: "NATIVE", badgeVariant: "success" },
+            { label: "Certifications", href: "/certificates", icon: Award },
+        ],
+    },
+    {
+        title: "Manager View",
+        collapsible: true,
+        managerOnly: true,
+        items: [
+            { label: "Team Overview", href: "/team", icon: Users },
+            { label: "Assign Training", href: "/assign", icon: UserPlus, badge: "3", badgeVariant: "default" },
+            { label: "Progress Reports", href: "/reports", icon: BarChart3 },
+            { label: "Compliance", href: "/compliance", icon: ShieldCheck },
+        ],
+    },
+    {
+        title: "Settings",
+        items: [
+            { label: "Settings", href: "/settings", icon: Settings },
+            { label: "Help", href: "/help", icon: HelpCircle },
+        ],
+    },
 ];
 
 export function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
+    const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
     const pathname = usePathname();
+
+    // Role-based visibility - In production, this would come from auth context
+    const [isManager] = useState(true);
+
+    // Filter navigation groups based on user role
+    const filteredNavGroups = navGroups.filter(group => {
+        if (group.managerOnly && !isManager) return false;
+        return true;
+    });
+
+    const toggleGroup = (title: string) => {
+        const newCollapsed = new Set(collapsedGroups);
+        if (newCollapsed.has(title)) {
+            newCollapsed.delete(title);
+        } else {
+            newCollapsed.add(title);
+        }
+        setCollapsedGroups(newCollapsed);
+    };
 
     return (
         <aside
@@ -72,26 +119,21 @@ export function Sidebar() {
             )}
         >
             {/* Logo */}
-            <div className="h-16 flex items-center justify-between px-4 border-b border-border">
+            <div className="h-16 flex items-center justify-between px-4 border-b border-white/5">
                 <Link href="/" className="flex items-center gap-2">
-                    <Image
-                        src="/logo.png"
-                        alt="ScaledNative"
-                        width={36}
-                        height={36}
-                        className="rounded-lg flex-shrink-0"
-                    />
-                    {!collapsed && (
-                        <span className="text-xl font-bold tracking-tight">
-                            Scaled<span className="text-gradient">Native</span>
+                    {!collapsed ? (
+                        <span className="font-playfair text-xl font-medium tracking-tight italic text-white">
+                            ScaledNative<sup className="text-[10px] align-super ml-0.5">™</sup>
                         </span>
+                    ) : (
+                        <span className="font-playfair text-xl font-bold italic text-white">S</span>
                     )}
                 </Link>
                 <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setCollapsed(!collapsed)}
-                    className="h-8 w-8"
+                    className="h-8 w-8 text-white/40 hover:text-white"
                 >
                     {collapsed ? (
                         <ChevronRight className="h-4 w-4" />
@@ -101,93 +143,77 @@ export function Sidebar() {
                 </Button>
             </div>
 
-            {/* Create Button */}
-            <div className="p-3">
-                <Link href="/studio/create">
-                    <Button
-                        className={cn("w-full", collapsed && "px-0 justify-center")}
-                        size={collapsed ? "icon" : "default"}
-                    >
-                        <Plus className="h-4 w-4" />
-                        {!collapsed && <span className="ml-2">Create Module</span>}
-                    </Button>
-                </Link>
-            </div>
-
-            {/* Main Navigation */}
+            {/* Navigation Groups */}
             <nav className="flex-1 overflow-y-auto py-4">
-                <div className="px-3 mb-6">
-                    {!collapsed && (
-                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-3 mb-2">
-                            Learn
-                        </p>
-                    )}
-                    <ul className="space-y-1">
-                        {mainNav.map((item) => {
-                            const Icon = item.icon;
-                            const isActive = pathname === item.href;
-                            return (
-                                <li key={item.href}>
-                                    <Link
-                                        href={item.href}
-                                        className={cn(
-                                            "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium",
-                                            isActive
-                                                ? "bg-primary/10 text-primary"
-                                                : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                                            collapsed && "justify-center px-0"
-                                        )}
-                                        title={collapsed ? item.label : undefined}
-                                    >
-                                        <Icon className="h-5 w-5 flex-shrink-0" />
-                                        {!collapsed && (
-                                            <>
-                                                <span className="flex-1">{item.label}</span>
-                                                {item.badge && (
-                                                    <Badge variant="secondary" className="text-xs px-1.5 py-0">
-                                                        {item.badge}
-                                                    </Badge>
-                                                )}
-                                            </>
-                                        )}
-                                    </Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
+                {filteredNavGroups.map((group) => {
+                    const isGroupCollapsed = collapsedGroups.has(group.title);
 
-                <div className="px-3">
-                    {!collapsed && (
-                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-3 mb-2">
-                            Manage
-                        </p>
-                    )}
-                    <ul className="space-y-1">
-                        {adminNav.map((item) => {
-                            const Icon = item.icon;
-                            const isActive = pathname === item.href;
-                            return (
-                                <li key={item.href}>
-                                    <Link
-                                        href={item.href}
-                                        className={cn(
-                                            "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium",
-                                            isActive
-                                                ? "bg-primary/10 text-primary"
-                                                : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                                            collapsed && "justify-center px-0"
-                                        )}
-                                        title={collapsed ? item.label : undefined}
-                                    >
-                                        <Icon className="h-5 w-5 flex-shrink-0" />
-                                        {!collapsed && <span>{item.label}</span>}
-                                    </Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
+                    return (
+                        <div key={group.title} className="mb-4">
+                            {!collapsed && (
+                                <button
+                                    onClick={() => group.collapsible && toggleGroup(group.title)}
+                                    className={cn(
+                                        "w-full flex items-center justify-between px-6 mb-2",
+                                        group.collapsible && "cursor-pointer hover:text-foreground"
+                                    )}
+                                >
+                                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                                        {group.title}
+                                    </span>
+                                    {group.collapsible && (
+                                        <ChevronDown className={cn(
+                                            "h-3 w-3 text-muted-foreground transition-transform",
+                                            isGroupCollapsed && "-rotate-90"
+                                        )} />
+                                    )}
+                                </button>
+                            )}
+
+                            {(!group.collapsible || !isGroupCollapsed) && (
+                                <ul className="space-y-1 px-3">
+                                    {group.items.map((item) => {
+                                        const Icon = item.icon;
+                                        const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
+                                        return (
+                                            <li key={item.href}>
+                                                <Link
+                                                    href={item.href}
+                                                    className={cn(
+                                                        "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-medium",
+                                                        isActive
+                                                            ? "bg-primary/10 text-primary"
+                                                            : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                                                        collapsed && "justify-center px-0"
+                                                    )}
+                                                    title={collapsed ? item.label : undefined}
+                                                >
+                                                    <Icon className="h-5 w-5 flex-shrink-0" />
+                                                    {!collapsed && (
+                                                        <>
+                                                            <span className="flex-1">{item.label}</span>
+                                                            {item.badge && (
+                                                                <Badge
+                                                                    variant="secondary"
+                                                                    className={cn(
+                                                                        "text-xs px-1.5 py-0 h-5",
+                                                                        item.badgeVariant === "success" && "bg-emerald-500/20 text-emerald-400"
+                                                                    )}
+                                                                >
+                                                                    {item.badge}
+                                                                </Badge>
+                                                            )}
+                                                        </>
+                                                    )}
+                                                </Link>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </div>
+                    );
+                })}
             </nav>
 
             {/* Bottom section - user */}
