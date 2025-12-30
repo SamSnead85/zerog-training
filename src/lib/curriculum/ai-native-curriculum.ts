@@ -80,7 +80,7 @@ export interface CertificationTrack {
 
 export const certificationTracks: CertificationTrack[] = [
     {
-        id: "foundations",
+        id: "foundations-cert",
         level: "foundations",
         shortTitle: "Foundations",
         title: "AI-Native Foundations",
@@ -88,7 +88,7 @@ export const certificationTracks: CertificationTrack[] = [
         duration: "16-20 hours",
         modules: ["module-1", "module-2"],
         validityPeriod: "Lifetime",
-        badge: "🎓",
+        badge: "graduation-cap",
         badgeColor: "bg-blue-500",
         nativeCertified: true,
         certificationCode: "NATIVE-F",
@@ -99,7 +99,7 @@ export const certificationTracks: CertificationTrack[] = [
         }
     },
     {
-        id: "associate",
+        id: "associate-cert",
         level: "associate",
         shortTitle: "Associate",
         title: "AI-Native Associate Developer",
@@ -108,7 +108,7 @@ export const certificationTracks: CertificationTrack[] = [
         modules: ["module-3", "module-4"],
         prerequisites: ["AI-Native Foundations"],
         validityPeriod: "2 years",
-        badge: "🏅",
+        badge: "layers",
         badgeColor: "bg-emerald-500",
         nativeCertified: true,
         certificationCode: "NATIVE-A",
@@ -119,7 +119,7 @@ export const certificationTracks: CertificationTrack[] = [
         }
     },
     {
-        id: "professional",
+        id: "professional-cert",
         level: "professional",
         shortTitle: "Professional",
         title: "AI-Native Professional Developer",
@@ -128,7 +128,7 @@ export const certificationTracks: CertificationTrack[] = [
         modules: ["module-5", "module-6", "module-7"],
         prerequisites: ["AI-Native Associate Developer"],
         validityPeriod: "2 years",
-        badge: "🏆",
+        badge: "trophy",
         badgeColor: "bg-purple-500",
         nativeCertified: true,
         certificationCode: "NATIVE-P",
@@ -139,7 +139,7 @@ export const certificationTracks: CertificationTrack[] = [
         }
     },
     {
-        id: "architect",
+        id: "architect-cert",
         level: "architect",
         shortTitle: "Architect",
         title: "AI-Native Solutions Architect",
@@ -148,7 +148,7 @@ export const certificationTracks: CertificationTrack[] = [
         modules: ["module-8"],
         prerequisites: ["AI-Native Professional Developer"],
         validityPeriod: "3 years",
-        badge: "⚡",
+        badge: "crown",
         badgeColor: "bg-amber-500",
         nativeCertified: true,
         certificationCode: "NATIVE-SA",
