@@ -93,7 +93,7 @@ export default function NativeFrameworkPage() {
             </nav>
 
             {/* Hero */}
-            <section className="relative pt-40 pb-24 px-8">
+            <section className="relative pt-40 pb-8 px-8">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,255,255,0.05),transparent)]" />
                 </div>
@@ -107,24 +107,24 @@ export default function NativeFrameworkPage() {
                         The enterprise standard for AI-Native workforce transformation.
                         A proven 6-phase methodology for building AI-powered organizations.
                     </p>
+                </div>
+            </section>
 
-                    {/* Framework Letters */}
-                    <div className="flex justify-center gap-3 md:gap-4 mb-16">
+            {/* Framework Pillars Detail */}
+            <section className="py-12 px-8">
+                <div className="mx-auto max-w-6xl">
+                    {/* NATIVE Letters as Section Header */}
+                    <div className="flex justify-center gap-3 md:gap-4 mb-12">
                         {frameworkPillars.map((pillar) => (
                             <div
                                 key={pillar.letter}
-                                className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-xl md:text-2xl font-bold hover:bg-white/5 hover:border-white/20 transition-all cursor-pointer"
+                                className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-xl md:text-2xl font-bold"
                             >
                                 {pillar.letter}
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
-
-            {/* Framework Pillars Detail */}
-            <section className="py-24 px-8 border-t border-white/5">
-                <div className="mx-auto max-w-6xl">
+                    <p className="text-center text-white/40 text-sm mb-16 uppercase tracking-wider">The 6 Phases of AI-Native Transformation</p>
                     <div className="grid gap-6">
                         {frameworkPillars.map((pillar, i) => (
                             <div
