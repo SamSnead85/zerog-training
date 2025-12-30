@@ -1,123 +1,253 @@
-import Link from "next/link";
-import { Button, Badge } from "@/components/ui";
-import { LogoIcon } from "@/components/brand/Logo";
+"use client";
 
-const releases = [
+import Link from "next/link";
+import {
+    Sparkles,
+    BookOpen,
+    Zap,
+    Shield,
+    Users,
+    Award,
+    LayoutDashboard,
+    Bell,
+    Bug,
+    ChevronRight,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+// =============================================================================
+// CHANGELOG DATA
+// =============================================================================
+
+interface ChangelogEntry {
+    version: string;
+    date: string;
+    title: string;
+    description: string;
+    type: "major" | "feature" | "improvement" | "fix";
+    changes: string[];
+}
+
+const changelog: ChangelogEntry[] = [
     {
         version: "2.5.0",
-        date: "December 20, 2024",
-        type: "feature",
+        date: "December 30, 2024",
+        title: "AI Security & Ethics Module",
+        description: "Complete Module 4 curriculum covering AI security, responsible AI, and governance compliance.",
+        type: "major",
         changes: [
-            "AI-powered training generation with document upload",
-            "New Netflix-style content library",
-            "Enhanced dashboard with gamification elements",
-            "Team progress tracking and analytics",
+            "New lesson: AI Security Fundamentals with prompt injection defense",
+            "New lesson: Responsible AI Principles covering bias and transparency",
+            "New lesson: AI Governance & Compliance with EU AI Act coverage",
+            "Interactive quizzes for all Module 4 content",
+            "Code examples for secure AI development",
         ],
     },
     {
         version: "2.4.0",
-        date: "December 1, 2024",
-        type: "feature",
+        date: "December 30, 2024",
+        title: "Help Center & Community",
+        description: "Comprehensive support resources and community features for learners.",
+        type: "major",
         changes: [
-            "SCORM export for LMS integration",
-            "Custom branding for enterprise customers",
-            "Improved quiz builder with new question types",
-            "SSO support for Azure AD and Okta",
-        ],
-    },
-    {
-        version: "2.3.5",
-        date: "November 15, 2024",
-        type: "fix",
-        changes: [
-            "Fixed video playback issues on Safari",
-            "Improved loading performance by 40%",
-            "Bug fixes for certificate generation",
+            "Help Center with 6 topic categories and 30+ articles",
+            "Community forum with discussion posts and events",
+            "FAQ page with 18 comprehensive Q&As",
+            "Top contributors leaderboard",
+            "Upcoming events sidebar",
         ],
     },
     {
         version: "2.3.0",
-        date: "November 1, 2024",
+        date: "December 30, 2024",
+        title: "Demo Booking & Search",
+        description: "New booking wizard and global search functionality.",
         type: "feature",
         changes: [
-            "Learning paths with certification tracks",
-            "Leaderboards and achievements system",
-            "Mobile-responsive training viewer",
+            "3-step demo booking wizard",
+            "Date and time slot selection",
+            "Global search across all content",
+            "Search filters by content type",
+            "Module 3 content: AI Agents (3 lessons)",
+        ],
+    },
+    {
+        version: "2.2.0",
+        date: "December 29, 2024",
+        title: "Achievements & Notifications",
+        description: "Gamification and communication features for enhanced engagement.",
+        type: "feature",
+        changes: [
+            "Achievements page with 15 badges across 4 categories",
+            "Rarity levels: Common, Rare, Epic, Legendary",
+            "Notifications center with filtering",
+            "Contact form with inquiry types",
+            "Module 2 content: RAG & Embeddings (3 lessons)",
+        ],
+    },
+    {
+        version: "2.1.0",
+        date: "December 29, 2024",
+        title: "User Dashboard Enhancements",
+        description: "Comprehensive personal dashboards and settings.",
+        type: "feature",
+        changes: [
+            "My Progress page with animated progress ring",
+            "User Profile with badges and certifications",
+            "Settings page with 5 configuration tabs",
+            "Weekly goal tracking",
+            "AI Assistant integration on user pages",
+        ],
+    },
+    {
+        version: "2.0.0",
+        date: "December 29, 2024",
+        title: "Enterprise Platform Launch",
+        description: "Major release with pricing, gamification, and enterprise features.",
+        type: "major",
+        changes: [
+            "3-tier pricing page with feature comparison",
+            "Gamified leaderboard with podium display",
+            "Enterprise landing page",
+            "Admin executive dashboard",
+            "AI Assistant floating chat",
+        ],
+    },
+    {
+        version: "1.5.0",
+        date: "December 28, 2024",
+        title: "Certification System",
+        description: "Complete certification and assessment infrastructure.",
+        type: "feature",
+        changes: [
+            "Certifications page with 4 tracks",
+            "Certificate verification portal",
+            "Skill assessment wizard",
+            "Personalized learning path recommendations",
+        ],
+    },
+    {
+        version: "1.0.0",
+        date: "December 27, 2024",
+        title: "Initial Platform Release",
+        description: "Foundation of the AI-Native training platform.",
+        type: "major",
+        changes: [
+            "Course catalog with search and filters",
+            "Interactive lesson system",
+            "Quiz component with scoring",
+            "Code editor with execution simulation",
+            "Video player with transcripts",
+            "Module 1 content: AI Foundations (3 lessons)",
         ],
     },
 ];
 
+const typeColors: Record<string, string> = {
+    major: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+    feature: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    improvement: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+    fix: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+};
+
+const typeLabels: Record<string, string> = {
+    major: "Major Release",
+    feature: "New Feature",
+    improvement: "Improvement",
+    fix: "Bug Fix",
+};
+
+// =============================================================================
+// CHANGELOG PAGE
+// =============================================================================
+
 export default function ChangelogPage() {
     return (
-        <div className="min-h-screen bg-background">
-            {/* Navigation */}
-            <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
-                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-                    <Link href="/" className="flex items-center gap-2.5">
-                        <LogoIcon size={32} />
-                        <span className="text-lg font-semibold tracking-tight">
-                            <span className="font-playfair italic">ScaledNative<sup className="text-[10px]">™</sup></span>
-                            <span className="text-muted-foreground ml-1 font-light">Training</span>
-                        </span>
+        <div className="min-h-screen bg-black text-white">
+            {/* Header */}
+            <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-xl border-b border-white/5">
+                <div className="flex items-center justify-between h-16 px-6 max-w-4xl mx-auto">
+                    <Link href="/" className="font-playfair text-xl font-medium italic tracking-tight">
+                        ScaledNative<sup className="text-[8px] align-super ml-0.5">™</sup>
                     </Link>
-                    <Link href="/signup">
-                        <Button>Get Started</Button>
+                    <Link href="/help" className="text-sm text-white/60 hover:text-white transition-colors">
+                        Help Center
                     </Link>
                 </div>
-            </nav>
+            </header>
 
-            {/* Hero */}
-            <section className="pt-32 pb-16 px-6">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6">Changelog</h1>
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                        All the latest updates, improvements, and fixes to ScaledNative.
+            <main className="px-6 py-12 max-w-4xl mx-auto">
+                {/* Header */}
+                <div className="mb-12">
+                    <div className="flex items-center gap-3 mb-4">
+                        <Sparkles className="h-8 w-8 text-purple-400" />
+                        <h1 className="text-3xl font-bold">Changelog</h1>
+                    </div>
+                    <p className="text-white/50">
+                        Stay up to date with the latest improvements and new features
                     </p>
                 </div>
-            </section>
 
-            {/* Releases */}
-            <section className="py-16 px-6">
-                <div className="max-w-3xl mx-auto">
-                    <div className="relative">
-                        {/* Timeline line */}
-                        <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
+                {/* Timeline */}
+                <div className="relative">
+                    {/* Timeline line */}
+                    <div className="absolute left-[19px] top-0 bottom-0 w-px bg-white/10" />
 
-                        <div className="space-y-12">
-                            {releases.map((release) => (
-                                <div key={release.version} className="relative pl-12">
-                                    {/* Timeline dot */}
-                                    <div className="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-primary border-4 border-background" />
+                    <div className="space-y-8">
+                        {changelog.map((entry, i) => (
+                            <div key={entry.version} className="relative pl-12">
+                                {/* Timeline dot */}
+                                <div className="absolute left-0 top-0 w-10 h-10 rounded-full bg-black border-2 border-white/20 flex items-center justify-center">
+                                    <div className="w-3 h-3 rounded-full bg-white/60" />
+                                </div>
 
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <h2 className="text-xl font-bold">v{release.version}</h2>
-                                        <Badge variant={release.type === "feature" ? "default" : "secondary"}>
-                                            {release.type === "feature" ? "New Features" : "Bug Fixes"}
-                                        </Badge>
-                                        <span className="text-sm text-muted-foreground">{release.date}</span>
+                                {/* Content */}
+                                <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <span className="text-lg font-mono font-bold">v{entry.version}</span>
+                                        <span className={cn(
+                                            "px-2 py-0.5 text-xs rounded-full border",
+                                            typeColors[entry.type]
+                                        )}>
+                                            {typeLabels[entry.type]}
+                                        </span>
+                                        <span className="text-sm text-white/30 ml-auto">{entry.date}</span>
                                     </div>
+
+                                    <h2 className="text-xl font-semibold mb-2">{entry.title}</h2>
+                                    <p className="text-white/50 mb-4">{entry.description}</p>
+
                                     <ul className="space-y-2">
-                                        {release.changes.map((change, i) => (
-                                            <li key={i} className="text-muted-foreground flex items-start gap-2">
-                                                <span className="text-primary mt-1">•</span>
+                                        {entry.changes.map((change, j) => (
+                                            <li key={j} className="flex items-start gap-2 text-sm text-white/60">
+                                                <ChevronRight className="h-4 w-4 mt-0.5 text-white/30 flex-shrink-0" />
                                                 {change}
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            </section>
 
-            {/* Footer */}
-            <footer className="py-8 px-6 border-t border-white/5">
-                <div className="max-w-6xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
-                    <p>© 2024 ScaledNative. All rights reserved.</p>
-                    <Link href="/" className="hover:text-foreground">Back to Home</Link>
+                {/* Subscribe */}
+                <div className="mt-16 p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-white/10 text-center">
+                    <Bell className="h-8 w-8 text-white/40 mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Get notified of updates</h3>
+                    <p className="text-sm text-white/50 mb-4">Subscribe to our newsletter for product updates</p>
+                    <div className="flex max-w-md mx-auto gap-2">
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20"
+                        />
+                        <button className="px-6 py-3 bg-white text-black font-medium rounded-xl hover:bg-white/90 transition-colors">
+                            Subscribe
+                        </button>
+                    </div>
                 </div>
-            </footer>
+            </main>
         </div>
     );
 }

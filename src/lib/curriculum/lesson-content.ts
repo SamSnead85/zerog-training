@@ -1454,8 +1454,324 @@ governance_framework = {
     }
 ];
 
+// =============================================================================
+// MODULE 5 LESSON CONTENT - AI in Production
+// =============================================================================
+
+export const module5Lessons: LessonContent[] = [
+    {
+        id: "m5-l1",
+        moduleId: "module-5",
+        topicId: "5-1",
+        lessonNumber: 1,
+        title: "Deploying AI Applications",
+        duration: "40 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "From Prototype to Production" },
+            {
+                type: "text",
+                content: `Deploying AI applications is fundamentally different from traditional software deployment. In this lesson, we'll cover the key considerations for production-ready AI.
+
+**Key Challenges:**
+- Model versioning and rollback
+- Latency requirements
+- Cost management
+- Scaling inference
+- Error handling for non-deterministic outputs`
+            },
+            { type: "heading", level: 2, text: "Deployment Patterns" },
+            {
+                type: "callout",
+                style: "tip",
+                content: "Start with synchronous APIs, then optimize with queues and caching as you scale."
+            },
+            {
+                type: "code",
+                language: "python",
+                code: `# Pattern 1: Synchronous API (Simple, direct)
+@app.post("/generate")
+async def generate(request: PromptRequest):
+    response = await llm.generate(request.prompt)
+    return {"result": response}
+
+# Pattern 2: Queue-based (Better for long tasks)
+@app.post("/generate")
+async def generate(request: PromptRequest):
+    job_id = await queue.enqueue(
+        task="generate",
+        prompt=request.prompt
+    )
+    return {"job_id": job_id, "status": "processing"}
+
+@app.get("/jobs/{job_id}")
+async def get_job(job_id: str):
+    result = await queue.get_result(job_id)
+    return result
+
+# Pattern 3: Streaming (Best UX for long responses)
+@app.post("/generate/stream")
+async def generate_stream(request: PromptRequest):
+    async def event_generator():
+        async for chunk in llm.stream(request.prompt):
+            yield f"data: {chunk}\\n\\n"
+    return StreamingResponse(event_generator())`,
+                caption: "Three deployment patterns for AI APIs"
+            },
+            { type: "heading", level: 2, text: "Caching Strategies" },
+            {
+                type: "text",
+                content: `**Why Cache?**
+- LLM calls are expensive ($0.01-$0.10 per call)
+- Identical prompts = identical responses (at temperature 0)
+- Reduces latency from seconds to milliseconds
+
+**Caching Approaches:**
+1. **Exact match**: Cache full prompt → response pairs
+2. **Semantic similarity**: Find similar past queries using embeddings
+3. **Partial caching**: Cache expensive computations (embeddings, retrieval)`
+            },
+            {
+                type: "quiz",
+                title: "Deployment Quiz",
+                questions: [
+                    {
+                        id: "deploy-q1",
+                        type: "multiple-choice",
+                        question: "When should you use streaming responses?",
+                        options: [
+                            { id: "a", text: "For very short responses only" },
+                            { id: "b", text: "When user experience matters and responses are long" },
+                            { id: "c", text: "Only in development environments" },
+                            { id: "d", text: "When you want to reduce costs" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "Streaming improves perceived latency for long responses. Users see output immediately rather than waiting."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m5-l2",
+        moduleId: "module-5",
+        topicId: "5-2",
+        lessonNumber: 2,
+        title: "Monitoring & Observability",
+        duration: "35 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Observability for AI Systems" },
+            {
+                type: "text",
+                content: `AI applications need specialized monitoring beyond traditional APM. You need to track not just uptime, but quality.
+
+**What to Monitor:**
+- Latency (p50, p95, p99)
+- Token usage and costs
+- Error rates and types
+- Response quality metrics
+- Model drift`
+            },
+            { type: "heading", level: 2, text: "Key Metrics" },
+            {
+                type: "callout",
+                style: "warning",
+                content: "Unlike traditional APIs, AI outputs can be \"wrong\" without throwing errors. Quality monitoring is essential."
+            },
+            {
+                type: "code",
+                language: "python",
+                code: `# Comprehensive AI monitoring
+from datadog import statsd
+import time
+
+class AIMonitor:
+    def track_generation(self, prompt, response, model, metadata=None):
+        start = time.time()
+        latency = time.time() - start
+        
+        # Latency tracking
+        statsd.histogram("ai.generation.latency", latency)
+        
+        # Token tracking
+        input_tokens = count_tokens(prompt)
+        output_tokens = count_tokens(response)
+        statsd.increment("ai.tokens.input", input_tokens)
+        statsd.increment("ai.tokens.output", output_tokens)
+        
+        # Cost estimation
+        cost = self.estimate_cost(model, input_tokens, output_tokens)
+        statsd.increment("ai.cost.usd", cost)
+        
+        # Quality signals (if available)
+        if metadata and "user_rating" in metadata:
+            statsd.histogram("ai.quality.user_rating", metadata["user_rating"])
+        
+        # Log for debugging
+        self.log_interaction(prompt, response, {
+            "latency": latency,
+            "tokens": input_tokens + output_tokens,
+            "cost": cost,
+            "model": model
+        })`,
+                caption: "Comprehensive AI monitoring implementation"
+            },
+            { type: "heading", level: 2, text: "Evaluating Quality" },
+            {
+                type: "text",
+                content: `**Automated Quality Checks:**
+- Factuality (does it match your data?)
+- Relevance (does it answer the question?)
+- Toxicity filtering
+- PII detection
+- Format compliance
+
+**Human Feedback:**
+- Thumbs up/down ratings
+- A/B testing different prompts
+- Sample review workflows`
+            },
+            {
+                type: "quiz",
+                title: "Observability Quiz",
+                questions: [
+                    {
+                        id: "obs-q1",
+                        type: "multi-select",
+                        question: "What should you monitor for AI applications?",
+                        options: [
+                            { id: "a", text: "Latency percentiles" },
+                            { id: "b", text: "Token usage" },
+                            { id: "c", text: "Output quality" },
+                            { id: "d", text: "Keyboard clicks per user" },
+                        ],
+                        correctAnswers: ["a", "b", "c"],
+                        explanation: "Latency, token usage, and quality are essential AI metrics. Keyboard clicks aren't relevant to AI monitoring."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m5-l3",
+        moduleId: "module-5",
+        topicId: "5-3",
+        lessonNumber: 3,
+        title: "Scaling AI Infrastructure",
+        duration: "40 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Scaling AI to Millions of Users" },
+            {
+                type: "text",
+                content: `As your AI application grows, you'll face unique scaling challenges. This lesson covers strategies for handling high traffic efficiently.
+
+**Scaling Dimensions:**
+- Request throughput (requests/second)
+- Context length (tokens per request)
+- Concurrent users
+- Data volume (for RAG)`
+            },
+            { type: "heading", level: 2, text: "Architecture Patterns" },
+            {
+                type: "code",
+                language: "python",
+                code: `# Scalable AI Architecture
+
+# 1. Load balancing across LLM providers
+class LLMRouter:
+    def __init__(self):
+        self.providers = {
+            "openai": OpenAIClient(),
+            "anthropic": AnthropicClient(),
+            "azure": AzureOpenAIClient()
+        }
+    
+    def route(self, request):
+        # Route based on latency, cost, or availability
+        if request.priority == "low_latency":
+            return self.fastest_available()
+        elif request.priority == "low_cost":
+            return self.cheapest_available()
+        else:
+            return self.round_robin()
+
+# 2. Vector database sharding
+vector_db = ShardedVectorStore(
+    shards=10,
+    replication_factor=3,
+    index_type="HNSW"
+)
+
+# 3. Request prioritization
+class PriorityQueue:
+    def __init__(self):
+        self.premium_queue = asyncio.Queue()  # Process first
+        self.standard_queue = asyncio.Queue() # Process second
+    
+    async def enqueue(self, request, tier):
+        if tier == "enterprise":
+            await self.premium_queue.put(request)
+        else:
+            await self.standard_queue.put(request)`,
+                caption: "Patterns for scaling AI infrastructure"
+            },
+            {
+                type: "callout",
+                style: "info",
+                content: "Consider using multiple LLM providers for redundancy. If OpenAI is down, fall back to Anthropic or Azure."
+            },
+            { type: "heading", level: 2, text: "Cost Optimization" },
+            {
+                type: "text",
+                content: `**Strategies to Reduce Costs:**
+
+1. **Model selection**: Use smaller models for simpler tasks
+2. **Prompt optimization**: Shorter prompts = lower costs
+3. **Caching**: Avoid duplicate calls
+4. **Batching**: Group requests when possible
+5. **Rate limiting**: Prevent abuse
+6. **Tiered access**: Premium features for paying users`
+            },
+            {
+                type: "quiz",
+                title: "Scaling Quiz",
+                questions: [
+                    {
+                        id: "scale-q1",
+                        type: "multiple-choice",
+                        question: "Why use multiple LLM providers?",
+                        options: [
+                            { id: "a", text: "It's always cheaper" },
+                            { id: "b", text: "For redundancy and to avoid single points of failure" },
+                            { id: "c", text: "Different models can't do the same tasks" },
+                            { id: "d", text: "Compliance requires it" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "Multiple providers provide redundancy. If one is down or rate-limited, you can fail over to another."
+                    },
+                    {
+                        id: "scale-q2",
+                        type: "multi-select",
+                        question: "Which are valid cost optimization strategies?",
+                        options: [
+                            { id: "a", text: "Caching responses" },
+                            { id: "b", text: "Using larger models" },
+                            { id: "c", text: "Shorter prompts" },
+                            { id: "d", text: "Batching requests" },
+                        ],
+                        correctAnswers: ["a", "c", "d"],
+                        explanation: "Caching, shorter prompts, and batching reduce costs. Larger models increase costs."
+                    },
+                ]
+            }
+        ]
+    }
+];
+
 // Combine all lessons
-const allLessons = [...module1Lessons, ...module2Lessons, ...module3Lessons, ...module4Lessons];
+const allLessons = [...module1Lessons, ...module2Lessons, ...module3Lessons, ...module4Lessons, ...module5Lessons];
 
 // =============================================================================
 // LESSON LOOKUP HELPERS
