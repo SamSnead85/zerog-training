@@ -1,7 +1,7 @@
 // AI-Native Training Curriculum - Flagship ScaledNative Offering
 // Based on SAFe, DeepLearning.AI, Google Cloud, Microsoft
 
-export type CertificationLevel = "foundation" | "professional" | "architect";
+export type CertificationLevel = "foundations" | "associate" | "professional" | "architect";
 export type ModuleStatus = "available" | "coming_soon" | "locked";
 
 export interface LearningObjective {
@@ -46,50 +46,106 @@ export interface CertificationTrack {
     id: string;
     level: CertificationLevel;
     title: string;
+    shortTitle: string;
     description: string;
     duration: string;
     modules: string[];
     prerequisites?: string[];
     validityPeriod: string;
     badge: string;
+    badgeColor: string;
+    nativeCertified: boolean;
+    certificationCode: string;
+    examDetails: {
+        format: string;
+        passingScore: string;
+        duration: string;
+    };
 }
 
 // ============================================
-// CERTIFICATION TRACKS
+// CERTIFICATION TRACKS - STANDARD 4-LEVEL HIERARCHY
 // ============================================
 
 export const certificationTracks: CertificationTrack[] = [
     {
-        id: "foundation",
-        level: "foundation",
-        title: "AI-Native Developer Foundations",
-        description: "Master the fundamentals of AI development, from LLM concepts to agentic workflows and MLOps practices. Build your first AI agents and deploy to production.",
-        duration: "40-60 hours",
-        modules: ["module-1", "module-2", "module-3", "module-4"],
-        validityPeriod: "1 year",
+        id: "foundations",
+        level: "foundations",
+        shortTitle: "Foundations",
+        title: "AI-Native Foundations",
+        description: "Master the fundamentals of AI and become AI-literate. Understand LLMs, prompt engineering, and the AI development ecosystem. Perfect for all employees beginning their AI-Native journey.",
+        duration: "16-20 hours",
+        modules: ["module-1", "module-2"],
+        validityPeriod: "Lifetime",
         badge: "🎓",
+        badgeColor: "bg-blue-500",
+        nativeCertified: true,
+        certificationCode: "NATIVE-F",
+        examDetails: {
+            format: "50 multiple choice + 2 practical exercises",
+            passingScore: "75%",
+            duration: "90 minutes"
+        }
+    },
+    {
+        id: "associate",
+        level: "associate",
+        shortTitle: "Associate",
+        title: "AI-Native Associate Developer",
+        description: "Build AI-powered applications with agentic workflows and MLOps practices. Learn from Andrew Ng's Agentic AI curriculum. Design, build, and deploy production AI systems.",
+        duration: "24-30 hours",
+        modules: ["module-3", "module-4"],
+        prerequisites: ["AI-Native Foundations"],
+        validityPeriod: "2 years",
+        badge: "🏅",
+        badgeColor: "bg-emerald-500",
+        nativeCertified: true,
+        certificationCode: "NATIVE-A",
+        examDetails: {
+            format: "40 multiple choice + 3 hands-on labs",
+            passingScore: "80%",
+            duration: "2 hours"
+        }
     },
     {
         id: "professional",
         level: "professional",
-        title: "AI-Native Developer Professional",
-        description: "Build production-ready AI applications with advanced frameworks like LangGraph and CrewAI. Master RAG systems, SAFe AI integration, and enterprise security.",
-        duration: "30-40 hours",
+        shortTitle: "Professional",
+        title: "AI-Native Professional Developer",
+        description: "Master advanced frameworks (LangGraph, CrewAI, AutoGen), production RAG systems, fine-tuning, and AI security. Lead enterprise AI implementations with responsible AI practices.",
+        duration: "30-35 hours",
         modules: ["module-5", "module-6", "module-7"],
-        prerequisites: ["AI-Native Developer Foundations"],
+        prerequisites: ["AI-Native Associate Developer"],
         validityPeriod: "2 years",
         badge: "🏆",
+        badgeColor: "bg-purple-500",
+        nativeCertified: true,
+        certificationCode: "NATIVE-P",
+        examDetails: {
+            format: "30 multiple choice + 4 hands-on labs + 1 capstone project",
+            passingScore: "80%",
+            duration: "3 hours"
+        }
     },
     {
         id: "architect",
         level: "architect",
+        shortTitle: "Architect",
         title: "AI-Native Solutions Architect",
-        description: "Design enterprise-scale AI systems with multi-model orchestration, cost optimization, and governance frameworks. Lead AI transformation initiatives.",
-        duration: "20-30 hours",
+        description: "Design enterprise-scale AI platforms with multi-model orchestration, cost optimization, and governance frameworks. Lead AI transformation initiatives across organizations.",
+        duration: "20-25 hours",
         modules: ["module-8"],
-        prerequisites: ["AI-Native Developer Professional"],
-        validityPeriod: "2 years",
+        prerequisites: ["AI-Native Professional Developer"],
+        validityPeriod: "3 years",
         badge: "⚡",
+        badgeColor: "bg-amber-500",
+        nativeCertified: true,
+        certificationCode: "NATIVE-SA",
+        examDetails: {
+            format: "Architecture design challenge + oral examination",
+            passingScore: "85%",
+            duration: "4 hours"
+        }
     },
 ];
 
@@ -104,7 +160,7 @@ export const module1: AIModule = {
     subtitle: "Understanding LLMs, Transformers, and the AI Development Stack",
     description: "Build a solid foundation in AI concepts from a developer's perspective. Understand how LLMs work, explore the AI development stack, and master prompt engineering for code generation.",
     duration: "8-10 hours",
-    level: "foundation",
+    level: "foundations",
     status: "available",
     learningObjectives: [
         { id: "1-1", text: "Understand how Large Language Models (LLMs) work at a conceptual level" },
@@ -170,7 +226,7 @@ export const module2: AIModule = {
     subtitle: "GitHub Copilot, ChatGPT, and AI-Powered Development Workflows",
     description: "Master the tools that are transforming software development. Learn to leverage GitHub Copilot, ChatGPT, and Claude effectively while understanding their limitations.",
     duration: "8-10 hours",
-    level: "foundation",
+    level: "foundations",
     status: "available",
     learningObjectives: [
         { id: "2-1", text: "Master GitHub Copilot for maximum productivity" },
@@ -252,7 +308,7 @@ export const module3: AIModule = {
     subtitle: "Reflection, Tool Use, Planning, and Multi-Agent Workflows",
     description: "Based on DeepLearning.AI's Agentic AI course by Andrew Ng. Build agentic design patterns that enable AI to plan, execute, reflect, and adapt to complete complex tasks autonomously.",
     duration: "12-15 hours",
-    level: "foundation",
+    level: "associate",
     status: "available",
     learningObjectives: [
         { id: "3-1", text: "Build agentic design patterns: reflection, tool use, planning, multi-agent workflows" },
@@ -367,7 +423,7 @@ export const module4: AIModule = {
     subtitle: "Design, Build, and Productionize ML Models",
     description: "Based on Google Cloud ML Engineer Learning Path. Learn to design, build, and productionize ML models with enterprise-grade MLOps practices.",
     duration: "12-15 hours",
-    level: "foundation",
+    level: "associate",
     status: "available",
     learningObjectives: [
         { id: "4-1", text: "Design, build, and productionize ML models" },

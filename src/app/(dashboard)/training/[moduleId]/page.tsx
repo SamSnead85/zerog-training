@@ -27,7 +27,8 @@ import {
 import { cn } from "@/lib/utils";
 
 const levelConfig = {
-    foundation: { color: "bg-blue-500/20 text-blue-500 border-blue-500/30" },
+    foundations: { color: "bg-blue-500/20 text-blue-500 border-blue-500/30" },
+    associate: { color: "bg-emerald-500/20 text-emerald-500 border-emerald-500/30" },
     professional: { color: "bg-purple-500/20 text-purple-500 border-purple-500/30" },
     architect: { color: "bg-amber-500/20 text-amber-500 border-amber-500/30" },
 };

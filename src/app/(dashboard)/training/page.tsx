@@ -86,11 +86,17 @@ function CertificationPathCard({
     const progress = (completedCount / modules.length) * 100;
 
     const levelConfig = {
-        foundation: {
+        foundations: {
             gradient: "from-blue-500/20 to-blue-600/10",
             border: "border-blue-500/20",
             badge: "bg-blue-500/10 text-blue-400 border-blue-500/30",
             icon: "🎓"
+        },
+        associate: {
+            gradient: "from-emerald-500/20 to-emerald-600/10",
+            border: "border-emerald-500/20",
+            badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+            icon: "🏅"
         },
         professional: {
             gradient: "from-purple-500/20 to-purple-600/10",
@@ -167,7 +173,7 @@ function CertificationPathCard({
                                 strokeWidth="4"
                                 strokeDasharray={`${progress * 1.76} 176`}
                                 className={cn(
-                                    track.level === "foundation" ? "text-blue-400" :
+                                    track.level === "foundations" ? "text-blue-400" :
                                         track.level === "professional" ? "text-purple-400" : "text-amber-400"
                                 )}
                             />
@@ -283,7 +289,7 @@ function ModuleCard({ module }: { module: AIModule }) {
                             <span className="text-xs text-white/30">Module {module.number}</span>
                             <Badge variant="outline" className={cn(
                                 "text-[10px]",
-                                module.level === "foundation" ? "border-blue-500/30 text-blue-400" :
+                                module.level === "foundations" ? "border-blue-500/30 text-blue-400" :
                                     module.level === "professional" ? "border-purple-500/30 text-purple-400" :
                                         "border-amber-500/30 text-amber-400"
                             )}>
@@ -315,7 +321,7 @@ function ModuleCard({ module }: { module: AIModule }) {
 
 export default function TrainingDashboard() {
     const [activeTab, setActiveTab] = useState("certifications");
-    const [expandedCert, setExpandedCert] = useState<string>("foundation");
+    const [expandedCert, setExpandedCert] = useState<string>("foundations");
 
     // Mock completed modules (in production, this would come from user data)
     const completedModules = ["module-1"];
