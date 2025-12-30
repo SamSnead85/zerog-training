@@ -201,8 +201,8 @@ export default function PremiumLandingPage() {
         </div>
       </section>
 
-      {/* Stats Section - High Contrast */}
-      <section className="py-32 px-8 border-t border-white/5">
+      {/* Stats Section - Compact */}
+      <section className="py-12 px-8">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -222,52 +222,56 @@ export default function PremiumLandingPage() {
         </div>
       </section>
 
-      {/* Thought Leadership - Compact Article Cards */}
-      <section className="py-16 px-8 border-t border-white/5">
+      {/* Thought Leadership - VibeCIO Articles */}
+      <section className="py-10 px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-center text-xs text-white/30 uppercase tracking-widest mb-8">
-            Insights & Research
-          </p>
+          <div className="flex items-center justify-between mb-6">
+            <p className="text-xs text-white/30 uppercase tracking-widest">Insights from VibeCIO</p>
+            <a href="https://vibecio.com" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/50 transition-colors">View All →</a>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Article 1: AI Pilot Failure */}
-            <Link href="/blog" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
+            {/* Article 1: AI Transformation Foundations */}
+            <a href="https://vibecio.com/article/ai-transformation-foundations" target="_blank" rel="noopener noreferrer" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-red-400 font-medium">Research</span>
+                <span className="text-[10px] uppercase tracking-wider text-amber-400 font-medium">Strategy</span>
+                <span className="text-[10px] text-white/20">• VibeCIO</span>
               </div>
               <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
-                Why 95% of AI Pilots Fail—And How to Be the 5%
+                Why AI Transformations Fail Before They Start
               </h3>
               <p className="text-xs text-white/40 line-clamp-2">
-                Organizations rush to deploy AI without workforce readiness. Training closes the gap.
+                Sam Sweilem on why 70% of AI initiatives fail and the Foundation First methodology.
               </p>
-            </Link>
+            </a>
 
-            {/* Article 2: AI Readiness Gap */}
-            <Link href="/blog" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
+            {/* Article 2: Agentic Revolution */}
+            <a href="https://vibecio.com/article/agentic-revolution" target="_blank" rel="noopener noreferrer" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-amber-400 font-medium">Analysis</span>
+                <span className="text-[10px] uppercase tracking-wider text-emerald-400 font-medium">Technology</span>
+                <span className="text-[10px] text-white/20">• VibeCIO</span>
               </div>
               <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
-                The $4.4T AI Opportunity Your Workforce Isn't Ready For
+                The Agentic AI Revolution: Beyond Chatbots
               </h3>
               <p className="text-xs text-white/40 line-clamp-2">
-                McKinsey estimates massive value creation, but only AI-ready organizations will capture it.
+                How autonomous AI agents are transforming enterprise workflows and decision-making.
               </p>
-            </Link>
+            </a>
 
-            {/* Article 3: NATIVE Framework */}
-            <Link href="/native" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
+            {/* Article 3: Financial Services */}
+            <a href="https://vibecio.com/article/financial-services-inflection" target="_blank" rel="noopener noreferrer" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-emerald-400 font-medium">Framework</span>
+                <span className="text-[10px] uppercase tracking-wider text-blue-400 font-medium">Industry</span>
+                <span className="text-[10px] text-white/20">• VibeCIO</span>
               </div>
               <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
-                NATIVE: The 6-Phase AI Transformation Methodology
+                2026: The AI Inflection Point for Financial Services
               </h3>
               <p className="text-xs text-white/40 line-clamp-2">
-                Navigate, Architect, Transform, Integrate, Validate, Evolve—a proven path to AI-Native.
+                Why legacy systems will force a modernization reckoning in financial services.
               </p>
-            </Link>
+            </a>
 
             {/* Article 4: ROI of Training */}
             <Link href="/enterprise" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
