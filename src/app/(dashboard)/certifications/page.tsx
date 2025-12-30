@@ -3,11 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-    Award,
     CheckCircle2,
     Clock,
     BookOpen,
-    ChevronRight,
     Download,
     Share2,
     GraduationCap,
@@ -16,16 +14,11 @@ import {
     Shield,
     Linkedin,
     Verified,
-    Star,
     Layers,
-    Zap,
     Crown,
-    Users,
     Trophy,
-    Sparkles,
     ArrowRight,
     BadgeCheck,
-    Medal,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -280,7 +273,7 @@ function CertificationCard({ cert, status, progress = 0, index }: CertCardProps)
                     )}>
                         {status === "completed" ? (
                             <>
-                                <Award className="h-4 w-4" />
+                                <BadgeCheck className="h-4 w-4" />
                                 View Certificate
                             </>
                         ) : status === "in-progress" ? (
@@ -437,52 +430,48 @@ export default function CertificationsPage() {
             </header>
 
             {/* Hero */}
-            <section className="py-20 px-6 border-b border-white/5 relative overflow-hidden">
-                {/* Background decoration */}
+            <section className="py-24 px-6 border-b border-white/5 relative overflow-hidden">
+                {/* Subtle background */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-30">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-amber-500/20 blur-3xl" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-10">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-amber-500/30 blur-3xl" />
                     </div>
                 </div>
 
                 <div className="relative max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full mb-8">
-                        <Medal className="h-4 w-4 text-amber-400" />
-                        <span className="text-sm font-medium">Industry-Recognized Credentials</span>
-                    </div>
-
-                    <h1 className="font-playfair text-5xl md:text-6xl font-medium italic tracking-tight mb-6">
-                        NATIVE Certification<br />
-                        <span className="text-white/40">Program</span>
-                    </h1>
-
-                    <p className="text-lg text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Earn professional certifications that validate your AI-Native expertise.
-                        Four progressive levels designed to take you from fundamentals to enterprise architect.
+                    <p className="text-sm text-white/40 uppercase tracking-[0.2em] mb-6">
+                        Professional Certification Program
                     </p>
 
-                    {/* Stats */}
-                    <div className="flex items-center justify-center gap-12">
+                    <h1 className="font-playfair text-5xl md:text-6xl font-medium tracking-tight mb-6">
+                        NATIVE Framework<sup className="text-[12px] align-super ml-1">™</sup>
+                    </h1>
+
+                    <p className="text-lg text-white/50 max-w-2xl mx-auto mb-12 leading-relaxed">
+                        Industry-recognized credentials that validate mastery of AI-Native principles.
+                        Four progressive certifications designed for enterprise professionals.
+                    </p>
+
+                    {/* Stats - refined */}
+                    <div className="flex items-center justify-center gap-16">
                         <div className="text-center">
-                            <div className="text-3xl font-bold mb-1">4</div>
-                            <div className="text-xs text-white/40 uppercase tracking-wider">Levels</div>
+                            <div className="text-4xl font-light mb-2">4</div>
+                            <div className="text-xs text-white/30 uppercase tracking-widest">Levels</div>
                         </div>
-                        <div className="w-px h-10 bg-white/10" />
+                        <div className="w-px h-12 bg-white/10" />
                         <div className="text-center">
-                            <div className="text-3xl font-bold mb-1">8</div>
-                            <div className="text-xs text-white/40 uppercase tracking-wider">Modules</div>
+                            <div className="text-4xl font-light mb-2">8</div>
+                            <div className="text-xs text-white/30 uppercase tracking-widest">Modules</div>
                         </div>
-                        <div className="w-px h-10 bg-white/10" />
+                        <div className="w-px h-12 bg-white/10" />
                         <div className="text-center">
-                            <div className="text-3xl font-bold mb-1">90+</div>
-                            <div className="text-xs text-white/40 uppercase tracking-wider">Hours</div>
+                            <div className="text-4xl font-light mb-2">90+</div>
+                            <div className="text-xs text-white/30 uppercase tracking-widest">Hours</div>
                         </div>
-                        <div className="w-px h-10 bg-white/10" />
+                        <div className="w-px h-12 bg-white/10" />
                         <div className="text-center">
-                            <div className="flex items-center gap-1 mb-1">
-                                <Linkedin className="h-5 w-5 text-[#0A66C2]" />
-                            </div>
-                            <div className="text-xs text-white/40 uppercase tracking-wider">Badges</div>
+                            <div className="text-4xl font-light mb-2">2yr</div>
+                            <div className="text-xs text-white/30 uppercase tracking-widest">Validity</div>
                         </div>
                     </div>
                 </div>
