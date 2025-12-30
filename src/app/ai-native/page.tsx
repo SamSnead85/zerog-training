@@ -99,11 +99,6 @@ export default function AINativePlatformPage() {
                 </div>
 
                 <div className="relative z-10 mx-auto max-w-5xl text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
-                        <Brain className="h-4 w-4 text-white/60" />
-                        <span className="text-sm text-white/60">AI-Native Training Platform</span>
-                    </div>
-
                     <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-6">
                         Transform Your Workforce<br />
                         <span className="text-white/40">into AI-Native Professionals</span>
