@@ -803,8 +803,331 @@ for doc in results['documents'][0]:
     }
 ];
 
+// =============================================================================
+// MODULE 3 LESSON CONTENT - AI Agents
+// =============================================================================
+
+export const module3Lessons: LessonContent[] = [
+    {
+        id: "m3-l1",
+        moduleId: "module-3",
+        topicId: "3-1",
+        lessonNumber: 1,
+        title: "Introduction to AI Agents",
+        duration: "30 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "What Are AI Agents?" },
+            {
+                type: "text",
+                content: `AI Agents represent a paradigm shift from simple chatbots to autonomous systems that can:
+
+- **Reason** about complex problems
+- **Plan** multi-step solutions
+- **Use tools** to interact with the world
+- **Learn** from feedback and iterate
+
+Think of an agent as an LLM with hands—it can not only think but also act.`
+            },
+            { type: "heading", level: 2, text: "Agent vs Chatbot" },
+            {
+                type: "callout",
+                style: "info",
+                content: "A chatbot responds to queries. An agent takes actions to accomplish goals."
+            },
+            {
+                type: "code",
+                language: "python",
+                code: `# Chatbot: Simple Q&A
+def chatbot(question):
+    return llm.generate(question)
+
+# Agent: Plans and executes
+def agent(goal):
+    plan = llm.plan(goal)  # Break down the goal
+    
+    for step in plan:
+        if step.needs_tool:
+            result = tools.execute(step.tool, step.args)
+            observations.append(result)
+        else:
+            result = llm.reason(step, observations)
+    
+    return final_answer`,
+                caption: "Key difference: Agents plan and use tools"
+            },
+            { type: "heading", level: 2, text: "The ReAct Pattern" },
+            {
+                type: "text",
+                content: `**ReAct** (Reasoning + Acting) is the foundational pattern for AI agents:
+
+1. **Thought**: The agent reasons about what to do
+2. **Action**: The agent selects and executes a tool
+3. **Observation**: The agent observes the result
+4. **Repeat**: Loop until task is complete
+
+This cycle allows agents to break complex tasks into manageable steps.`
+            },
+            {
+                type: "quiz",
+                title: "Agent Fundamentals",
+                questions: [
+                    {
+                        id: "agent-q1",
+                        type: "multiple-choice",
+                        question: "What distinguishes an AI agent from a chatbot?",
+                        options: [
+                            { id: "a", text: "Agents use larger models" },
+                            { id: "b", text: "Agents can plan and use tools to take actions" },
+                            { id: "c", text: "Agents respond faster" },
+                            { id: "d", text: "Agents don't need prompts" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "Agents go beyond Q&A—they can break down goals into plans and use tools to take real-world actions."
+                    },
+                    {
+                        id: "agent-q2",
+                        type: "multi-select",
+                        question: "What are the steps in the ReAct pattern?",
+                        options: [
+                            { id: "a", text: "Thought" },
+                            { id: "b", text: "Training" },
+                            { id: "c", text: "Action" },
+                            { id: "d", text: "Observation" },
+                        ],
+                        correctAnswers: ["a", "c", "d"],
+                        explanation: "ReAct = Thought → Action → Observation, repeated until complete."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m3-l2",
+        moduleId: "module-3",
+        topicId: "3-2",
+        lessonNumber: 2,
+        title: "Building Tool-Using Agents",
+        duration: "40 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Giving Agents Tools" },
+            {
+                type: "text",
+                content: `Tools are what give agents their power. A tool is any function the agent can call:
+
+- **Search tools**: Google, Wikipedia, vector search
+- **Code tools**: Python REPL, SQL queries
+- **API tools**: Weather, stocks, calendar
+- **File tools**: Read/write files
+- **Browser tools**: Navigate web pages`
+            },
+            { type: "heading", level: 2, text: "Defining Tools" },
+            {
+                type: "code",
+                language: "python",
+                code: `# Define a tool with OpenAI function calling
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Get current weather for a city",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "city": {
+                        "type": "string",
+                        "description": "City name"
+                    }
+                },
+                "required": ["city"]
+            }
+        }
+    }
+]
+
+# The actual function implementation
+def get_weather(city: str) -> str:
+    # Call weather API
+    return f"Weather in {city}: 72°F, sunny"
+
+# Use with OpenAI
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "What's the weather in Tokyo?"}],
+    tools=tools,
+    tool_choice="auto"
+)
+
+# If the model wants to call a tool
+if response.choices[0].message.tool_calls:
+    tool_call = response.choices[0].message.tool_calls[0]
+    result = get_weather(tool_call.function.arguments["city"])`,
+                caption: "OpenAI function calling pattern"
+            },
+            {
+                type: "callout",
+                style: "tip",
+                content: "Good tool descriptions are crucial. The LLM uses them to decide when and how to use each tool."
+            },
+            {
+                type: "exercise",
+                exercise: {
+                    id: "ex-tool-1",
+                    title: "Define a Calculator Tool",
+                    description: "Complete the tool definition for a simple calculator that can add two numbers.",
+                    language: "python",
+                    starterCode: `# Define a calculator tool
+calculator_tool = {
+    "type": "function",
+    "function": {
+        "name": "add_numbers",
+        "description": "???",  # What should this say?
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "a": {"type": "number", "description": "First number"},
+                "b": {"type": "number", "description": "???"}  # Complete this
+            },
+            "required": ["a", "b"]
+        }
+    }
+}
+
+print(calculator_tool["function"]["name"])`,
+                    solution: `# Define a calculator tool
+calculator_tool = {
+    "type": "function",
+    "function": {
+        "name": "add_numbers",
+        "description": "Add two numbers together and return the sum",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "a": {"type": "number", "description": "First number"},
+                "b": {"type": "number", "description": "Second number to add"}
+            },
+            "required": ["a", "b"]
+        }
+    }
+}
+
+print(calculator_tool["function"]["name"])`,
+                    expectedOutput: "add_numbers",
+                    hint: "Fill in the description and the missing parameter description"
+                }
+            }
+        ]
+    },
+    {
+        id: "m3-l3",
+        moduleId: "module-3",
+        topicId: "3-3",
+        lessonNumber: 3,
+        title: "Multi-Agent Systems",
+        duration: "45 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "When One Agent Isn't Enough" },
+            {
+                type: "text",
+                content: `Complex tasks often benefit from multiple specialized agents working together:
+
+**Researcher Agent**: Gathers information
+**Analyst Agent**: Processes and synthesizes
+**Writer Agent**: Creates final output
+**Critic Agent**: Reviews and improves
+
+This separation of concerns improves quality and manageability.`
+            },
+            { type: "heading", level: 2, text: "Agent Orchestration Patterns" },
+            {
+                type: "code",
+                language: "python",
+                code: `# Multi-agent orchestration example
+class AgentTeam:
+    def __init__(self):
+        self.researcher = Agent(role="researcher")
+        self.analyst = Agent(role="analyst")
+        self.writer = Agent(role="writer")
+    
+    def complete_task(self, goal: str) -> str:
+        # 1. Researcher gathers information
+        research = self.researcher.execute(
+            f"Research: {goal}"
+        )
+        
+        # 2. Analyst synthesizes findings
+        analysis = self.analyst.execute(
+            f"Analyze this research:\\n{research}"
+        )
+        
+        # 3. Writer produces final output
+        output = self.writer.execute(
+            f"Write a report based on:\\n{analysis}"
+        )
+        
+        return output
+
+# Usage
+team = AgentTeam()
+report = team.complete_task("Market analysis for AI training platforms")`,
+                caption: "Sequential multi-agent pipeline"
+            },
+            {
+                type: "callout",
+                style: "warning",
+                content: "Multi-agent systems increase complexity. Start with a single agent and add more only when needed."
+            },
+            { type: "heading", level: 2, text: "Popular Agent Frameworks" },
+            {
+                type: "text",
+                content: `**LangChain/LangGraph**: Most popular, great for complex workflows
+**CrewAI**: Focused on multi-agent collaboration
+**AutoGen**: Microsoft's framework for conversational agents
+**OpenAI Assistants**: Managed agent infrastructure
+
+Each has tradeoffs in flexibility, complexity, and vendor lock-in.`
+            },
+            {
+                type: "quiz",
+                title: "Multi-Agent Quiz",
+                questions: [
+                    {
+                        id: "ma-q1",
+                        type: "multiple-choice",
+                        question: "When should you use multiple agents instead of one?",
+                        options: [
+                            { id: "a", text: "Always, more agents = better results" },
+                            { id: "b", text: "When tasks are complex and benefit from specialization" },
+                            { id: "c", text: "Only for production systems" },
+                            { id: "d", text: "Never, single agents are always better" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "Multi-agent systems add complexity. Use them when task complexity justifies the overhead and specialization improves quality."
+                    },
+                    {
+                        id: "ma-q2",
+                        type: "multi-select",
+                        question: "Which are popular agent frameworks?",
+                        options: [
+                            { id: "a", text: "LangChain" },
+                            { id: "b", text: "React.js" },
+                            { id: "c", text: "CrewAI" },
+                            { id: "d", text: "AutoGen" },
+                        ],
+                        correctAnswers: ["a", "c", "d"],
+                        explanation: "LangChain, CrewAI, and AutoGen are agent frameworks. React.js is a frontend framework."
+                    },
+                ]
+            }
+        ]
+    }
+];
+
 // Combine all lessons
-const allLessons = [...module1Lessons, ...module2Lessons];
+const allLessons = [...module1Lessons, ...module2Lessons, ...module3Lessons];
 
 // =============================================================================
 // LESSON LOOKUP HELPERS
