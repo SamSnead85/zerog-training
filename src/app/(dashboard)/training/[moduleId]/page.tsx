@@ -22,7 +22,10 @@ import {
     FileText,
     Layers,
     ArrowRight,
-    Sparkles
+    Sparkles,
+    Video,
+    ExternalLink,
+    GraduationCap
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -117,7 +120,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                     </div>
 
                     <div className="mt-6 flex items-center gap-4">
-                        <Link href="/training/sample-lesson">
+                        <Link href="/training/module-1">
                             <Button size="lg" className="gap-2">
                                 <Play className="h-5 w-5" />
                                 Start Module
@@ -227,6 +230,66 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                             })}
                         </div>
                     </Card>
+
+                    {/* Learning Resources */}
+                    {module.resources && module.resources.length > 0 && (
+                        <Card className="p-6">
+                            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+                                <Video className="h-5 w-5 text-primary" />
+                                Learning Resources
+                            </h2>
+                            <p className="text-sm text-muted-foreground mb-4">
+                                Videos, articles, and courses to deepen your understanding
+                            </p>
+                            <div className="space-y-3">
+                                {module.resources.map((resource) => {
+                                    const typeConfig = {
+                                        video: { icon: Play, color: "text-red-400 bg-red-500/10" },
+                                        article: { icon: FileText, color: "text-blue-400 bg-blue-500/10" },
+                                        course: { icon: GraduationCap, color: "text-purple-400 bg-purple-500/10" },
+                                        documentation: { icon: BookOpen, color: "text-emerald-400 bg-emerald-500/10" },
+                                    };
+                                    const config = typeConfig[resource.type];
+                                    const Icon = config.icon;
+                                    return (
+                                        <a
+                                            key={resource.id}
+                                            href={resource.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-start gap-3 p-3 rounded-lg border border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                                        >
+                                            <div className={cn("p-2 rounded-lg", config.color)}>
+                                                <Icon className="h-4 w-4" />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="font-medium text-sm group-hover:text-primary transition-colors">
+                                                        {resource.title}
+                                                    </span>
+                                                    <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                                                </div>
+                                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                    <span>{resource.source}</span>
+                                                    {resource.duration && (
+                                                        <>
+                                                            <span>•</span>
+                                                            <span>{resource.duration}</span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                                {resource.description && (
+                                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                                                        {resource.description}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                        </Card>
+                    )}
                 </div>
 
                 {/* Sidebar */}
@@ -236,7 +299,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                         <h3 className="font-semibold mb-4">Module Progress</h3>
                         <Progress value={0} className="h-2 mb-2" />
                         <p className="text-sm text-muted-foreground">Not started</p>
-                        <Link href="/training/sample-lesson">
+                        <Link href="/training/module-1">
                             <Button className="w-full mt-4 gap-2">
                                 <Play className="h-4 w-4" />
                                 Start Module

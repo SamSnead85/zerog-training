@@ -67,7 +67,7 @@ export default function EveryonePage() {
                             </div>
 
                             <div className="flex gap-4">
-                                <Link href="/training/sample-lesson">
+                                <Link href="/training/module-1">
                                     <Button size="lg" className="gap-2">
                                         <Play className="h-5 w-5" />
                                         Start Learning
@@ -222,7 +222,7 @@ export default function EveryonePage() {
                     <p className="text-muted-foreground mb-8">
                         Start your AI journey today - no technical background required
                     </p>
-                    <Link href="/training/sample-lesson">
+                    <Link href="/training/module-1">
                         <Button size="lg" className="gap-2">
                             <Zap className="h-5 w-5" />
                             Start Free Trial

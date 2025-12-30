@@ -378,7 +378,7 @@ export default function HowItWorksPage() {
                                 <ArrowRight className="h-4 w-4" />
                             </Button>
                         </Link>
-                        <Link href="/training/sample-lesson">
+                        <Link href="/training/module-1">
                             <Button size="lg" variant="outline">
                                 Try Sample Lesson Free
                             </Button>

@@ -25,6 +25,16 @@ export interface HandsOnProject {
     duration: string;
 }
 
+export interface LearningResource {
+    id: string;
+    type: "video" | "article" | "documentation" | "course";
+    title: string;
+    source: string;
+    url: string;
+    duration?: string;
+    description?: string;
+}
+
 export interface AIModule {
     id: string;
     number: number;
@@ -38,6 +48,7 @@ export interface AIModule {
     learningObjectives: LearningObjective[];
     topics: Topic[];
     handsOnProjects: HandsOnProject[];
+    resources?: LearningResource[];
     assessmentType: string;
     thumbnail?: string;
 }
@@ -211,6 +222,14 @@ export const module1: AIModule = {
         { id: "p1-1", title: "Code Documentation Generator", description: "Build a code documentation generator using prompt engineering", difficulty: "beginner", duration: "2 hours" },
         { id: "p1-2", title: "Bug Analysis Assistant", description: "Create a bug analysis assistant with structured output", difficulty: "beginner", duration: "2 hours" },
         { id: "p1-3", title: "Code Review Workflow", description: "Implement a multi-step code review workflow", difficulty: "intermediate", duration: "3 hours" },
+    ],
+    resources: [
+        { id: "r1-1", type: "video", title: "But what is a GPT? Visual intro to transformers", source: "3Blue1Brown", url: "https://www.youtube.com/watch?v=wjZofJX0v4M", duration: "27 min", description: "Visual explanation of how transformers work" },
+        { id: "r1-2", type: "video", title: "Intro to Large Language Models", source: "Andrej Karpathy", url: "https://www.youtube.com/watch?v=zjkBMFhNj_g", duration: "1 hour", description: "Comprehensive overview of LLMs by OpenAI co-founder" },
+        { id: "r1-3", type: "article", title: "Attention Is All You Need", source: "Google Research", url: "https://arxiv.org/abs/1706.03762", description: "The original transformer paper" },
+        { id: "r1-4", type: "article", title: "Prompt Engineering Guide", source: "DAIR.AI", url: "https://www.promptingguide.ai/", description: "Comprehensive guide to prompt engineering techniques" },
+        { id: "r1-5", type: "course", title: "ChatGPT Prompt Engineering for Developers", source: "DeepLearning.AI", url: "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/", duration: "1 hour", description: "Free course by Andrew Ng and OpenAI" },
+        { id: "r1-6", type: "documentation", title: "OpenAI API Documentation", source: "OpenAI", url: "https://platform.openai.com/docs", description: "Official API docs and best practices" },
     ],
     assessmentType: "Prompt engineering challenge + LLM architecture quiz + Project submission",
 };

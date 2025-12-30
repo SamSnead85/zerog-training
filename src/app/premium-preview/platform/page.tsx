@@ -110,7 +110,7 @@ export default function PremiumPlatformPage() {
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-4 mb-16">
-                        <Link href="/training/sample-lesson">
+                        <Link href="/training/module-1">
                             <button className="px-8 py-4 rounded-full bg-white text-black font-semibold inline-flex items-center gap-2 hover:shadow-[0_0_60px_rgba(255,255,255,0.15)] transition-all">
                                 <Play className="h-5 w-5" />
                                 Start Learning
@@ -220,7 +220,7 @@ export default function PremiumPlatformPage() {
                                     ))}
                                 </div>
 
-                                <Link href="/training/sample-lesson">
+                                <Link href="/training/module-1">
                                     <button className="w-full py-3 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2">
                                         Start Track
                                         <ArrowRight className="h-4 w-4" />
@@ -287,7 +287,7 @@ export default function PremiumPlatformPage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Link href="/training/sample-lesson">
+                        <Link href="/training/module-1">
                             <button className="px-8 py-4 rounded-full bg-white text-black font-semibold inline-flex items-center gap-2 hover:shadow-[0_0_60px_rgba(255,255,255,0.15)] transition-all">
                                 <Zap className="h-5 w-5" />
                                 Start Free Trial

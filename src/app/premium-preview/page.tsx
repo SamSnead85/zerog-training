@@ -270,7 +270,7 @@ export default function PremiumLandingPage() {
                                 Request a Demo
                             </button>
                         </Link>
-                        <Link href="/training/sample-lesson">
+                        <Link href="/training/module-1">
                             <button className="px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all">
                                 Try Sample Lesson
                             </button>

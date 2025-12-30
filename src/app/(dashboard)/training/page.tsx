@@ -257,7 +257,7 @@ function CertificationPathCard({
 
                     {/* Start/Continue Button */}
                     <div className="mt-4 pt-4 border-t border-white/5">
-                        <Link href="/training/sample-lesson">
+                        <Link href="/training/module-1">
                             <button className="w-full px-6 py-3 bg-white text-black font-medium text-sm rounded-full hover:bg-white/90 transition-colors flex items-center justify-center gap-2">
                                 <Play className="h-4 w-4" />
                                 {completedCount > 0 ? "Continue Learning" : "Start Certification"}
@@ -486,18 +486,18 @@ export default function TrainingDashboard() {
                     </div>
                 )}
 
-                {/* Quick Start CTA */}
+                {/* Begin Certification CTA */}
                 {activeTab === "certifications" && (
-                    <div className="mt-12 p-8 rounded-2xl bg-white/[0.02] border border-white/10">
+                    <div className="mt-12 p-8 rounded-2xl bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-amber-500/10 border border-white/10">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                             <div>
-                                <h3 className="font-montserrat text-xl font-bold mb-2">Try a Sample Lesson</h3>
-                                <p className="text-sm text-white/40">Experience our interactive AI-native training format</p>
+                                <h3 className="font-montserrat text-xl font-bold mb-2">Begin Your NATIVE Certification Journey</h3>
+                                <p className="text-sm text-white/40">Start with AI-Native Foundations and progress through all 4 levels</p>
                             </div>
-                            <Link href="/training/sample-lesson">
+                            <Link href="/training/module-1">
                                 <button className="px-6 py-3 bg-white text-black font-medium text-sm rounded-full hover:bg-white/90 transition-colors flex items-center gap-2 whitespace-nowrap">
-                                    <Play className="h-4 w-4" />
-                                    Start Sample Lesson
+                                    <GraduationCap className="h-4 w-4" />
+                                    Start Foundations
                                     <ArrowRight className="h-4 w-4" />
                                 </button>
                             </Link>
