@@ -11,10 +11,75 @@ import {
   Brain,
   Sparkles,
 } from "lucide-react";
+import { FAQSchema, HowToSchema, CourseCatalogSchema } from "@/components/seo/StructuredData";
+
+// SEO-Optimized FAQs for Rich Snippets
+const aiTrainingFAQs = [
+  {
+    question: "What is AI-Native training?",
+    answer: "AI-Native training is a modern approach to workforce development that embeds AI literacy and AI-powered tools into every aspect of learning. Unlike traditional training, AI-Native programs teach employees to think, work, and innovate with AI assistance from day one."
+  },
+  {
+    question: "How is ScaledNative different from Udemy or Coursera?",
+    answer: "ScaledNative is specifically designed for enterprise AI transformation with our proprietary NATIVE framework, hands-on labs, compliance training (HIPAA, SOC 2, HITRUST), and role-based learning paths. Unlike generic platforms, we offer 95% completion rates and 736% average ROI through adaptive, outcome-focused training."
+  },
+  {
+    question: "What is the NATIVE framework?",
+    answer: "NATIVE stands for Navigate, Architect, Transform, Integrate, Validate, and Evolve. It's our proprietary 6-phase methodology for enterprise AI transformation that provides a structured approach to building AI-ready organizations."
+  },
+  {
+    question: "Is ScaledNative compliant with healthcare regulations?",
+    answer: "Yes, ScaledNative is HITRUST certified, SOC 2 Type II compliant, HIPAA compliant, and GDPR ready. We meet the strictest enterprise security and compliance requirements for healthcare, financial services, and government organizations."
+  },
+  {
+    question: "How long does AI-Native training take?",
+    answer: "Our programs range from 2-hour quick-start modules to comprehensive certification paths spanning 40-80 hours. Most employees complete foundational AI training within 2-4 weeks while continuing their regular work responsibilities."
+  },
+  {
+    question: "What AI certification programs are available?",
+    answer: "ScaledNative offers AI-Native Foundations Certificate, AI Transformation Leader Certificate, Prompt Engineering Professional Certificate, and Enterprise AI Adoption Specialist Certificate. All certifications are industry-recognized and include hands-on assessments."
+  },
+  {
+    question: "Can ScaledNative integrate with our existing LMS?",
+    answer: "Yes, ScaledNative integrates with major LMS platforms via LTI, SCORM, and xAPI standards. We also offer SSO integration with Azure AD, Okta, and other enterprise identity providers."
+  },
+  {
+    question: "What is the ROI of AI training?",
+    answer: "Our customers report an average 736% ROI from AI training investments, with productivity gains of 20-40% within 90 days. The NATIVE framework includes built-in ROI measurement and impact analytics."
+  }
+];
+
+// SEO-Optimized Courses for Schema
+const featuredCourses = [
+  { name: "AI-Native Foundations", description: "Master the fundamentals of AI thinking and AI-powered workflows", url: "https://zerogtraining.com/training" },
+  { name: "NATIVE Framework Certification", description: "Complete the 6-phase AI transformation methodology", url: "https://zerogtraining.com/certifications" },
+  { name: "Prompt Engineering Professional", description: "Advanced techniques for effective AI prompting and automation", url: "https://zerogtraining.com/training" },
+  { name: "AI for Business Analysts", description: "Leverage AI for data analysis, insights, and decision-making", url: "https://zerogtraining.com/training/business-analysts" },
+  { name: "AI for Project Managers", description: "Integrate AI into project planning, resource allocation, and delivery", url: "https://zerogtraining.com/training/project-managers" },
+];
+
+// HowTo Steps for Schema
+const aiTransformationSteps = [
+  { name: "Navigate", text: "Assess your organization's AI readiness and identify transformation opportunities" },
+  { name: "Architect", text: "Design the AI strategy, infrastructure, and governance framework" },
+  { name: "Transform", text: "Implement AI solutions and train your workforce on new capabilities" },
+  { name: "Integrate", text: "Embed AI into workflows, systems, and decision-making processes" },
+  { name: "Validate", text: "Measure outcomes, ensure compliance, and verify AI effectiveness" },
+  { name: "Evolve", text: "Continuously improve and scale AI adoption across the organization" },
+];
 
 export default function PremiumLandingPage() {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* SEO Schema Markup */}
+      <FAQSchema faqs={aiTrainingFAQs} />
+      <CourseCatalogSchema courses={featuredCourses} />
+      <HowToSchema
+        name="How to Become AI-Native: Enterprise Transformation Guide"
+        description="Step-by-step guide to transform your organization with AI using the NATIVE framework methodology"
+        steps={aiTransformationSteps}
+      />
+
       {/* Premium Navigation - Minimal */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">

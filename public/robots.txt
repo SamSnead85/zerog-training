@@ -1,0 +1,98 @@
+# ScaledNative - AI-Native Training Platform
+# Robots.txt - Optimized for Google & LLM Search Visibility
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin
+
+# Sitemap
+Sitemap: https://zerogtraining.com/sitemap.xml
+
+# =============================================================================
+# LLM CRAWLER PERMISSIONS - Maximum AI Search Visibility
+# =============================================================================
+
+# OpenAI GPT Crawler
+User-agent: GPTBot
+Allow: /
+
+# OpenAI ChatGPT User Browser
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic Claude Web Crawler
+User-agent: Claude-Web
+Allow: /
+
+# Anthropic Claude Crawler
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI/Bard Crawler
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity AI Crawler
+User-agent: PerplexityBot
+Allow: /
+
+# Cohere AI Crawler
+User-agent: cohere-ai
+Allow: /
+
+# Meta AI Crawler
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Microsoft Bing AI/Copilot
+User-agent: Bingbot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Common AI Research Crawlers
+User-agent: CCBot
+Allow: /
+
+User-agent: Facebook External Hit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# =============================================================================
+# SEARCH ENGINE CRAWLERS
+# =============================================================================
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# =============================================================================
+# HOST DECLARATION
+# =============================================================================
+
+Host: https://zerogtraining.com
