@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAccess, getOrgFilter } from '@/lib/auth/adminAuth';
-import { createUser, getAllUsers } from '@/lib/db';
+import { createUser, getAllUsers, getPrisma } from '@/lib/db';
 import { UserRole } from '@prisma/client';
+import { sendWelcomeEmail, generateTemporaryPassword, isEmailConfigured } from '@/lib/email';
 
 // GET /api/admin/users - List all users (scoped by organization)
 export async function GET(request: NextRequest) {
@@ -40,7 +41,7 @@ export async function GET(request: NextRequest) {
     }
 }
 
-// POST /api/admin/users - Create new user
+// POST /api/admin/users - Create new user and optionally send welcome email
 export async function POST(request: NextRequest) {
     try {
         const context = await verifyAdminAccess(request);
@@ -53,11 +54,11 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json();
-        const { email, name, password, role, organizationId } = body;
+        const { email, name, password, role, organizationId, sendWelcome = true } = body;
 
-        if (!email || !name || !password) {
+        if (!email || !name) {
             return NextResponse.json(
-                { success: false, error: 'Email, name, and password are required' },
+                { success: false, error: 'Email and name are required' },
                 { status: 400 }
             );
         }
@@ -85,13 +86,37 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Generate temporary password if not provided
+        const userPassword = password || generateTemporaryPassword();
+
+        // Get organization name for email
+        const organization = await getPrisma().organization.findUnique({
+            where: { id: targetOrgId },
+            select: { name: true },
+        });
+
         const user = await createUser({
             email,
             name,
-            password,
+            password: userPassword,
             role: targetRole as UserRole,
             organizationId: targetOrgId,
         });
+
+        // Send welcome email if requested and email service is configured
+        let emailSent = false;
+        let emailError: string | undefined;
+
+        if (sendWelcome && isEmailConfigured()) {
+            const result = await sendWelcomeEmail({
+                userName: name,
+                userEmail: email,
+                temporaryPassword: userPassword,
+                organizationName: organization?.name || 'ScaledNative',
+            });
+            emailSent = result.success;
+            emailError = result.error;
+        }
 
         return NextResponse.json({
             success: true,
@@ -103,6 +128,10 @@ export async function POST(request: NextRequest) {
                 organizationId: user.organizationId,
                 createdAt: user.createdAt,
             },
+            emailSent,
+            emailError,
+            // Only include password in response if email was NOT sent (for manual delivery)
+            temporaryPassword: emailSent ? undefined : userPassword,
         });
     } catch (error: unknown) {
         console.error('Create user error:', error);

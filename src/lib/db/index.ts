@@ -11,7 +11,7 @@ const globalForPrisma = globalThis as unknown as {
     prisma: PrismaClient | undefined;
 };
 
-function getPrisma(): PrismaClient {
+export function getPrisma(): PrismaClient {
     if (!globalForPrisma.prisma) {
         const pool = new Pool({
             connectionString: process.env.DATABASE_URL,
@@ -23,7 +23,7 @@ function getPrisma(): PrismaClient {
 }
 
 // Helper to check if database is configured
-function isDatabaseConfigured(): boolean {
+export function isDatabaseConfigured(): boolean {
     return !!process.env.DATABASE_URL;
 }
 
