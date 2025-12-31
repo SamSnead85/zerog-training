@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 // Category-based gradient backgrounds - Professional, muted enterprise tones
 const categoryGradients: Record<string, { bg: string; accent: string; icon: React.ElementType }> = {
     "ai-tech": { bg: "from-slate-700/40 via-slate-600/25 to-slate-500/10", accent: "bg-slate-500", icon: Brain },
-    "agile-safe": { bg: "from-slate-600/40 via-zinc-600/25 to-slate-500/10", accent: "bg-slate-600", icon: Workflow },
+    "agentic-sdlc": { bg: "from-slate-600/40 via-zinc-600/25 to-slate-500/10", accent: "bg-slate-600", icon: Workflow },
     "compliance": { bg: "from-zinc-700/40 via-slate-600/25 to-zinc-500/10", accent: "bg-zinc-600", icon: Shield },
     "leadership": { bg: "from-stone-700/40 via-stone-600/25 to-stone-500/10", accent: "bg-stone-600", icon: TrendingUp },
     "industry": { bg: "from-neutral-700/40 via-neutral-600/25 to-neutral-500/10", accent: "bg-neutral-600", icon: Building2 },

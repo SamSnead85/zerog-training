@@ -36,7 +36,7 @@ interface Category {
 
 const categories: Category[] = [
     { id: "ai-tech", name: "AI & Technology", icon: Brain, color: "text-slate-400" },
-    { id: "agile-safe", name: "Agile & SAFe", icon: Workflow, color: "text-zinc-400" },
+    { id: "agentic-sdlc", name: "Agentic Agile SDLC", icon: Workflow, color: "text-zinc-400" },
     { id: "compliance", name: "Compliance & Security", icon: Shield, color: "text-slate-500" },
     { id: "leadership", name: "Leadership", icon: Briefcase, color: "text-stone-400" },
     { id: "healthcare", name: "Healthcare", icon: Heart, color: "text-zinc-400" },

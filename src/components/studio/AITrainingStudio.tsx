@@ -57,7 +57,7 @@ type ViewMode = "grid" | "list";
 
 const categoryIcons: Record<string, React.ElementType> = {
     "ai-tech": Brain,
-    "agile-safe": Workflow,
+    "agentic-sdlc": Workflow,
     "compliance": Shield,
     "leadership": Users,
     "industry": Building2,
