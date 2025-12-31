@@ -53,9 +53,9 @@ const DEMO_ORGS = {
 
 // Mock users for demo - includes sam.sweilem85@gmail.com as SUPER_ADMIN
 const DEMO_USERS: Record<string, User & { password: string }> = {
-    "sam.sweilem@gmail.com": {
+    "sam.sweilem85@gmail.com": {
         id: "usr_superadmin",
-        email: "sam.sweilem@gmail.com",
+        email: "sam.sweilem85@gmail.com",
         password: "Winter2022$",
         name: "Sam Sweilem",
         role: "SUPER_ADMIN",
