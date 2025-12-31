@@ -266,16 +266,16 @@ export default function PremiumLandingPage() {
               </p>
             </a>
 
-            {/* Article 4: ROI of Training */}
-            <Link href="/enterprise" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
+            {/* Article 4: NATIVE SDLC Evolution */}
+            <Link href="/insights/native-sdlc-evolution" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-blue-400 font-medium">Case Study</span>
+                <span className="text-[10px] uppercase tracking-wider text-purple-400 font-medium">Operating Model</span>
               </div>
               <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
-                736% ROI: The Business Case for AI-Native Training
+                Beyond Agile: Why the AI Era Demands a New Operating Model
               </h3>
               <p className="text-xs text-white/40 line-clamp-2">
-                How organizations accelerate AI adoption through structured workforce development.
+                Introducing NATIVE as the next evolution of software delivery for an AI-first world.
               </p>
             </Link>
           </div>
