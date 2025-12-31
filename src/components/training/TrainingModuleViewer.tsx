@@ -23,6 +23,7 @@ import Link from "next/link";
 // Import expanded curriculum modules
 import { expandedAIPromptEngineeringModule } from "@/lib/curriculum/expanded-ai-curriculum";
 import { expandedHIPAAModule } from "@/lib/curriculum/expanded-hipaa-curriculum";
+import { expandedAgenticSDLCModule } from "@/lib/curriculum/agentic-sdlc-curriculum";
 import type { ModuleSection, ReadingContent, QuizContent, ScenarioContent } from "@/lib/curriculum/types";
 
 // Types imported from @/lib/curriculum/types
@@ -742,11 +743,11 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
         return { sections: leadershipModule, title: "Leadership Fundamentals" };
     }
 
-    // Agentic Agile SDLC - covers: agentic-*, native-*, sdlc routes to AI-Native content
+    // Agentic Agile SDLC - covers: agentic-*, native-*, sdlc routes to NATIVE curriculum
     if (id.includes("agentic") || id.includes("native") || id.includes("sdlc") ||
         id.includes("delivery-leadership") || id.includes("team-facilitator") ||
         id.includes("continuous-flow") || id.includes("product-leadership")) {
-        return { sections: expandedAIPromptEngineeringModule, title: "Agentic Agile SDLC Training" };
+        return { sections: expandedAgenticSDLCModule, title: "Agentic Agile SDLC Training" };
     }
 
     // HIPAA & Healthcare - covers: hipaa-*, bloodborne, patient-safety, clinical-*, infection-*, healthcare
