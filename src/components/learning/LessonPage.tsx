@@ -23,6 +23,7 @@ import { VideoPlayer } from "@/components/learning/VideoPlayer";
 import { InteractiveLabComponent } from "@/components/learning/InteractiveLab";
 import { ProjectCardComponent } from "@/components/learning/ProjectCard";
 import { AISimulatorComponent } from "@/components/learning/AISimulator";
+import { SupplementalLibraryComponent } from "@/components/learning/SupplementalLibrary";
 
 
 // =============================================================================
@@ -199,6 +200,13 @@ function SectionRenderer({ section }: SectionRendererProps) {
             return (
                 <div className="mb-8">
                     <AISimulatorComponent simulation={section.simulation} />
+                </div>
+            );
+
+        case "supplemental-library":
+            return (
+                <div className="mb-8">
+                    <SupplementalLibraryComponent library={section.library} />
                 </div>
             );
 

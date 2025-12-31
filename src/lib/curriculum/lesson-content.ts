@@ -103,6 +103,29 @@ export interface AISimulation {
     successCriteria: string[];
 }
 
+/** Supplemental learning resource */
+export interface SupplementalResource {
+    title: string;
+    author?: string;
+    url?: string;
+    description: string;
+    duration?: string;
+    type: "video" | "book" | "article" | "podcast" | "course" | "tool";
+    difficulty?: "beginner" | "intermediate" | "advanced";
+    free?: boolean;
+}
+
+/** Curated supplemental learning library */
+export interface SupplementalLibrary {
+    title: string;
+    description: string;
+    videos?: SupplementalResource[];
+    books?: SupplementalResource[];
+    articles?: SupplementalResource[];
+    podcasts?: SupplementalResource[];
+    tools?: SupplementalResource[];
+}
+
 // =============================================================================
 // LESSON SECTION TYPES
 // =============================================================================
@@ -121,7 +144,8 @@ export type LessonSection =
     | { type: "interactive-lab"; lab: InteractiveLab }
     | { type: "project"; project: RealWorldProject }
     | { type: "video-enhanced"; video: EnhancedVideo }
-    | { type: "simulation"; simulation: AISimulation };
+    | { type: "simulation"; simulation: AISimulation }
+    | { type: "supplemental-library"; library: SupplementalLibrary };
 
 
 // =============================================================================
@@ -449,14 +473,120 @@ print(prompt_crisp)`,
                     ]
                 }
             },
-            { type: "heading", level: 2, text: "📚 Additional Resources" },
+            { type: "heading", level: 2, text: "📖 Supplemental Learning Library" },
             {
-                type: "resources",
-                items: [
-                    { title: "What is Machine Learning? (Google)", url: "https://developers.google.com/machine-learning/intro-to-ml", type: "article" },
-                    { title: "Intro to Large Language Models (Andrej Karpathy)", url: "https://www.youtube.com/watch?v=zjkBMFhNj_g", type: "video" },
-                    { title: "OpenAI API Documentation", url: "https://platform.openai.com/docs", type: "documentation" },
-                ]
+                type: "supplemental-library",
+                library: {
+                    title: "AI-Native Developer Resources",
+                    description: "Curated books, videos, podcasts, and tools to deepen your understanding of AI-native development",
+                    videos: [
+                        {
+                            title: "Zero to AI Native in 9 Minutes",
+                            author: "Dave Ebbelaar",
+                            url: "https://www.youtube.com/watch?v=Dl1pUpLWAog",
+                            description: "A quick, actionable overview of how to become AI-native. Perfect if AI feels overwhelming or scattered.",
+                            duration: "9 min",
+                            type: "video",
+                            difficulty: "beginner",
+                            free: true
+                        },
+                        {
+                            title: "Intro to Large Language Models",
+                            author: "Andrej Karpathy",
+                            url: "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+                            description: "The definitive introduction to LLMs from OpenAI's founding researcher. Deep dive into how GPT works under the hood.",
+                            duration: "60 min",
+                            type: "video",
+                            difficulty: "intermediate",
+                            free: true
+                        },
+                        {
+                            title: "Let's Build GPT from Scratch",
+                            author: "Andrej Karpathy",
+                            url: "https://www.youtube.com/watch?v=kCc8FmEb1nY",
+                            description: "Build a GPT model from scratch in Python. Understand transformers by building one.",
+                            duration: "120 min",
+                            type: "video",
+                            difficulty: "advanced",
+                            free: true
+                        }
+                    ],
+                    books: [
+                        {
+                            title: "Co-Intelligence: Living and Working with AI",
+                            author: "Ethan Mollick",
+                            url: "https://www.amazon.com/Co-Intelligence-Living-Working-Ethan-Mollick/dp/059371671X",
+                            description: "A practical guide to partnering with AI from the Wharton professor who's been studying AI adoption in the real world.",
+                            type: "book",
+                            difficulty: "beginner",
+                            free: false
+                        },
+                        {
+                            title: "Build a Large Language Model (From Scratch)",
+                            author: "Sebastian Raschka",
+                            url: "https://www.manning.com/books/build-a-large-language-model-from-scratch",
+                            description: "The hands-on guide to understanding LLMs by building one. Code-heavy, highly practical.",
+                            type: "book",
+                            difficulty: "advanced",
+                            free: false
+                        },
+                        {
+                            title: "AI Engineering",
+                            author: "Chip Huyen",
+                            url: "https://www.oreilly.com/library/view/ai-engineering/9781098166298/",
+                            description: "How to build applications with foundation models. Covers RAG, fine-tuning, and production deployment.",
+                            type: "book",
+                            difficulty: "intermediate",
+                            free: false
+                        }
+                    ],
+                    podcasts: [
+                        {
+                            title: "Latent Space Podcast",
+                            author: "swyx & Alessio",
+                            url: "https://www.latent.space/podcast",
+                            description: "The AI engineer's podcast. Deep technical discussions with AI leaders from OpenAI, Anthropic, Google, and more.",
+                            type: "podcast",
+                            difficulty: "intermediate",
+                            free: true
+                        },
+                        {
+                            title: "The AI Breakdown",
+                            author: "Nathaniel Whittemore",
+                            url: "https://theaibreakdown.com/",
+                            description: "Daily AI news and analysis. Great for staying current on AI developments without drowning in hype.",
+                            type: "podcast",
+                            difficulty: "beginner",
+                            free: true
+                        }
+                    ],
+                    tools: [
+                        {
+                            title: "Cursor AI",
+                            url: "https://cursor.sh/",
+                            description: "The AI-first code editor. Real-time AI assistance while you code. Essential tool for AI-native developers.",
+                            type: "tool",
+                            difficulty: "beginner",
+                            free: true
+                        },
+                        {
+                            title: "LangSmith",
+                            url: "https://smith.langchain.com/",
+                            description: "Observability and debugging for LLM applications. Track prompts, responses, latency, and costs.",
+                            type: "tool",
+                            difficulty: "intermediate",
+                            free: true
+                        },
+                        {
+                            title: "OpenAI Playground",
+                            url: "https://platform.openai.com/playground",
+                            description: "Experiment with GPT models directly. Test prompts, adjust parameters, and see results instantly.",
+                            type: "tool",
+                            difficulty: "beginner",
+                            free: true
+                        }
+                    ]
+                }
             }
         ]
     },
