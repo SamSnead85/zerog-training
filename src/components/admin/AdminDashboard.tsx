@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Card, Badge, Button, Progress } from "@/components/ui";
 import { OrganizationManagement } from "@/components/admin/OrganizationManagement";
+import { BulkUserImport } from "@/components/admin/BulkUserImport";
+import { ProgressDashboard } from "@/components/admin/ProgressDashboard";
 import {
     Users,
     BookOpen,
@@ -92,7 +94,7 @@ const complianceItems: ComplianceItem[] = [
 ];
 
 export function AdminDashboard() {
-    const [activeTab, setActiveTab] = useState<"overview" | "organizations" | "users" | "courses" | "compliance" | "settings">("overview");
+    const [activeTab, setActiveTab] = useState<"overview" | "organizations" | "progress" | "users" | "import" | "courses" | "compliance" | "settings">("overview");
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
@@ -165,8 +167,8 @@ export function AdminDashboard() {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 p-1 rounded-xl bg-white/[0.03] border border-white/10 w-fit">
-                {(["overview", "organizations", "users", "courses", "compliance", "settings"] as const).map((tab) => (
+            <div className="flex gap-1 p-1 rounded-xl bg-white/[0.03] border border-white/10 w-fit overflow-x-auto">
+                {(["overview", "organizations", "progress", "users", "import", "courses", "compliance", "settings"] as const).map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -431,6 +433,12 @@ export function AdminDashboard() {
 
             {/* Organizations Tab (SUPER_ADMIN only) */}
             {activeTab === "organizations" && <OrganizationManagement />}
+
+            {/* Progress Tab - Real-time progress tracking */}
+            {activeTab === "progress" && <ProgressDashboard />}
+
+            {/* Import Tab - Bulk user import */}
+            {activeTab === "import" && <BulkUserImport />}
 
             {/* Users Tab */}
             {activeTab === "users" && (
