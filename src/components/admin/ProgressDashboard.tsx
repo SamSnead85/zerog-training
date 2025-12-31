@@ -15,6 +15,7 @@ import {
     User,
     ChevronRight,
     Loader2,
+    Download,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -105,6 +106,31 @@ export function ProgressDashboard() {
         }
     };
 
+    const exportCSV = () => {
+        if (!data?.progress || data.progress.length === 0) {
+            alert("No data to export");
+            return;
+        }
+
+        const headers = ["Name", "Email", "Module", "Progress %", "Last Accessed"];
+        const rows = data.progress.map((p) => [
+            p.userName,
+            p.userEmail,
+            p.moduleName || p.moduleId,
+            p.percentComplete.toString(),
+            p.lastAccessedAt ? new Date(p.lastAccessedAt).toLocaleDateString() : "Never",
+        ]);
+
+        const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `progress_report_${new Date().toISOString().split("T")[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
     const toggleUserSelection = (userId: string) => {
         setSelectedUsers((prev) =>
             prev.includes(userId)
@@ -161,10 +187,16 @@ export function ProgressDashboard() {
                     <h2 className="text-xl font-semibold text-white">Team Progress</h2>
                     <p className="text-sm text-muted-foreground">Real-time training completion tracking</p>
                 </div>
-                <Button onClick={fetchProgress} variant="outline" className="gap-2 border-white/10">
-                    <RefreshCw className={cn("h-4 w-4", loading && "animate-spin")} />
-                    Refresh
-                </Button>
+                <div className="flex items-center gap-2">
+                    <Button onClick={exportCSV} variant="outline" className="gap-2 border-white/10">
+                        <Download className="h-4 w-4" />
+                        Export CSV
+                    </Button>
+                    <Button onClick={fetchProgress} variant="outline" className="gap-2 border-white/10">
+                        <RefreshCw className={cn("h-4 w-4", loading && "animate-spin")} />
+                        Refresh
+                    </Button>
+                </div>
             </div>
 
             {/* Summary Cards */}
