@@ -5,6 +5,7 @@ import { Card, Badge, Button, Progress } from "@/components/ui";
 import { OrganizationManagement } from "@/components/admin/OrganizationManagement";
 import { BulkUserImport } from "@/components/admin/BulkUserImport";
 import { ProgressDashboard } from "@/components/admin/ProgressDashboard";
+import { useAuth } from "@/lib/auth/AuthContext";
 import {
     Users,
     BookOpen,
@@ -94,9 +95,16 @@ const complianceItems: ComplianceItem[] = [
 ];
 
 export function AdminDashboard() {
+    const { user, isSuperAdmin } = useAuth();
     const [activeTab, setActiveTab] = useState<"overview" | "organizations" | "progress" | "users" | "import" | "courses" | "compliance" | "settings">("overview");
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
+
+    // Define tabs based on user role
+    const allTabs = ["overview", "organizations", "progress", "users", "import", "courses", "compliance", "settings"] as const;
+    const visibleTabs = isSuperAdmin()
+        ? allTabs
+        : allTabs.filter(tab => tab !== "organizations");
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -143,11 +151,22 @@ export function AdminDashboard() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
-                        Admin Dashboard
-                    </h1>
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+                            Admin Dashboard
+                        </h1>
+                        {user?.organizationName && !isSuperAdmin() && (
+                            <Badge className="bg-slate-600/50 text-slate-200 border-slate-500/30">
+                                <Building2 className="h-3 w-3 mr-1" />
+                                {user.organizationName}
+                            </Badge>
+                        )}
+                    </div>
                     <p className="text-muted-foreground mt-1">
-                        Manage users, courses, compliance, and platform settings
+                        {isSuperAdmin()
+                            ? "Manage organizations, users, courses, and platform settings"
+                            : `Manage ${user?.organizationName || 'your organization'}'s training and compliance`
+                        }
                     </p>
                 </div>
                 <div className="flex gap-3">
@@ -168,7 +187,7 @@ export function AdminDashboard() {
 
             {/* Tabs */}
             <div className="flex gap-1 p-1 rounded-xl bg-white/[0.03] border border-white/10 w-fit overflow-x-auto">
-                {(["overview", "organizations", "progress", "users", "import", "courses", "compliance", "settings"] as const).map((tab) => (
+                {visibleTabs.map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
