@@ -215,67 +215,69 @@ export default function PremiumLandingPage() {
         </div>
       </section>
 
-      {/* Thought Leadership - VibeCIO Articles */}
-      <section className="py-10 px-8">
+      {/* Thought Leadership - Featured Insights */}
+      <section className="py-16 px-8">
         <div className="mx-auto max-w-6xl">
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-xs text-white/30 uppercase tracking-widest">Insights from VibeCIO</p>
-            <a href="https://vibecio.com" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/50 transition-colors">View All →</a>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p className="text-xs text-white/30 uppercase tracking-widest mb-2">Insights</p>
+              <h2 className="text-2xl font-bold">Thought Leadership</h2>
+            </div>
+            <Link href="/insights/native-sdlc-evolution" className="text-xs text-white/30 hover:text-white/50 transition-colors">
+              View All →
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Article 1: AI Transformation Foundations */}
-            <a href="https://vibecio.com/article/ai-transformation-foundations" target="_blank" rel="noopener noreferrer" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-amber-400 font-medium">Strategy</span>
-                <span className="text-[10px] text-white/20">• VibeCIO</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Article 1: NATIVE SDLC Evolution */}
+            <Link href="/insights/native-sdlc-evolution" className="group p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-blue-500/5 border border-white/5 hover:border-purple-500/30 hover:from-purple-500/10 hover:to-blue-500/10 transition-all">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-[10px] uppercase tracking-wider font-medium">Operating Model</span>
               </div>
-              <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
-                Why AI Transformations Fail Before They Start
-              </h3>
-              <p className="text-xs text-white/40 line-clamp-2">
-                Sam Sweilem on why 70% of AI initiatives fail and the Foundation First methodology.
-              </p>
-            </a>
-
-            {/* Article 2: Agentic Revolution */}
-            <a href="https://vibecio.com/article/agentic-revolution" target="_blank" rel="noopener noreferrer" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-emerald-400 font-medium">Technology</span>
-                <span className="text-[10px] text-white/20">• VibeCIO</span>
-              </div>
-              <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
-                The Agentic AI Revolution: Beyond Chatbots
-              </h3>
-              <p className="text-xs text-white/40 line-clamp-2">
-                How autonomous AI agents are transforming enterprise workflows and decision-making.
-              </p>
-            </a>
-
-            {/* Article 3: Financial Services */}
-            <a href="https://vibecio.com/article/financial-services-inflection" target="_blank" rel="noopener noreferrer" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-blue-400 font-medium">Industry</span>
-                <span className="text-[10px] text-white/20">• VibeCIO</span>
-              </div>
-              <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
-                2026: The AI Inflection Point for Financial Services
-              </h3>
-              <p className="text-xs text-white/40 line-clamp-2">
-                Why legacy systems will force a modernization reckoning in financial services.
-              </p>
-            </a>
-
-            {/* Article 4: NATIVE SDLC Evolution */}
-            <Link href="/insights/native-sdlc-evolution" className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-purple-400 font-medium">Operating Model</span>
-              </div>
-              <h3 className="text-sm font-medium text-white mb-2 group-hover:text-white/90 line-clamp-2">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-purple-200 transition-colors">
                 Beyond Agile: Why the AI Era Demands a New Operating Model
               </h3>
-              <p className="text-xs text-white/40 line-clamp-2">
-                Introducing NATIVE as the next evolution of software delivery for an AI-first world.
+              <p className="text-sm text-white/50 leading-relaxed">
+                Introducing NATIVE as the next evolution of software delivery. SAFe scaled human coordination. NATIVE scales machine autonomy safely.
+              </p>
+            </Link>
+
+            {/* Article 2: AI Skills Gap Crisis */}
+            <Link href="/insights/ai-skills-gap-crisis" className="group p-6 rounded-2xl bg-gradient-to-br from-amber-500/5 to-red-500/5 border border-white/5 hover:border-amber-500/30 hover:from-amber-500/10 hover:to-red-500/10 transition-all">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] uppercase tracking-wider font-medium">Workforce Crisis</span>
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-amber-200 transition-colors">
+                The AI Skills Gap Crisis: Why Traditional Training Failed
+              </h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                87% of executives report critical AI skills gaps. The platforms they trusted have a 4% completion rate. Something is fundamentally broken.
+              </p>
+            </Link>
+
+            {/* Article 3: AI Fluency */}
+            <Link href="/insights/ai-fluency-new-literacy" className="group p-6 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-cyan-500/5 border border-white/5 hover:border-emerald-500/30 hover:from-emerald-500/10 hover:to-cyan-500/10 transition-all">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] uppercase tracking-wider font-medium">AI Literacy</span>
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-emerald-200 transition-colors">
+                From Prompt Engineering to AI Fluency: The New Digital Literacy
+              </h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Prompt engineering was the gateway skill. But true AI fluency goes far beyond writing better prompts.
+              </p>
+            </Link>
+
+            {/* Article 4: Why AI Initiatives Fail */}
+            <Link href="/insights/why-ai-initiatives-fail" className="group p-6 rounded-2xl bg-gradient-to-br from-rose-500/5 to-pink-500/5 border border-white/5 hover:border-rose-500/30 hover:from-rose-500/10 hover:to-pink-500/10 transition-all">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[10px] uppercase tracking-wider font-medium">Strategy</span>
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-rose-200 transition-colors">
+                Why 70% of AI Initiatives Fail: The Foundation First Approach
+              </h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                The technology works. The budgets are approved. So why do most AI initiatives fail to deliver value?
               </p>
             </Link>
           </div>

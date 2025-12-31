@@ -50,6 +50,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Insights/Thought Leadership pages (high priority for SEO)
     const insightPages = [
         { url: '/insights/native-sdlc-evolution', priority: 0.85, changeFrequency: 'monthly' as const },
+        { url: '/insights/ai-skills-gap-crisis', priority: 0.85, changeFrequency: 'monthly' as const },
+        { url: '/insights/ai-fluency-new-literacy', priority: 0.85, changeFrequency: 'monthly' as const },
+        { url: '/insights/why-ai-initiatives-fail', priority: 0.85, changeFrequency: 'monthly' as const },
     ];
 
     // Legal pages
