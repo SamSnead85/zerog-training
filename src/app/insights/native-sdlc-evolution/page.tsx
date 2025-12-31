@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, Share2, Linkedin, Twitter, Copy, ChevronRight, BookOpen } from "lucide-react";
 
 export const metadata = {
     title: "Beyond Agile: Why the AI Era Demands a New Operating Model | ScaledNative",
@@ -13,252 +13,351 @@ export const metadata = {
         "AI software development",
         "enterprise AI governance",
     ],
+    openGraph: {
+        title: "Beyond Agile: Why the AI Era Demands a New Operating Model",
+        description: "Introducing NATIVE as the next evolution of software delivery for an AI-first world.",
+        type: "article",
+        authors: ["ScaledNative Research"],
+        publishedTime: "2024-12-31",
+    },
 };
 
 export default function NativeSDLCArticle() {
+    const tableOfContents = [
+        { id: "constraint-shifted", title: "The Constraint Has Shifted" },
+        { id: "ai-changes", title: "AI Changes the Equation" },
+        { id: "what-organizations-need", title: "What Organizations Need" },
+        { id: "introducing-native", title: "Introducing NATIVE" },
+        { id: "control-loops", title: "From Sprint Cycles to Control Loops" },
+        { id: "path-forward", title: "The Path Forward" },
+    ];
+
     return (
         <div className="min-h-screen bg-black text-white">
+            {/* Reading Progress Bar */}
+            <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-white/10">
+                <div
+                    className="h-full bg-gradient-to-r from-purple-500 to-blue-500 w-0"
+                    id="reading-progress"
+                />
+            </div>
+
             {/* Navigation */}
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl border-b border-white/5">
-                <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
+            <nav className="fixed top-1 left-0 right-0 z-40 bg-black/80 backdrop-blur-xl border-b border-white/5">
+                <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
                     <Link
                         href="/"
                         className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors"
                     >
                         <ArrowLeft className="h-4 w-4" />
-                        Back to ScaledNative
+                        ScaledNative
                     </Link>
-                    <span className="text-xs text-white/30 uppercase tracking-wider">
-                        Insights
-                    </span>
+                    <div className="flex items-center gap-4">
+                        <span className="text-xs text-white/30 uppercase tracking-wider hidden sm:block">
+                            Insights
+                        </span>
+                        <div className="flex items-center gap-2">
+                            <button className="p-2 rounded-full hover:bg-white/10 transition-colors" title="Share on LinkedIn">
+                                <Linkedin className="h-4 w-4 text-white/40" />
+                            </button>
+                            <button className="p-2 rounded-full hover:bg-white/10 transition-colors" title="Share on Twitter">
+                                <Twitter className="h-4 w-4 text-white/40" />
+                            </button>
+                            <button className="p-2 rounded-full hover:bg-white/10 transition-colors" title="Copy link">
+                                <Copy className="h-4 w-4 text-white/40" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </nav>
 
-            {/* Article Header */}
-            <header className="pt-32 pb-12 px-6">
-                <div className="mx-auto max-w-3xl">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-medium uppercase tracking-wider">
+            {/* Hero Section with Gradient Background */}
+            <header className="relative pt-24 pb-16 px-6 overflow-hidden">
+                {/* Abstract gradient background */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl" />
+                    <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-purple-900/10 to-blue-900/10 rounded-full blur-3xl" />
+                </div>
+
+                <div className="relative z-10 mx-auto max-w-4xl">
+                    {/* Category Badge */}
+                    <div className="flex items-center gap-3 mb-8">
+                        <span className="px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 text-xs font-medium uppercase tracking-wider border border-purple-500/20">
                             Operating Model
                         </span>
-                        <span className="text-xs text-white/30">ScaledNative</span>
+                        <span className="text-xs text-white/30">December 2024</span>
                     </div>
 
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+                    {/* Title with Gradient Text */}
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-8 bg-gradient-to-br from-white via-white to-white/60 bg-clip-text text-transparent">
                         Beyond Agile: Why the AI Era Demands a New Operating Model
                     </h1>
 
-                    <p className="text-lg text-white/50 mb-8">
+                    {/* Subtitle */}
+                    <p className="text-xl md:text-2xl text-white/50 mb-10 leading-relaxed max-w-3xl">
                         Traditional frameworks were designed for a world where humans wrote every line of code.
                         That world is ending. Here is what comes next.
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-6 text-sm text-white/40">
-                        <div className="flex items-center gap-2">
-                            <User className="h-4 w-4" />
-                            <span>ScaledNative Research</span>
+                    {/* Author & Meta */}
+                    <div className="flex flex-wrap items-center gap-6">
+                        <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                                <BookOpen className="h-5 w-5 text-white" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-medium text-white">ScaledNative Research</p>
+                                <p className="text-xs text-white/40">Thought Leadership</p>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4" />
-                            <span>December 2024</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4" />
-                            <span>8 min read</span>
+                        <div className="h-8 w-px bg-white/10 hidden sm:block" />
+                        <div className="flex items-center gap-4 text-sm text-white/40">
+                            <div className="flex items-center gap-2">
+                                <Clock className="h-4 w-4" />
+                                <span>8 min read</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </header>
 
-            {/* Article Content */}
-            <article className="pb-24 px-6">
-                <div className="mx-auto max-w-3xl prose prose-invert prose-lg">
-                    <h2>The Constraint Has Shifted</h2>
+            {/* Main Content Area with Sidebar */}
+            <div className="relative px-6 pb-24">
+                <div className="mx-auto max-w-6xl">
+                    <div className="lg:grid lg:grid-cols-[1fr_280px] lg:gap-16">
+                        {/* Article Content */}
+                        <article className="max-w-3xl">
+                            {/* Drop Cap First Paragraph */}
+                            <section id="constraint-shifted" className="mb-16">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+                                    The Constraint Has Shifted
+                                </h2>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6 first-letter:text-5xl first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-purple-400">
+                                    For two decades, Agile methodologies have shaped how enterprises build software. The Agile
+                                    Manifesto emerged from a simple observation: waterfall planning was too slow, too rigid, and
+                                    disconnected from the realities of building complex systems. Agile introduced iterative
+                                    development, cross-functional teams, and continuous feedback. It worked because it matched
+                                    the primary constraint of its era: the pace of human execution.
+                                </p>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    SAFe extended this thinking to the enterprise scale. When you have hundreds of developers
+                                    working on interconnected systems, you need coordination mechanisms. Release trains, program
+                                    increments, and architectural runways emerged as ways to synchronize human effort across
+                                    large organizations. The fundamental assumption remained unchanged: humans are the bottleneck,
+                                    and frameworks exist to optimize human coordination.
+                                </p>
 
-                    <p>
-                        For two decades, Agile methodologies have shaped how enterprises build software. The Agile
-                        Manifesto emerged from a simple observation: waterfall planning was too slow, too rigid, and
-                        disconnected from the realities of building complex systems. Agile introduced iterative
-                        development, cross-functional teams, and continuous feedback. It worked because it matched
-                        the primary constraint of its era: the pace of human execution.
-                    </p>
+                                {/* Pull Quote */}
+                                <blockquote className="my-10 pl-6 border-l-4 border-purple-500 py-4 bg-gradient-to-r from-purple-500/5 to-transparent">
+                                    <p className="text-xl md:text-2xl text-white/90 italic font-light leading-relaxed">
+                                        "The fundamental assumption remained unchanged: humans are the bottleneck."
+                                    </p>
+                                </blockquote>
 
-                    <p>
-                        SAFe extended this thinking to the enterprise scale. When you have hundreds of developers
-                        working on interconnected systems, you need coordination mechanisms. Release trains, program
-                        increments, and architectural runways emerged as ways to synchronize human effort across
-                        large organizations. The fundamental assumption remained unchanged: humans are the bottleneck,
-                        and frameworks exist to optimize human coordination.
-                    </p>
+                                <p className="text-lg text-white/70 leading-relaxed">
+                                    That assumption is now outdated.
+                                </p>
+                            </section>
 
-                    <p>
-                        That assumption is now outdated.
-                    </p>
+                            <section id="ai-changes" className="mb-16">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+                                    AI Changes the Equation
+                                </h2>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    In organizations using AI development tools, the constraint has shifted from execution speed
+                                    to judgment quality. AI can generate thousands of lines of code in minutes. It can scaffold
+                                    entire applications, write tests, and produce documentation at machine speed. The bottleneck
+                                    is no longer how fast developers can type. The bottleneck is how fast organizations can
+                                    validate, govern, and absorb change.
+                                </p>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    This creates a fundamental problem for traditional frameworks. Sprints assume a predictable
+                                    amount of work can be completed in a fixed timebox. But when AI can produce a week's worth of
+                                    code in an afternoon, the sprint becomes an artificial constraint rather than a useful
+                                    planning unit. Backlogs assume humans will execute items sequentially. But when AI can work
+                                    on multiple items in parallel, the backlog becomes a bottleneck rather than a prioritization
+                                    tool.
+                                </p>
 
-                    <h2>AI Changes the Equation</h2>
+                                {/* Highlighted Insight Box */}
+                                <div className="my-10 p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10">
+                                    <h4 className="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-3">Key Insight</h4>
+                                    <p className="text-white/80">
+                                        The deeper issue is trust. When humans write code, other humans review it. The reviewer
+                                        understands the author's intent, recognizes their patterns, and can trace decisions back to
+                                        conversations. When AI writes code, none of these social verification mechanisms apply.
+                                    </p>
+                                </div>
+                            </section>
 
-                    <p>
-                        In organizations using AI development tools, the constraint has shifted from execution speed
-                        to judgment quality. AI can generate thousands of lines of code in minutes. It can scaffold
-                        entire applications, write tests, and produce documentation at machine speed. The bottleneck
-                        is no longer how fast developers can type. The bottleneck is how fast organizations can
-                        validate, govern, and absorb change.
-                    </p>
+                            <section id="what-organizations-need" className="mb-16">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+                                    What Organizations Actually Need
+                                </h2>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    Enterprises adopting AI development tools are discovering that velocity without governance
+                                    creates chaos. Teams that can ship features daily are discovering that customers cannot absorb
+                                    change at the same rate. Security reviews that assumed bi-weekly releases now face continuous
+                                    streams of changes they cannot adequately assess. Compliance frameworks built for quarterly
+                                    audits collapse under the weight of perpetual modification.
+                                </p>
+                                <p className="text-lg text-white/70 leading-relaxed font-medium text-white/90">
+                                    The solution is not to slow AI down. The solution is to evolve the operating model.
+                                </p>
+                            </section>
 
-                    <p>
-                        This creates a fundamental problem for traditional frameworks. Sprints assume a predictable
-                        amount of work can be completed in a fixed timebox. But when AI can produce a week's worth of
-                        code in an afternoon, the sprint becomes an artificial constraint rather than a useful
-                        planning unit. Backlogs assume humans will execute items sequentially. But when AI can work
-                        on multiple items in parallel, the backlog becomes a bottleneck rather than a prioritization
-                        tool.
-                    </p>
+                            <section id="introducing-native" className="mb-16">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+                                    Introducing NATIVE
+                                </h2>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    NATIVE is an AI-native software delivery lifecycle operating model. It is not a process
+                                    overlay or certification program. It is a fundamental rethinking of how software gets built
+                                    when AI is the primary executor and humans are the validators, governors, and decision-makers.
+                                </p>
+                                <p className="text-lg text-white/70 leading-relaxed mb-8">
+                                    The framework consists of six principles that form a continuous control loop:
+                                </p>
 
-                    <p>
-                        The deeper issue is trust. When humans write code, other humans review it. The reviewer
-                        understands the author's intent, recognizes their patterns, and can trace decisions back to
-                        conversations. When AI writes code, none of these social verification mechanisms apply. The
-                        code may be syntactically correct and pass tests while embodying assumptions that no human
-                        ever approved.
-                    </p>
+                                {/* NATIVE Framework Cards */}
+                                <div className="space-y-4 mb-8">
+                                    {[
+                                        { letter: "N", title: "Normalize intent", desc: "Traditional backlogs contain tasks. AI-native development starts with outcomes. Instead of specifying how to build something, teams define what success looks like and why it matters." },
+                                        { letter: "A", title: "Augment with agents", desc: "AI agents become the primary executors of defined intent. Human developers shift from writing code to supervising agents, reviewing outputs, and handling edge cases that require judgment." },
+                                        { letter: "T", title: "Test continuously", desc: "When AI generates code at machine speed, testing must happen at machine speed. Validation runs before human review, not after." },
+                                        { letter: "I", title: "Instrument everything", desc: "Every AI decision, every generated artifact, every validation result must be observable and traceable. When something goes wrong, you need to understand not just what happened but why." },
+                                        { letter: "V", title: "Validate outcomes", desc: "The question is never whether the code works. The questions are whether it is correct, secure, compliant, and whether users will actually adopt it." },
+                                        { letter: "E", title: "Evolve systems", desc: "AI-native development rejects the notion of fixed plans and stable states. Systems continuously learn from deployment outcomes. The operating model itself adapts." },
+                                    ].map((item, i) => (
+                                        <div key={i} className="flex gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">
+                                            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-xl font-bold">
+                                                {item.letter}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold text-white mb-1">{item.title}</h4>
+                                                <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
 
-                    <h2>What Organizations Actually Need</h2>
+                            <section id="control-loops" className="mb-16">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+                                    From Sprint Cycles to Control Loops
+                                </h2>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    The fundamental difference between traditional frameworks and NATIVE is the shift from
+                                    time-boxed cycles to continuous control loops. A sprint is a planning unit: work enters at
+                                    the beginning and ships at the end. A control loop is a feedback mechanism: inputs trigger
+                                    actions, actions produce outcomes, outcomes inform adjustments, and the cycle continues
+                                    without fixed boundaries.
+                                </p>
 
-                    <p>
-                        Enterprises adopting AI development tools are discovering that velocity without governance
-                        creates chaos. Teams that can ship features daily are discovering that customers cannot absorb
-                        change at the same rate. Security reviews that assumed bi-weekly releases now face continuous
-                        streams of changes they cannot adequately assess. Compliance frameworks built for quarterly
-                        audits collapse under the weight of perpetual modification.
-                    </p>
+                                {/* Comparison Visual */}
+                                <div className="my-10 grid md:grid-cols-2 gap-4">
+                                    <div className="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                                        <h4 className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">Traditional</h4>
+                                        <ul className="space-y-2 text-sm text-white/60">
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-white/30" />Backlogs</li>
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-white/30" />Sprints</li>
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-white/30" />Code reviews</li>
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-white/30" />Velocity metrics</li>
+                                        </ul>
+                                    </div>
+                                    <div className="p-5 rounded-xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20">
+                                        <h4 className="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-3">NATIVE</h4>
+                                        <ul className="space-y-2 text-sm text-white/80">
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-purple-400" />Intent catalogs</li>
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-purple-400" />Continuous generation</li>
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-purple-400" />Policy & validation gates</li>
+                                            <li className="flex items-center gap-2"><ChevronRight className="h-4 w-4 text-purple-400" />Reliability & outcome metrics</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
 
-                    <p>
-                        The solution is not to slow AI down. The solution is to evolve the operating model.
-                    </p>
+                            <section id="path-forward" className="mb-16">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+                                    The Path Forward
+                                </h2>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    This is not an attack on Agile or SAFe. Those frameworks solved real problems and continue
+                                    to serve organizations well. But they were designed for constraints that AI is eliminating.
+                                    As AI becomes the primary producer of code, the human role shifts from execution to
+                                    governance. This requires different operating assumptions.
+                                </p>
+                                <p className="text-lg text-white/70 leading-relaxed mb-6">
+                                    Agile practices may survive in modified form. Daily standups still provide value when humans
+                                    need to coordinate. Retrospectives still matter when teams need to learn. But the operating
+                                    system underneath is changing. Enterprises that adopt AI development tools without evolving
+                                    their delivery model will experience speed without control.
+                                </p>
 
-                    <h2>Introducing NATIVE</h2>
+                                {/* Final Statement */}
+                                <div className="my-10 py-8 border-t border-b border-white/10">
+                                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed text-center">
+                                        SAFe scaled human coordination.<br />
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">NATIVE scales machine autonomy safely.</span>
+                                    </p>
+                                </div>
 
-                    <p>
-                        NATIVE is an AI-native software delivery lifecycle operating model. It is not a process
-                        overlay or certification program. It is a fundamental rethinking of how software gets built
-                        when AI is the primary executor and humans are the validators, governors, and decision-makers.
-                    </p>
+                                <p className="text-lg text-white/70 leading-relaxed">
+                                    NATIVE provides a path forward that is practical, governed, and enterprise-ready. The
+                                    operating system is changing. The question is whether your organization will evolve with it.
+                                </p>
+                            </section>
+                        </article>
 
-                    <p>
-                        The framework consists of six principles that form a continuous control loop:
-                    </p>
+                        {/* Sticky Sidebar */}
+                        <aside className="hidden lg:block">
+                            <div className="sticky top-24">
+                                <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+                                    <h4 className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-4">
+                                        In This Article
+                                    </h4>
+                                    <nav className="space-y-2">
+                                        {tableOfContents.map((item) => (
+                                            <a
+                                                key={item.id}
+                                                href={`#${item.id}`}
+                                                className="block text-sm text-white/50 hover:text-white transition-colors py-1"
+                                            >
+                                                {item.title}
+                                            </a>
+                                        ))}
+                                    </nav>
+                                </div>
 
-                    <p>
-                        <strong>Normalize intent.</strong> Traditional backlogs contain tasks. AI-native development
-                        starts with outcomes. Instead of specifying how to build something, teams define what success
-                        looks like and why it matters. AI systems interpret intent and propose implementation paths.
-                        Humans validate that the interpretation matches their actual goals.
-                    </p>
-
-                    <p>
-                        <strong>Augment with agents.</strong> AI agents become the primary executors of defined intent.
-                        This is not about chatbots answering questions. This is about autonomous systems that plan,
-                        execute, and iterate. Human developers shift from writing code to supervising agents, reviewing
-                        outputs, and handling edge cases that require judgment.
-                    </p>
-
-                    <p>
-                        <strong>Test continuously.</strong> When AI generates code at machine speed, testing must
-                        happen at machine speed. Validation runs before human review, not after. If AI-generated code
-                        cannot demonstrate correctness through automated verification, it never reaches human reviewers.
-                        This inverts the traditional model where testing follows development.
-                    </p>
-
-                    <p>
-                        <strong>Instrument everything.</strong> Every AI decision, every generated artifact, every
-                        validation result must be observable and traceable. When something goes wrong, you need to
-                        understand not just what happened but why the system made those choices. Observability is not
-                        optional in AI-native development. It is foundational.
-                    </p>
-
-                    <p>
-                        <strong>Validate outcomes.</strong> The question is never whether the code works. The
-                        questions are whether it is correct, whether it is secure, whether it is compliant, and
-                        whether users will actually adopt it. Outcome validation extends beyond functional testing
-                        to encompass security, compliance, performance, and adoption metrics.
-                    </p>
-
-                    <p>
-                        <strong>Evolve systems.</strong> AI-native development rejects the notion of fixed plans
-                        and stable states. Systems continuously learn from deployment outcomes. Models improve based
-                        on validation results. The operating model itself adapts as teams discover what works.
-                    </p>
-
-                    <h2>From Sprint Cycles to Control Loops</h2>
-
-                    <p>
-                        The fundamental difference between traditional frameworks and NATIVE is the shift from
-                        time-boxed cycles to continuous control loops. A sprint is a planning unit: work enters at
-                        the beginning and ships at the end. A control loop is a feedback mechanism: inputs trigger
-                        actions, actions produce outcomes, outcomes inform adjustments, and the cycle continues
-                        without fixed boundaries.
-                    </p>
-
-                    <p>
-                        In practical terms, this means several shifts in how teams operate. Backlogs become intent
-                        catalogs, focused on outcomes rather than tasks. Sprints become continuous generation, with
-                        no artificial timeboxes constraining when work can ship. Code reviews become policy and
-                        validation gates, automated where possible and human-supervised where judgment is required.
-                        Velocity metrics become reliability and outcome metrics, measuring whether systems actually
-                        deliver value rather than how fast teams produce artifacts.
-                    </p>
-
-                    <h2>The Path Forward</h2>
-
-                    <p>
-                        This is not an attack on Agile or SAFe. Those frameworks solved real problems and continue
-                        to serve organizations well. But they were designed for constraints that AI is eliminating.
-                        As AI becomes the primary producer of code, the human role shifts from execution to
-                        governance. This requires different operating assumptions.
-                    </p>
-
-                    <p>
-                        Agile practices may survive in modified form. Daily standups still provide value when humans
-                        need to coordinate. Retrospectives still matter when teams need to learn. But the operating
-                        system underneath is changing. Enterprises that adopt AI development tools without evolving
-                        their delivery model will experience speed without control. They will ship faster and break
-                        more. They will generate more code and understand less of it.
-                    </p>
-
-                    <p>
-                        NATIVE provides a path forward that is practical, governed, and enterprise-ready. It
-                        acknowledges that AI is not a tool to be bolted onto existing processes. It is a fundamental
-                        shift in how software gets built. The organizations that recognize this shift and adapt their
-                        operating models accordingly will define the next era of software development.
-                    </p>
-
-                    <p>
-                        SAFe scaled human coordination. NATIVE scales machine autonomy safely.
-                    </p>
-
-                    <p>
-                        The operating system is changing. The question is whether your organization will evolve with it.
-                    </p>
+                                {/* CTA Card */}
+                                <div className="mt-6 p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20">
+                                    <h4 className="font-semibold text-white mb-2">Learn the NATIVE Framework</h4>
+                                    <p className="text-sm text-white/60 mb-4">
+                                        ScaledNative provides training and certification for AI-native development.
+                                    </p>
+                                    <Link href="/native">
+                                        <button className="w-full px-4 py-2.5 rounded-lg bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors">
+                                            Explore Framework →
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
                 </div>
-            </article>
+            </div>
 
-            {/* Footer CTA */}
-            <footer className="pb-24 px-6 border-t border-white/5">
-                <div className="mx-auto max-w-3xl pt-12">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div>
-                            <p className="text-sm text-white/50 mb-2">
-                                Learn to implement the NATIVE framework
-                            </p>
-                            <p className="text-xs text-white/30">
-                                ScaledNative provides training and operational tooling for AI-native development.
-                            </p>
-                        </div>
-                        <Link href="/native">
-                            <button className="px-6 py-3 rounded-full bg-white/5 text-white text-sm font-medium border border-white/10 hover:bg-white/10 transition-all whitespace-nowrap">
-                                Explore NATIVE Framework
-                            </button>
-                        </Link>
+            {/* Footer */}
+            <footer className="border-t border-white/5 py-12 px-6">
+                <div className="mx-auto max-w-4xl flex flex-col md:flex-row items-center justify-between gap-6">
+                    <Link href="/" className="font-playfair text-lg italic text-white/50 hover:text-white transition-colors">
+                        ScaledNative™
+                    </Link>
+                    <div className="flex items-center gap-6 text-sm text-white/30">
+                        <Link href="/insights/native-sdlc-evolution" className="hover:text-white transition-colors">Share this article</Link>
+                        <Link href="/native" className="hover:text-white transition-colors">NATIVE Framework</Link>
+                        <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
                     </div>
                 </div>
             </footer>
