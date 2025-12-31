@@ -75,7 +75,9 @@ export interface VideoChapter {
 
 /** Enhanced video with chapters and takeaways */
 export interface EnhancedVideo {
+    id?: string;
     title: string;
+    description?: string;
     videoUrl: string;
     duration: string;
     chapters: VideoChapter[];
@@ -373,7 +375,81 @@ print(prompt_crisp)`,
                     skills: ["Prompt Engineering", "Technical Writing", "Code Analysis", "CRISP Framework"]
                 }
             },
-            { type: "heading", level: 2, text: "Additional Resources" },
+            { type: "heading", level: 2, text: "🎬 Supplemental Learning: Industry Expert Videos" },
+            {
+                type: "video-enhanced",
+                video: {
+                    id: "vid-m1-addy-osmani",
+                    title: "The AI-Native Software Engineer",
+                    description: "Addy Osmani (Google Engineering Leader) on the practical playbook for AI-assisted software engineering in 2025. Essential viewing for understanding the AI-native developer mindset.",
+                    videoUrl: "https://www.youtube.com/watch?v=FoXHScf1mjA",
+                    duration: "45 min",
+                    chapters: [
+                        { time: "0:00", title: "Introduction: Why AI-Native Matters" },
+                        { time: "3:00", title: "The Speed vs Shipping Paradox" },
+                        { time: "7:00", title: "AI as a Pair Programmer" },
+                        { time: "12:00", title: "Prompt Engineering for Code" },
+                        { time: "18:00", title: "Quality Assurance with AI" },
+                        { time: "25:00", title: "Building AI-Native Teams" },
+                        { time: "32:00", title: "Practical Playbook & Takeaways" }
+                    ],
+                    keyTakeaways: [
+                        "AI-native development is about human-AI collaboration, not replacement",
+                        "The best developers will be those who can effectively direct AI tools",
+                        "Quality assurance becomes MORE important, not less, with AI assistance",
+                        "Context engineering (providing the right information to AI) is a core skill"
+                    ]
+                }
+            },
+            {
+                type: "video-enhanced",
+                video: {
+                    id: "vid-m1-context-eng",
+                    title: "Context Engineering Clearly Explained",
+                    description: "Deep dive into context engineering—the skill of providing AI with the right information to get optimal outputs. This is becoming more important than prompt engineering.",
+                    videoUrl: "https://www.youtube.com/watch?v=jLuwLJBQkIs",
+                    duration: "32 min",
+                    chapters: [
+                        { time: "0:00", title: "What is Context Engineering?" },
+                        { time: "2:00", title: "Context vs Prompts: The Difference" },
+                        { time: "6:00", title: "Types of Context: Code, Docs, Examples" },
+                        { time: "10:00", title: "Building Effective Context Windows" },
+                        { time: "15:00", title: "Advanced Context Strategies" },
+                        { time: "20:00", title: "Tools for Context Management" }
+                    ],
+                    keyTakeaways: [
+                        "Context engineering is about WHAT information you give the AI, not just HOW you ask",
+                        "The quality of AI output is directly proportional to context quality",
+                        "Effective context includes: codebase structure, dependencies, coding standards, examples",
+                        "Context management tools (cursor, rules files) are becoming essential"
+                    ]
+                }
+            },
+            {
+                type: "video-enhanced",
+                video: {
+                    id: "vid-m1-bmad",
+                    title: "The BMAD Method: AI-Driven Development System",
+                    description: "Learn the BMAD (Build, Measure, Analyze, Decide) methodology for structured AI-assisted development. A systematic approach to integrating AI into your development workflow.",
+                    videoUrl: "https://www.youtube.com/watch?v=fD8NLPU0WYU",
+                    duration: "28 min",
+                    chapters: [
+                        { time: "0:00", title: "Introduction to BMAD" },
+                        { time: "1:23", title: "The Four Phases Explained" },
+                        { time: "5:00", title: "BMAD with Claude & Cursor" },
+                        { time: "10:00", title: "Agile AI-Driven Development" },
+                        { time: "15:00", title: "Measuring AI Effectiveness" },
+                        { time: "20:00", title: "Integrating BMAD into Teams" }
+                    ],
+                    keyTakeaways: [
+                        "BMAD provides structure to otherwise chaotic AI-assisted coding",
+                        "Build → Measure → Analyze → Decide creates iterative improvement loops",
+                        "Combines well with existing agile methodologies",
+                        "Focuses on outcomes, not just AI tool usage"
+                    ]
+                }
+            },
+            { type: "heading", level: 2, text: "📚 Additional Resources" },
             {
                 type: "resources",
                 items: [
