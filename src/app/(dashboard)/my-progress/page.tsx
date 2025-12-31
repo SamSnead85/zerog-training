@@ -19,38 +19,53 @@ import {
     Zap,
     Brain,
     ArrowRight,
+    Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AIAssistantButton } from "@/components/ai";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 // =============================================================================
-// MOCK USER DATA
+// USER DATA INTERFACE
 // =============================================================================
 
-const userData = {
-    name: "Alex",
-    streak: 12,
-    totalPoints: 2450,
-    rank: 15,
-    completedLessons: 24,
-    totalLessons: 96,
-    completedModules: 3,
-    totalModules: 8,
-    certifications: 1,
-    weeklyGoal: { current: 4, target: 5 },
-    recentActivity: [
-        { type: "lesson", title: "Prompt Engineering Fundamentals", time: "2 hours ago", points: 50 },
-        { type: "quiz", title: "LLM Architecture Quiz", time: "1 day ago", points: 100, score: 92 },
-        { type: "lesson", title: "Understanding Transformers", time: "2 days ago", points: 50 },
-    ],
+interface UserProgress {
+    name: string;
+    streak: number;
+    totalPoints: number;
+    rank: number;
+    completedLessons: number;
+    totalLessons: number;
+    completedModules: number;
+    totalModules: number;
+    certifications: number;
+    weeklyGoal: { current: number; target: number };
+    recentActivity: Array<{ type: string; title: string; time: string; points: number; score?: number }>;
+    upNext: Array<{ id: string; lessonNumber: number; title: string; duration: string }>;
+    achievements: Array<{ icon: string; title: string; earned: boolean }>;
+}
+
+// Default data for loading state
+const defaultUserData: UserProgress = {
+    name: "Learner",
+    streak: 0,
+    totalPoints: 0,
+    rank: 0,
+    completedLessons: 0,
+    totalLessons: 10,
+    completedModules: 0,
+    totalModules: 10,
+    certifications: 0,
+    weeklyGoal: { current: 0, target: 5 },
+    recentActivity: [],
     upNext: [
-        { id: "module-1", lessonNumber: 4, title: "Advanced Prompt Techniques", duration: "35 min" },
-        { id: "module-2", lessonNumber: 1, title: "Introduction to RAG", duration: "25 min" },
+        { id: "module-1", lessonNumber: 1, title: "AI Fundamentals", duration: "30 min" },
+        { id: "module-2", lessonNumber: 1, title: "Introduction to LLMs", duration: "35 min" },
     ],
     achievements: [
-        { icon: "🔥", title: "7-Day Streak", earned: true },
-        { icon: "📚", title: "First Module", earned: true },
-        { icon: "🎯", title: "Quiz Master", earned: true },
+        { icon: "🔥", title: "7-Day Streak", earned: false },
+        { icon: "📚", title: "First Module", earned: false },
+        { icon: "🎯", title: "Quiz Master", earned: false },
         { icon: "🏆", title: "Top 10%", earned: false },
     ],
 };
@@ -134,7 +149,71 @@ function ProgressRing({ progress, size = 120, strokeWidth = 8 }: { progress: num
 // =============================================================================
 
 export default function MyProgressPage() {
-    const overallProgress = Math.round((userData.completedLessons / userData.totalLessons) * 100);
+    const { user, isLoading: authLoading } = useAuth();
+    const [userData, setUserData] = useState<UserProgress>(defaultUserData);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Fetch real progress data from API
+    useEffect(() => {
+        async function fetchProgress() {
+            try {
+                const response = await fetch('/api/progress');
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Transform API data to our format
+                    if (data.progress && data.progress.length > 0) {
+                        const completedLessons = data.progress.filter(
+                            (p: { status: string }) => p.status === 'COMPLETED'
+                        ).length;
+                        const completedModules = data.progress.filter(
+                            (p: { completionPercentage: number; lessonId: null }) =>
+                                p.completionPercentage >= 100 && !p.lessonId
+                        ).length;
+
+                        setUserData(prev => ({
+                            ...prev,
+                            name: user?.name || prev.name,
+                            completedLessons,
+                            completedModules,
+                            totalModules: 10, // From curriculum
+                            achievements: prev.achievements.map((a, i) => ({
+                                ...a,
+                                earned: i === 0 ? prev.streak >= 7 :
+                                    i === 1 ? completedModules >= 1 : a.earned
+                            }))
+                        }));
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch progress:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        if (!authLoading && user) {
+            setUserData(prev => ({ ...prev, name: user.name || 'Learner' }));
+            fetchProgress();
+        } else if (!authLoading) {
+            setIsLoading(false);
+        }
+    }, [authLoading, user]);
+
+    const overallProgress = userData.totalLessons > 0
+        ? Math.round((userData.completedLessons / userData.totalLessons) * 100)
+        : 0;
+
+    if (isLoading || authLoading) {
+        return (
+            <div className="min-h-screen bg-black text-white flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <Loader2 className="h-8 w-8 animate-spin text-white/60" />
+                    <p className="text-white/40">Loading your progress...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-black text-white">

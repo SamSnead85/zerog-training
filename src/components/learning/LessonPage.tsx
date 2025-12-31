@@ -20,6 +20,10 @@ import { type LessonContent, type LessonSection, getLessonsByModule } from "@/li
 import { Quiz, type QuizQuestion } from "@/components/learning/Quiz";
 import { CodeEditor, type CodeExercise } from "@/components/learning/CodeEditor";
 import { VideoPlayer } from "@/components/learning/VideoPlayer";
+import { InteractiveLabComponent } from "@/components/learning/InteractiveLab";
+import { ProjectCardComponent } from "@/components/learning/ProjectCard";
+import { AISimulatorComponent } from "@/components/learning/AISimulator";
+
 
 // =============================================================================
 // LESSON SECTION RENDERERS
@@ -157,9 +161,61 @@ function SectionRenderer({ section }: SectionRendererProps) {
                 </div>
             );
 
+        // Next-gen content types
+        case "interactive-lab":
+            return (
+                <div className="mb-8">
+                    <InteractiveLabComponent lab={section.lab} />
+                </div>
+            );
+
+        case "project":
+            return (
+                <div className="mb-8">
+                    <ProjectCardComponent project={section.project} />
+                </div>
+            );
+
+        case "video-enhanced":
+            return (
+                <div className="mb-8">
+                    <VideoPlayer
+                        video={{
+                            id: section.video.title,
+                            title: section.video.title,
+                            duration: section.video.duration,
+                            videoUrl: section.video.videoUrl,
+                            transcript: section.video.transcript,
+                            chapters: section.video.chapters.map((c) => ({
+                                time: parseChapterTime(c.time),
+                                title: c.title,
+                            })),
+                        }}
+                    />
+                </div>
+            );
+
+        case "simulation":
+            return (
+                <div className="mb-8">
+                    <AISimulatorComponent simulation={section.simulation} />
+                </div>
+            );
+
         default:
             return null;
     }
+}
+
+// Helper to parse chapter time string to seconds
+function parseChapterTime(timeStr: string): number {
+    const parts = timeStr.split(":").map(Number);
+    if (parts.length === 2) {
+        return parts[0] * 60 + parts[1];
+    } else if (parts.length === 3) {
+        return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    }
+    return 0;
 }
 
 // =============================================================================

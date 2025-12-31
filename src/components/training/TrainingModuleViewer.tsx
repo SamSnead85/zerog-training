@@ -847,21 +847,9 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
 
     const id = moduleId.toLowerCase();
 
-    // AI & Prompt Engineering - covers: prompt-engineering, prompt-eng, agentic-ai, llm-*, chatgpt-*, ai-*, gemini, claude
-    if (id.includes("prompt") || id.includes("agentic") || id.includes("llm") ||
-        id.includes("chatgpt") || id.includes("claude") || id.includes("gemini") ||
-        id.includes("copilot") || id.includes("vector") || id.includes("rag") ||
-        (id.startsWith("ai-") || id.includes("-ai-") || id.endsWith("-ai"))) {
-        return { sections: expandedAIPromptEngineeringModule, title: "Prompt Engineering Masterclass" };
-    }
-
-    // Data Privacy & GDPR - covers: gdpr, privacy, ccpa, data-protection
-    if (id.includes("gdpr") || id.includes("privacy") || id.includes("ccpa") || id.includes("data-protection")) {
-        return { sections: dataPrivacyModule, title: "Data Privacy & GDPR Training" };
-    }
-
-    // Leadership - covers: leadership-*, change-management, executive-*, dei-*, coaching, feedback, management
-    if (id.includes("leadership") || id.includes("management") || id.includes("coaching") ||
+    // Leadership - MUST BE CHECKED BEFORE AI (leadership-ai-era contains 'ai')
+    // covers: leadership-*, change-management, executive-*, dei-*, coaching, feedback, management
+    if (id.includes("leadership") || id.includes("coaching") ||
         id.includes("feedback") || id.includes("executive") || id.includes("dei-") ||
         id.includes("change-") || id.includes("-leader")) {
         return { sections: leadershipModule, title: "Leadership Fundamentals" };
@@ -895,6 +883,20 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
         return { sections: cybersecurityModule, title: "Cybersecurity Awareness Training" };
     }
 
+    // Data Privacy & GDPR - covers: gdpr, privacy, ccpa, data-protection
+    if (id.includes("gdpr") || id.includes("privacy") || id.includes("ccpa") || id.includes("data-protection")) {
+        return { sections: dataPrivacyModule, title: "Data Privacy & GDPR Training" };
+    }
+
+    // AI & Prompt Engineering - MUST BE CHECKED AFTER MORE SPECIFIC MODULES
+    // covers: prompt-engineering, prompt-eng, agentic-ai, llm-*, chatgpt-*, ai-*, gemini, claude
+    if (id.includes("prompt") || id.includes("agentic") || id.includes("llm") ||
+        id.includes("chatgpt") || id.includes("claude") || id.includes("gemini") ||
+        id.includes("copilot") || id.includes("vector") || id.includes("rag") ||
+        (id.startsWith("ai-") || id.includes("-ai-") || id.endsWith("-ai"))) {
+        return { sections: expandedAIPromptEngineeringModule, title: "Prompt Engineering Masterclass" };
+    }
+
     // Analytics/Data - covers: data-analytics, analytics-*, reporting
     if (id.includes("analytics") || id.includes("reporting") || id.includes("data-")) {
         return { sections: leadershipModule, title: "Data Analytics Fundamentals" };
@@ -903,6 +905,11 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
     // AI Ethics - specific match before general fallback
     if (id.includes("ethics") || id.includes("responsible-ai") || id.includes("governance")) {
         return { sections: expandedAIPromptEngineeringModule, title: "AI Ethics & Responsible AI" };
+    }
+
+    // Management should also go to leadership
+    if (id.includes("management")) {
+        return { sections: leadershipModule, title: "Management Fundamentals" };
     }
 
     // Default fallback - use leadership as a more generic option

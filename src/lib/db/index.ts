@@ -333,11 +333,17 @@ export async function seedAdminUser() {
 
 export async function seedTestUser() {
     const org = await getOrCreateDefaultOrg();
+    const password = 'testpass123';
+    const passwordHash = await bcrypt.hash(password, 10);
 
     const existingUser = await getUserByEmail('testuser1@test.com');
-    if (existingUser) return existingUser;
-
-    const passwordHash = await bcrypt.hash('Winter2022$', 10);
+    if (existingUser) {
+        // Update password in case it changed
+        return getPrisma().user.update({
+            where: { id: existingUser.id },
+            data: { passwordHash },
+        });
+    }
 
     return getPrisma().user.create({
         data: {
