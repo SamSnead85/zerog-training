@@ -61,7 +61,7 @@ const metrics: MetricCard[] = [
 const topCourses: CourseMetric[] = [
     { id: "1", title: "NIST Cybersecurity Framework 2.0", enrollments: 2847, completionRate: 82, avgScore: 87.5, avgTime: "38 min", trend: "up" },
     { id: "2", title: "HIPAA Privacy Essentials", enrollments: 2156, completionRate: 91, avgScore: 89.2, avgTime: "28 min", trend: "up" },
-    { id: "3", title: "SAFe 6.0 Agilist Training", enrollments: 1893, completionRate: 68, avgScore: 82.1, avgTime: "52 min", trend: "stable" },
+    { id: "3", title: "NATIVE Framework Training", enrollments: 1893, completionRate: 68, avgScore: 82.1, avgTime: "52 min", trend: "stable" },
     { id: "4", title: "Leadership Fundamentals", enrollments: 1654, completionRate: 74, avgScore: 85.8, avgTime: "32 min", trend: "up" },
     { id: "5", title: "Workplace Harassment Prevention", enrollments: 3521, completionRate: 95, avgScore: 91.2, avgTime: "18 min", trend: "stable" },
 ];

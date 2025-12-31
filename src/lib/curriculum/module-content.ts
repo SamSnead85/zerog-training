@@ -585,20 +585,20 @@ export const hipaaComplianceContent: TrainingModuleContent = {
     ]
 };
 
-// ==================== SAFe 6.0 AGILIST TRAINING ====================
-export const safeAgilistContent: TrainingModuleContent = {
-    id: "safe-agilist-6",
-    title: "SAFe 6.0 Leading SAFe",
-    subtitle: "Scaled Agile Framework for Enterprise",
-    description: "Comprehensive SAFe 6.0 training covering Lean-Agile principles, Agile Release Trains, PI Planning, and leading SAFe transformation. Prepare for SAFe Agilist certification.",
+// ==================== NATIVE FRAMEWORK TRAINING ====================
+export const nativeFrameworkContent: TrainingModuleContent = {
+    id: "native-framework",
+    title: "NATIVE Framework Foundations",
+    subtitle: "AI-Native Software Delivery Operating Model",
+    description: "Comprehensive NATIVE framework training covering AI-native principles, human-AI collaboration, intent-driven development, and continuous testing. Master the future of software delivery.",
     learningObjectives: [
-        "Understand SAFe 6.0 structure: Core, Large Solution, and Portfolio levels",
-        "Apply the 10 SAFe Principles in your organization",
-        "Lead and participate in PI Planning events",
-        "Manage Agile Release Trains (ARTs) effectively",
-        "Implement Lean Portfolio Management practices"
+        "Understand NATIVE framework structure: Normalize, Augment, Test, Iterate, Validate, Evolve",
+        "Apply the 5 NATIVE Principles in your organization",
+        "Lead and participate in intent-driven planning sessions",
+        "Manage Human-AI collaboration effectively",
+        "Implement continuous testing and validation practices"
     ],
-    standards: ["SAFe 6.0", "Scaled Agile Framework", "Lean-Agile Principles"],
+    standards: ["NATIVE Framework", "Agentic Agile SDLC", "Human-AI Collaboration"],
     sections: [
         {
             id: "safe-intro",
@@ -1631,12 +1631,12 @@ export const allModuleContent: Record<string, TrainingModuleContent> = {
     "hipaa-essentials": hipaaComplianceContent,
     "hipaa": hipaaComplianceContent,
 
-    // SAFe - multiple aliases  
-    "safe-agilist-6": safeAgilistContent,
-    "safe-agilist": safeAgilistContent,
-    "safe-scrum-master": safeAgilistContent,
-    "scrum-master": safeAgilistContent,
-    "agile-fundamentals": safeAgilistContent,
+    // NATIVE Framework - multiple aliases  
+    "native-framework": nativeFrameworkContent,
+    "native-foundations": nativeFrameworkContent,
+    "agentic-sdlc": nativeFrameworkContent,
+    "human-ai-collaboration": nativeFrameworkContent,
+    "intent-driven-development": nativeFrameworkContent,
 
     // Harassment Prevention
     "harassment-prevention": harassmentPreventionContent,

@@ -27,7 +27,7 @@ import { cn } from "@/lib/utils";
 
 // Category gradients - Professional, muted enterprise tones
 const categoryConfig: Record<string, { gradient: string; icon: React.ElementType }> = {
-    "Agile & SAFe": { gradient: "from-slate-600/40 via-zinc-600/25 to-slate-500/10", icon: Workflow },
+    "Agentic Agile SDLC": { gradient: "from-slate-600/40 via-zinc-600/25 to-slate-500/10", icon: Workflow },
     "AI & Technology": { gradient: "from-slate-700/40 via-slate-600/25 to-slate-500/10", icon: Brain },
     "Compliance": { gradient: "from-zinc-700/40 via-slate-600/25 to-zinc-500/10", icon: Shield },
     "Leadership": { gradient: "from-stone-700/40 via-stone-600/25 to-stone-500/10", icon: TrendingUp },
@@ -37,13 +37,13 @@ const categoryConfig: Record<string, { gradient: string; icon: React.ElementType
 // In-progress courses with proper content and thumbnails
 const inProgressCourses = [
     {
-        id: "safe-agilist",
-        title: "SAFe 6.0 Agilist Certification",
-        description: "Master the Scaled Agile Framework for enterprise agility",
-        category: "Agile & SAFe",
-        duration: "8 hrs",
+        id: "native-framework",
+        title: "NATIVE Framework Foundations",
+        description: "Master AI-native software delivery with the NATIVE operating model",
+        category: "Agentic Agile SDLC",
+        duration: "4 hrs",
         progress: 65,
-        nextLesson: "PI Planning Facilitation",
+        nextLesson: "Augment Execution",
         completedLessons: 13,
         totalLessons: 20,
         lastAccessed: "2 hours ago",
@@ -109,7 +109,7 @@ const completedCourses = [
 // Recommended courses
 const recommendedCourses = [
     { id: "agentic-ai", title: "Agentic AI Systems", description: "Build autonomous AI workflows", category: "AI & Technology", duration: "8 hrs", rating: 4.9, enrollments: 12500, isNew: true, difficulty: "advanced" as const, instructor: "Dr. Sarah Chen", sections: 20 },
-    { id: "scrum-master", title: "Scrum Master Certification", description: "Lead agile teams effectively", category: "Agile & SAFe", duration: "6 hrs", rating: 4.8, enrollments: 38000, difficulty: "beginner" as const, instructor: "Rachel Thompson", sections: 16 },
+    { id: "human-ai-collab", title: "Human-AI Collaboration", description: "Build effective human-AI partnerships", category: "Agentic Agile SDLC", duration: "4 hrs", rating: 4.8, enrollments: 31000, difficulty: "intermediate" as const, instructor: "Dr. Emily Rodriguez", sections: 14 },
     { id: "change-management", title: "Change Management Mastery", description: "Guide your organization through change", category: "Leadership", duration: "4 hrs", rating: 4.7, enrollments: 24000, difficulty: "intermediate" as const, instructor: "Dr. Michael Brown", sections: 12 },
     { id: "soc2", title: "SOC 2 Type II Deep Dive", description: "Implement Trust Service Criteria", category: "Compliance", duration: "5 hrs", rating: 4.7, enrollments: 15000, difficulty: "advanced" as const, instructor: "Robert Garcia", sections: 14 },
 ];

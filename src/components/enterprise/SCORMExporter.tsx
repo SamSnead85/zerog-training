@@ -39,7 +39,7 @@ interface ExportSettings {
 const sampleModules: ExportModule[] = [
     { id: "1", title: "NIST Cybersecurity Framework 2.0", sections: 10, duration: "45 min", selected: true },
     { id: "2", title: "HIPAA Privacy Essentials", sections: 8, duration: "30 min", selected: true },
-    { id: "3", title: "SAFe 6.0 Agilist Training", sections: 12, duration: "60 min", selected: false },
+    { id: "3", title: "NATIVE Framework Training", sections: 12, duration: "60 min", selected: false },
     { id: "4", title: "Leadership Fundamentals", sections: 6, duration: "25 min", selected: false },
     { id: "5", title: "Workplace Harassment Prevention", sections: 5, duration: "20 min", selected: true },
 ];
