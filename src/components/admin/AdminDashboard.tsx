@@ -80,7 +80,7 @@ const users: User[] = [
 ];
 
 const courses: Course[] = [
-    { id: "1", title: "SAFe Scrum Master Certification", status: "published", enrollments: 124, completions: 98, rating: 4.8, lastUpdated: "2 days ago", category: "Agile" },
+    { id: "1", title: "NATIVE Framework Certification", status: "published", enrollments: 124, completions: 98, rating: 4.8, lastUpdated: "2 days ago", category: "Agentic SDLC" },
     { id: "2", title: "Leadership Fundamentals", status: "published", enrollments: 89, completions: 67, rating: 4.6, lastUpdated: "1 week ago", category: "Leadership" },
     { id: "3", title: "Advanced Data Analytics", status: "draft", enrollments: 0, completions: 0, rating: 0, lastUpdated: "3 hours ago", category: "AI & Tech" },
     { id: "4", title: "HIPAA Compliance 2024", status: "published", enrollments: 156, completions: 142, rating: 4.9, lastUpdated: "1 month ago", category: "Compliance" },

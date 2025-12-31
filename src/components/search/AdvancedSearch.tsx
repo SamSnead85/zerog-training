@@ -30,7 +30,7 @@ interface Course {
 
 // Mock courses
 const allCourses: Course[] = [
-    { id: "safe-scrum-master", title: "SAFe Scrum Master Certification", description: "Master scaled agile frameworks", category: "Agile", duration: "8 hours", difficulty: "Intermediate", rating: 4.8, enrollments: 1250, tags: ["agile", "scrum", "certification"] },
+    { id: "native-framework", title: "NATIVE Framework Certification", description: "Master AI-native software delivery", category: "Agentic SDLC", duration: "4 hours", difficulty: "Beginner", rating: 4.9, enrollments: 38000, tags: ["native", "agentic", "certification"] },
     { id: "leadership-fundamentals", title: "Leadership Fundamentals", description: "Essential leadership skills", category: "Leadership", duration: "6 hours", difficulty: "Beginner", rating: 4.6, enrollments: 2100, tags: ["leadership", "management"] },
     { id: "hipaa-compliance", title: "HIPAA Compliance Essentials", description: "Healthcare data protection", category: "Compliance", duration: "2 hours", difficulty: "Beginner", rating: 4.5, enrollments: 3400, tags: ["hipaa", "compliance", "healthcare"] },
     { id: "cybersecurity-awareness", title: "Cybersecurity Awareness", description: "Protect against digital threats", category: "Security", duration: "3 hours", difficulty: "Beginner", rating: 4.7, enrollments: 4200, tags: ["security", "cyber", "awareness"] },

@@ -10,7 +10,7 @@ export const cybersecurityContent = {
             id: "lesson-1",
             title: "Understanding Cyber Threats",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Understanding Cyber Threats
 
@@ -72,7 +72,7 @@ Manipulating people rather than systems:
             id: "lesson-2",
             title: "Password Security & Authentication",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Password Security & Authentication
 
@@ -160,7 +160,7 @@ Something you:
             id: "lesson-3",
             title: "Safe Browsing & Email Security",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Safe Browsing & Email Security
 
@@ -248,7 +248,7 @@ Something you:
             id: "lesson-4",
             title: "Data Protection & Privacy",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Data Protection & Privacy
 
@@ -345,7 +345,7 @@ If you suspect a breach:
             id: "lesson-5",
             title: "Physical Security & Remote Work",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Physical Security & Remote Work
 
@@ -464,7 +464,7 @@ export const changeManagementContent = {
             id: "lesson-1",
             title: "Understanding Organizational Change",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Understanding Organizational Change
 
@@ -539,7 +539,7 @@ Performance
             id: "lesson-2",
             title: "Kotter's 8-Step Change Model",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Kotter's 8-Step Change Model
 
@@ -626,7 +626,7 @@ John Kotter's model provides a structured approach to leading change:
             id: "lesson-3",
             title: "Communication During Change",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Communication During Change
 

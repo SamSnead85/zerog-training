@@ -64,7 +64,7 @@ const mockCertificates: Certificate[] = [
     },
     {
         id: "3",
-        courseName: "SAFe 6.0 Agilist Certification",
+        courseName: "NATIVE Framework Certification",
         issuedAt: "Oct 5, 2024",
         credentialId: "ZEROG-SAFE-2024-00234",
         earnedBy: "Sarah Chen",

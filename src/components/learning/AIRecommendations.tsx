@@ -42,12 +42,12 @@ const mockRecommendations: RecommendedCourse[] = [
     },
     {
         id: "2",
-        title: "SAFe Product Owner/PM",
+        title: "Agentic Product Leadership",
         description: "Learn to maximize value delivery in Scaled Agile environments",
-        category: "Agile & SAFe",
+        category: "Agentic Agile SDLC",
         duration: "6 hrs",
         matchScore: 94,
-        reason: "Complements your SAFe Agilist certification path",
+        reason: "Based on your role as Product Manager",
         thumbnail: "/images/training/network-security.png",
         difficulty: "intermediate"
     },

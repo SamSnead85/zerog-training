@@ -10,7 +10,7 @@ export const projectManagementContent = {
             id: "lesson-1",
             title: "Introduction to Project Management",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Introduction to Project Management
 
@@ -85,7 +85,7 @@ Every project balances three constraints:
             id: "lesson-2",
             title: "Stakeholder Management",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Stakeholder Management
 
@@ -151,7 +151,7 @@ export const deiContent = {
             id: "lesson-1",
             title: "Understanding Diversity, Equity & Inclusion",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Understanding Diversity, Equity & Inclusion
 
@@ -219,7 +219,7 @@ Equity acknowledges that some groups face systemic barriers that require tailore
             id: "lesson-2",
             title: "Recognizing Unconscious Bias",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Recognizing Unconscious Bias
 
@@ -281,7 +281,7 @@ export const softSkillsContent = {
             id: "lesson-1",
             title: "The Importance of Feedback",
             duration: "15 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # The Importance of Feedback
 
@@ -336,7 +336,7 @@ Future-focused suggestions for development (not dwelling on past mistakes).
             id: "lesson-2",
             title: "The SBI Feedback Model",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # The SBI Feedback Model
 
@@ -407,7 +407,7 @@ export const technologyContent = {
             id: "lesson-1",
             title: "Introduction to Data Analytics",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Introduction to Data Analytics
 
@@ -480,7 +480,7 @@ export const salesContent = {
             id: "lesson-1",
             title: "What is Consultative Selling?",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # What is Consultative Selling?
 

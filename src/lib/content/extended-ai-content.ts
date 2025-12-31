@@ -10,7 +10,7 @@ export const promptEngineeringContent = {
             id: "lesson-1",
             title: "Foundations of Prompt Engineering",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Foundations of Prompt Engineering
 
@@ -89,7 +89,7 @@ Example output format:
             id: "lesson-2",
             title: "Advanced Prompting Techniques",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Advanced Prompting Techniques
 
@@ -190,7 +190,7 @@ Respond in the following JSON format:
             id: "lesson-3",
             title: "Prompt Patterns for Enterprise Use Cases",
             duration: "35 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Prompt Patterns for Enterprise Use Cases
 
@@ -319,7 +319,7 @@ Data:
             id: "lesson-4",
             title: "Prompt Security and Safety",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Prompt Security and Safety
 
@@ -419,7 +419,7 @@ Only give the AI access to information it truly needs.
             id: "lesson-5",
             title: "Building Prompt Libraries for Teams",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Building Prompt Libraries for Teams
 
@@ -559,7 +559,7 @@ export const ragImplementationContent = {
             id: "lesson-1",
             title: "Understanding RAG Architecture",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Understanding RAG Architecture
 
@@ -664,7 +664,7 @@ Question: {user_question}
             id: "lesson-2",
             title: "Document Chunking Strategies",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Document Chunking Strategies
 
@@ -785,7 +785,7 @@ chunk = {
             id: "lesson-3",
             title: "Vector Databases and Embeddings",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Vector Databases and Embeddings
 
@@ -916,7 +916,7 @@ similarity = dot(A, B)
             id: "lesson-4",
             title: "Advanced Retrieval Techniques",
             duration: "35 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Advanced Retrieval Techniques
 
@@ -1059,7 +1059,7 @@ Track these to improve retrieval:
             id: "lesson-5",
             title: "Production RAG: Evaluation and Optimization",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Production RAG: Evaluation and Optimization
 

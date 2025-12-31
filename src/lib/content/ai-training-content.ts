@@ -14,7 +14,7 @@ export const aiNativeContent = {
             id: "lesson-1",
             title: "What Does 'AI Native' Mean?",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # What Does "AI Native" Mean?
 
@@ -86,7 +86,7 @@ Watch for organizations that:
             id: "lesson-2",
             title: "The AI Operating Model",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # The AI Operating Model
 
@@ -172,7 +172,7 @@ A centralized team that:
             id: "lesson-3",
             title: "Large Language Models (LLMs) Explained",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Large Language Models (LLMs) Explained
 
@@ -249,7 +249,7 @@ The art of crafting inputs to get optimal outputs:
             id: "lesson-4",
             title: "Retrieval-Augmented Generation (RAG)",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Retrieval-Augmented Generation (RAG)
 
@@ -331,7 +331,7 @@ Specialized databases for similarity search:
             id: "lesson-5",
             title: "Knowledge Check: AI Fundamentals",
             duration: "10 min",
-            type: "quiz",
+            type: "quiz" as const,
             questions: [
                 {
                     question: "What percentage of cost reduction do AI Native companies typically see?",
@@ -369,7 +369,7 @@ export const agenticAIContent = {
             id: "lesson-1",
             title: "What is Agentic AI?",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # What is Agentic AI?
 
@@ -459,7 +459,7 @@ Observe → Think → Plan → Act → Observe → Think → Plan → Act → ..
             id: "lesson-2",
             title: "Agent Frameworks & Patterns",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Agent Frameworks & Patterns
 
@@ -545,7 +545,7 @@ Good agent tools should be:
             id: "lesson-3",
             title: "Designing Enterprise Agents",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # Designing Enterprise Agents
 
@@ -645,7 +645,7 @@ export const legacyModernizationContent = {
             id: "lesson-1",
             title: "The Legacy System Challenge",
             duration: "20 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # The Legacy System Challenge
 
@@ -708,7 +708,7 @@ AI can accelerate modernization by:
             id: "lesson-2",
             title: "AI-Powered Code Analysis",
             duration: "25 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # AI-Powered Code Analysis
 
@@ -788,7 +788,7 @@ AI explains:
             id: "lesson-3",
             title: "AI-Assisted Code Translation",
             duration: "30 min",
-            type: "video",
+            type: "video" as const,
             content: `
 # AI-Assisted Code Translation
 

@@ -51,7 +51,7 @@ const activityColors: Record<ActivityType, string> = {
 const mockActivities: Activity[] = [
     { id: "1", type: "completed", title: "Completed HIPAA Training", timestamp: "2 hours ago", meta: { xp: 150, course: "HIPAA Privacy & Security" } },
     { id: "2", type: "achievement", title: "Earned 'Security Champion' badge", timestamp: "3 hours ago", meta: { badge: "Security Champion" } },
-    { id: "3", type: "started", title: "Started SAFe 6.0 Agilist", timestamp: "Yesterday", meta: { course: "SAFe 6.0 Agilist Certification" } },
+    { id: "3", type: "started", title: "Started Human-AI Collaboration", timestamp: "Yesterday", meta: { course: "Human-AI Collaboration Mastery" } },
     { id: "4", type: "milestone", title: "Reached 1,000 XP milestone", timestamp: "2 days ago", meta: { xp: 1000 } },
     { id: "5", type: "rating", title: "Rated Prompt Engineering Masterclass", timestamp: "3 days ago", meta: { course: "Prompt Engineering" } },
     { id: "6", type: "completed", title: "Completed Cybersecurity Awareness", timestamp: "4 days ago", meta: { xp: 100 } },

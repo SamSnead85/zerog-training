@@ -29,7 +29,7 @@ interface CertificateData {
 const certificates: CertificateData[] = [
     {
         id: "1",
-        courseName: "SAFe Scrum Master Certification",
+        courseName: "NATIVE Framework Certification",
         completedDate: "December 20, 2024",
         duration: "8 hours",
         score: 92,

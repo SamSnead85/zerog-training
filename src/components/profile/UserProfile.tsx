@@ -88,7 +88,7 @@ const achievements: Achievement[] = [
 ];
 
 const recentActivity = [
-    { action: "Completed", item: "SAFe Scrum Master Certification", time: "2 hours ago" },
+    { action: "Completed", item: "NATIVE Framework Foundations", time: "2 hours ago" },
     { action: "Started", item: "Leadership Fundamentals", time: "5 hours ago" },
     { action: "Earned", item: "Quiz Master achievement", time: "1 day ago" },
     { action: "Completed", item: "HIPAA Compliance Quiz", time: "2 days ago" },

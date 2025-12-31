@@ -52,7 +52,7 @@ const priorityConfig: Record<Priority, { label: string; color: string }> = {
 const mockGaps: SkillGap[] = [
     { id: "1", skill: "Cloud Security", category: "Security", currentLevel: 45, requiredLevel: 80, gap: 35, priority: "critical", affectedUsers: 89, recommendedCourses: ["AWS Security Fundamentals", "Cloud Security Architecture"], trend: "improving" },
     { id: "2", skill: "HIPAA Compliance", category: "Compliance", currentLevel: 72, requiredLevel: 95, gap: 23, priority: "high", affectedUsers: 156, recommendedCourses: ["HIPAA Privacy & Security"], trend: "stable" },
-    { id: "3", skill: "Agile/SAFe", category: "Methodology", currentLevel: 55, requiredLevel: 75, gap: 20, priority: "high", affectedUsers: 234, recommendedCourses: ["SAFe 6.0 Practitioner", "Agile Fundamentals"], trend: "improving" },
+    { id: "3", skill: "Agentic SDLC", category: "Methodology", currentLevel: 55, requiredLevel: 75, gap: 20, priority: "high", affectedUsers: 234, recommendedCourses: ["NATIVE Framework", "Human-AI Collaboration"], trend: "improving" },
     { id: "4", skill: "Data Privacy (GDPR)", category: "Compliance", currentLevel: 60, requiredLevel: 85, gap: 25, priority: "high", affectedUsers: 78, recommendedCourses: ["GDPR Essentials", "Data Privacy Masterclass"], trend: "declining" },
     { id: "5", skill: "AI/ML Literacy", category: "Technical", currentLevel: 35, requiredLevel: 60, gap: 25, priority: "medium", affectedUsers: 312, recommendedCourses: ["AI for Business", "Machine Learning Basics"], trend: "improving" },
     { id: "6", skill: "Leadership", category: "Soft Skills", currentLevel: 68, requiredLevel: 80, gap: 12, priority: "medium", affectedUsers: 45, recommendedCourses: ["Leadership Fundamentals"], trend: "stable" },

@@ -89,12 +89,12 @@ const coursesByCategory: Record<string, Course[]> = {
         { id: "ai-ethics", title: "AI Ethics & Responsible AI", description: "Build ethical AI systems that are fair and transparent.", category: "AI & Technology", duration: "4 hrs", rating: 4.5, enrollments: 7500, difficulty: "intermediate", instructor: "Dr. Priya Sharma", sections: 12 },
         { id: "vector-databases", title: "Vector Databases & RAG", description: "Build semantic search and retrieval-augmented generation systems.", category: "AI & Technology", duration: "5 hrs", rating: 4.8, enrollments: 6800, isNew: true, difficulty: "advanced", instructor: "Sarah Martinez", sections: 14 },
     ],
-    "Agile & SAFe": [
-        { id: "safe-agilist", title: "SAFe 6.0 Agilist Certification", description: "Master the Scaled Agile Framework for enterprise agility.", category: "Agile & SAFe", duration: "8 hrs", rating: 4.9, enrollments: 45000, isTrending: true, difficulty: "intermediate", instructor: "Dr. John Anderson", sections: 20 },
-        { id: "scrum-master", title: "Scrum Master Certification", description: "Lead agile teams with the Scrum framework.", category: "Agile & SAFe", duration: "6 hrs", rating: 4.8, enrollments: 38000, difficulty: "beginner", instructor: "Rachel Thompson", sections: 16 },
-        { id: "product-owner", title: "Product Owner Essentials", description: "Maximize product value through effective backlog management.", category: "Agile & SAFe", duration: "5 hrs", rating: 4.7, enrollments: 28000, difficulty: "intermediate", instructor: "Tom Wilson", sections: 14 },
-        { id: "kanban", title: "Kanban for Teams", description: "Optimize flow and reduce waste with Kanban.", category: "Agile & SAFe", duration: "4 hrs", rating: 4.6, enrollments: 18000, difficulty: "beginner", instructor: "Kevin O'Brien", sections: 10 },
-        { id: "pi-planning", title: "PI Planning Facilitation", description: "Run effective Program Increment planning events.", category: "Agile & SAFe", duration: "3 hrs", rating: 4.8, enrollments: 12000, isNew: true, difficulty: "advanced", instructor: "Jennifer Lee", sections: 8 },
+    "Agentic Agile SDLC": [
+        { id: "native-framework-foundations", title: "NATIVE Framework Foundations", description: "Master the AI-native operating model for modern software delivery.", category: "Agentic Agile SDLC", duration: "4 hrs", rating: 4.9, enrollments: 38000, isTrending: true, difficulty: "beginner", instructor: "Dr. Sarah Chen", sections: 12 },
+        { id: "agentic-delivery-leadership", title: "Agentic SDLC Leadership", description: "Lead agentic development teams with NATIVE framework principles.", category: "Agentic Agile SDLC", duration: "8 hrs", rating: 4.9, enrollments: 45000, difficulty: "intermediate", instructor: "Dr. Sarah Chen", sections: 20 },
+        { id: "human-ai-collaboration", title: "Human-AI Collaboration Mastery", description: "Build effective partnerships between humans and AI agents.", category: "Agentic Agile SDLC", duration: "4 hrs", rating: 4.8, enrollments: 31000, difficulty: "intermediate", instructor: "Dr. Emily Rodriguez", sections: 14 },
+        { id: "autonomous-workflow-design", title: "Autonomous Workflow Design", description: "Design self-orchestrating workflows with AI agents.", category: "Agentic Agile SDLC", duration: "5 hrs", rating: 4.8, enrollments: 18000, isNew: true, difficulty: "advanced", instructor: "Kevin O'Brien", sections: 16 },
+        { id: "enterprise-ai-governance", title: "Enterprise AI Governance", description: "Govern AI systems at enterprise scale with compliance automation.", category: "Agentic Agile SDLC", duration: "5 hrs", rating: 4.9, enrollments: 24000, difficulty: "advanced", instructor: "Dr. Priya Sharma", sections: 16 },
     ],
     "Compliance & Security": [
         { id: "nist-csf", title: "NIST CSF 2.0 Comprehensive", description: "Master the NIST Cybersecurity Framework 2.0 with all 6 functions.", category: "Compliance & Security", duration: "6 hrs", rating: 4.9, enrollments: 22000, isTrending: true, difficulty: "intermediate", instructor: "Michael Chen", sections: 18 },
@@ -126,7 +126,7 @@ const coursesByCategory: Record<string, Course[]> = {
 // Continue Watching - courses with progress
 const continueWatching: Course[] = [
     { ...coursesByCategory["Compliance & Security"][4], progress: 60 },
-    { id: "in-progress-agile", title: "Scrum Master Certification", description: "Lead agile teams with the Scrum framework.", category: "Agile & SAFe", duration: "6 hrs", rating: 4.8, enrollments: 38000, difficulty: "beginner", instructor: "Rachel Thompson", sections: 16, progress: 35 },
+    { id: "in-progress-native", title: "NATIVE Framework Foundations", description: "Master the AI-native operating model.", category: "Agentic Agile SDLC", duration: "4 hrs", rating: 4.9, enrollments: 38000, difficulty: "beginner", instructor: "Dr. Sarah Chen", sections: 12, progress: 35 },
     { id: "in-progress-ai", title: "Prompt Engineering Masterclass", description: "Advanced techniques for crafting effective AI prompts.", category: "AI & Technology", duration: "4 hrs", rating: 4.8, enrollments: 28000, isAINative: true, difficulty: "beginner", instructor: "Marcus Johnson", sections: 12, progress: 80 },
 ];
 

@@ -376,7 +376,7 @@ export function CompetitorComparisonSchema() {
             },
             {
                 "@type": "Product",
-                "name": "Scaled Agile SAFe",
+                "name": "NATIVE Framework",
                 "description": "Agile framework training"
             },
             {

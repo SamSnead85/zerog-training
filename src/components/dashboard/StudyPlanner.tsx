@@ -26,8 +26,8 @@ interface StudyGoal {
 const mockGoals: StudyGoal[] = [
     {
         id: "1",
-        title: "Complete SAFe Certification",
-        targetCourse: "SAFe 6.0 Agilist",
+        title: "Complete NATIVE Certification",
+        targetCourse: "NATIVE Framework",
         dueDate: "Jan 15, 2025",
         progress: 65,
         status: "on-track",

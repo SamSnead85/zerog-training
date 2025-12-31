@@ -62,7 +62,7 @@ const teamMembers: TeamMember[] = [
 ];
 
 const coursePerformance: CoursePerformance[] = [
-    { title: "SAFe Scrum Master", enrollments: 45, completions: 38, avgScore: 87, avgTime: "7.5 hrs" },
+    { title: "NATIVE Framework", enrollments: 45, completions: 38, avgScore: 87, avgTime: "7.5 hrs" },
     { title: "Cybersecurity Awareness", enrollments: 124, completions: 98, avgScore: 91, avgTime: "2.8 hrs" },
     { title: "Leadership Fundamentals", enrollments: 67, completions: 52, avgScore: 85, avgTime: "5.2 hrs" },
     { title: "HIPAA Compliance", enrollments: 89, completions: 82, avgScore: 94, avgTime: "1.9 hrs" },
