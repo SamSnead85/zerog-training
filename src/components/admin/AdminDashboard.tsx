@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Card, Badge, Button, Progress } from "@/components/ui";
+import { OrganizationManagement } from "@/components/admin/OrganizationManagement";
 import {
     Users,
     BookOpen,
@@ -29,6 +30,7 @@ import {
     Calendar,
     Filter,
     RefreshCw,
+    Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -90,7 +92,7 @@ const complianceItems: ComplianceItem[] = [
 ];
 
 export function AdminDashboard() {
-    const [activeTab, setActiveTab] = useState<"overview" | "users" | "courses" | "compliance" | "settings">("overview");
+    const [activeTab, setActiveTab] = useState<"overview" | "organizations" | "users" | "courses" | "compliance" | "settings">("overview");
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
@@ -164,7 +166,7 @@ export function AdminDashboard() {
 
             {/* Tabs */}
             <div className="flex gap-1 p-1 rounded-xl bg-white/[0.03] border border-white/10 w-fit">
-                {(["overview", "users", "courses", "compliance", "settings"] as const).map((tab) => (
+                {(["overview", "organizations", "users", "courses", "compliance", "settings"] as const).map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -426,6 +428,9 @@ export function AdminDashboard() {
                     </div>
                 </div>
             )}
+
+            {/* Organizations Tab (SUPER_ADMIN only) */}
+            {activeTab === "organizations" && <OrganizationManagement />}
 
             {/* Users Tab */}
             {activeTab === "users" && (
