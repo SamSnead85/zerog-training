@@ -23,7 +23,6 @@ import Link from "next/link";
 // Import expanded curriculum modules
 import { expandedAIPromptEngineeringModule } from "@/lib/curriculum/expanded-ai-curriculum";
 import { expandedHIPAAModule } from "@/lib/curriculum/expanded-hipaa-curriculum";
-import { expandedSAFeModule } from "@/lib/curriculum/expanded-safe-curriculum";
 import type { ModuleSection, ReadingContent, QuizContent, ScenarioContent } from "@/lib/curriculum/types";
 
 // Types imported from @/lib/curriculum/types
@@ -180,118 +179,6 @@ const cybersecurityModule: ModuleSection[] = [
             ],
             correctIndex: 2,
             explanation: "Data breaches must be reported immediately to your security team. They can take steps to contain the breach, notify affected parties if required, and fulfill regulatory obligations. Time is critical in breach response.",
-        },
-    },
-];
-
-// SAFe Agilist Module Content
-const safeAgilistModule: ModuleSection[] = [
-    {
-        id: "intro",
-        title: "Introduction to SAFe",
-        type: "reading",
-        content: {
-            heading: "Welcome to SAFe 6.0",
-            paragraphs: [
-                "The Scaled Agile Framework (SAFe) is the world's leading framework for scaling Agile across the enterprise. SAFe 6.0, released in March 2023, helps organizations achieve business agility through Lean-Agile principles and practices.",
-                "SAFe brings together proven practices from Lean, Agile, and DevOps to help organizations deliver value faster, with higher quality, and better alignment with business goals.",
-                "In this training, you'll learn the core principles of SAFe, how to run PI Planning events, and how to lead Agile Release Trains effectively.",
-            ],
-            keyPoints: [
-                "70% of Fortune 100 companies have SAFe practitioners",
-                "35% faster time-to-market with SAFe",
-                "50% increase in productivity",
-            ],
-        },
-    },
-    {
-        id: "core-values",
-        title: "SAFe Core Values",
-        type: "reading",
-        content: {
-            heading: "The Four Core Values",
-            paragraphs: [
-                "SAFe is built on four core values that guide all decision-making: Alignment, Built-in Quality, Transparency, and Program Execution.",
-                "Alignment ensures everyone is moving toward the same strategic goals. Built-in Quality means never compromising on quality. Transparency builds trust through visibility. Program Execution delivers value reliably.",
-            ],
-            keyPoints: [
-                "Alignment: Keep everyone moving toward the same goals",
-                "Built-in Quality: Never compromise on quality",
-                "Transparency: Trust through visibility",
-                "Program Execution: Deliver value reliably",
-            ],
-            tip: "Leaders must model these values. Your team watches what you do, not just what you say.",
-        },
-    },
-    {
-        id: "quiz-values",
-        title: "Knowledge Check: SAFe Values",
-        type: "quiz",
-        quiz: {
-            question: "Which of the following is NOT one of the four SAFe Core Values?",
-            options: [
-                "Alignment",
-                "Innovation",
-                "Transparency",
-                "Built-in Quality",
-            ],
-            correctIndex: 1,
-            explanation: "The four SAFe Core Values are Alignment, Built-in Quality, Transparency, and Program Execution. Innovation is part of the House of Lean but not a core value.",
-        },
-    },
-    {
-        id: "pi-planning",
-        title: "PI Planning",
-        type: "reading",
-        content: {
-            heading: "The Heartbeat of SAFe",
-            paragraphs: [
-                "PI Planning is a cadence-based, face-to-face event that serves as the heartbeat of the Agile Release Train. It aligns all teams to a shared mission and vision.",
-                "A Program Increment (PI) is typically 8-12 weeks during which an ART delivers incremental value. PI Planning brings 50-125 people together for 2 days to plan the entire PI.",
-                "Key outputs include committed PI Objectives, a Program Board showing dependencies, and a team confidence vote.",
-            ],
-            keyPoints: [
-                "PI Planning is a 2-day event with all ART members",
-                "Creates alignment across 5-12 Agile teams",
-                "Results in committed objectives and visualized dependencies",
-            ],
-            warning: "Never skip PI Planning. It builds alignment and trust that cannot be replicated asynchronously.",
-        },
-    },
-    {
-        id: "scenario-pi",
-        title: "Scenario: PI Planning Challenge",
-        type: "scenario",
-        scenario: {
-            situation: "You're an RTE facilitating PI Planning. On Day 1, two teams discover they have a major dependency that neither anticipated. The dependency could delay both teams' features by a full sprint.",
-            question: "What's the best way to handle this during PI Planning?",
-            options: [
-                "Tell the teams to figure it out later and continue with planning",
-                "Facilitate a discussion between the teams to create a solution and adjust objectives",
-                "Escalate immediately to Product Management for a decision",
-                "Cancel the features to avoid the dependency",
-            ],
-            correctIndex: 1,
-            feedback: "PI Planning is designed to surface and resolve dependencies. Facilitating real-time collaboration between teams is the heart of the event. This is exactly why we do face-to-face planning.",
-        },
-    },
-    {
-        id: "art-roles",
-        title: "Agile Release Train Roles",
-        type: "reading",
-        content: {
-            heading: "Key ART Roles",
-            paragraphs: [
-                "The Agile Release Train has several key roles that ensure smooth operation and value delivery.",
-                "The Release Train Engineer (RTE) is the servant leader and coach for the ART. Product Management owns the Program Backlog. The System Architect provides technical leadership. Business Owners evaluate fitness for use.",
-            ],
-            keyPoints: [
-                "RTE: Servant leader who facilitates ART events",
-                "Product Management: Owns vision and Program Backlog",
-                "System Architect: Technical leader for solution architecture",
-                "Business Owners: Key stakeholders who evaluate value",
-            ],
-            tip: "Think of the ART as a 'team of teams.' Individual team success is less important than overall ART success.",
         },
     },
 ];
@@ -855,11 +742,11 @@ function getModuleSections(moduleId?: string): { sections: ModuleSection[]; titl
         return { sections: leadershipModule, title: "Leadership Fundamentals" };
     }
 
-    // SAFe/Agile/Scrum - covers: safe-*, scrum-*, agile-*, kanban, pi-planning, product-owner
-    if (id.includes("safe") || id.includes("scrum") || id.includes("agile") ||
-        id.includes("agilist") || id.includes("kanban") || id.includes("pi-planning") ||
-        id.includes("product-owner")) {
-        return { sections: expandedSAFeModule, title: "SAFe 6.0 Agilist Training" };
+    // Agentic Agile SDLC - covers: agentic-*, native-*, sdlc routes to AI-Native content
+    if (id.includes("agentic") || id.includes("native") || id.includes("sdlc") ||
+        id.includes("delivery-leadership") || id.includes("team-facilitator") ||
+        id.includes("continuous-flow") || id.includes("product-leadership")) {
+        return { sections: expandedAIPromptEngineeringModule, title: "Agentic Agile SDLC Training" };
     }
 
     // HIPAA & Healthcare - covers: hipaa-*, bloodborne, patient-safety, clinical-*, infection-*, healthcare
