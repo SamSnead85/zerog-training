@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
     LayoutDashboard,
@@ -33,8 +33,10 @@ import {
     UserPlus,
     Brain,
     ChevronDown,
+    Shield,
 } from "lucide-react";
 import { Button, Avatar, Badge } from "@/components/ui";
+import { useAuthSafe } from "@/lib/auth/AuthContext";
 
 interface NavItem {
     label: string;
@@ -49,6 +51,7 @@ interface NavGroup {
     items: NavItem[];
     collapsible?: boolean;
     managerOnly?: boolean;
+    adminOnly?: boolean;
 }
 
 // Simplified Navigation Configuration - Role-Based
@@ -79,6 +82,15 @@ const navGroups: NavGroup[] = [
         ],
     },
     {
+        title: "Admin",
+        collapsible: true,
+        adminOnly: true,
+        items: [
+            { label: "User Management", href: "/admin/users", icon: Users },
+            { label: "Admin Dashboard", href: "/admin", icon: Shield },
+        ],
+    },
+    {
         title: "Settings",
         items: [
             { label: "Settings", href: "/settings", icon: Settings },
@@ -91,13 +103,18 @@ export function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
     const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
     const pathname = usePathname();
+    const router = useRouter();
+    const auth = useAuthSafe();
 
-    // Role-based visibility - In production, this would come from auth context
-    const [isManager] = useState(true);
+    // Role-based visibility from auth context
+    const user = auth?.user;
+    const isManager = user?.role === "MANAGER" || user?.role === "ORG_ADMIN" || user?.role === "SUPER_ADMIN";
+    const isAdmin = user?.role === "ORG_ADMIN" || user?.role === "SUPER_ADMIN";
 
     // Filter navigation groups based on user role
     const filteredNavGroups = navGroups.filter(group => {
         if (group.managerOnly && !isManager) return false;
+        if (group.adminOnly && !isAdmin) return false;
         return true;
     });
 
@@ -110,6 +127,15 @@ export function Sidebar() {
         }
         setCollapsedGroups(newCollapsed);
     };
+
+    const handleLogout = () => {
+        auth?.logout();
+        router.push("/login");
+    };
+
+    // User display info
+    const userName = user?.name || "Guest User";
+    const userRole = user?.role?.replace("_", " ") || "Learner";
 
     return (
         <aside
@@ -220,16 +246,27 @@ export function Sidebar() {
             <div className="p-3 border-t border-border">
                 <div
                     className={cn(
-                        "flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors cursor-pointer",
+                        "flex items-center gap-3 p-2 rounded-lg transition-colors",
                         collapsed && "justify-center"
                     )}
                 >
-                    <Avatar size="sm" name="John Smith" />
+                    <Avatar size="sm" name={userName} />
                     {!collapsed && (
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium truncate">John Smith</p>
-                            <p className="text-xs text-muted-foreground truncate">Admin</p>
+                            <p className="text-sm font-medium truncate">{userName}</p>
+                            <p className="text-xs text-muted-foreground truncate">{userRole}</p>
                         </div>
+                    )}
+                    {!collapsed && user && (
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={handleLogout}
+                            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                            title="Sign out"
+                        >
+                            <LogOut className="h-4 w-4" />
+                        </Button>
                     )}
                 </div>
             </div>
@@ -238,6 +275,16 @@ export function Sidebar() {
 }
 
 export function TopBar() {
+    const router = useRouter();
+    const auth = useAuthSafe();
+    const user = auth?.user;
+    const userName = user?.name || "Guest";
+
+    const handleLogout = () => {
+        auth?.logout();
+        router.push("/login");
+    };
+
     return (
         <header className="h-16 border-b border-border bg-card/80 backdrop-blur-lg sticky top-0 z-40">
             <div className="h-full flex items-center justify-between px-6">
@@ -266,10 +313,24 @@ export function TopBar() {
                         <HelpCircle className="h-5 w-5" />
                     </Button>
                     <div className="h-8 w-px bg-border mx-2" />
-                    <Button variant="ghost" size="sm" className="gap-2">
-                        <Avatar size="sm" name="John Smith" />
-                        <span className="hidden md:inline">John Smith</span>
-                    </Button>
+
+                    {/* User dropdown area */}
+                    <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="sm" className="gap-2">
+                            <Avatar size="sm" name={userName} />
+                            <span className="hidden md:inline">{userName}</span>
+                        </Button>
+                        {user && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={handleLogout}
+                                title="Sign out"
+                            >
+                                <LogOut className="h-4 w-4" />
+                            </Button>
+                        )}
+                    </div>
                 </div>
             </div>
         </header>

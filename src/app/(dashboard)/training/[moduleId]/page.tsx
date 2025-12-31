@@ -120,7 +120,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                     </div>
 
                     <div className="mt-6 flex items-center gap-4">
-                        <Link href="/training/module-1">
+                        <Link href={`/lesson/${module.id}/1`}>
                             <Button size="lg" className="gap-2">
                                 <Play className="h-5 w-5" />
                                 Start Module
@@ -299,7 +299,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                         <h3 className="font-semibold mb-4">Module Progress</h3>
                         <Progress value={0} className="h-2 mb-2" />
                         <p className="text-sm text-muted-foreground">Not started</p>
-                        <Link href="/training/module-1">
+                        <Link href={`/lesson/${module.id}/1`}>
                             <Button className="w-full mt-4 gap-2">
                                 <Play className="h-4 w-4" />
                                 Start Module

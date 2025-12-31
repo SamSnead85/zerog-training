@@ -12,6 +12,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { FAQSchema, HowToSchema, CourseCatalogSchema } from "@/components/seo/StructuredData";
+import { NavDemoButton, HeroDemoButton, FooterDemoButton } from "@/components/marketing/HomepageClientComponents";
 
 // SEO-Optimized FAQs for Rich Snippets
 const aiTrainingFAQs = [
@@ -105,11 +106,7 @@ export default function PremiumLandingPage() {
             <Link href="/login" className="text-sm text-white/40 hover:text-white transition-colors">
               Sign in
             </Link>
-            <Link href="/contact">
-              <button className="px-5 py-2.5 rounded-full bg-white text-black font-medium text-sm hover:bg-white/90 transition-all">
-                Request Demo
-              </button>
-            </Link>
+            <NavDemoButton />
           </div>
         </div>
       </nav>
@@ -171,11 +168,7 @@ export default function PremiumLandingPage() {
 
           {/* CTAs - Premium Pill Style */}
           <div className="flex flex-wrap justify-center gap-4 mb-20">
-            <Link href="/contact">
-              <button className="px-8 py-4 rounded-full bg-white text-black font-semibold text-base hover:shadow-[0_0_60px_rgba(255,255,255,0.15)] transition-all">
-                Request a Demo
-              </button>
-            </Link>
+            <HeroDemoButton />
             <Link href="/ai-native">
               <button className="px-8 py-4 rounded-full bg-white/5 text-white font-medium text-base border border-white/20 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all">
                 Explore Platform
@@ -464,11 +457,7 @@ export default function PremiumLandingPage() {
             Join the enterprises building AI-Native workforces.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/contact">
-              <button className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:shadow-[0_0_60px_rgba(255,255,255,0.15)] transition-all">
-                Request a Demo
-              </button>
-            </Link>
+            <FooterDemoButton />
             <Link href="/training/module-1">
               <button className="px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all">
                 Try Sample Lesson

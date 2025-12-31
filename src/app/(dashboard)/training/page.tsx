@@ -61,6 +61,8 @@ const moduleIcons: Record<string, React.ElementType> = {
     "module-6": Target,
     "module-7": Shield,
     "module-8": Code,
+    "module-9": Cpu,
+    "module-10": Award,
 };
 
 // =============================================================================

@@ -25,23 +25,30 @@ export default function AINativePlatformPage() {
         {
             level: "Foundation",
             badge: "🎓",
-            duration: "40-60 hours",
-            description: "Master AI fundamentals and core competencies",
-            modules: ["AI Foundations", "Prompt Engineering", "AI Tools Mastery"],
+            duration: "16-20 hours",
+            description: "Master AI fundamentals and prompt engineering essentials",
+            modules: ["AI Fundamentals", "AI-Assisted Coding Mastery"],
+        },
+        {
+            level: "Associate",
+            badge: "🏅",
+            duration: "24-30 hours",
+            description: "Build agentic AI systems and MLOps pipelines",
+            modules: ["Agentic AI Systems", "AI Engineering & MLOps"],
         },
         {
             level: "Professional",
             badge: "🏆",
-            duration: "30-40 hours",
-            description: "Advanced AI implementation and integration",
-            modules: ["Agentic AI", "RAG Architecture", "MLOps Essentials"],
+            duration: "30-35 hours",
+            description: "Advanced frameworks, RAG systems, and security",
+            modules: ["Advanced Frameworks", "GenAI Applications", "AI Security"],
         },
         {
             level: "Architect",
             badge: "⚡",
-            duration: "20-30 hours",
-            description: "Enterprise AI leadership and strategy",
-            modules: ["Enterprise AI Architecture", "AI Governance", "AI Transformation"],
+            duration: "35-45 hours",
+            description: "Enterprise architecture, deployment, and leadership",
+            modules: ["Enterprise Architecture", "Production Deployment", "AI Leadership"],
         },
     ];
 
@@ -127,10 +134,10 @@ export default function AINativePlatformPage() {
                     {/* Stats */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
                         {[
-                            { value: "8", label: "Expert Modules", icon: BookOpen },
-                            { value: "90+", label: "Hours of Content", icon: Clock },
-                            { value: "3", label: "Certification Levels", icon: GraduationCap },
-                            { value: "25+", label: "Hands-On Labs", icon: Code },
+                            { value: "10", label: "Expert Modules", icon: BookOpen },
+                            { value: "150+", label: "Hours of Content", icon: Clock },
+                            { value: "4", label: "Certification Levels", icon: GraduationCap },
+                            { value: "40+", label: "Hands-On Labs", icon: Code },
                         ].map((stat, i) => (
                             <div key={i} className="text-center">
                                 <stat.icon className="h-5 w-5 mx-auto mb-2 text-white/40" />
@@ -193,41 +200,51 @@ export default function AINativePlatformPage() {
                 <div className="mx-auto max-w-5xl">
                     <div className="text-center mb-16">
                         <h2 className="font-montserrat text-3xl md:text-4xl font-bold mb-4">Certification Tracks</h2>
-                        <p className="text-white/40">Progress through three levels to demonstrate your AI-native expertise</p>
+                        <p className="text-white/40">Progress through four levels to demonstrate your AI-native expertise</p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {certificationTracks.map((track, i) => (
-                            <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <span className="text-3xl">{track.badge}</span>
-                                    <div>
-                                        <h3 className="text-lg font-bold">{track.level}</h3>
-                                        <p className="text-xs text-white/40">{track.duration}</p>
-                                    </div>
-                                </div>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {certificationTracks.map((track, i) => {
+                            // Map track level to starting module
+                            const trackStartModule = {
+                                "Foundation": "/training/module-1",
+                                "Associate": "/training/module-3",
+                                "Professional": "/training/module-5",
+                                "Architect": "/training/module-8"
+                            }[track.level] || "/training/module-1";
 
-                                <p className="text-sm text-white/50 mb-6">{track.description}</p>
-
-                                <div className="space-y-2 mb-6">
-                                    {track.modules.map((mod, j) => (
-                                        <div key={j} className="flex items-center gap-2 text-sm">
-                                            <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center text-xs font-medium">
-                                                {j + 1}
-                                            </div>
-                                            <span className="text-white/70">{mod}</span>
+                            return (
+                                <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className="text-3xl">{track.badge}</span>
+                                        <div>
+                                            <h3 className="text-lg font-bold">{track.level}</h3>
+                                            <p className="text-xs text-white/40">{track.duration}</p>
                                         </div>
-                                    ))}
-                                </div>
+                                    </div>
 
-                                <Link href="/training/module-1">
-                                    <button className="w-full py-3 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2">
-                                        Start Track
-                                        <ArrowRight className="h-4 w-4" />
-                                    </button>
-                                </Link>
-                            </div>
-                        ))}
+                                    <p className="text-sm text-white/50 mb-6">{track.description}</p>
+
+                                    <div className="space-y-2 mb-6">
+                                        {track.modules.map((mod, j) => (
+                                            <div key={j} className="flex items-center gap-2 text-sm">
+                                                <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center text-xs font-medium">
+                                                    {j + 1}
+                                                </div>
+                                                <span className="text-white/70">{mod}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <Link href={trackStartModule}>
+                                        <button className="w-full py-3 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2">
+                                            Start Track
+                                            <ArrowRight className="h-4 w-4" />
+                                        </button>
+                                    </Link>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </section>
@@ -242,17 +259,18 @@ export default function AINativePlatformPage() {
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                         {[
-                            { level: "Foundation", duration: "40-60h", badge: "🎓" },
-                            { level: "Professional", duration: "30-40h", badge: "🏆" },
-                            { level: "Architect", duration: "20-30h", badge: "⚡" },
+                            { level: "Foundation", duration: "16-20h", badge: "🎓" },
+                            { level: "Associate", duration: "24-30h", badge: "🏅" },
+                            { level: "Professional", duration: "30-35h", badge: "🏆" },
+                            { level: "Architect", duration: "35-45h", badge: "⚡" },
                         ].map((step, i) => (
                             <div key={i} className="flex items-center gap-4">
-                                <div className="p-6 rounded-xl bg-white/[0.02] border border-white/10 text-center min-w-[140px]">
+                                <div className="p-6 rounded-xl bg-white/[0.02] border border-white/10 text-center min-w-[120px]">
                                     <div className="text-2xl mb-2">{step.badge}</div>
-                                    <div className="font-semibold">{step.level}</div>
+                                    <div className="font-semibold text-sm">{step.level}</div>
                                     <div className="text-xs text-white/40">{step.duration}</div>
                                 </div>
-                                {i < 2 && <ChevronRight className="h-5 w-5 text-white/20 hidden md:block" />}
+                                {i < 3 && <ChevronRight className="h-5 w-5 text-white/20 hidden md:block" />}
                             </div>
                         ))}
                     </div>

@@ -609,3 +609,22 @@ enum LLMProvider {
   AZURE_OPENAI
   CUSTOM
 }
+
+// =============================================================================
+// DEMO LEADS (Marketing)
+// =============================================================================
+
+model DemoLead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  role      String?
+  teamSize  String?
+  message   String?  @db.Text
+  
+  createdAt DateTime @default(now())
+  
+  @@index([email])
+  @@map("demo_leads")
+}

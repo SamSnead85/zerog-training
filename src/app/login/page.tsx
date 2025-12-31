@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui";
 import { PremiumButton } from "@/components/ui/premium-buttons";
 import {
@@ -17,32 +17,38 @@ import {
     Zap,
     Users,
     CheckCircle2,
+    AlertCircle,
+    Info,
 } from "lucide-react";
 import { LogoIcon } from "@/components/brand/Logo";
+import { AuthProvider, useAuth } from "@/lib/auth/AuthContext";
 
-export default function LoginPage() {
+function LoginForm() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirect") || "/dashboard";
+    const { login } = useAuth();
+
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        setError(null);
 
-        // Simulate login delay
-        await new Promise(r => setTimeout(r, 1000));
+        const result = await login(email, password);
 
-        // Store user in localStorage for demo
-        localStorage.setItem("zerog_user", JSON.stringify({
-            email,
-            name: email.split("@")[0],
-            isLoggedIn: true,
-        }));
+        if (result.success) {
+            router.push(redirectTo);
+        } else {
+            setError(result.error || "Invalid credentials");
+        }
 
-        // Redirect to dashboard
-        router.push("/dashboard");
+        setIsLoading(false);
     };
 
     return (
@@ -131,15 +137,36 @@ export default function LoginPage() {
                     </div>
 
                     {/* Header */}
-                    <div className="mb-8">
+                    <div className="mb-6">
                         <h2 className="text-2xl font-semibold text-foreground">Sign in</h2>
                         <p className="text-muted-foreground mt-1">
-                            New to ScaledNative?{" "}
-                            <Link href="/signup" className="text-primary hover:underline">
-                                Create an account
-                            </Link>
+                            Enter the credentials provided by your manager
                         </p>
                     </div>
+
+                    {/* Onboarding Notice */}
+                    <div className="mb-6 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                        <div className="flex gap-3">
+                            <Info className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
+                            <div>
+                                <p className="text-sm text-blue-300 font-medium">Looking for access?</p>
+                                <p className="text-sm text-blue-300/70 mt-1">
+                                    Contact your manager to request training enrollment.
+                                    You'll receive an email with your login credentials.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Error Display */}
+                    {error && (
+                        <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+                            <div className="flex items-center gap-2">
+                                <AlertCircle className="h-4 w-4 text-red-400" />
+                                <p className="text-sm text-red-400">{error}</p>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -269,5 +296,18 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+// Wrap with AuthProvider for login functionality
+import { Suspense } from "react";
+
+export default function LoginPage() {
+    return (
+        <AuthProvider>
+            <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+                <LoginForm />
+            </Suspense>
+        </AuthProvider>
     );
 }

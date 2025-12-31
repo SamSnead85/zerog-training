@@ -143,9 +143,9 @@ export const certificationTracks: CertificationTrack[] = [
         level: "architect",
         shortTitle: "Architect",
         title: "AI-Native Solutions Architect",
-        description: "Design enterprise-scale AI platforms with multi-model orchestration, cost optimization, and governance frameworks. Lead AI transformation initiatives across organizations.",
-        duration: "20-25 hours",
-        modules: ["module-8"],
+        description: "Design enterprise-scale AI platforms with multi-model orchestration, production deployment, cost optimization, and governance frameworks. Lead AI transformation initiatives across organizations.",
+        duration: "35-45 hours",
+        modules: ["module-8", "module-9", "module-10"],
         prerequisites: ["AI-Native Professional Developer"],
         validityPeriod: "3 years",
         badge: "crown",
@@ -804,6 +804,162 @@ export const module8: AIModule = {
 };
 
 // ============================================
+// MODULE 9: PRODUCTION DEPLOYMENT
+// ============================================
+
+export const module9: AIModule = {
+    id: "module-9",
+    number: 9,
+    title: "Production Deployment",
+    subtitle: "Infrastructure, Scaling, and Reliability at Scale",
+    description: "Deploy AI applications to production with proper infrastructure, scaling strategies, cost management, and disaster recovery. Build reliable systems that handle real-world traffic.",
+    duration: "10-12 hours",
+    level: "architect",
+    status: "available",
+    prerequisites: ["AI-Native Professional Developer"],
+    learningObjectives: [
+        { id: "9-1", text: "Design scalable AI infrastructure patterns" },
+        { id: "9-2", text: "Implement load balancing and caching strategies" },
+        { id: "9-3", text: "Optimize AI costs at production scale" },
+        { id: "9-4", text: "Build reliable systems with fallbacks and disaster recovery" },
+    ],
+    topics: [
+        {
+            id: "9-1",
+            title: "Infrastructure Patterns",
+            description: "API gateways, microservices, serverless, and containers",
+            duration: "3 hours",
+            subtopics: [
+                "API gateway patterns for AI services",
+                "Microservices vs monolithic AI systems",
+                "Containerization with Docker and Kubernetes",
+                "Serverless AI deployments",
+            ],
+        },
+        {
+            id: "9-2",
+            title: "Scaling Strategies",
+            description: "Load balancing, caching, and queue-based architectures",
+            duration: "3 hours",
+            subtopics: [
+                "Load balancing for LLM services",
+                "Response and semantic caching",
+                "Queue-based architectures for async processing",
+                "Auto-scaling configurations",
+            ],
+        },
+        {
+            id: "9-3",
+            title: "Cost Optimization",
+            description: "Managing AI costs at scale",
+            duration: "2 hours",
+            subtopics: [
+                "Cost tracking and analysis",
+                "Model routing by complexity",
+                "Token optimization techniques",
+                "Batch processing strategies",
+            ],
+        },
+        {
+            id: "9-4",
+            title: "Reliability Engineering",
+            description: "Building resilient AI systems",
+            duration: "2 hours",
+            subtopics: [
+                "Health checks and monitoring",
+                "Multi-provider fallback chains",
+                "Circuit breakers for AI services",
+                "Disaster recovery planning",
+            ],
+        },
+    ],
+    handsOnProjects: [
+        { id: "p9-1", title: "Production AI Platform", description: "Deploy containerized AI service with load balancing", difficulty: "advanced", duration: "4 hours" },
+        { id: "p9-2", title: "Cost Optimization System", description: "Implement model routing and caching", difficulty: "advanced", duration: "3 hours" },
+        { id: "p9-3", title: "Reliability Framework", description: "Build fallback chain and health monitoring", difficulty: "advanced", duration: "3 hours" },
+    ],
+    assessmentType: "Production deployment capstone + Infrastructure design review",
+};
+
+// ============================================
+// MODULE 10: AI LEADERSHIP AND STRATEGY
+// ============================================
+
+export const module10: AIModule = {
+    id: "module-10",
+    number: 10,
+    title: "AI Leadership and Strategy",
+    subtitle: "Vision, Teams, Governance, and Organizational Transformation",
+    description: "Lead AI transformation initiatives with strategic vision, effective team building, governance frameworks, and change management. Drive organizational AI adoption and measure business value.",
+    duration: "8-10 hours",
+    level: "architect",
+    status: "available",
+    prerequisites: ["AI-Native Professional Developer"],
+    learningObjectives: [
+        { id: "10-1", text: "Develop AI vision and strategic roadmap" },
+        { id: "10-2", text: "Build and lead effective AI teams" },
+        { id: "10-3", text: "Establish AI governance and ethics frameworks" },
+        { id: "10-4", text: "Measure ROI and drive organizational adoption" },
+    ],
+    topics: [
+        {
+            id: "10-1",
+            title: "AI Strategy",
+            description: "Vision, roadmap, and competitive positioning",
+            duration: "2 hours",
+            subtopics: [
+                "Developing AI vision and roadmap",
+                "Build vs buy decision framework",
+                "Competitive positioning with AI",
+                "AI maturity assessment",
+            ],
+        },
+        {
+            id: "10-2",
+            title: "Team Building",
+            description: "Structure, talent, and culture",
+            duration: "2 hours",
+            subtopics: [
+                "AI team structures and models",
+                "Hiring and growing AI talent",
+                "Building innovation culture",
+                "Cross-functional collaboration",
+            ],
+        },
+        {
+            id: "10-3",
+            title: "Governance and Ethics",
+            description: "Responsible AI leadership",
+            duration: "2 hours",
+            subtopics: [
+                "AI governance frameworks",
+                "Ethics and responsibility principles",
+                "Risk-tiered approval processes",
+                "Compliance requirements",
+            ],
+        },
+        {
+            id: "10-4",
+            title: "Value and Adoption",
+            description: "Measuring and driving impact",
+            duration: "2 hours",
+            subtopics: [
+                "ROI and value measurement",
+                "Leading vs lagging indicators",
+                "Change management strategies",
+                "Executive communication",
+            ],
+        },
+    ],
+    handsOnProjects: [
+        { id: "p10-1", title: "AI Transformation Plan", description: "Develop comprehensive AI strategy for organization", difficulty: "advanced", duration: "4 hours" },
+        { id: "p10-2", title: "Governance Framework", description: "Design AI governance and ethics framework", difficulty: "advanced", duration: "2 hours" },
+        { id: "p10-3", title: "ROI Model", description: "Build AI value measurement framework", difficulty: "advanced", duration: "2 hours" },
+    ],
+    assessmentType: "Strategic transformation plan + Executive presentation",
+};
+
+// ============================================
 // COMPLETE CURRICULUM EXPORT
 // ============================================
 
@@ -816,6 +972,8 @@ export const aiNativeCurriculum: AIModule[] = [
     module6,
     module7,
     module8,
+    module9,
+    module10,
 ];
 
 export const getModuleById = (id: string): AIModule | undefined => {
