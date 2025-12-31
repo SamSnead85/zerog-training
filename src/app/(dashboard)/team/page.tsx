@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
     Users,
     TrendingUp,
@@ -8,346 +8,321 @@ import {
     Award,
     GraduationCap,
     ChevronRight,
-    BarChart3,
     CheckCircle2,
     AlertCircle,
     Filter,
+    Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { AuthProvider, useAuth, getProvisionedUsers, ProvisionedUser } from "@/lib/auth/AuthContext";
 import Link from "next/link";
 
 // =============================================================================
-// MOCK TEAM DATA
+// TYPES
 // =============================================================================
+
+interface ProgressEntry {
+    id: string;
+    userId: string;
+    moduleId: string;
+    status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
+    completionPercentage: number;
+    timeSpentSeconds: number;
+    lastAccessedAt: string | null;
+    completedAt: string | null;
+    user: {
+        id: string;
+        name: string | null;
+        email: string;
+        role: string;
+        organization: { name: string };
+    };
+}
 
 interface TeamMember {
     id: string;
     name: string;
     email: string;
     role: string;
-    department: string;
-    avatar?: string;
     progress: {
         coursesCompleted: number;
         totalCourses: number;
         hoursSpent: number;
-        certifications: number;
-        lastActive: string;
-        currentCourse?: string;
         completionRate: number;
+        lastActive: string;
     };
 }
 
-// Generate mock team members (in production, this would come from API)
-const generateMockTeamMembers = (): TeamMember[] => {
-    const names = [
-        "Emily Rodriguez", "Marcus Johnson", "Sarah Chen", "David Kim",
-        "Jessica Williams", "Michael Brown", "Amanda Lopez", "James Wilson"
-    ];
-
-    const departments = ["Engineering", "Operations", "Sales", "Customer Success"];
-    const courses = ["AI-Native Foundations", "Prompt Engineering", "AI Governance", "Enterprise AI"];
-
-    return names.map((name, i) => ({
-        id: `team_${i + 1}`,
-        name,
-        email: `${name.toLowerCase().replace(" ", ".")}@company.com`,
-        role: i === 0 ? "Team Lead" : "Team Member",
-        department: departments[i % departments.length],
-        progress: {
-            coursesCompleted: Math.floor(Math.random() * 5),
-            totalCourses: 5,
-            hoursSpent: Math.floor(Math.random() * 40) + 5,
-            certifications: Math.floor(Math.random() * 3),
-            lastActive: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-            currentCourse: courses[Math.floor(Math.random() * courses.length)],
-            completionRate: Math.floor(Math.random() * 100),
-        }
-    }));
-};
-
 // =============================================================================
-// TEAM DASHBOARD CONTENT
+// TEAM DASHBOARD PAGE
 // =============================================================================
 
-function TeamDashboardContent() {
-    const { user, hasRole } = useAuth();
+export default function TeamPage() {
     const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-    const [filter, setFilter] = useState<"all" | "active" | "behind">("all");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [filter, setFilter] = useState<"all" | "active" | "inactive">("all");
 
-    // Merge mock data with provisioned users
-    useEffect(() => {
-        const mockMembers = generateMockTeamMembers();
-        const provisionedUsers = getProvisionedUsers();
+    const fetchProgress = useCallback(async () => {
+        try {
+            setLoading(true);
+            const res = await fetch("/api/admin/progress");
+            const data = await res.json();
 
-        // Add provisioned users as team members
-        const provisionedMembers: TeamMember[] = provisionedUsers
-            .filter(u => u.role === "LEARNER" || u.role === "MANAGER")
-            .map(u => ({
-                id: u.id,
-                name: u.name,
-                email: u.email,
-                role: u.role === "MANAGER" ? "Manager" : "Learner",
-                department: "General",
-                progress: {
-                    coursesCompleted: 0,
-                    totalCourses: 3,
-                    hoursSpent: 0,
-                    certifications: 0,
-                    lastActive: u.createdAt,
-                    currentCourse: u.certificationPath || "AI-Native Foundations",
-                    completionRate: 0,
+            if (data.success) {
+                // Group progress by user
+                const userProgressMap = new Map<string, ProgressEntry[]>();
+
+                for (const entry of data.progress) {
+                    const userId = entry.user.id;
+                    if (!userProgressMap.has(userId)) {
+                        userProgressMap.set(userId, []);
+                    }
+                    userProgressMap.get(userId)!.push(entry);
                 }
-            }));
 
-        setTeamMembers([...provisionedMembers, ...mockMembers]);
+                // Convert to team members
+                const members: TeamMember[] = [];
+                userProgressMap.forEach((entries, userId) => {
+                    const user = entries[0].user;
+                    const completed = entries.filter(e => e.status === "COMPLETED").length;
+                    const totalHours = entries.reduce((sum, e) => sum + (e.timeSpentSeconds || 0), 0) / 3600;
+                    const lastActive = entries
+                        .filter(e => e.lastAccessedAt)
+                        .sort((a, b) => new Date(b.lastAccessedAt!).getTime() - new Date(a.lastAccessedAt!).getTime())[0]?.lastAccessedAt;
+
+                    members.push({
+                        id: userId,
+                        name: user.name || "Unknown",
+                        email: user.email,
+                        role: user.role,
+                        progress: {
+                            coursesCompleted: completed,
+                            totalCourses: entries.length,
+                            hoursSpent: Math.round(totalHours * 10) / 10,
+                            completionRate: entries.length > 0 ? Math.round((completed / entries.length) * 100) : 0,
+                            lastActive: lastActive || "Never",
+                        },
+                    });
+                });
+
+                setTeamMembers(members);
+            } else {
+                setError(data.error || "Failed to fetch progress");
+            }
+        } catch (err) {
+            setError("Failed to fetch team progress");
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
-    const filteredMembers = teamMembers.filter(member => {
-        if (filter === "active") {
-            const lastActive = new Date(member.progress.lastActive);
-            const daysSinceActive = (Date.now() - lastActive.getTime()) / (1000 * 60 * 60 * 24);
-            return daysSinceActive <= 3;
-        }
-        if (filter === "behind") {
-            return member.progress.completionRate < 50;
-        }
+    useEffect(() => {
+        fetchProgress();
+    }, [fetchProgress]);
+
+    // Calculate team stats
+    const totalMembers = teamMembers.length;
+    const averageCompletion = totalMembers > 0
+        ? Math.round(teamMembers.reduce((sum, m) => sum + m.progress.completionRate, 0) / totalMembers)
+        : 0;
+    const totalHours = teamMembers.reduce((sum, m) => sum + m.progress.hoursSpent, 0);
+    const totalCompleted = teamMembers.reduce((sum, m) => sum + m.progress.coursesCompleted, 0);
+
+    // Filter members
+    const filteredMembers = teamMembers.filter((m) => {
+        if (filter === "active") return m.progress.completionRate > 0 && m.progress.completionRate < 100;
+        if (filter === "inactive") return m.progress.completionRate === 0;
         return true;
     });
 
-    const stats = {
-        totalMembers: teamMembers.length,
-        activeThisWeek: teamMembers.filter(m => {
-            const lastActive = new Date(m.progress.lastActive);
-            const daysSinceActive = (Date.now() - lastActive.getTime()) / (1000 * 60 * 60 * 24);
-            return daysSinceActive <= 7;
-        }).length,
-        avgCompletion: Math.round(teamMembers.reduce((acc, m) => acc + m.progress.completionRate, 0) / teamMembers.length) || 0,
-        totalCertifications: teamMembers.reduce((acc, m) => acc + m.progress.certifications, 0),
-    };
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="p-8 max-w-6xl mx-auto">
+                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-destructive" />
+                    <p className="text-destructive">{error}</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div className="p-8 max-w-7xl mx-auto">
+        <div className="p-8 max-w-6xl mx-auto">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-foreground">Team Progress</h1>
                 <p className="text-muted-foreground mt-1">
-                    Monitor your team's training progress and certifications
+                    Monitor your team&apos;s training progress and completion rates
                 </p>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div className="p-5 rounded-xl bg-card border border-border">
-                    <div className="flex items-center justify-between mb-3">
+            {/* Stats Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
+                <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-primary/10">
                             <Users className="h-5 w-5 text-primary" />
                         </div>
-                        <span className="text-xs text-muted-foreground">Team Size</span>
+                        <div>
+                            <p className="text-sm text-muted-foreground">Team Members</p>
+                            <p className="text-2xl font-bold">{totalMembers}</p>
+                        </div>
                     </div>
-                    <p className="text-3xl font-bold">{stats.totalMembers}</p>
-                    <p className="text-sm text-muted-foreground mt-1">team members</p>
                 </div>
-
-                <div className="p-5 rounded-xl bg-card border border-border">
-                    <div className="flex items-center justify-between mb-3">
+                <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-emerald-500/10">
                             <TrendingUp className="h-5 w-5 text-emerald-500" />
                         </div>
-                        <span className="text-xs text-muted-foreground">This Week</span>
-                    </div>
-                    <p className="text-3xl font-bold">{stats.activeThisWeek}</p>
-                    <p className="text-sm text-muted-foreground mt-1">active learners</p>
-                </div>
-
-                <div className="p-5 rounded-xl bg-card border border-border">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="p-2 rounded-lg bg-blue-500/10">
-                            <BarChart3 className="h-5 w-5 text-blue-500" />
+                        <div>
+                            <p className="text-sm text-muted-foreground">Avg. Completion</p>
+                            <p className="text-2xl font-bold">{averageCompletion}%</p>
                         </div>
-                        <span className="text-xs text-muted-foreground">Average</span>
                     </div>
-                    <p className="text-3xl font-bold">{stats.avgCompletion}%</p>
-                    <p className="text-sm text-muted-foreground mt-1">completion rate</p>
                 </div>
-
-                <div className="p-5 rounded-xl bg-card border border-border">
-                    <div className="flex items-center justify-between mb-3">
+                <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-blue-500/10">
+                            <Clock className="h-5 w-5 text-blue-500" />
+                        </div>
+                        <div>
+                            <p className="text-sm text-muted-foreground">Total Hours</p>
+                            <p className="text-2xl font-bold">{Math.round(totalHours)}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-amber-500/10">
                             <Award className="h-5 w-5 text-amber-500" />
                         </div>
-                        <span className="text-xs text-muted-foreground">Total</span>
+                        <div>
+                            <p className="text-sm text-muted-foreground">Completed</p>
+                            <p className="text-2xl font-bold">{totalCompleted}</p>
+                        </div>
                     </div>
-                    <p className="text-3xl font-bold">{stats.totalCertifications}</p>
-                    <p className="text-sm text-muted-foreground mt-1">certifications earned</p>
                 </div>
             </div>
 
-            {/* Filters */}
+            {/* Filter */}
             <div className="flex items-center gap-2 mb-6">
                 <Filter className="h-4 w-4 text-muted-foreground" />
-                <div className="flex gap-2">
-                    {(["all", "active", "behind"] as const).map(f => (
+                <div className="flex rounded-lg border border-border overflow-hidden">
+                    {(["all", "active", "inactive"] as const).map((f) => (
                         <button
                             key={f}
                             onClick={() => setFilter(f)}
                             className={cn(
-                                "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
-                                filter === f
-                                    ? "bg-primary text-primary-foreground"
-                                    : "bg-muted hover:bg-muted/80"
+                                "px-4 py-2 text-sm font-medium transition-colors",
+                                filter === f ? "bg-primary text-primary-foreground" : "hover:bg-muted"
                             )}
                         >
-                            {f === "all" ? "All Members" : f === "active" ? "Active" : "Behind Schedule"}
+                            {f.charAt(0).toUpperCase() + f.slice(1)}
                         </button>
                     ))}
                 </div>
             </div>
 
-            {/* Team Members List */}
-            <div className="space-y-3">
-                {filteredMembers.map((member) => {
-                    const daysSinceActive = Math.floor(
-                        (Date.now() - new Date(member.progress.lastActive).getTime()) / (1000 * 60 * 60 * 24)
-                    );
-                    const isActive = daysSinceActive <= 3;
-                    const isBehind = member.progress.completionRate < 50;
-
-                    return (
+            {/* Team Members */}
+            {filteredMembers.length === 0 ? (
+                <div className="text-center py-12 text-muted-foreground">
+                    <GraduationCap className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>No team members with progress data yet.</p>
+                    <p className="text-sm mt-1">Assign training modules to start tracking progress.</p>
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    {filteredMembers.map((member) => (
                         <div
                             key={member.id}
-                            className="p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors"
+                            className="p-4 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors"
                         >
-                            <div className="flex items-center gap-4">
-                                {/* Avatar */}
-                                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                    <span className="text-lg font-semibold text-primary">
-                                        {member.name.charAt(0)}
-                                    </span>
-                                </div>
-
-                                {/* Info */}
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2">
-                                        <h3 className="font-semibold text-foreground truncate">{member.name}</h3>
-                                        {isActive && (
-                                            <span className="px-2 py-0.5 rounded-full text-xs bg-emerald-500/10 text-emerald-500">
-                                                Active
-                                            </span>
-                                        )}
-                                        {isBehind && (
-                                            <span className="px-2 py-0.5 rounded-full text-xs bg-amber-500/10 text-amber-500">
-                                                Behind
-                                            </span>
-                                        )}
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                        <span className="text-lg font-semibold text-primary">
+                                            {member.name.charAt(0).toUpperCase()}
+                                        </span>
                                     </div>
-                                    <p className="text-sm text-muted-foreground truncate">
-                                        {member.email} · {member.department}
-                                    </p>
-                                </div>
-
-                                {/* Progress */}
-                                <div className="hidden md:flex items-center gap-6">
-                                    <div className="text-center">
-                                        <p className="text-sm font-medium">{member.progress.coursesCompleted}/{member.progress.totalCourses}</p>
-                                        <p className="text-xs text-muted-foreground">Courses</p>
-                                    </div>
-                                    <div className="text-center">
-                                        <p className="text-sm font-medium">{member.progress.hoursSpent}h</p>
-                                        <p className="text-xs text-muted-foreground">Time Spent</p>
-                                    </div>
-                                    <div className="text-center">
-                                        <p className="text-sm font-medium">{member.progress.certifications}</p>
-                                        <p className="text-xs text-muted-foreground">Certs</p>
+                                    <div>
+                                        <h3 className="font-semibold text-foreground">{member.name}</h3>
+                                        <p className="text-sm text-muted-foreground">{member.email}</p>
                                     </div>
                                 </div>
-
-                                {/* Progress Bar */}
-                                <div className="hidden lg:block w-32">
-                                    <div className="flex items-center justify-between text-xs mb-1">
-                                        <span className="text-muted-foreground">Progress</span>
-                                        <span className="font-medium">{member.progress.completionRate}%</span>
-                                    </div>
-                                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                                        <div
-                                            className={cn(
-                                                "h-full rounded-full transition-all",
-                                                member.progress.completionRate >= 80 ? "bg-emerald-500" :
-                                                    member.progress.completionRate >= 50 ? "bg-blue-500" :
-                                                        "bg-amber-500"
-                                            )}
-                                            style={{ width: `${member.progress.completionRate}%` }}
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Action */}
                                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
                             </div>
 
-                            {/* Current Course */}
-                            {member.progress.currentCourse && (
-                                <div className="mt-3 pt-3 border-t border-border flex items-center gap-2 text-sm">
-                                    <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                                    <span className="text-muted-foreground">Currently enrolled:</span>
-                                    <span className="font-medium">{member.progress.currentCourse}</span>
+                            <div className="mt-4 grid grid-cols-4 gap-4 text-sm">
+                                <div>
+                                    <p className="text-muted-foreground">Completed</p>
+                                    <p className="font-semibold">
+                                        {member.progress.coursesCompleted}/{member.progress.totalCourses}
+                                    </p>
                                 </div>
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
+                                <div>
+                                    <p className="text-muted-foreground">Hours</p>
+                                    <p className="font-semibold">{member.progress.hoursSpent}h</p>
+                                </div>
+                                <div>
+                                    <p className="text-muted-foreground">Completion</p>
+                                    <p className="font-semibold">{member.progress.completionRate}%</p>
+                                </div>
+                                <div>
+                                    <p className="text-muted-foreground">Last Active</p>
+                                    <p className="font-semibold">
+                                        {member.progress.lastActive === "Never"
+                                            ? "Never"
+                                            : new Date(member.progress.lastActive).toLocaleDateString()}
+                                    </p>
+                                </div>
+                            </div>
 
-            {/* Empty State */}
-            {filteredMembers.length === 0 && (
-                <div className="text-center py-12">
-                    <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">No team members found</h3>
-                    <p className="text-muted-foreground">
-                        {filter !== "all"
-                            ? "Try adjusting your filters"
-                            : "Start by adding team members to track their progress"}
-                    </p>
+                            {/* Progress Bar */}
+                            <div className="mt-4">
+                                <div className="h-2 bg-muted rounded-full overflow-hidden">
+                                    <div
+                                        className={cn(
+                                            "h-full rounded-full transition-all",
+                                            member.progress.completionRate === 100
+                                                ? "bg-emerald-500"
+                                                : member.progress.completionRate > 0
+                                                    ? "bg-primary"
+                                                    : "bg-muted-foreground/20"
+                                        )}
+                                        style={{ width: `${member.progress.completionRate}%` }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
 
             {/* Quick Actions */}
-            <div className="mt-8 p-6 rounded-xl bg-muted/30 border border-border">
-                <h3 className="font-semibold mb-4">Quick Actions</h3>
-                <div className="flex flex-wrap gap-3">
-                    <Link
-                        href="/admin/users"
-                        className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
-                    >
-                        Add Team Member
-                    </Link>
-                    <Link
-                        href="/assign"
-                        className="px-4 py-2 rounded-lg bg-card border border-border text-sm font-medium hover:bg-muted transition-colors"
-                    >
-                        Assign Training
-                    </Link>
-                    <Link
-                        href="/reports"
-                        className="px-4 py-2 rounded-lg bg-card border border-border text-sm font-medium hover:bg-muted transition-colors"
-                    >
-                        View Reports
-                    </Link>
-                </div>
+            <div className="mt-8 flex gap-4">
+                <Link
+                    href="/assign"
+                    className="flex-1 p-4 rounded-xl bg-primary/5 border border-primary/20 hover:bg-primary/10 transition-colors text-center"
+                >
+                    <GraduationCap className="h-6 w-6 mx-auto mb-2 text-primary" />
+                    <p className="font-medium">Assign Training</p>
+                </Link>
+                <Link
+                    href="/admin/users"
+                    className="flex-1 p-4 rounded-xl bg-muted border border-border hover:bg-muted/80 transition-colors text-center"
+                >
+                    <Users className="h-6 w-6 mx-auto mb-2 text-muted-foreground" />
+                    <p className="font-medium">Manage Users</p>
+                </Link>
             </div>
         </div>
-    );
-}
-
-// =============================================================================
-// MAIN PAGE EXPORT
-// =============================================================================
-
-export default function TeamPage() {
-    return (
-        <AuthProvider>
-            <TeamDashboardContent />
-        </AuthProvider>
     );
 }

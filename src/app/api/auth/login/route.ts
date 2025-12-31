@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyPassword, createSession, updateLastLogin, seedAdminUser } from '@/lib/db';
+import { verifyPassword, createSession, updateLastLogin, seedAdminUser, seedTestUser, seedTestUserProgress } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
     try {
@@ -13,8 +13,10 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Ensure admin user exists
+        // Ensure seed users exist with module access
         await seedAdminUser();
+        await seedTestUser();
+        await seedTestUserProgress();
 
         // Verify credentials
         const { valid, user } = await verifyPassword(email, password);

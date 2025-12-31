@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { LessonPage } from "@/components/learning/LessonPage";
 import { getLessonsByModule, getLessonByModuleAndNumber } from "@/lib/curriculum/lesson-content";
 import { getModuleById } from "@/lib/curriculum/ai-native-curriculum";
+import { requireAuth } from "@/lib/auth/lessonAuth";
 
 interface PageProps {
     params: Promise<{
@@ -11,6 +12,9 @@ interface PageProps {
 }
 
 export default async function LessonRoute({ params }: PageProps) {
+    // Require authentication - redirects to /login if not authenticated
+    await requireAuth();
+
     const { moduleId, lessonNumber } = await params;
     const lessonNum = parseInt(lessonNumber, 10);
 

@@ -1,4 +1,6 @@
 import { PrismaClient, UserRole, ProgressStatus } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
 
 // =============================================================================
@@ -11,7 +13,11 @@ const globalForPrisma = globalThis as unknown as {
 
 function getPrisma(): PrismaClient {
     if (!globalForPrisma.prisma) {
-        globalForPrisma.prisma = new PrismaClient();
+        const pool = new Pool({
+            connectionString: process.env.DATABASE_URL,
+        });
+        const adapter = new PrismaPg(pool);
+        globalForPrisma.prisma = new PrismaClient({ adapter });
     }
     return globalForPrisma.prisma;
 }
@@ -233,24 +239,386 @@ export async function getOrCreateDefaultOrg() {
 }
 
 // =============================================================================
+// SEED CURRICULUM MODULES - Create TrainingModule records for curriculum
+// =============================================================================
+
+// Import curriculum data dynamically to avoid circular dependencies
+async function getCurriculumModules() {
+    const { aiNativeCurriculum } = await import('@/lib/curriculum/ai-native-curriculum');
+    return aiNativeCurriculum;
+}
+
+export async function seedCurriculumModules() {
+    const org = await getOrCreateDefaultOrg();
+    const admin = await getUserByEmail('sam.sweilem85@gmail.com');
+
+    if (!admin) {
+        console.log('Admin user not found, skipping curriculum module seeding');
+        return [];
+    }
+
+    const curriculumModules = await getCurriculumModules();
+    const results = [];
+
+    for (const module of curriculumModules) {
+        // Check if module already exists
+        const existing = await getPrisma().trainingModule.findUnique({
+            where: { id: module.id },
+        });
+
+        if (existing) {
+            results.push(existing);
+            continue;
+        }
+
+        // Map curriculum difficulty to Prisma enum
+        const difficultyMap: Record<string, 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'EXPERT'> = {
+            'Beginner': 'BEGINNER',
+            'Intermediate': 'INTERMEDIATE',
+            'Advanced': 'ADVANCED',
+            'Expert': 'EXPERT',
+        };
+
+        const trainingModule = await getPrisma().trainingModule.create({
+            data: {
+                id: module.id, // Use curriculum ID like "module-1"
+                title: module.title,
+                description: module.description,
+                difficulty: difficultyMap[module.level] || 'BEGINNER',
+                estimatedDurationMinutes: parseInt(module.duration) * 60 || 60,
+                organizationId: org.id,
+                creatorId: admin.id,
+                isPublished: true,
+                publishedAt: new Date(),
+            },
+        });
+
+        results.push(trainingModule);
+    }
+
+    console.log(`Seeded ${results.length} curriculum modules`);
+    return results;
+}
+
+// =============================================================================
 // SEED ADMIN USER
 // =============================================================================
 
 export async function seedAdminUser() {
     const org = await getOrCreateDefaultOrg();
 
-    const existingAdmin = await getUserByEmail('sam.sweilem@gmail.com');
+    // Check if admin exists with either email variant
+    let existingAdmin = await getUserByEmail('sam.sweilem85@gmail.com');
+    if (!existingAdmin) {
+        existingAdmin = await getUserByEmail('sam.sweilem@gmail.com');
+    }
     if (existingAdmin) return existingAdmin;
 
     const passwordHash = await bcrypt.hash('Winter2022$', 10);
 
     return getPrisma().user.create({
         data: {
-            email: 'sam.sweilem@gmail.com',
+            email: 'sam.sweilem85@gmail.com',
             name: 'Sam Sweilem',
             passwordHash,
             role: 'SUPER_ADMIN',
             organizationId: org.id,
+        },
+    });
+}
+
+// =============================================================================
+// SEED TEST USER
+// =============================================================================
+
+export async function seedTestUser() {
+    const org = await getOrCreateDefaultOrg();
+
+    const existingUser = await getUserByEmail('testuser1@test.com');
+    if (existingUser) return existingUser;
+
+    const passwordHash = await bcrypt.hash('Winter2022$', 10);
+
+    return getPrisma().user.create({
+        data: {
+            email: 'testuser1@test.com',
+            name: 'Test User 1',
+            passwordHash,
+            role: 'LEARNER',
+            organizationId: org.id,
+        },
+    });
+}
+
+// =============================================================================
+// SEED TEST USER PROGRESS - Grant Foundation track access
+// =============================================================================
+
+export async function seedTestUserProgress() {
+    // Ensure curriculum modules exist in database first (TrainingModule records)
+    await seedCurriculumModules();
+
+    const testUser = await getUserByEmail('testuser1@test.com');
+    if (!testUser) return null;
+
+    // Foundation track modules (module-1 and module-2)
+    const foundationModules = ['module-1', 'module-2'];
+
+    // Grant access to Foundation modules
+    const progress = await grantModuleAccess(testUser.id, foundationModules);
+
+    // Update module-1 to show some progress (30% complete, in progress)
+    const module1Progress = progress.find(p => p.moduleId === 'module-1');
+    if (module1Progress) {
+        await getPrisma().learnerProgress.update({
+            where: { id: module1Progress.id },
+            data: {
+                status: 'IN_PROGRESS',
+                completionPercentage: 30,
+                timeSpentSeconds: 1800, // 30 minutes
+                lastAccessedAt: new Date(),
+            },
+        });
+    }
+
+    return progress;
+}
+
+// =============================================================================
+// USER PROVISIONING - Onboard new users with module access
+// =============================================================================
+
+export async function onboardUser(data: {
+    email: string;
+    name: string;
+    password: string;
+    role?: UserRole;
+    organizationId?: string;
+    moduleAccess?: string[]; // Array of module IDs to grant access
+}) {
+    // Get or create default org if not specified
+    const org = data.organizationId
+        ? await getPrisma().organization.findUnique({ where: { id: data.organizationId } })
+        : await getOrCreateDefaultOrg();
+
+    if (!org) throw new Error('Organization not found');
+
+    // Create the user
+    const user = await createUser({
+        email: data.email,
+        name: data.name,
+        password: data.password,
+        role: data.role || 'LEARNER',
+        organizationId: org.id,
+    });
+
+    // If module access is specified, create initial progress entries
+    if (data.moduleAccess && data.moduleAccess.length > 0) {
+        for (const moduleId of data.moduleAccess) {
+            await saveProgress({
+                userId: user.id,
+                moduleId,
+                status: 'NOT_STARTED',
+                completionPercentage: 0,
+            });
+        }
+    }
+
+    return user;
+}
+
+// =============================================================================
+// GRANT MODULE ACCESS
+// =============================================================================
+
+export async function grantModuleAccess(userId: string, moduleIds: string[]) {
+    const results = [];
+    for (const moduleId of moduleIds) {
+        const existing = await getPrisma().learnerProgress.findFirst({
+            where: { userId, moduleId, lessonId: null },
+        });
+
+        if (!existing) {
+            const progress = await saveProgress({
+                userId,
+                moduleId,
+                status: 'NOT_STARTED',
+                completionPercentage: 0,
+            });
+            results.push(progress);
+        } else {
+            results.push(existing);
+        }
+    }
+    return results;
+}
+
+// =============================================================================
+// USER MANAGEMENT (Admin)
+// =============================================================================
+
+export async function getUserById(id: string) {
+    return getPrisma().user.findUnique({
+        where: { id },
+        include: { organization: true },
+    });
+}
+
+export async function updateUser(id: string, data: {
+    name?: string;
+    role?: UserRole;
+    email?: string;
+}) {
+    return getPrisma().user.update({
+        where: { id },
+        data: {
+            ...(data.name && { name: data.name }),
+            ...(data.role && { role: data.role }),
+            ...(data.email && { email: data.email.toLowerCase() }),
+        },
+    });
+}
+
+export async function deleteUser(id: string) {
+    // First delete sessions
+    await getPrisma().session.deleteMany({ where: { userId: id } });
+    // Then delete the user (progress is preserved for audit)
+    return getPrisma().user.delete({ where: { id } });
+}
+
+// =============================================================================
+// PROGRESS TRACKING (Admin)
+// =============================================================================
+
+export async function getProgressByOrganization(
+    organizationId?: string,
+    filters?: { userId?: string; moduleId?: string; status?: string }
+) {
+    // Build where clause
+    const where: Record<string, unknown> = {};
+
+    if (filters?.userId) {
+        where.userId = filters.userId;
+    }
+    if (filters?.moduleId) {
+        where.moduleId = filters.moduleId;
+    }
+    if (filters?.status) {
+        where.status = filters.status;
+    }
+
+    // If scoped to org, need to filter by user's organization
+    if (organizationId) {
+        where.user = { organizationId };
+    }
+
+    return getPrisma().learnerProgress.findMany({
+        where,
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true,
+                    organization: { select: { name: true } },
+                },
+            },
+        },
+        orderBy: { updatedAt: 'desc' },
+    });
+}
+
+// =============================================================================
+// ASSIGNMENTS (Admin)
+// =============================================================================
+
+export async function createAssignment(data: {
+    moduleId: string;
+    userIds: string[];
+    organizationId: string;
+    assignedById: string;
+    dueDate?: Date;
+    isRequired?: boolean;
+}) {
+    // Create the assignment
+    const assignment = await getPrisma().assignment.create({
+        data: {
+            moduleId: data.moduleId,
+            organizationId: data.organizationId,
+            assignedById: data.assignedById,
+            dueDate: data.dueDate,
+            isRequired: data.isRequired ?? true,
+        },
+    });
+
+    // Create user assignments
+    for (const userId of data.userIds) {
+        await getPrisma().userAssignment.create({
+            data: {
+                assignmentId: assignment.id,
+                userId,
+            },
+        });
+
+        // Also create progress entry if not exists
+        const existingProgress = await getPrisma().learnerProgress.findFirst({
+            where: { userId, moduleId: data.moduleId, lessonId: null },
+        });
+
+        if (!existingProgress) {
+            await saveProgress({
+                userId,
+                moduleId: data.moduleId,
+                status: 'NOT_STARTED',
+                completionPercentage: 0,
+            });
+        }
+    }
+
+    return assignment;
+}
+
+export async function getAssignmentsByOrganization(organizationId?: string) {
+    return getPrisma().assignment.findMany({
+        where: organizationId ? { organizationId } : undefined,
+        include: {
+            assignedBy: { select: { name: true, email: true } },
+            assignees: {
+                include: {
+                    user: { select: { id: true, name: true, email: true } },
+                },
+            },
+        },
+        orderBy: { createdAt: 'desc' },
+    });
+}
+
+// =============================================================================
+// ORGANIZATION MANAGEMENT (Super Admin)
+// =============================================================================
+
+export async function getAllOrganizations() {
+    return getPrisma().organization.findMany({
+        include: {
+            _count: { select: { users: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+    });
+}
+
+export async function createOrganization(data: {
+    name: string;
+    slug: string;
+    industry?: string;
+    tier?: string;
+}) {
+    return getPrisma().organization.create({
+        data: {
+            name: data.name,
+            slug: data.slug,
+            industry: data.industry,
+            tier: data.tier || 'STARTER',
         },
     });
 }

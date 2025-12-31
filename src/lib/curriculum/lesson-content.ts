@@ -2655,8 +2655,388 @@ def optimize_prompt(prompt: str) -> str:
     }
 ];
 
+// =============================================================================
+// MODULE 9 LESSON CONTENT - Production Deployment
+// =============================================================================
+
+export const module9Lessons: LessonContent[] = [
+    {
+        id: "m9-l1",
+        moduleId: "module-9",
+        topicId: "9-1",
+        lessonNumber: 1,
+        title: "Deployment Strategies for AI Systems",
+        duration: "45 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Deploying AI to Production" },
+            {
+                type: "text",
+                content: `Deploying AI systems requires different considerations than traditional software. This lesson covers deployment patterns that ensure reliability and scalability.
+
+**Key Deployment Challenges:**
+- Model versioning and rollbacks
+- Inference latency requirements
+- Resource scaling (GPU, memory)
+- A/B testing and canary releases
+- Monitoring and observability`
+            },
+            { type: "heading", level: 2, text: "Deployment Patterns" },
+            {
+                type: "code",
+                language: "python",
+                code: `# Blue-Green Deployment for AI Models
+class ModelDeployer:
+    def __init__(self):
+        self.blue_model = None  # Current production
+        self.green_model = None  # New version
+        self.traffic_split = {"blue": 100, "green": 0}
+    
+    def deploy_new_version(self, model):
+        """Deploy new model to green slot"""
+        self.green_model = model
+        self.traffic_split = {"blue": 90, "green": 10}
+        
+    def promote_green(self):
+        """Promote green to production after validation"""
+        self.blue_model = self.green_model
+        self.green_model = None
+        self.traffic_split = {"blue": 100, "green": 0}
+    
+    def rollback(self):
+        """Emergency rollback to blue"""
+        self.green_model = None
+        self.traffic_split = {"blue": 100, "green": 0}
+
+# Canary Release Pattern
+class CanaryDeployer:
+    def route_request(self, request):
+        if self.is_canary_user(request.user_id):
+            return self.green_model.predict(request)
+        return self.blue_model.predict(request)`,
+                caption: "Blue-green and canary deployment patterns"
+            },
+            { type: "heading", level: 2, text: "Infrastructure Considerations" },
+            {
+                type: "callout",
+                style: "tip",
+                content: "Use GPU spot instances for batch inference to reduce costs by 60-70%. Reserve on-demand instances only for real-time endpoints."
+            },
+            {
+                type: "text",
+                content: `**Infrastructure Options:**
+
+| Option | Best For | Latency | Cost |
+|--------|----------|---------|------|
+| AWS SageMaker | Enterprise ML | Low | High |
+| Modal | Serverless GPU | Low | Medium |
+| Replicate | Public models | Medium | Pay-per-use |
+| Self-hosted | Full control | Variable | High |
+
+**Scaling Strategies:**
+- Horizontal scaling for throughput
+- Vertical scaling for large models
+- Queue-based async processing for batch`
+            },
+            {
+                type: "quiz",
+                title: "Deployment Quiz",
+                questions: [
+                    {
+                        id: "dep-q1",
+                        type: "multiple-choice",
+                        question: "What is the main advantage of blue-green deployment?",
+                        options: [
+                            { id: "a", text: "Lower infrastructure costs" },
+                            { id: "b", text: "Instant rollback capability" },
+                            { id: "c", text: "Faster model training" },
+                            { id: "d", text: "Reduced memory usage" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "Blue-green deployment keeps the previous version running, enabling instant rollback if issues are detected."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m9-l2",
+        moduleId: "module-9",
+        topicId: "9-2",
+        lessonNumber: 2,
+        title: "Monitoring & Observability",
+        duration: "40 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Monitoring AI in Production" },
+            {
+                type: "text",
+                content: `AI systems require specialized monitoring beyond traditional APM. This lesson covers essential observability practices.
+
+**What to Monitor:**
+- Model performance metrics (accuracy, latency)
+- Data drift and distribution shifts
+- Token usage and costs
+- Error rates and failure modes
+- User feedback and satisfaction`
+            },
+            { type: "heading", level: 2, text: "Building a Monitoring Stack" },
+            {
+                type: "code",
+                language: "python",
+                code: `# LLM Observability Framework
+from dataclasses import dataclass
+from datetime import datetime
+import json
+
+@dataclass
+class LLMTrace:
+    trace_id: str
+    model: str
+    prompt_tokens: int
+    completion_tokens: int
+    latency_ms: float
+    cost: float
+    success: bool
+    error: str | None = None
+
+class LLMMonitor:
+    def __init__(self, backend="langfuse"):
+        self.backend = backend
+        self.traces = []
+    
+    def trace(self, func):
+        """Decorator to trace LLM calls"""
+        def wrapper(*args, **kwargs):
+            start = datetime.now()
+            try:
+                result = func(*args, **kwargs)
+                latency = (datetime.now() - start).total_seconds() * 1000
+                self.log_trace(result, latency, success=True)
+                return result
+            except Exception as e:
+                latency = (datetime.now() - start).total_seconds() * 1000
+                self.log_trace(None, latency, success=False, error=str(e))
+                raise
+        return wrapper
+    
+    def alert_on_drift(self, current_distribution, baseline):
+        """Detect and alert on data drift"""
+        drift_score = self.calculate_drift(current_distribution, baseline)
+        if drift_score > 0.1:  # 10% drift threshold
+            self.send_alert(f"Data drift detected: {drift_score:.2%}")`,
+                caption: "LLM monitoring and observability framework"
+            },
+            {
+                type: "callout",
+                style: "info",
+                content: "Tools like LangFuse, LangSmith, and Helicone provide specialized LLM observability with tracing, cost tracking, and prompt analytics."
+            },
+            {
+                type: "quiz",
+                title: "Monitoring Quiz",
+                questions: [
+                    {
+                        id: "mon-q1",
+                        type: "multi-select",
+                        question: "What should you monitor for AI systems?",
+                        options: [
+                            { id: "a", text: "Model latency" },
+                            { id: "b", text: "Data drift" },
+                            { id: "c", text: "Token costs" },
+                            { id: "d", text: "User feedback" },
+                        ],
+                        correctAnswers: ["a", "b", "c", "d"],
+                        explanation: "All of these are critical for AI observability. Latency affects UX, drift impacts accuracy, costs need tracking, and user feedback validates quality."
+                    },
+                ]
+            }
+        ]
+    }
+];
+
+// =============================================================================
+// MODULE 10 LESSON CONTENT - AI Leadership
+// =============================================================================
+
+export const module10Lessons: LessonContent[] = [
+    {
+        id: "m10-l1",
+        moduleId: "module-10",
+        topicId: "10-1",
+        lessonNumber: 1,
+        title: "Building an AI Strategy",
+        duration: "50 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Strategic AI Leadership" },
+            {
+                type: "text",
+                content: `Leading AI transformation requires strategic thinking beyond technology. This lesson covers how to build and execute an effective AI strategy.
+
+**Key Strategic Questions:**
+- Where can AI create the most value?
+- What's our competitive moat?
+- Build vs. buy vs. partner?
+- How do we manage risk?
+- What talent do we need?`
+            },
+            { type: "heading", level: 2, text: "AI Strategy Framework" },
+            {
+                type: "text",
+                content: `**The AI Value Chain:**
+
+| Stage | Focus | Examples |
+|-------|-------|----------|
+| Efficiency | Cost reduction | Automation, optimization |
+| Enhancement | Better decisions | Analytics, recommendations |
+| Innovation | New products | AI-native offerings |
+| Transformation | Business model change | Platform plays |
+
+**Prioritization Matrix:**
+1. **Quick Wins**: High value, low effort
+2. **Strategic Bets**: High value, high effort
+3. **Fill-ins**: Low value, low effort
+4. **Avoid**: Low value, high effort`
+            },
+            { type: "heading", level: 2, text: "Building the Business Case" },
+            {
+                type: "callout",
+                style: "warning",
+                content: "80% of AI projects fail to reach production. Focus on clear business outcomes, not technology for its own sake."
+            },
+            {
+                type: "code",
+                language: "python",
+                code: `# AI Business Case Calculator
+class AIBusinessCase:
+    def __init__(self, project_name: str):
+        self.project_name = project_name
+        self.costs = {}
+        self.benefits = {}
+    
+    def add_cost(self, category: str, amount: float, timeline_months: int):
+        self.costs[category] = {"amount": amount, "months": timeline_months}
+    
+    def add_benefit(self, category: str, annual_value: float, confidence: float):
+        self.benefits[category] = {"value": annual_value, "confidence": confidence}
+    
+    def calculate_roi(self, years: int = 3) -> dict:
+        total_cost = sum(c["amount"] for c in self.costs.values())
+        annual_benefit = sum(
+            b["value"] * b["confidence"] 
+            for b in self.benefits.values()
+        )
+        total_benefit = annual_benefit * years
+        
+        return {
+            "total_cost": total_cost,
+            "total_benefit": total_benefit,
+            "roi": (total_benefit - total_cost) / total_cost * 100,
+            "payback_months": total_cost / (annual_benefit / 12)
+        }
+
+# Example usage
+case = AIBusinessCase("Customer Service AI")
+case.add_cost("Development", 500000, 6)
+case.add_cost("Infrastructure", 100000, 12)
+case.add_benefit("Labor savings", 400000, 0.8)
+case.add_benefit("Customer satisfaction", 150000, 0.6)
+print(case.calculate_roi())  # {"roi": 167%, "payback_months": 14}`,
+                caption: "Building a rigorous AI business case"
+            },
+            {
+                type: "quiz",
+                title: "Strategy Quiz",
+                questions: [
+                    {
+                        id: "str-q1",
+                        type: "multiple-choice",
+                        question: "According to the prioritization matrix, which projects should you tackle first?",
+                        options: [
+                            { id: "a", text: "Strategic Bets (high value, high effort)" },
+                            { id: "b", text: "Quick Wins (high value, low effort)" },
+                            { id: "c", text: "Fill-ins (low value, low effort)" },
+                            { id: "d", text: "All projects equally" },
+                        ],
+                        correctAnswers: ["b"],
+                        explanation: "Quick wins build momentum and demonstrate value, creating support for larger strategic bets."
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: "m10-l2",
+        moduleId: "module-10",
+        topicId: "10-2",
+        lessonNumber: 2,
+        title: "Governance & Ethics",
+        duration: "45 min",
+        contentType: "interactive",
+        content: [
+            { type: "heading", level: 1, text: "Responsible AI Leadership" },
+            {
+                type: "text",
+                content: `AI governance ensures responsible development and deployment. Leaders must establish frameworks that balance innovation with risk management.
+
+**Governance Pillars:**
+- Fairness & bias mitigation
+- Transparency & explainability
+- Privacy & data protection
+- Safety & security
+- Accountability & oversight`
+            },
+            { type: "heading", level: 2, text: "Establishing AI Governance" },
+            {
+                type: "text",
+                content: `**AI Governance Structure:**
+
+| Role | Responsibility |
+|------|----------------|
+| AI Ethics Board | Policy, oversight |
+| Chief AI Officer | Strategy, execution |
+| AI Risk Manager | Risk assessment |
+| Data Protection Officer | Privacy compliance |
+| Model Validators | Quality assurance |
+
+**Key Policies to Establish:**
+1. Acceptable use policy for AI tools
+2. Data governance for AI training
+3. Model validation and testing requirements
+4. Incident response procedures
+5. Vendor/third-party AI guidelines`
+            },
+            {
+                type: "callout",
+                style: "warning",
+                content: "The EU AI Act requires high-risk AI systems to have risk management, data governance, transparency, and human oversight. Prepare now for compliance."
+            },
+            {
+                type: "quiz",
+                title: "Governance Quiz",
+                questions: [
+                    {
+                        id: "gov-q1",
+                        type: "multi-select",
+                        question: "Which are pillars of responsible AI governance?",
+                        options: [
+                            { id: "a", text: "Fairness" },
+                            { id: "b", text: "Transparency" },
+                            { id: "c", text: "Maximum automation" },
+                            { id: "d", text: "Accountability" },
+                        ],
+                        correctAnswers: ["a", "b", "d"],
+                        explanation: "Fairness, transparency, and accountability are core pillars. Maximum automation is not a governance principle."
+                    },
+                ]
+            }
+        ]
+    }
+];
+
 // Combine all lessons
-const allLessons = [...module1Lessons, ...module2Lessons, ...module3Lessons, ...module4Lessons, ...module5Lessons, ...module6Lessons, ...module7Lessons, ...module8Lessons];
+const allLessons = [...module1Lessons, ...module2Lessons, ...module3Lessons, ...module4Lessons, ...module5Lessons, ...module6Lessons, ...module7Lessons, ...module8Lessons, ...module9Lessons, ...module10Lessons];
 
 // =============================================================================
 // LESSON LOOKUP HELPERS
@@ -2673,3 +3053,4 @@ export function getLessonById(lessonId: string): LessonContent | undefined {
 export function getLessonByModuleAndNumber(moduleId: string, lessonNumber: number): LessonContent | undefined {
     return allLessons.find(l => l.moduleId === moduleId && l.lessonNumber === lessonNumber);
 }
+

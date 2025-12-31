@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, Badge, Button, Progress } from "@/components/ui";
 import {
     ClipboardCheck,
@@ -14,40 +14,64 @@ import {
     CheckCircle2,
     MoreHorizontal,
     Mail,
-    ChevronDown,
-    Target,
+    Loader2,
+    AlertCircle,
+    GraduationCap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface Assignment {
     id: string;
-    courseName: string;
-    courseType: "required" | "recommended" | "optional";
-    assignedTo: {
-        type: "individual" | "department" | "all";
-        name: string;
-        count: number;
-    };
-    dueDate: string;
-    status: "active" | "completed" | "overdue";
-    completionRate: number;
+    moduleId: string;
+    organizationId: string | null;
+    assignedById: string;
+    dueDate: string | null;
+    isRequired: boolean;
+    status: string;
     createdAt: string;
-    createdBy: string;
+    assignees: Array<{
+        userId: string;
+        status: string;
+        user: {
+            id: string;
+            name: string | null;
+            email: string;
+        };
+    }>;
+    assignedBy: {
+        name: string | null;
+        email: string;
+    };
 }
 
-const assignments: Assignment[] = [
-    { id: "1", courseName: "HIPAA Privacy & Security 2024", courseType: "required", assignedTo: { type: "all", name: "All Employees", count: 1250 }, dueDate: "Dec 31, 2024", status: "active", completionRate: 78, createdAt: "Nov 1, 2024", createdBy: "Sarah Chen" },
-    { id: "2", courseName: "Bloodborne Pathogens", courseType: "required", assignedTo: { type: "department", name: "Clinical Operations", count: 450 }, dueDate: "Jan 15, 2025", status: "active", completionRate: 65, createdAt: "Dec 1, 2024", createdBy: "HR Team" },
-    { id: "3", courseName: "Infection Control", courseType: "required", assignedTo: { type: "department", name: "Nursing", count: 280 }, dueDate: "Mar 15, 2025", status: "active", completionRate: 42, createdAt: "Dec 15, 2024", createdBy: "Lisa Wang" },
-    { id: "4", courseName: "Cultural Competency", courseType: "recommended", assignedTo: { type: "all", name: "All Employees", count: 1250 }, dueDate: "Dec 31, 2024", status: "overdue", completionRate: 45, createdAt: "Oct 1, 2024", createdBy: "HR Team" },
-    { id: "5", courseName: "Fire Safety 2024", courseType: "required", assignedTo: { type: "all", name: "All Employees", count: 1250 }, dueDate: "Nov 30, 2024", status: "completed", completionRate: 98, createdAt: "Sep 1, 2024", createdBy: "Safety Officer" },
-];
-
 export function TrainingAssignments() {
-    const [showCreateModal, setShowCreateModal] = useState(false);
-    const [selectedCourse, setSelectedCourse] = useState("");
-    const [assignmentType, setAssignmentType] = useState<"all" | "department" | "individual">("all");
-    const [dueDate, setDueDate] = useState("");
+    const [assignments, setAssignments] = useState<Assignment[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const fetchAssignments = useCallback(async () => {
+        try {
+            setLoading(true);
+            const res = await fetch("/api/admin/assignments");
+            const data = await res.json();
+
+            if (data.success) {
+                setAssignments(data.assignments || []);
+            } else {
+                setError(data.error || "Failed to fetch assignments");
+            }
+        } catch (err) {
+            setError("Failed to fetch assignments");
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchAssignments();
+    }, [fetchAssignments]);
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -62,24 +86,55 @@ export function TrainingAssignments() {
         }
     };
 
-    const getTypeBadge = (type: string) => {
-        switch (type) {
-            case "required":
-                return <Badge className="bg-red-500/10 text-red-500">Required</Badge>;
-            case "recommended":
-                return <Badge className="bg-amber-500/10 text-amber-500">Recommended</Badge>;
-            case "optional":
-                return <Badge variant="outline">Optional</Badge>;
-            default:
-                return null;
-        }
+    const getTypeBadge = (isRequired: boolean) => {
+        return isRequired ? (
+            <Badge className="bg-red-500/10 text-red-500">Required</Badge>
+        ) : (
+            <Badge variant="outline">Optional</Badge>
+        );
     };
 
+    // Calculate stats
     const activeAssignments = assignments.filter((a) => a.status === "active").length;
-    const overdueAssignments = assignments.filter((a) => a.status === "overdue").length;
-    const avgCompletion = Math.round(
-        assignments.reduce((sum, a) => sum + a.completionRate, 0) / assignments.length
+    const overdueAssignments = assignments.filter((a) => {
+        if (!a.dueDate) return false;
+        return new Date(a.dueDate) < new Date() && a.status !== "completed";
+    }).length;
+
+    // Calculate completion rate per assignment
+    const getCompletionRate = (assignment: Assignment) => {
+        if (!assignment.assignees || assignment.assignees.length === 0) return 0;
+        const completed = assignment.assignees.filter((a) => a.status === "completed").length;
+        return Math.round((completed / assignment.assignees.length) * 100);
+    };
+
+    const avgCompletion = assignments.length > 0
+        ? Math.round(assignments.reduce((sum, a) => sum + getCompletionRate(a), 0) / assignments.length)
+        : 0;
+
+    // Filter assignments
+    const filteredAssignments = assignments.filter((a) =>
+        a.moduleId.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="p-8">
+                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-destructive" />
+                    <p className="text-destructive">{error}</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6">
@@ -94,17 +149,19 @@ export function TrainingAssignments() {
                         Assign and track required training for your workforce
                     </p>
                 </div>
-                <Button className="gap-2" onClick={() => setShowCreateModal(true)}>
-                    <Plus className="h-4 w-4" />
-                    Create Assignment
-                </Button>
+                <Link href="/assign">
+                    <Button className="gap-2">
+                        <Plus className="h-4 w-4" />
+                        Create Assignment
+                    </Button>
+                </Link>
             </div>
 
             {/* Stats */}
             <div className="grid md:grid-cols-4 gap-4">
                 <Card className="p-4">
                     <div className="flex items-center gap-3">
-                        <Target className="h-8 w-8 text-primary" />
+                        <GraduationCap className="h-8 w-8 text-primary" />
                         <div>
                             <p className="text-2xl font-bold">{assignments.length}</p>
                             <p className="text-xs text-muted-foreground">Total Assignments</p>
@@ -147,7 +204,9 @@ export function TrainingAssignments() {
                     <input
                         type="text"
                         placeholder="Search assignments..."
-                        className="w-full h-10 pl-10 pr-4 rounded-lg bg-white/[0.02] border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full h-10 pl-10 pr-4 rounded-lg bg-muted border border-border focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                 </div>
                 <Button variant="outline" className="gap-2">
@@ -157,163 +216,80 @@ export function TrainingAssignments() {
             </div>
 
             {/* Assignments List */}
-            <div className="space-y-3">
-                {assignments.map((assignment) => (
-                    <Card key={assignment.id} className="p-4">
-                        <div className="flex items-start gap-4">
-                            <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <h3 className="font-medium">{assignment.courseName}</h3>
-                                    {getTypeBadge(assignment.courseType)}
-                                    {getStatusBadge(assignment.status)}
-                                </div>
-                                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                                    <span className="flex items-center gap-1">
-                                        <Users className="h-4 w-4" />
-                                        {assignment.assignedTo.name} ({assignment.assignedTo.count})
-                                    </span>
-                                    <span className="flex items-center gap-1">
-                                        <Calendar className="h-4 w-4" />
-                                        Due: {assignment.dueDate}
-                                    </span>
-                                    <span>Created by {assignment.createdBy}</span>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <div className="text-right">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <Progress
-                                            value={assignment.completionRate}
-                                            className={cn(
-                                                "w-24 h-2",
-                                                assignment.completionRate >= 90 && "[&>div]:bg-emerald-500",
-                                                assignment.completionRate >= 70 && assignment.completionRate < 90 && "[&>div]:bg-amber-500",
-                                                assignment.completionRate < 70 && "[&>div]:bg-red-500"
+            {filteredAssignments.length === 0 ? (
+                <div className="text-center py-12 text-muted-foreground">
+                    <ClipboardCheck className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>No assignments found.</p>
+                    <p className="text-sm mt-1">
+                        <Link href="/assign" className="text-primary hover:underline">
+                            Create your first assignment
+                        </Link>
+                    </p>
+                </div>
+            ) : (
+                <div className="space-y-3">
+                    {filteredAssignments.map((assignment) => {
+                        const completionRate = getCompletionRate(assignment);
+                        const isOverdue = assignment.dueDate && new Date(assignment.dueDate) < new Date() && assignment.status !== "completed";
+
+                        return (
+                            <Card key={assignment.id} className="p-4">
+                                <div className="flex items-start gap-4">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <h3 className="font-medium capitalize">
+                                                {assignment.moduleId.replace(/-/g, " ")}
+                                            </h3>
+                                            {getTypeBadge(assignment.isRequired)}
+                                            {getStatusBadge(isOverdue ? "overdue" : assignment.status)}
+                                        </div>
+                                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                                            <span className="flex items-center gap-1">
+                                                <Users className="h-4 w-4" />
+                                                {assignment.assignees?.length || 0} user(s)
+                                            </span>
+                                            {assignment.dueDate && (
+                                                <span className="flex items-center gap-1">
+                                                    <Calendar className="h-4 w-4" />
+                                                    Due: {new Date(assignment.dueDate).toLocaleDateString()}
+                                                </span>
                                             )}
-                                        />
-                                        <span className="text-sm font-medium w-12">
-                                            {assignment.completionRate}%
-                                        </span>
+                                            <span>
+                                                Created by {assignment.assignedBy?.name || assignment.assignedBy?.email || "Unknown"}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="text-right">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <Progress
+                                                    value={completionRate}
+                                                    className={cn(
+                                                        "w-24 h-2",
+                                                        completionRate >= 90 && "[&>div]:bg-emerald-500",
+                                                        completionRate >= 70 && completionRate < 90 && "[&>div]:bg-amber-500",
+                                                        completionRate < 70 && "[&>div]:bg-red-500"
+                                                    )}
+                                                />
+                                                <span className="text-sm font-medium w-12">
+                                                    {completionRate}%
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-1">
+                                            <Button variant="outline" size="sm" className="gap-1">
+                                                <Mail className="h-3 w-3" />
+                                                Remind
+                                            </Button>
+                                            <Button variant="ghost" size="icon">
+                                                <MoreHorizontal className="h-4 w-4" />
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="flex gap-1">
-                                    <Button variant="outline" size="sm" className="gap-1">
-                                        <Mail className="h-3 w-3" />
-                                        Remind
-                                    </Button>
-                                    <Button variant="ghost" size="icon">
-                                        <MoreHorizontal className="h-4 w-4" />
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </Card>
-                ))}
-            </div>
-
-            {/* Create Modal */}
-            {showCreateModal && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <Card className="w-full max-w-lg p-6">
-                        <h2 className="text-xl font-semibold mb-6">Create Training Assignment</h2>
-                        <div className="space-y-4">
-                            <div>
-                                <label className="text-sm font-medium mb-1.5 block">
-                                    Select Course
-                                </label>
-                                <select
-                                    value={selectedCourse}
-                                    onChange={(e) => setSelectedCourse(e.target.value)}
-                                    className="w-full h-10 px-3 rounded-lg bg-muted border-0"
-                                >
-                                    <option value="">Choose a course...</option>
-                                    <option value="hipaa">HIPAA Privacy & Security 2024</option>
-                                    <option value="bloodborne">Bloodborne Pathogens</option>
-                                    <option value="infection">Infection Control</option>
-                                    <option value="fire">Fire Safety</option>
-                                    <option value="cultural">Cultural Competency</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="text-sm font-medium mb-1.5 block">
-                                    Assign To
-                                </label>
-                                <div className="flex gap-2">
-                                    {(["all", "department", "individual"] as const).map((type) => (
-                                        <button
-                                            key={type}
-                                            onClick={() => setAssignmentType(type)}
-                                            className={cn(
-                                                "px-4 py-2 rounded-lg text-sm capitalize",
-                                                assignmentType === type
-                                                    ? "bg-primary text-primary-foreground"
-                                                    : "bg-muted"
-                                            )}
-                                        >
-                                            {type === "all" ? "All Employees" : type}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {assignmentType === "department" && (
-                                <div>
-                                    <label className="text-sm font-medium mb-1.5 block">
-                                        Select Department
-                                    </label>
-                                    <select className="w-full h-10 px-3 rounded-lg bg-muted border-0">
-                                        <option value="">Choose department...</option>
-                                        <option value="nursing">Nursing</option>
-                                        <option value="emergency">Emergency</option>
-                                        <option value="icu">ICU</option>
-                                        <option value="admin">Administrative</option>
-                                    </select>
-                                </div>
-                            )}
-
-                            <div>
-                                <label className="text-sm font-medium mb-1.5 block">
-                                    Due Date
-                                </label>
-                                <input
-                                    type="date"
-                                    value={dueDate}
-                                    onChange={(e) => setDueDate(e.target.value)}
-                                    className="w-full h-10 px-3 rounded-lg bg-muted border-0"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="text-sm font-medium mb-1.5 block">
-                                    Requirement Type
-                                </label>
-                                <select className="w-full h-10 px-3 rounded-lg bg-muted border-0">
-                                    <option value="required">Required</option>
-                                    <option value="recommended">Recommended</option>
-                                    <option value="optional">Optional</option>
-                                </select>
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <input type="checkbox" id="reminder" className="rounded" defaultChecked />
-                                <label htmlFor="reminder" className="text-sm">
-                                    Send automatic reminder emails
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-3 mt-6">
-                            <Button
-                                variant="outline"
-                                className="flex-1"
-                                onClick={() => setShowCreateModal(false)}
-                            >
-                                Cancel
-                            </Button>
-                            <Button className="flex-1">Create Assignment</Button>
-                        </div>
-                    </Card>
+                            </Card>
+                        );
+                    })}
                 </div>
             )}
         </div>
