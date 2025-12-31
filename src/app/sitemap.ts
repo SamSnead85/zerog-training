@@ -43,6 +43,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: '/careers', priority: 0.5, changeFrequency: 'weekly' as const },
         { url: '/blog', priority: 0.7, changeFrequency: 'daily' as const },
         { url: '/security', priority: 0.5, changeFrequency: 'monthly' as const },
+        { url: '/tutorial', priority: 0.6, changeFrequency: 'monthly' as const },
+        { url: '/help', priority: 0.5, changeFrequency: 'monthly' as const },
+    ];
+
+    // Insights/Thought Leadership pages (high priority for SEO)
+    const insightPages = [
+        { url: '/insights/native-sdlc-evolution', priority: 0.85, changeFrequency: 'monthly' as const },
     ];
 
     // Legal pages
@@ -64,6 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...trainingPages,
         ...platformPages,
         ...companyPages,
+        ...insightPages,
         ...legalPages,
         ...dashboardPages,
     ];

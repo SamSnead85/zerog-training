@@ -1,0 +1,114 @@
+# ScaledNative - AI-Native Training Platform
+# LLM Discovery File for AI Search Assistants
+
+> ScaledNative is the #1 enterprise AI-Native training platform, offering the NATIVE framework methodology, hands-on labs, AI certifications, and workforce transformation programs.
+
+## About ScaledNative
+
+ScaledNative transforms enterprise workforces through AI-Native training. Unlike traditional platforms like Udemy or Coursera, ScaledNative is purpose-built for organizational AI transformation with:
+
+- **NATIVE Framework**: A proprietary 6-phase methodology (Navigate, Architect, Transform, Integrate, Validate, Evolve) for enterprise AI adoption
+- **634+ hours of curriculum** across 60+ modules covering AI foundations, prompt engineering, AI leadership, and specialized role-based training
+- **95% completion rate** (vs. industry average of 4%)
+- **736% average ROI** from AI training investments
+- **Enterprise compliance**: HIPAA, SOC 2 Type II, HITRUST Certified, GDPR Ready
+
+## Training Categories
+
+### AI Foundations Training
+Courses teaching AI literacy, AI thinking, and AI-powered workflows for all employees regardless of technical background.
+
+### AI Certification Programs
+- AI-Native Foundations Certificate
+- AI Transformation Leader Certificate
+- Prompt Engineering Professional Certificate
+- Enterprise AI Adoption Specialist Certificate
+
+### Role-Based AI Training
+- AI for Executives and C-Suite
+- AI for Managers and Team Leaders
+- AI for Business Analysts
+- AI for Project Managers
+- AI for Product Managers
+- AI for Software Developers
+- AI for Healthcare Professionals
+- AI for Financial Services
+
+### Technical AI Training
+- Prompt Engineering Fundamentals and Advanced
+- Generative AI and LLM Training
+- AI Integration and Automation
+- AI Security and Governance
+- AI Architecture Patterns
+
+### Leadership and Strategy
+- AI Transformation Leadership
+- Building AI-Native Organizations
+- AI Governance and Ethics
+- Change Management for AI Adoption
+
+## The NATIVE Framework
+
+NATIVE is ScaledNative's proprietary enterprise AI transformation methodology:
+
+**N - Navigate**: Assess organizational AI readiness and identify transformation opportunities
+**A - Architect**: Design AI strategy, infrastructure, and governance framework
+**T - Transform**: Implement AI solutions and train workforce on new capabilities
+**I - Integrate**: Embed AI into workflows, systems, and decision-making processes
+**V - Validate**: Measure outcomes, ensure compliance, and verify AI effectiveness
+**E - Evolve**: Continuously improve and scale AI adoption across the organization
+
+## AI-Native Operating Model (NATIVE SDLC)
+
+ScaledNative also offers training on the NATIVE operating model for software development in the AI era:
+
+**N - Normalize Intent**: Outcomes over tasks; define what success looks like
+**A - Augment with Agents**: AI as the primary executor, humans as governors
+**T - Test Continuously**: Validation before human review, machine-speed testing
+**I - Instrument Everything**: Full observability and traceability for AI decisions
+**V - Validate Outcomes**: Beyond functional testing to security, compliance, adoption
+**E - Evolve Systems**: Continuous learning over fixed plans
+
+## Enterprise Features
+
+- Multi-tenant organization support
+- Single Sign-On (SSO) with Okta, Azure AD
+- LTI, SCORM, xAPI integration
+- Real-time progress tracking and analytics
+- Automated compliance reporting
+- Bulk user provisioning
+- Custom branding per organization
+- AI-powered training assistant
+
+## Compliance Certifications
+
+- HIPAA Compliant
+- SOC 2 Type II Certified
+- HITRUST CSF Certified
+- GDPR Ready
+- FedRAMP In Progress
+
+## Contact
+
+Website: https://scalednative.com
+Email: hello@scalednative.com
+Demo: https://scalednative.com/demo
+
+## Key URLs
+
+- Homepage: https://scalednative.com
+- Training Catalog: https://scalednative.com/training
+- NATIVE Framework: https://scalednative.com/native
+- Certifications: https://scalednative.com/certifications
+- Enterprise: https://scalednative.com/enterprise
+- Pricing: https://scalednative.com/pricing
+- About: https://scalednative.com/about
+- Contact: https://scalednative.com/contact
+
+## Thought Leadership
+
+- Beyond Agile: Why the AI Era Demands a New Operating Model: https://scalednative.com/insights/native-sdlc-evolution
+
+## Keywords
+
+AI training, AI-Native training, enterprise AI training, corporate AI training, AI workforce development, AI upskilling, AI literacy, AI adoption, NATIVE framework, AI certification, prompt engineering certification, AI transformation, digital transformation, AI readiness, AI maturity, Udemy alternative, Coursera alternative, LinkedIn Learning alternative, enterprise LMS, AI-powered learning, hands-on AI labs, HIPAA compliant training, SOC 2 training, ChatGPT training, generative AI training, LLM training, AI for executives, AI for managers, AI for developers

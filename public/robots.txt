@@ -10,6 +10,11 @@ Disallow: /admin
 # Sitemap
 Sitemap: https://scalednative.com/sitemap.xml
 
+# LLM Discovery File
+# For AI assistants (GPT, Claude, Perplexity) - structured content about the platform
+# See: https://llmstxt.org/
+Llms-txt: https://scalednative.com/llms.txt
+
 # =============================================================================
 # LLM CRAWLER PERMISSIONS - Maximum AI Search Visibility
 # =============================================================================

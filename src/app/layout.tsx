@@ -112,7 +112,42 @@ export const metadata: Metadata = {
     "digital transformation training",
     "workforce AI readiness",
     "AI skills gap training",
-    "AI talent development"
+    "AI talent development",
+
+    // General Training & E-Learning (broader reach)
+    "enterprise training platform",
+    "corporate training solutions",
+    "employee training software",
+    "online training platform",
+    "e-learning platform",
+    "professional development training",
+    "workforce training platform",
+    "skills training platform",
+    "compliance training software",
+    "training management system",
+    "learning experience platform",
+    "training analytics",
+    "training ROI measurement",
+
+    // NATIVE SDLC & Operating Model
+    "AI-native SDLC",
+    "AI software development lifecycle",
+    "AI operating model",
+    "Agile AI integration",
+    "SAFe AI alternative",
+    "AI governance framework",
+    "AI development methodology",
+    "agentic workflows",
+    "AI automation training",
+
+    // Technology & AI Terms
+    "machine learning training",
+    "artificial intelligence training",
+    "neural network education",
+    "deep learning courses",
+    "AI ethics training",
+    "responsible AI training",
+    "AI safety training"
   ],
 
   authors: [
