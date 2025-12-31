@@ -2,6 +2,10 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+// =============================================================================
+// TYPE DEFINITIONS
+// =============================================================================
+
 // User roles matching Prisma schema
 export type UserRole = "SUPER_ADMIN" | "ORG_ADMIN" | "CREATOR" | "MANAGER" | "LEARNER";
 
@@ -44,94 +48,9 @@ interface RegisterData {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Demo organizations
-const DEMO_ORGS = {
-    zerog: { id: "org_zerog", name: "ScaledNative" },
-    acme: { id: "org_acme", name: "Acme Corporation" },
-    healthcare: { id: "org_healthcare", name: "Healthcare Inc" },
-};
-
-// Mock users for demo - includes sam.sweilem85@gmail.com as SUPER_ADMIN
-const DEMO_USERS: Record<string, User & { password: string }> = {
-    "sam.sweilem85@gmail.com": {
-        id: "usr_superadmin",
-        email: "sam.sweilem85@gmail.com",
-        password: "Winter2022$",
-        name: "Sam Sweilem",
-        role: "SUPER_ADMIN",
-        organizationId: DEMO_ORGS.zerog.id,
-        organizationName: DEMO_ORGS.zerog.name,
-        department: "Administration",
-        employeeId: "SUPER001",
-        hireDate: "2024-01-01",
-        permissions: ["manage_all", "manage_users", "manage_courses", "view_reports", "manage_compliance", "manage_settings", "manage_orgs"],
-    },
-    "admin@zerog.ai": {
-        id: "usr_zerog_admin",
-        email: "admin@zerog.ai",
-        password: "admin123",
-        name: "ScaledNative Admin",
-        role: "ORG_ADMIN",
-        organizationId: DEMO_ORGS.zerog.id,
-        organizationName: DEMO_ORGS.zerog.name,
-        department: "IT Administration",
-        employeeId: "ZG001",
-        hireDate: "2024-01-15",
-        permissions: ["manage_users", "manage_courses", "view_reports", "manage_compliance", "manage_settings"],
-    },
-    "admin@acme.com": {
-        id: "usr_acme_admin",
-        email: "admin@acme.com",
-        password: "admin123",
-        name: "Acme Admin",
-        role: "ORG_ADMIN",
-        organizationId: DEMO_ORGS.acme.id,
-        organizationName: DEMO_ORGS.acme.name,
-        department: "IT Administration",
-        employeeId: "ACME001",
-        hireDate: "2024-02-01",
-        permissions: ["manage_users", "manage_courses", "view_reports", "manage_compliance", "manage_settings"],
-    },
-    "admin@healthcare.org": {
-        id: "usr_001",
-        email: "admin@healthcare.org",
-        password: "admin123",
-        name: "Sarah Chen",
-        role: "ORG_ADMIN",
-        organizationId: DEMO_ORGS.healthcare.id,
-        organizationName: DEMO_ORGS.healthcare.name,
-        department: "IT Administration",
-        employeeId: "EMP001",
-        hireDate: "2020-01-15",
-        permissions: ["manage_users", "manage_courses", "view_reports", "manage_compliance", "manage_settings"],
-    },
-    "manager@healthcare.org": {
-        id: "usr_002",
-        email: "manager@healthcare.org",
-        password: "manager123",
-        name: "Marcus Johnson",
-        role: "MANAGER",
-        organizationId: DEMO_ORGS.healthcare.id,
-        organizationName: DEMO_ORGS.healthcare.name,
-        department: "Nursing",
-        employeeId: "EMP002",
-        hireDate: "2019-06-01",
-        permissions: ["view_team", "assign_training", "view_reports"],
-    },
-    "employee@healthcare.org": {
-        id: "usr_003",
-        email: "employee@healthcare.org",
-        password: "employee123",
-        name: "Emily Rodriguez",
-        role: "LEARNER",
-        organizationId: DEMO_ORGS.healthcare.id,
-        organizationName: DEMO_ORGS.healthcare.name,
-        department: "Nursing",
-        employeeId: "EMP003",
-        hireDate: "2023-03-15",
-        permissions: ["view_training", "complete_training"],
-    },
-};
+// =============================================================================
+// AUTH PROVIDER - Production-Ready (No Demo Fallbacks)
+// =============================================================================
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
@@ -153,24 +72,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                         role: data.user.role,
                         organizationId: data.user.organizationId || 'default',
                         organizationName: data.user.organizationName || 'ScaledNative',
-                        department: 'General',
-                        employeeId: data.user.id,
-                        hireDate: new Date().toISOString().split('T')[0],
+                        department: data.user.department || 'General',
+                        employeeId: data.user.employeeId || data.user.id,
+                        hireDate: data.user.hireDate || new Date().toISOString().split('T')[0],
                         permissions: getRolePermissions(data.user.role),
                     };
                     setUser(userData);
+                    // Cache user data for faster UI loading (session cookie is authoritative)
                     localStorage.setItem("zerog_user", JSON.stringify(userData));
+                } else {
+                    // No valid session, clear any cached data
+                    localStorage.removeItem("zerog_user");
+                    localStorage.removeItem("zerog_session");
                 }
             } catch (error) {
-                // API not available, check localStorage
-                const savedUser = localStorage.getItem("zerog_user");
-                if (savedUser) {
-                    try {
-                        setUser(JSON.parse(savedUser));
-                    } catch (e) {
-                        localStorage.removeItem("zerog_user");
-                    }
-                }
+                console.error("Session check failed:", error);
+                // API error - clear cached data, user must log in again
+                localStorage.removeItem("zerog_user");
+                localStorage.removeItem("zerog_session");
             }
             setIsLoading(false);
         };
@@ -181,7 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const login = async (email: string, password: string) => {
         setIsLoading(true);
         try {
-            // Try database login first
+            // Database-only authentication - no demo fallbacks
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -198,39 +117,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                     role: data.user.role,
                     organizationId: data.user.organizationId || 'default',
                     organizationName: data.user.organizationName || 'ScaledNative',
-                    department: 'General',
-                    employeeId: data.user.id,
-                    hireDate: new Date().toISOString().split('T')[0],
+                    department: data.user.department || 'General',
+                    employeeId: data.user.employeeId || data.user.id,
+                    hireDate: data.user.hireDate || new Date().toISOString().split('T')[0],
                     permissions: getRolePermissions(data.user.role),
                 };
                 setUser(userData);
+                // Cache for faster UI loading
                 localStorage.setItem("zerog_user", JSON.stringify(userData));
                 localStorage.setItem("zerog_session", Date.now().toString());
                 return { success: true };
             }
 
-            // If API fails, fall back to demo users
-            const demoUser = DEMO_USERS[email.toLowerCase()];
-            if (demoUser && demoUser.password === password) {
-                const { password: _, ...userData } = demoUser;
-                setUser(userData);
-                localStorage.setItem("zerog_user", JSON.stringify(userData));
-                localStorage.setItem("zerog_session", Date.now().toString());
-                return { success: true };
-            }
-
+            // API returned an error (invalid credentials, user not found, etc.)
             return { success: false, error: data.error || "Invalid email or password" };
         } catch (error) {
-            // Network error - try demo users
-            const demoUser = DEMO_USERS[email.toLowerCase()];
-            if (demoUser && demoUser.password === password) {
-                const { password: _, ...userData } = demoUser;
-                setUser(userData);
-                localStorage.setItem("zerog_user", JSON.stringify(userData));
-                localStorage.setItem("zerog_session", Date.now().toString());
-                return { success: true };
-            }
-            return { success: false, error: "Unable to connect. Please try again." };
+            console.error("Login error:", error);
+            // Network/server error - no fallback to demo users
+            return { success: false, error: "Unable to connect to server. Please check your internet connection and try again." };
         } finally {
             setIsLoading(false);
         }
@@ -240,7 +144,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
             await fetch('/api/auth/logout', { method: 'POST' });
         } catch (error) {
-            // Ignore logout API errors
+            console.error("Logout API error:", error);
         }
         setUser(null);
         localStorage.removeItem("zerog_user");
@@ -250,43 +154,78 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const register = async (data: RegisterData) => {
         setIsLoading(true);
         try {
-            await new Promise((r) => setTimeout(r, 800));
+            // Call the registration API
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
 
-            // In production, this would call the API
-            const newUser: User = {
-                id: `usr_${Date.now()}`,
-                email: data.email,
-                name: data.name,
-                role: "LEARNER",
-                organizationId: DEMO_ORGS.zerog.id, // Default to ScaledNative org for demo
-                organizationName: DEMO_ORGS.zerog.name,
-                department: data.department || "General",
-                employeeId: data.employeeId || `EMP${Date.now()}`,
-                hireDate: new Date().toISOString().split("T")[0],
-                permissions: ["view_training", "complete_training"],
-            };
+            const result = await response.json();
 
-            setUser(newUser);
-            localStorage.setItem("zerog_user", JSON.stringify(newUser));
-            return { success: true };
+            if (result.success && result.user) {
+                const userData: User = {
+                    id: result.user.id,
+                    email: result.user.email,
+                    name: result.user.name,
+                    role: result.user.role || "LEARNER",
+                    organizationId: result.user.organizationId || 'default',
+                    organizationName: result.user.organizationName || 'ScaledNative',
+                    department: data.department || "General",
+                    employeeId: data.employeeId || result.user.id,
+                    hireDate: new Date().toISOString().split("T")[0],
+                    permissions: getRolePermissions(result.user.role || "LEARNER"),
+                };
+
+                setUser(userData);
+                localStorage.setItem("zerog_user", JSON.stringify(userData));
+                return { success: true };
+            }
+
+            return { success: false, error: result.error || "Registration failed" };
+        } catch (error) {
+            console.error("Registration error:", error);
+            return { success: false, error: "Unable to connect. Please try again." };
         } finally {
             setIsLoading(false);
         }
     };
 
     const resetPassword = async (email: string) => {
-        await new Promise((r) => setTimeout(r, 800));
-        // In production, this would send a reset email
-        return { success: true };
+        try {
+            const response = await fetch('/api/auth/reset-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            const result = await response.json();
+            return { success: result.success, error: result.error };
+        } catch (error) {
+            return { success: false, error: "Unable to connect. Please try again." };
+        }
     };
 
     const updateProfile = async (data: Partial<User>) => {
         if (!user) return { success: false, error: "Not authenticated" };
 
-        const updatedUser = { ...user, ...data };
-        setUser(updatedUser);
-        localStorage.setItem("zerog_user", JSON.stringify(updatedUser));
-        return { success: true };
+        try {
+            const response = await fetch('/api/auth/update-profile', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                const updatedUser = { ...user, ...data };
+                setUser(updatedUser);
+                localStorage.setItem("zerog_user", JSON.stringify(updatedUser));
+            }
+
+            return { success: result.success, error: result.error };
+        } catch (error) {
+            return { success: false, error: "Unable to connect. Please try again." };
+        }
     };
 
     const hasPermission = (permission: string) => {
@@ -380,7 +319,7 @@ export function RequireAuth({
 }
 
 // =============================================================================
-// USER PROVISIONING
+// USER PROVISIONING - API-Based (Production)
 // =============================================================================
 
 export interface ProvisionUserData {
@@ -390,6 +329,7 @@ export interface ProvisionUserData {
     certificationPath?: string;
     department?: string;
     managerId?: string;
+    organizationId?: string;
 }
 
 export interface ProvisionedUser {
@@ -402,67 +342,42 @@ export interface ProvisionedUser {
     createdAt: string;
 }
 
-// Store for provisioned users (in production, this would be in the database)
-const PROVISIONED_USERS_KEY = "zerog_provisioned_users";
+/**
+ * Provision a new user via API - creates user in database
+ */
+export async function provisionUser(data: ProvisionUserData): Promise<ProvisionedUser> {
+    const response = await fetch('/api/admin/users/provision', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
 
-export function getProvisionedUsers(): ProvisionedUser[] {
-    if (typeof window === "undefined") return [];
-    const stored = localStorage.getItem(PROVISIONED_USERS_KEY);
-    return stored ? JSON.parse(stored) : [];
+    const result = await response.json();
+
+    if (!result.success) {
+        throw new Error(result.error || "Failed to provision user");
+    }
+
+    return result.user;
 }
 
-export function provisionUser(data: ProvisionUserData): ProvisionedUser {
-    // Generate a secure temporary password
-    const tempPassword = `Welcome${Math.random().toString(36).slice(2, 8)}!`;
-
-    const newUser: ProvisionedUser = {
-        id: `usr_${Date.now()}`,
-        email: data.email.toLowerCase(),
-        name: data.name,
-        role: data.role,
-        certificationPath: data.certificationPath,
-        temporaryPassword: tempPassword,
-        createdAt: new Date().toISOString(),
-    };
-
-    // Save to localStorage (in production, save to database)
-    const existingUsers = getProvisionedUsers();
-    existingUsers.push(newUser);
-    localStorage.setItem(PROVISIONED_USERS_KEY, JSON.stringify(existingUsers));
-
-    // Add to demo users so they can log in
-    DEMO_USERS[newUser.email] = {
-        id: newUser.id,
-        email: newUser.email,
-        password: tempPassword,
-        name: newUser.name,
-        role: newUser.role,
-        organizationId: DEMO_ORGS.zerog.id,
-        organizationName: DEMO_ORGS.zerog.name,
-        department: data.department || "General",
-        employeeId: newUser.id,
-        hireDate: new Date().toISOString().split("T")[0],
-        permissions: getRolePermissions(newUser.role),
-    };
-
-    // Log email content for manual sending (production would send actual email)
-    console.log("=== USER PROVISIONING EMAIL ===");
-    console.log(`To: ${newUser.email}`);
-    console.log(`Subject: Welcome to ScaledNative Training - Your Account is Ready!`);
-    console.log(`---`);
-    console.log(`Hi ${newUser.name},`);
-    console.log(``);
-    console.log(`You've been enrolled in ScaledNative Training${newUser.certificationPath ? ` for the ${newUser.certificationPath} certification path` : ''}.`);
-    console.log(``);
-    console.log(`Your login credentials:`);
-    console.log(`Email: ${newUser.email}`);
-    console.log(`Password: ${tempPassword}`);
-    console.log(``);
-    console.log(`Login here: ${typeof window !== "undefined" ? window.location.origin : "https://zerogtraining.com"}/login`);
-    console.log(`=== END EMAIL ===`);
-
-    return newUser;
+/**
+ * Get all provisioned users from API
+ */
+export async function getProvisionedUsers(): Promise<ProvisionedUser[]> {
+    try {
+        const response = await fetch('/api/admin/users');
+        const result = await response.json();
+        return result.users || [];
+    } catch (error) {
+        console.error("Failed to get provisioned users:", error);
+        return [];
+    }
 }
+
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
 
 function getRolePermissions(role: UserRole): string[] {
     switch (role) {
@@ -479,4 +394,3 @@ function getRolePermissions(role: UserRole): string[] {
             return ["view_training", "complete_training"];
     }
 }
-
