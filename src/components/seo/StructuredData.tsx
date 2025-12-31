@@ -24,8 +24,8 @@ export function OrganizationSchema() {
         "@type": "Organization",
         "name": "ScaledNative",
         "alternateName": ["ZeroG Training", "ScaledNative Training", "AI-Native Training Platform"],
-        "url": "https://zerogtraining.com",
-        "logo": "https://zerogtraining.com/logo.png",
+        "url": "https://scalednative.com",
+        "logo": "https://scalednative.com/logo.png",
         "description": "Enterprise AI-Native transformation training platform. The complete system for building AI-ready workforce with hands-on labs, certifications, and the NATIVE framework.",
         "foundingDate": "2024",
         "sameAs": [
@@ -69,13 +69,13 @@ export function WebsiteSchema() {
         "@type": "WebSite",
         "name": "ScaledNative",
         "alternateName": "AI-Native Training Platform",
-        "url": "https://zerogtraining.com",
+        "url": "https://scalednative.com",
         "description": "The #1 AI-Native training platform for enterprises. Better than Udemy, Coursera, and Scaled Agile for AI transformation training.",
         "potentialAction": {
             "@type": "SearchAction",
             "target": {
                 "@type": "EntryPoint",
-                "urlTemplate": "https://zerogtraining.com/search?q={search_term_string}"
+                "urlTemplate": "https://scalednative.com/search?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
         },
@@ -84,7 +84,7 @@ export function WebsiteSchema() {
             "name": "ScaledNative",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://zerogtraining.com/logo.png"
+                "url": "https://scalednative.com/logo.png"
             }
         }
     };
@@ -107,7 +107,7 @@ export function CourseSchema({ course }: { course: CourseData }) {
         "provider": {
             "@type": "Organization",
             "name": course.provider || "ScaledNative",
-            "sameAs": "https://zerogtraining.com"
+            "sameAs": "https://scalednative.com"
         },
         "educationalLevel": "Professional",
         "courseMode": "Online",
@@ -164,7 +164,7 @@ export function CourseCatalogSchema({ courses }: { courses: CourseData[] }) {
                     "@type": "Organization",
                     "name": "ScaledNative"
                 },
-                "url": course.url || `https://zerogtraining.com/training`
+                "url": course.url || `https://scalednative.com/training`
             }
         }))
     };
@@ -263,8 +263,8 @@ export function EducationalOrganizationSchema() {
         "@type": "EducationalOrganization",
         "name": "ScaledNative",
         "alternateName": "ScaledNative AI Training Academy",
-        "url": "https://zerogtraining.com",
-        "logo": "https://zerogtraining.com/logo.png",
+        "url": "https://scalednative.com",
+        "logo": "https://scalednative.com/logo.png",
         "description": "Leading provider of AI-Native transformation training and certification programs for enterprises worldwide.",
         "educationalCredentialAwarded": [
             "AI-Native Foundations Certificate",

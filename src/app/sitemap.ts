@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://zerogtraining.com';
+    const baseUrl = 'https://scalednative.com';
     const currentDate = new Date().toISOString();
 
     // Core pages - highest priority

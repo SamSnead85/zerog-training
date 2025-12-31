@@ -249,7 +249,7 @@ export function APIDocumentation() {
                             <Terminal className="h-5 w-5 text-muted-foreground" />
                             <div>
                                 <p className="text-xs text-muted-foreground">Base URL</p>
-                                <code className="text-sm font-mono">https://api.zerogtraining.com</code>
+                                <code className="text-sm font-mono">https://api.scalednative.com</code>
                             </div>
                         </div>
                     </Card>
@@ -265,7 +265,7 @@ export function APIDocumentation() {
                         </p>
                         <div className="bg-muted rounded-lg p-4">
                             <pre className="text-sm font-mono text-muted-foreground overflow-x-auto">
-                                {`curl -X GET "https://api.zerogtraining.com/api/v1/modules" \\
+                                {`curl -X GET "https://api.scalednative.com/api/v1/modules" \\
   -H "Authorization: Bearer ${sampleApiKey}" \\
   -H "Content-Type: application/json"`}
                             </pre>

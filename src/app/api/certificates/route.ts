@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
                     totalHours: 0, // Would need to calculate from progress
                     modulesCompleted: 1,
                     skills: skills || [],
-                    credentialUrl: `https://zerogtraining.com/verify/${existingCert.verificationCode}`,
+                    credentialUrl: `https://scalednative.com/verify/${existingCert.verificationCode}`,
                     organizationName: existingCert.organizationName,
                 },
                 isNew: false,
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
                 totalHours: Math.round(module.estimatedDurationMinutes / 60),
                 modulesCompleted: 1,
                 skills: skills || [],
-                credentialUrl: `https://zerogtraining.com/verify/${certificate.verificationCode}`,
+                credentialUrl: `https://scalednative.com/verify/${certificate.verificationCode}`,
                 organizationName: certificate.organizationName,
             },
             isNew: true,
@@ -165,7 +165,7 @@ export async function GET(request: NextRequest) {
                 issueDate: cert.issuedAt.toISOString(),
                 expiryDate: cert.expiresAt?.toISOString(),
                 completionScore: cert.finalScore,
-                credentialUrl: `https://zerogtraining.com/verify/${cert.verificationCode}`,
+                credentialUrl: `https://scalednative.com/verify/${cert.verificationCode}`,
                 organizationName: cert.organizationName,
             })),
         });

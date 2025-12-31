@@ -44,7 +44,7 @@ export default function PrivacyPage() {
 
                     <section>
                         <h2 className="text-xl font-semibold text-foreground mt-8 mb-4">4. Contact Us</h2>
-                        <p>For privacy-related questions, contact us at privacy@zerogtraining.com</p>
+                        <p>For privacy-related questions, contact us at privacy@scalednative.com</p>
                     </section>
                 </div>
             </div>

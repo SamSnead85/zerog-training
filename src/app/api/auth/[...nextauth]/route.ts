@@ -27,12 +27,12 @@ const authConfig = {
                 }
 
                 if (
-                    credentials?.email === "demo@zerogtraining.com" &&
+                    credentials?.email === "demo@scalednative.com" &&
                     credentials?.password === "demo123"
                 ) {
                     return {
                         id: "demo-1",
-                        email: "demo@zerogtraining.com",
+                        email: "demo@scalednative.com",
                         name: "Demo User",
                         role: "ORG_ADMIN",
                     };

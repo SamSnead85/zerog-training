@@ -6,7 +6,7 @@ import Stripe from "stripe";
  * 
  * Required environment variables:
  * - STRIPE_SECRET_KEY: Your Stripe secret key (sk_live_... or sk_test_...)
- * - NEXT_PUBLIC_APP_URL: Your app URL (https://zerogtraining.com)
+ * - NEXT_PUBLIC_APP_URL: Your app URL (https://scalednative.com)
  */
 
 // Initialize Stripe

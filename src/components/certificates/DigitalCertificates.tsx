@@ -46,7 +46,7 @@ const mockCertificates: Certificate[] = [
         skills: ["PHI Protection", "Security Risk Assessment", "Breach Response"],
         hours: 8,
         status: "active",
-        verificationUrl: "https://verify.zerogtraining.com/ZEROG-HIPAA-2024-00847",
+        verificationUrl: "https://verify.scalednative.com/ZEROG-HIPAA-2024-00847",
     },
     {
         id: "2",
@@ -60,7 +60,7 @@ const mockCertificates: Certificate[] = [
         skills: ["Security Controls", "Access Management", "Incident Response"],
         hours: 6,
         status: "active",
-        verificationUrl: "https://verify.zerogtraining.com/ZEROG-SOC2-2024-00512",
+        verificationUrl: "https://verify.scalednative.com/ZEROG-SOC2-2024-00512",
     },
     {
         id: "3",
@@ -72,7 +72,7 @@ const mockCertificates: Certificate[] = [
         skills: ["Lean-Agile Leadership", "PI Planning", "Value Streams"],
         hours: 16,
         status: "active",
-        verificationUrl: "https://verify.zerogtraining.com/ZEROG-SAFE-2024-00234",
+        verificationUrl: "https://verify.scalednative.com/ZEROG-SAFE-2024-00234",
     },
     {
         id: "4",
@@ -85,7 +85,7 @@ const mockCertificates: Certificate[] = [
         skills: ["Phishing Prevention", "Password Security", "Social Engineering"],
         hours: 4,
         status: "expired",
-        verificationUrl: "https://verify.zerogtraining.com/ZEROG-CYBER-2023-00089",
+        verificationUrl: "https://verify.scalednative.com/ZEROG-CYBER-2023-00089",
     },
 ];
 

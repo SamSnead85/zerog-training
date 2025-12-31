@@ -291,7 +291,7 @@ export function APIPlatform() {
                 <Card className="overflow-hidden bg-white/[0.02] border-white/10">
                     <div className="p-4 border-b border-white/10">
                         <h3 className="font-semibold">REST API Endpoints</h3>
-                        <p className="text-sm text-muted-foreground">Base URL: https://api.zerogtraining.com</p>
+                        <p className="text-sm text-muted-foreground">Base URL: https://api.scalednative.com</p>
                     </div>
                     <div className="divide-y divide-white/5">
                         {apiEndpoints.map((endpoint, i) => (

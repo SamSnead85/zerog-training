@@ -135,7 +135,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "ScaledNative",
-    url: "https://zerogtraining.com",
+    url: "https://scalednative.com",
     images: [
       {
         url: "/og-image.png",
@@ -158,9 +158,9 @@ export const metadata: Metadata = {
   },
 
   // Technical SEO
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://zerogtraining.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://scalednative.com"),
   alternates: {
-    canonical: "https://zerogtraining.com",
+    canonical: "https://scalednative.com",
   },
 
   // Robots directives

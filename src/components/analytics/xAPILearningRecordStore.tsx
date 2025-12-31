@@ -224,7 +224,7 @@ export function xAPILearningRecordStore() {
             <Card className="p-4 bg-muted/50">
                 <h4 className="font-medium mb-2">xAPI Endpoint</h4>
                 <code className="text-xs bg-muted px-2 py-1 rounded block mb-2">
-                    POST https://api.zerogtraining.com/lrs/statements
+                    POST https://api.scalednative.com/lrs/statements
                 </code>
                 <p className="text-xs text-muted-foreground">
                     Compatible with xAPI 1.0.3 specification. Supports Statement API, State API, and Activity Profile API.

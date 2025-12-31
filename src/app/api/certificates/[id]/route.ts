@@ -51,7 +51,7 @@ export async function GET(
                     "Context Engineering",
                     "Production AI Deployment"
                 ],
-                credentialUrl: `https://zerogtraining.com/verify/${id}`,
+                credentialUrl: `https://scalednative.com/verify/${id}`,
                 organizationName: "ScaledNative",
             };
 

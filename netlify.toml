@@ -17,7 +17,7 @@
 # Environment variables (set in Netlify dashboard)
 # DATABASE_URL - Your Supabase PostgreSQL connection string (use Transaction pooler)
 # NEXTAUTH_SECRET - Generate with: openssl rand -base64 32
-# NEXTAUTH_URL - Your production URL (https://zerogtraining.com)
+# NEXTAUTH_URL - Your production URL (https://scalednative.com)
 # GOOGLE_GEMINI_API_KEY - For AI training generation
 
 # Headers for caching static assets

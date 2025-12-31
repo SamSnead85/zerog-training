@@ -388,7 +388,7 @@ export class CertificateService {
     </div>
     
     <p class="verification">
-      Verify at zerogtraining.com/verify | Code: <span class="verification-code">${certificate.uniqueCode}</span>
+      Verify at scalednative.com/verify | Code: <span class="verification-code">${certificate.uniqueCode}</span>
     </p>
   </div>
 </body>

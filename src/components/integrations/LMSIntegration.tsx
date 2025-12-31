@@ -256,7 +256,7 @@ export function LMSIntegration() {
     "display": { "en-US": "completed" }
   },
   "object": {
-    "id": "https://zerogtraining.com/modules/prompt-engineering-101",
+    "id": "https://scalednative.com/modules/prompt-engineering-101",
     "definition": {
       "name": { "en-US": "Prompt Engineering Fundamentals" },
       "type": "http://adlnet.gov/expapi/activities/course"

@@ -88,10 +88,10 @@ async function main() {
     // Create demo user
     const demoPassword = await bcrypt.hash("demo123", 12);
     const demoUser = await prisma.user.upsert({
-        where: { email: "demo@zerogtraining.com" },
+        where: { email: "demo@scalednative.com" },
         update: {},
         create: {
-            email: "demo@zerogtraining.com",
+            email: "demo@scalednative.com",
             name: "Demo User",
             passwordHash: demoPassword,
             role: "ORG_ADMIN",
@@ -130,7 +130,7 @@ async function main() {
     console.log("  Email: sam.sweilem85@gmail.com");
     console.log("  Password: Winter2022$");
     console.log("\nDemo login:");
-    console.log("  Email: demo@zerogtraining.com");
+    console.log("  Email: demo@scalednative.com");
     console.log("  Password: demo123");
     console.log("\nTrial codes: ZEROG2024, ENTERPRISE, PARTNER");
 }

@@ -52,11 +52,11 @@ const aiTrainingFAQs = [
 
 // SEO-Optimized Courses for Schema
 const featuredCourses = [
-  { name: "AI-Native Foundations", description: "Master the fundamentals of AI thinking and AI-powered workflows", url: "https://zerogtraining.com/training" },
-  { name: "NATIVE Framework Certification", description: "Complete the 6-phase AI transformation methodology", url: "https://zerogtraining.com/certifications" },
-  { name: "Prompt Engineering Professional", description: "Advanced techniques for effective AI prompting and automation", url: "https://zerogtraining.com/training" },
-  { name: "AI for Business Analysts", description: "Leverage AI for data analysis, insights, and decision-making", url: "https://zerogtraining.com/training/business-analysts" },
-  { name: "AI for Project Managers", description: "Integrate AI into project planning, resource allocation, and delivery", url: "https://zerogtraining.com/training/project-managers" },
+  { name: "AI-Native Foundations", description: "Master the fundamentals of AI thinking and AI-powered workflows", url: "https://scalednative.com/training" },
+  { name: "NATIVE Framework Certification", description: "Complete the 6-phase AI transformation methodology", url: "https://scalednative.com/certifications" },
+  { name: "Prompt Engineering Professional", description: "Advanced techniques for effective AI prompting and automation", url: "https://scalednative.com/training" },
+  { name: "AI for Business Analysts", description: "Leverage AI for data analysis, insights, and decision-making", url: "https://scalednative.com/training/business-analysts" },
+  { name: "AI for Project Managers", description: "Integrate AI into project planning, resource allocation, and delivery", url: "https://scalednative.com/training/project-managers" },
 ];
 
 // HowTo Steps for Schema

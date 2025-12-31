@@ -160,13 +160,13 @@ export function SSOConfiguration() {
                                 <div>
                                     <label className="text-muted-foreground">Entity ID / Issuer</label>
                                     <div className="mt-1 p-3 bg-black/30 rounded-lg font-mono text-xs break-all">
-                                        https://zerogtraining.com/saml/metadata
+                                        https://scalednative.com/saml/metadata
                                     </div>
                                 </div>
                                 <div>
                                     <label className="text-muted-foreground">ACS URL</label>
                                     <div className="mt-1 p-3 bg-black/30 rounded-lg font-mono text-xs break-all">
-                                        https://zerogtraining.com/api/auth/saml/callback
+                                        https://scalednative.com/api/auth/saml/callback
                                     </div>
                                 </div>
                             </div>
