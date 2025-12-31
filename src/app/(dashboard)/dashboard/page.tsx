@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/lib/auth/AuthContext";
 import { Card, Badge, Progress, Button } from "@/components/ui";
 import { UserCreatedTrainings } from "@/components/dashboard/UserCreatedTrainings";
 import { ManagerDashboard } from "@/components/dashboard/ManagerDashboard";
@@ -109,11 +110,15 @@ const recentActivity = [
 ];
 
 export default function DashboardPage() {
+    const { user } = useAuth();
     const xpProgress = (userStats.xp / userStats.xpToNextLevel) * 100;
 
     // Role-based view - In production, this would come from auth context
     const [isManager] = useState(true);
     const [activeView, setActiveView] = useState<"my-learning" | "manager">("my-learning");
+
+    // Get first name from user's full name
+    const firstName = user?.name?.split(' ')[0] || 'there';
 
     return (
         <div className="p-6 lg:p-8 max-w-7xl mx-auto">
@@ -189,7 +194,7 @@ export default function DashboardPage() {
                             </div>
                             <div>
                                 <div className="flex items-center gap-2 mb-1">
-                                    <h1 className="text-2xl font-semibold">Welcome back, John</h1>
+                                    <h1 className="text-2xl font-semibold">Welcome back, {firstName}</h1>
                                 </div>
                                 <div className="flex items-center gap-4 text-sm">
                                     <span className="text-muted-foreground">

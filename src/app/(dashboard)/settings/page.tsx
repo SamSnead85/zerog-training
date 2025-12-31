@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/lib/auth/AuthContext";
 import {
     User,
     Bell,
@@ -77,6 +78,11 @@ export default function SettingsPage() {
         shareProgress: false,
     });
     const [theme, setTheme] = useState<"dark" | "light" | "system">("dark");
+    const { user } = useAuth();
+
+    // Use real user data with fallbacks
+    const displayName = user?.name || 'User';
+    const displayEmail = user?.email || 'user@company.com';
 
     return (
         <div className="min-h-screen bg-black text-white">
@@ -138,7 +144,7 @@ export default function SettingsPage() {
                                             <label className="block text-sm text-white/40 mb-2">Full Name</label>
                                             <input
                                                 type="text"
-                                                defaultValue="Alex Johnson"
+                                                defaultValue={displayName}
                                                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20"
                                             />
                                         </div>
@@ -146,7 +152,7 @@ export default function SettingsPage() {
                                             <label className="block text-sm text-white/40 mb-2">Email</label>
                                             <input
                                                 type="email"
-                                                defaultValue="alex.johnson@company.com"
+                                                defaultValue={displayEmail}
                                                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-white/20"
                                             />
                                         </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/lib/auth/AuthContext";
 import {
     User,
     Mail,
@@ -65,7 +66,13 @@ const userProfile = {
 // =============================================================================
 
 export default function ProfilePage() {
+    const { user } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
+
+    // Use real user data with fallbacks to mock data
+    const displayName = user?.name || userProfile.name;
+    const displayEmail = user?.email || userProfile.email;
+    const displayInitials = displayName.split(' ').map(n => n[0]).join('').toUpperCase();
 
     return (
         <div className="min-h-screen bg-black text-white">
@@ -94,7 +101,7 @@ export default function ProfilePage() {
                             {/* Avatar */}
                             <div className="relative">
                                 <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-3xl font-bold">
-                                    {userProfile.avatar}
+                                    {displayInitials}
                                 </div>
                                 <button className="absolute -bottom-2 -right-2 p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
                                     <Camera className="h-4 w-4" />
@@ -105,7 +112,7 @@ export default function ProfilePage() {
                             <div className="flex-1">
                                 <div className="flex items-start justify-between mb-2">
                                     <div>
-                                        <h1 className="text-2xl font-bold">{userProfile.name}</h1>
+                                        <h1 className="text-2xl font-bold">{displayName}</h1>
                                         <p className="text-white/50">{userProfile.role}</p>
                                     </div>
                                     <button
@@ -123,7 +130,7 @@ export default function ProfilePage() {
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <Mail className="h-4 w-4" />
-                                        {userProfile.email}
+                                        {displayEmail}
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <Calendar className="h-4 w-4" />
