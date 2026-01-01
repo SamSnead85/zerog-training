@@ -394,6 +394,72 @@ export default function PricingPage() {
                 </div>
             </section>
 
+            {/* Testimonials */}
+            <section className="py-16 px-6 bg-gradient-to-b from-purple-500/5 to-transparent">
+                <div className="mx-auto max-w-5xl">
+                    <h2 className="text-2xl font-bold text-center mb-10">What Professionals Say</h2>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <Card className="p-6 bg-white/[0.02]">
+                            <div className="flex gap-1 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                                ))}
+                            </div>
+                            <p className="text-white/70 mb-4 text-sm leading-relaxed">
+                                "The interactive labs are game-changing. I went from dabbling with ChatGPT to building actual AI agents in my workflow. Worth every penny."
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold">
+                                    JL
+                                </div>
+                                <div>
+                                    <p className="font-medium text-sm">James Liu</p>
+                                    <p className="text-xs text-white/50">Sr. Software Engineer, Stripe</p>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card className="p-6 bg-white/[0.02]">
+                            <div className="flex gap-1 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                                ))}
+                            </div>
+                            <p className="text-white/70 mb-4 text-sm leading-relaxed">
+                                "Finally, AI training that's actually practical. The context engineering module alone saved me hours of trial and error. Highly recommend for any product leader."
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">
+                                    SP
+                                </div>
+                                <div>
+                                    <p className="font-medium text-sm">Sarah Patterson</p>
+                                    <p className="text-xs text-white/50">VP Product, Notion</p>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card className="p-6 bg-white/[0.02]">
+                            <div className="flex gap-1 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                                ))}
+                            </div>
+                            <p className="text-white/70 mb-4 text-sm leading-relaxed">
+                                "We enrolled our entire engineering team. The certification path and progress tracking made it easy to manage. Seeing real productivity gains within weeks."
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">
+                                    MK
+                                </div>
+                                <div>
+                                    <p className="font-medium text-sm">Michael Kim</p>
+                                    <p className="text-xs text-white/50">CTO, Scale Ventures</p>
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+            </section>
+
             {/* FAQ Preview */}
             <section className="py-16 px-6 bg-white/[0.02]">
                 <div className="mx-auto max-w-3xl text-center">

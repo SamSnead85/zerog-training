@@ -394,3 +394,149 @@ export function CompetitorComparisonSchema() {
         />
     );
 }
+
+// VideoObject Schema for training lessons/modules
+export function VideoLessonSchema({
+    name,
+    description,
+    duration,
+    thumbnailUrl,
+    uploadDate,
+    moduleNumber
+}: {
+    name: string;
+    description: string;
+    duration: string;
+    thumbnailUrl?: string;
+    uploadDate?: string;
+    moduleNumber?: number;
+}) {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": name,
+        "description": description,
+        "duration": duration,
+        "thumbnailUrl": thumbnailUrl || "https://scalednative.com/images/lesson-thumbnail.png",
+        "uploadDate": uploadDate || "2025-01-01",
+        "contentUrl": `https://scalednative.com/training/module-${moduleNumber || 1}`,
+        "embedUrl": `https://scalednative.com/training/module-${moduleNumber || 1}`,
+        "publisher": {
+            "@type": "Organization",
+            "name": "ScaledNative",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://scalednative.com/logo.png"
+            }
+        },
+        "isFamilyFriendly": true,
+        "inLanguage": "en-US"
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
+}
+
+// Review Schema for testimonials
+export function ReviewSchema({
+    reviews
+}: {
+    reviews: {
+        author: string;
+        rating: number;
+        reviewBody: string;
+        datePublished?: string;
+        jobTitle?: string;
+        company?: string;
+    }[];
+}) {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "ScaledNative AI Training Platform",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": reviews.length.toString(),
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": reviews.map(review => ({
+            "@type": "Review",
+            "author": {
+                "@type": "Person",
+                "name": review.author,
+                ...(review.jobTitle && { "jobTitle": review.jobTitle }),
+                ...(review.company && { "worksFor": { "@type": "Organization", "name": review.company } })
+            },
+            "datePublished": review.datePublished || "2025-01-01",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.rating.toString(),
+                "bestRating": "5",
+                "worstRating": "1"
+            },
+            "reviewBody": review.reviewBody
+        }))
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
+}
+
+// Learning Pathway Schema for certification tracks
+export function LearningPathwaySchema({
+    pathName,
+    description,
+    courses,
+    duration,
+    credential
+}: {
+    pathName: string;
+    description: string;
+    courses: string[];
+    duration: string;
+    credential?: string;
+}) {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "EducationalOccupationalProgram",
+        "name": pathName,
+        "description": description,
+        "provider": {
+            "@type": "Organization",
+            "name": "ScaledNative"
+        },
+        "programType": "Certificate",
+        "timeToComplete": duration,
+        "educationalProgramMode": "Online",
+        "hasCourse": courses.map((course, i) => ({
+            "@type": "Course",
+            "name": course,
+            "position": i + 1
+        })),
+        ...(credential && {
+            "hasCredential": {
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": "Certificate",
+                "name": credential
+            }
+        })
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
+}
+
