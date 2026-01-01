@@ -56,7 +56,7 @@ export default function AINativePlatformPage() {
         { skill: "Agentic AI", detail: "Build self-improving AI systems" },
         { skill: "Prompt Engineering", detail: "Expert-level prompting" },
         { skill: "RAG Architecture", detail: "Knowledge-grounded AI" },
-        { skill: "SAFe AI Integration", detail: "AI in Agile workflows" },
+        { skill: "AI-Native Workflows", detail: "AI in Agile delivery" },
         { skill: "Multi-Agent Systems", detail: "Collaborative AI teams" },
         { skill: "AI Security", detail: "Responsible AI practices" },
         { skill: "MLOps", detail: "Production AI pipelines" },

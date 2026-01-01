@@ -1,5 +1,5 @@
 // AI-Native Training Curriculum - Flagship ScaledNative Offering
-// Based on SAFe, DeepLearning.AI, Google Cloud, Microsoft
+// Based on DeepLearning.AI, Google Cloud, Microsoft, and NATIVE Framework
 
 export type CertificationLevel = "foundations" | "associate" | "professional" | "architect";
 export type ModuleStatus = "available" | "coming_soon" | "locked";
@@ -528,8 +528,8 @@ export const module5: AIModule = {
     id: "module-5",
     number: 5,
     title: "Advanced Agentic AI Frameworks",
-    subtitle: "LangGraph, CrewAI, AutoGen + SAFe AI Workflows",
-    description: "Master the leading frameworks for building sophisticated agent systems. Learn when to use each framework and how to integrate AI into SAFe Agile workflows.",
+    subtitle: "LangGraph, CrewAI, AutoGen + NATIVE Workflows",
+    description: "Master the leading frameworks for building sophisticated agent systems. Learn when to use each framework and how to integrate AI into NATIVE software delivery workflows.",
     duration: "12-15 hours",
     level: "professional",
     status: "available",
@@ -538,7 +538,7 @@ export const module5: AIModule = {
         { id: "5-1", text: "Master LangGraph for complex agent workflows" },
         { id: "5-2", text: "Build multi-agent systems with CrewAI" },
         { id: "5-3", text: "Implement enterprise agents with AutoGen" },
-        { id: "5-4", text: "Integrate AI into SAFe Agile ceremonies and workflows" },
+        { id: "5-4", text: "Integrate AI into NATIVE software delivery workflows" },
     ],
     topics: [
         {
@@ -579,24 +579,24 @@ export const module5: AIModule = {
         },
         {
             id: "5-4",
-            title: "SAFe AI: AI-Empowered Agile Workflows",
-            description: "Integrating AI into Scaled Agile Framework (SAFe 6.0)",
+            title: "NATIVE Workflows: AI-Powered Delivery",
+            description: "Integrating AI into NATIVE software delivery",
             duration: "3 hours",
             subtopics: [
-                "AI in PI Planning and sprint ceremonies",
+                "AI in delivery planning and ceremonies",
                 "Predictive backlog management and prioritization",
                 "AI-assisted retrospectives and continuous improvement",
-                "AI for Scrum Masters: automating facilitation tasks",
-                "Responsible AI governance in Agile teams",
+                "AI for delivery leads: automating facilitation tasks",
+                "Responsible AI governance in delivery teams",
             ],
         },
     ],
     handsOnProjects: [
         { id: "p5-1", title: "LangGraph Workflow", description: "Build complex workflow with state management", difficulty: "advanced", duration: "3 hours" },
         { id: "p5-2", title: "CrewAI Business Team", description: "Create multi-agent content creation team", difficulty: "advanced", duration: "3 hours" },
-        { id: "p5-3", title: "SAFe AI Sprint Assistant", description: "Build AI assistant for sprint planning and retrospectives", difficulty: "advanced", duration: "3 hours" },
+        { id: "p5-3", title: "NATIVE Delivery Assistant", description: "Build AI assistant for delivery planning and retrospectives", difficulty: "advanced", duration: "3 hours" },
     ],
-    assessmentType: "Framework comparison report + SAFe AI integration plan",
+    assessmentType: "Framework comparison report + NATIVE AI integration plan",
 };
 
 // ============================================
