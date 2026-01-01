@@ -350,7 +350,43 @@ export default function PreviewPage() {
 
                     {/* Main Content */}
                     <div className="lg:col-span-3">
-                        {showQuiz ? (
+                        {/* Show completion screen if quiz is done */}
+                        {quizScore !== null && !showQuiz ? (
+                            <div className="text-center py-12 space-y-6">
+                                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center mx-auto">
+                                    <Award className="h-10 w-10 text-white" />
+                                </div>
+                                <div>
+                                    <h1 className="text-3xl font-bold mb-2">Preview Complete!</h1>
+                                    <p className="text-white/60 text-lg">
+                                        You scored {quizScore}/5 on the quiz
+                                    </p>
+                                </div>
+                                <div className="max-w-md mx-auto p-6 rounded-2xl bg-white/[0.02] border border-white/10">
+                                    <h2 className="font-bold mb-2">Ready for the full curriculum?</h2>
+                                    <p className="text-sm text-white/60 mb-4">
+                                        11 modules • 100+ hours • 15 interactive labs • Certification
+                                    </p>
+                                    <Link href="/pricing">
+                                        <Button className="w-full gap-2 bg-gradient-to-r from-purple-600 to-blue-600">
+                                            <Sparkles className="h-4 w-4" />
+                                            View Pricing
+                                        </Button>
+                                    </Link>
+                                </div>
+                                <Button
+                                    variant="ghost"
+                                    onClick={() => {
+                                        setQuizScore(null);
+                                        setActiveLesson(1);
+                                        setCompletedLessons([]);
+                                    }}
+                                    className="text-white/40"
+                                >
+                                    Restart Preview
+                                </Button>
+                            </div>
+                        ) : showQuiz ? (
                             <DemoQuiz
                                 onComplete={(score) => {
                                     setQuizScore(score);
