@@ -98,7 +98,10 @@ export default function PremiumLandingPage() {
               Platform
             </Link>
             <Link href="/enterprise" className="text-sm text-white/40 hover:text-white transition-colors">
-              Enterprise
+              For Teams
+            </Link>
+            <Link href="/learn" className="text-sm text-white/40 hover:text-white transition-colors">
+              For Individuals
             </Link>
           </div>
 
@@ -177,7 +180,7 @@ export default function PremiumLandingPage() {
           </div>
 
           {/* Trust Badges - Minimal */}
-          <div className="flex flex-wrap justify-center gap-8 text-xs text-white/30 uppercase tracking-wider">
+          <div className="flex flex-wrap justify-center gap-8 text-xs text-white/30 uppercase tracking-wider mb-16">
             <div className="flex items-center gap-2">
               <Shield className="h-3 w-3" />
               SOC 2 Type II
@@ -189,6 +192,33 @@ export default function PremiumLandingPage() {
             <div className="flex items-center gap-2">
               <Shield className="h-3 w-3" />
               GDPR Compliant
+            </div>
+          </div>
+
+          {/* Audience Selector - Clear Paths */}
+          <div className="pt-8 border-t border-white/10">
+            <p className="text-xs text-white/40 uppercase tracking-widest mb-6">Choose your path</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <Link href="/enterprise" className="group p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/30 hover:bg-white/[0.05] transition-all text-left">
+                <div className="flex items-center gap-3 mb-3">
+                  <Users className="h-5 w-5 text-cyan-400" />
+                  <span className="font-semibold">For Organizations</span>
+                </div>
+                <p className="text-sm text-white/50">Team training, compliance, enterprise features, and dedicated support.</p>
+                <div className="mt-4 text-xs text-white/30 group-hover:text-cyan-400 transition-colors flex items-center gap-1">
+                  Contact Sales <ArrowRight className="h-3 w-3" />
+                </div>
+              </Link>
+              <Link href="/learn" className="group p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/30 hover:bg-white/[0.05] transition-all text-left">
+                <div className="flex items-center gap-3 mb-3">
+                  <Sparkles className="h-5 w-5 text-cyan-400" />
+                  <span className="font-semibold">For Individuals</span>
+                </div>
+                <p className="text-sm text-white/50">Self-paced courses, certifications, and career development starting at $99.</p>
+                <div className="mt-4 text-xs text-white/30 group-hover:text-cyan-400 transition-colors flex items-center gap-1">
+                  Browse Courses <ArrowRight className="h-3 w-3" />
+                </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -473,9 +503,10 @@ export default function PremiumLandingPage() {
       <footer className="py-12 px-8 border-t border-white/5">
         <div className="mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
           <span className="font-playfair text-lg italic">ScaledNative<sup className="text-[8px]">™</sup></span>
-          <div className="flex gap-8 text-sm text-white/30">
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-white/30">
             <Link href="/native" className="hover:text-white transition-colors">Framework</Link>
-            <Link href="/enterprise" className="hover:text-white transition-colors">Enterprise</Link>
+            <Link href="/enterprise" className="hover:text-white transition-colors">For Teams</Link>
+            <Link href="/learn" className="hover:text-white transition-colors">For Individuals</Link>
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
