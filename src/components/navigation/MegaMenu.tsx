@@ -132,6 +132,33 @@ const megaMenus: MegaMenuConfig[] = [
             href: "/demo",
         },
     },
+    {
+        label: "Individuals",
+        sections: [
+            {
+                title: "Learn & Get Certified",
+                items: [
+                    { label: "Browse All Courses", href: "/learn/courses", icon: BookOpen, description: "AI-Native training catalog" },
+                    { label: "Certification Tracks", href: "/learn/tracks", icon: Award, description: "Bundled certification paths" },
+                    { label: "NATIVE Framework", href: "/learn/courses/native-framework", icon: Sparkles, description: "Master AI-Native delivery", badge: "Popular" },
+                    { label: "Prompt Engineering", href: "/learn/courses/prompt-engineering", icon: Brain, description: "Advanced AI skills" },
+                ],
+            },
+            {
+                title: "My Account",
+                items: [
+                    { label: "My Dashboard", href: "/learn/dashboard", icon: BarChart3, description: "Track your progress" },
+                    { label: "Sign Up Free", href: "/learn/signup", icon: Users, description: "Create your account" },
+                    { label: "Sign In", href: "/learn/login", icon: Lock, description: "Access your courses" },
+                ],
+            },
+        ],
+        featured: {
+            title: "Start Learning Today",
+            description: "Individual courses from $99. Get certified in AI-Native development.",
+            href: "/learn",
+        },
+    },
 ];
 
 export function MegaMenu() {
