@@ -9,6 +9,7 @@ import {
     type AIModule
 } from "@/lib/curriculum/ai-native-curriculum";
 import { Card, Button, Badge, Progress } from "@/components/ui";
+import { LearningPath } from "@/components/training/LearningPath";
 import {
     Brain,
     Clock,
@@ -294,6 +295,11 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
 
                 {/* Sidebar */}
                 <div className="space-y-6">
+                    {/* Learning Path */}
+                    <Card className="p-6">
+                        <LearningPath currentModuleId={module.id} />
+                    </Card>
+
                     {/* Module Progress */}
                     <Card className="p-6">
                         <h3 className="font-semibold mb-4">Module Progress</h3>

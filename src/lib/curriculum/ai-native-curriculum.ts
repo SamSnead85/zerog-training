@@ -270,10 +270,57 @@ export interface CertificationTrack {
     badgeColor: string;
     nativeCertified: boolean;
     certificationCode: string;
+
+    // Enhanced exam details for rigorous certification
     examDetails: {
         format: string;
         passingScore: string;
         duration: string;
+    };
+
+    // NEW: Comprehensive assessment structure
+    assessmentRequirements?: {
+        // Theory component
+        writtenExam: {
+            questionTypes: ("mcq" | "short-answer" | "case-study" | "essay")[];
+            questionCount: number;
+            passingScore: number;
+            timeLimit: string;
+            proctored: boolean;
+            identityVerification?: boolean;
+        };
+
+        // Practical component
+        practicalExam?: {
+            format: "timed-lab" | "take-home-project" | "live-coding" | "architecture-review";
+            duration: string;
+            rubricCriteria: string[];
+            passingScore: number;
+        };
+
+        // Portfolio component
+        portfolio?: {
+            required: boolean;
+            capstoneProjectId: string;
+            peerReviewRequired: boolean;
+            minimumScore: number;
+        };
+
+        // Oral examination (Architect level)
+        oralExam?: {
+            required: boolean;
+            duration: string;
+            panelSize: number;
+            topics: string[];
+            passingScore: number;
+        };
+
+        // Recertification
+        recertification: {
+            requiredEvery: string;
+            options: ("exam" | "continuing-education" | "project-portfolio")[];
+            continuingEducationHours?: number;
+        };
     };
 }
 
@@ -299,6 +346,36 @@ export const certificationTracks: CertificationTrack[] = [
             format: "50 multiple choice + 2 practical exercises",
             passingScore: "75%",
             duration: "90 minutes"
+        },
+        assessmentRequirements: {
+            writtenExam: {
+                questionTypes: ["mcq", "short-answer"],
+                questionCount: 50,
+                passingScore: 75,
+                timeLimit: "60 minutes",
+                proctored: false
+            },
+            practicalExam: {
+                format: "take-home-project",
+                duration: "24 hours",
+                rubricCriteria: [
+                    "Prompt engineering technique application",
+                    "Code quality and documentation",
+                    "Edge case handling",
+                    "Clear explanation of approach"
+                ],
+                passingScore: 70
+            },
+            portfolio: {
+                required: true,
+                capstoneProjectId: "capstone-foundations",
+                peerReviewRequired: false,
+                minimumScore: 70
+            },
+            recertification: {
+                requiredEvery: "Never (Lifetime)",
+                options: []
+            }
         }
     },
     {
@@ -319,6 +396,39 @@ export const certificationTracks: CertificationTrack[] = [
             format: "40 multiple choice + 3 hands-on labs",
             passingScore: "80%",
             duration: "2 hours"
+        },
+        assessmentRequirements: {
+            writtenExam: {
+                questionTypes: ["mcq", "short-answer", "case-study"],
+                questionCount: 40,
+                passingScore: 80,
+                timeLimit: "90 minutes",
+                proctored: true,
+                identityVerification: true
+            },
+            practicalExam: {
+                format: "timed-lab",
+                duration: "3 hours",
+                rubricCriteria: [
+                    "Agentic workflow implementation",
+                    "LangChain/LangGraph proficiency",
+                    "Error handling and resilience",
+                    "Code organization and documentation",
+                    "Deployment-ready implementation"
+                ],
+                passingScore: 80
+            },
+            portfolio: {
+                required: true,
+                capstoneProjectId: "capstone-associate",
+                peerReviewRequired: false,
+                minimumScore: 75
+            },
+            recertification: {
+                requiredEvery: "2 years",
+                options: ["exam", "continuing-education"],
+                continuingEducationHours: 20
+            }
         }
     },
     {
@@ -339,6 +449,40 @@ export const certificationTracks: CertificationTrack[] = [
             format: "30 multiple choice + 4 hands-on labs + 1 capstone project",
             passingScore: "80%",
             duration: "3 hours"
+        },
+        assessmentRequirements: {
+            writtenExam: {
+                questionTypes: ["mcq", "case-study", "essay"],
+                questionCount: 35,
+                passingScore: 80,
+                timeLimit: "2 hours",
+                proctored: true,
+                identityVerification: true
+            },
+            practicalExam: {
+                format: "live-coding",
+                duration: "4 hours",
+                rubricCriteria: [
+                    "Production-ready RAG implementation",
+                    "Security best practices (prompt injection, PII)",
+                    "Observability and monitoring",
+                    "Performance optimization",
+                    "Cost efficiency",
+                    "Documentation quality"
+                ],
+                passingScore: 80
+            },
+            portfolio: {
+                required: true,
+                capstoneProjectId: "capstone-professional",
+                peerReviewRequired: true,
+                minimumScore: 80
+            },
+            recertification: {
+                requiredEvery: "2 years",
+                options: ["exam", "continuing-education", "project-portfolio"],
+                continuingEducationHours: 30
+            }
         }
     },
     {
@@ -359,6 +503,54 @@ export const certificationTracks: CertificationTrack[] = [
             format: "Architecture design challenge + oral examination",
             passingScore: "85%",
             duration: "4 hours"
+        },
+        assessmentRequirements: {
+            writtenExam: {
+                questionTypes: ["case-study", "essay"],
+                questionCount: 20,
+                passingScore: 85,
+                timeLimit: "2.5 hours",
+                proctored: true,
+                identityVerification: true
+            },
+            practicalExam: {
+                format: "architecture-review",
+                duration: "48 hours",
+                rubricCriteria: [
+                    "Enterprise architecture quality",
+                    "Scalability and performance design",
+                    "Security and governance framework",
+                    "Cost optimization strategy",
+                    "Multi-model orchestration design",
+                    "Documentation comprehensiveness",
+                    "Business alignment and ROI"
+                ],
+                passingScore: 85
+            },
+            portfolio: {
+                required: true,
+                capstoneProjectId: "capstone-architect",
+                peerReviewRequired: true,
+                minimumScore: 85
+            },
+            oralExam: {
+                required: true,
+                duration: "60 minutes",
+                panelSize: 2,
+                topics: [
+                    "Justify multi-model strategy over single-vendor",
+                    "Handle 10x usage scaling",
+                    "Security review process for new AI use cases",
+                    "Disaster recovery walkthrough",
+                    "Critique and improve proposed AI implementation"
+                ],
+                passingScore: 80
+            },
+            recertification: {
+                requiredEvery: "3 years",
+                options: ["exam", "project-portfolio"],
+                continuingEducationHours: 40
+            }
         }
     },
 ];
