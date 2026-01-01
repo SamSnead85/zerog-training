@@ -28,7 +28,7 @@ interface QuizQuestion {
 export default function ModuleQuizPage() {
     const params = useParams();
     const router = useRouter();
-    const moduleId = parseInt(params.moduleId as string);
+    const moduleId = parseInt(params.courseId as string);
 
     const [questions, setQuestions] = useState<QuizQuestion[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
