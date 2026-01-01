@@ -10,10 +10,8 @@ import {
     Menu,
     X,
     GraduationCap,
-    Sparkles,
     LogOut,
 } from "lucide-react";
-import { LogoIcon } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 
 interface LearnerLayoutProps {
@@ -24,36 +22,34 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
     const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    // Check if user is logged in (for demo)
+    // Check if user is logged in
     const isLoggedIn = typeof window !== "undefined" && localStorage.getItem("learner_user");
 
     const navItems = [
-        { href: "/learn", label: "Courses", icon: BookOpen },
+        { href: "/learn/courses", label: "Courses", icon: BookOpen },
         { href: "/learn/tracks", label: "Certifications", icon: GraduationCap },
         ...(isLoggedIn ? [
-            { href: "/learn/dashboard", label: "My Learning", icon: Sparkles },
+            { href: "/learn/dashboard", label: "My Learning", icon: User },
             { href: "/learn/certifications", label: "My Certificates", icon: Award },
         ] : []),
     ];
 
     return (
-        <div className="min-h-screen bg-background">
-            {/* Header */}
-            <header className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        {/* Logo */}
-                        <Link href="/learn" className="flex items-center gap-2">
-                            <LogoIcon size={32} />
-                            <span className="text-lg font-semibold">
-                                Scaled<span className="text-cyan-400">Native</span>
+        <div className="min-h-screen bg-black text-white">
+            {/* Header - Premium Dark */}
+            <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-20">
+                        {/* Premium Logo */}
+                        <Link href="/learn" className="flex items-center gap-3">
+                            <span className="font-playfair text-2xl font-medium tracking-tight italic">
+                                ScaledNative<sup className="text-[10px] align-super ml-0.5">™</sup>
                             </span>
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <nav className="hidden md:flex items-center gap-1">
+                        <nav className="hidden md:flex items-center gap-8">
                             {navItems.map((item) => {
-                                const Icon = item.icon;
                                 const isActive = pathname === item.href ||
                                     (item.href !== "/learn" && pathname.startsWith(item.href));
                                 return (
@@ -61,13 +57,12 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                                         key={item.href}
                                         href={item.href}
                                         className={cn(
-                                            "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                                            "text-sm transition-colors",
                                             isActive
-                                                ? "bg-primary/10 text-primary"
-                                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                                ? "text-white"
+                                                : "text-white/40 hover:text-white"
                                         )}
                                     >
-                                        <Icon className="h-4 w-4" />
                                         {item.label}
                                     </Link>
                                 );
@@ -75,14 +70,13 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                         </nav>
 
                         {/* Auth Buttons */}
-                        <div className="hidden md:flex items-center gap-3">
+                        <div className="hidden md:flex items-center gap-4">
                             {isLoggedIn ? (
                                 <>
                                     <Link
                                         href="/learn/dashboard"
-                                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                        className="text-sm text-white/40 hover:text-white transition-colors"
                                     >
-                                        <User className="h-4 w-4" />
                                         Profile
                                     </Link>
                                     <button
@@ -90,9 +84,8 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                                             localStorage.removeItem("learner_user");
                                             window.location.href = "/learn";
                                         }}
-                                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                        className="text-sm text-white/40 hover:text-white transition-colors"
                                     >
-                                        <LogOut className="h-4 w-4" />
                                         Sign Out
                                     </button>
                                 </>
@@ -100,15 +93,15 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                                 <>
                                     <Link
                                         href="/learn/login"
-                                        className="px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground"
+                                        className="text-sm text-white/40 hover:text-white transition-colors"
                                     >
                                         Sign In
                                     </Link>
                                     <Link
                                         href="/learn/signup"
-                                        className="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90"
+                                        className="px-5 py-2.5 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition-colors"
                                     >
-                                        Start Learning
+                                        Get Started
                                     </Link>
                                 </>
                             )}
@@ -116,7 +109,7 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
 
                         {/* Mobile Menu Button */}
                         <button
-                            className="md:hidden p-2 rounded-lg hover:bg-muted/50"
+                            className="md:hidden p-2 rounded-lg text-white/60 hover:text-white"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
                             {mobileMenuOpen ? (
@@ -130,10 +123,9 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
 
                 {/* Mobile Menu */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden border-t border-border/50 bg-background">
-                        <div className="px-4 py-4 space-y-2">
+                    <div className="md:hidden border-t border-white/5 bg-black">
+                        <div className="px-6 py-6 space-y-2">
                             {navItems.map((item) => {
-                                const Icon = item.icon;
                                 const isActive = pathname === item.href;
                                 return (
                                     <Link
@@ -141,25 +133,24 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                                         href={item.href}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className={cn(
-                                            "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium",
+                                            "block px-4 py-3 rounded-lg text-sm font-medium",
                                             isActive
-                                                ? "bg-primary/10 text-primary"
-                                                : "text-muted-foreground"
+                                                ? "text-white bg-white/5"
+                                                : "text-white/50"
                                         )}
                                     >
-                                        <Icon className="h-5 w-5" />
                                         {item.label}
                                     </Link>
                                 );
                             })}
-                            <div className="pt-4 border-t border-border/50 space-y-2">
+                            <div className="pt-4 border-t border-white/5 space-y-2">
                                 {isLoggedIn ? (
                                     <button
                                         onClick={() => {
                                             localStorage.removeItem("learner_user");
                                             window.location.href = "/learn";
                                         }}
-                                        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground"
+                                        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/50"
                                     >
                                         <LogOut className="h-5 w-5" />
                                         Sign Out
@@ -169,16 +160,16 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                                         <Link
                                             href="/learn/login"
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="block px-4 py-3 rounded-lg text-sm font-medium text-center text-muted-foreground"
+                                            className="block px-4 py-3 rounded-lg text-sm font-medium text-center text-white/50"
                                         >
                                             Sign In
                                         </Link>
                                         <Link
                                             href="/learn/signup"
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="block px-4 py-3 rounded-lg text-sm font-medium text-center bg-primary text-primary-foreground"
+                                            className="block px-4 py-3 rounded-full text-sm font-medium text-center bg-white text-black"
                                         >
-                                            Start Learning
+                                            Get Started
                                         </Link>
                                     </>
                                 )}
@@ -188,26 +179,31 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                 )}
             </header>
 
+            {/* Spacer for fixed header */}
+            <div className="h-20" />
+
             {/* Main Content */}
             <main>{children}</main>
 
-            {/* Footer */}
-            <footer className="border-t border-border/50 py-8 mt-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                            <LogoIcon size={24} />
-                            <span className="text-sm">© 2024 ScaledNative Training</span>
+            {/* Footer - Premium Minimal */}
+            <footer className="border-t border-white/5 py-12 mt-20">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <span className="font-playfair text-lg italic">
+                            ScaledNative<sup className="text-[8px]">™</sup>
+                        </span>
+                        <div className="flex flex-wrap justify-center gap-8 text-sm text-white/30">
+                            <Link href="/learn/courses" className="hover:text-white transition-colors">Courses</Link>
+                            <Link href="/learn/tracks" className="hover:text-white transition-colors">Certifications</Link>
+                            <Link href="/" className="hover:text-white transition-colors">For Teams</Link>
+                            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+                            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
                         </div>
-                        <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                            <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
-                            <Link href="/terms" className="hover:text-foreground">Terms</Link>
-                            <Link href="/contact" className="hover:text-foreground">Contact</Link>
-                            <Link href="/enterprise" className="hover:text-foreground">Enterprise</Link>
-                        </div>
+                        <div className="text-xs text-white/20">© 2025 ScaledNative™</div>
                     </div>
                 </div>
             </footer>
         </div>
     );
 }
+
