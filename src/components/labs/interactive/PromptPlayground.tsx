@@ -144,10 +144,10 @@ export function PromptPlayground({
     return (
         <div className="bg-gray-900 rounded-2xl border border-white/10 overflow-hidden">
             {/* Header */}
-            <div className="p-6 border-b border-white/10 bg-gradient-to-r from-purple-500/10 to-blue-500/10">
-                <div className="flex items-start justify-between gap-4">
+            <div className="p-4 md:p-6 border-b border-white/10 bg-gradient-to-r from-purple-500/10 to-blue-500/10">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                     <div>
-                        <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                        <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2">
                             <Sparkles className="h-5 w-5 text-purple-400" />
                             {labName}
                         </h2>
@@ -156,7 +156,7 @@ export function PromptPlayground({
                         )}
                     </div>
                     <div className="flex items-center gap-2 text-xs">
-                        <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        <span className="px-3 py-1.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
                             Interactive Lab
                         </span>
                     </div>
@@ -172,10 +172,10 @@ export function PromptPlayground({
                             <span
                                 key={i}
                                 className={`px-3 py-1 text-xs rounded-full border transition-colors ${result?.assessment?.objectiveResults?.[i]?.met
-                                        ? "bg-green-500/20 text-green-300 border-green-500/30"
-                                        : result?.assessment
-                                            ? "bg-red-500/20 text-red-300 border-red-500/30"
-                                            : "bg-white/5 text-white/60 border-white/10"
+                                    ? "bg-green-500/20 text-green-300 border-green-500/30"
+                                    : result?.assessment
+                                        ? "bg-red-500/20 text-red-300 border-red-500/30"
+                                        : "bg-white/5 text-white/60 border-white/10"
                                     }`}
                             >
                                 {result?.assessment?.objectiveResults?.[i]?.met !== undefined && (
@@ -190,10 +190,10 @@ export function PromptPlayground({
                 </div>
             </div>
 
-            {/* Main Content */}
-            <div className="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
+            {/* Main Content - Stacked on mobile, side-by-side on desktop */}
+            <div className="flex flex-col lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
                 {/* Left: Prompt Editor */}
-                <div className="p-6">
+                <div className="p-4 md:p-6">
                     {/* Context Toggle */}
                     {(initialContext || showContext) && (
                         <div className="mb-4">
@@ -222,7 +222,7 @@ export function PromptPlayground({
                             onChange={(e) => setPrompt(e.target.value)}
                             placeholder={placeholder}
                             disabled={isExecuting}
-                            className="w-full h-64 bg-black/50 rounded-xl border border-white/10 p-4 text-white placeholder:text-white/30 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 font-mono text-sm disabled:opacity-50"
+                            className="w-full h-48 md:h-64 bg-black/50 rounded-xl border border-white/10 p-4 text-white placeholder:text-white/30 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 font-mono text-sm disabled:opacity-50"
                             onKeyDown={(e) => {
                                 if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
                                     handleExecute();
@@ -247,12 +247,12 @@ export function PromptPlayground({
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="mt-4 flex items-center gap-3">
+                    {/* Action Buttons - Mobile-friendly */}
+                    <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                         <button
                             onClick={handleExecute}
                             disabled={isExecuting || !prompt.trim() || isOverLimit}
-                            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:from-purple-500 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                            className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:from-purple-500 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all min-h-[44px]"
                         >
                             {isExecuting ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -265,13 +265,13 @@ export function PromptPlayground({
                         <button
                             onClick={handleReset}
                             disabled={isExecuting}
-                            className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/10 text-white/60 hover:text-white hover:bg-white/5 transition-all"
+                            className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 rounded-lg border border-white/10 text-white/60 hover:text-white hover:bg-white/5 transition-all min-h-[44px]"
                         >
                             <RotateCcw className="h-4 w-4" />
                             Reset
                         </button>
 
-                        <span className="text-xs text-white/30 ml-auto">
+                        <span className="hidden sm:block text-xs text-white/30 ml-auto">
                             ⌘/Ctrl + Enter to execute
                         </span>
                     </div>
@@ -355,8 +355,8 @@ export function PromptPlayground({
                         </div>
                         <div className="flex-shrink-0 text-center">
                             <div className={`text-4xl font-bold ${result.assessment.score >= 80 ? "text-green-400" :
-                                    result.assessment.score >= 60 ? "text-yellow-400" :
-                                        "text-red-400"
+                                result.assessment.score >= 60 ? "text-yellow-400" :
+                                    "text-red-400"
                                 }`}>
                                 {result.assessment.score}
                             </div>
@@ -370,8 +370,8 @@ export function PromptPlayground({
                             <div
                                 key={i}
                                 className={`p-3 rounded-lg border ${obj.met
-                                        ? "bg-green-500/10 border-green-500/20"
-                                        : "bg-red-500/10 border-red-500/20"
+                                    ? "bg-green-500/10 border-green-500/20"
+                                    : "bg-red-500/10 border-red-500/20"
                                     }`}
                             >
                                 <div className="flex items-center gap-2">
