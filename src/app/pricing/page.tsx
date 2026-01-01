@@ -150,8 +150,45 @@ const enterprisePlans = [
 export default function PricingPage() {
     return (
         <div className="min-h-screen bg-black text-white">
+            {/* Navigation Header */}
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl border-b border-white/5">
+                <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <span className="font-playfair text-2xl font-medium tracking-tight italic">
+                            ScaledNative<sup className="text-[10px] align-super ml-0.5">™</sup>
+                        </span>
+                    </Link>
+
+                    <div className="hidden md:flex items-center gap-10">
+                        <Link href="/native" className="text-sm text-white/40 hover:text-white transition-colors">
+                            Framework
+                        </Link>
+                        <Link href="/pricing" className="text-sm text-white font-medium">
+                            Pricing
+                        </Link>
+                        <Link href="/enterprise" className="text-sm text-white/40 hover:text-white transition-colors">
+                            Enterprise
+                        </Link>
+                        <Link href="/preview" className="text-sm text-white/40 hover:text-white transition-colors">
+                            Try Free
+                        </Link>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        <Link href="/login" className="text-sm text-white/40 hover:text-white transition-colors">
+                            Sign in
+                        </Link>
+                        <Link href="/learn/checkout?plan=professional">
+                            <button className="px-5 py-2.5 rounded-full bg-white text-black font-medium text-sm hover:bg-white/90 transition-all">
+                                Get Started
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </nav>
+
             {/* Hero */}
-            <section className="pt-24 pb-16 px-6">
+            <section className="pt-32 pb-16 px-6">
                 <div className="mx-auto max-w-6xl text-center">
                     <Badge className="mb-4 bg-purple-500/20 text-purple-300 border-purple-500/30">
                         Premium AI Training

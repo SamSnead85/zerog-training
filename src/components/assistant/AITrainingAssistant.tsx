@@ -148,6 +148,34 @@ export function AITrainingAssistant() {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    // Routes where the AI assistant should NOT appear (marketing/landing pages)
+    const excludedRoutes = [
+        "/",           // Landing page
+        "/pricing",    // Pricing page
+        "/preview",    // Demo preview (let them explore without distraction)
+        "/demo",       // Demo booking
+        "/enterprise", // Enterprise page
+        "/about",      // About page
+        "/contact",    // Contact page
+        "/insights",   // Articles/insights hub
+        "/terms",      // Terms of service
+        "/privacy",    // Privacy policy
+        "/login",      // Login page
+        "/signup",     // Signup page
+        "/register",   // Register page
+    ];
+
+    // Check if current page should show assistant
+    const shouldShowAssistant = !excludedRoutes.some(route =>
+        pathname === route ||
+        (route !== "/" && pathname?.startsWith(route + "/"))
+    );
+
+    // Don't render on excluded pages
+    if (!shouldShowAssistant) {
+        return null;
+    }
+
     // Get context-aware suggestions based on current page
     const pageContext = pageContexts[pathname] || pageContexts.default;
 

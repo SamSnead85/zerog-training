@@ -94,14 +94,14 @@ export default function PremiumLandingPage() {
             <Link href="/native" className="text-sm text-white/40 hover:text-white transition-colors">
               Framework
             </Link>
-            <Link href="/ai-native" className="text-sm text-white/40 hover:text-white transition-colors">
-              Platform
+            <Link href="/pricing" className="text-sm text-white/40 hover:text-white transition-colors">
+              Pricing
             </Link>
             <Link href="/enterprise" className="text-sm text-white/40 hover:text-white transition-colors">
-              For Teams
+              Enterprise
             </Link>
-            <Link href="/learn" className="text-sm text-white/40 hover:text-white transition-colors">
-              For Individuals
+            <Link href="/preview" className="text-sm text-white/40 hover:text-white transition-colors">
+              Try Free
             </Link>
           </div>
 
@@ -490,9 +490,9 @@ export default function PremiumLandingPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <FooterDemoButton />
-            <Link href="/training/module-1">
+            <Link href="/preview">
               <button className="px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-all">
-                Try Sample Lesson
+                Try Free Demo
               </button>
             </Link>
           </div>
@@ -505,9 +505,9 @@ export default function PremiumLandingPage() {
           <span className="font-playfair text-lg italic">ScaledNative<sup className="text-[8px]">™</sup></span>
           <div className="flex flex-wrap justify-center gap-8 text-sm text-white/30">
             <Link href="/native" className="hover:text-white transition-colors">Framework</Link>
-            <Link href="/enterprise" className="hover:text-white transition-colors">For Teams</Link>
-            <Link href="/learn" className="hover:text-white transition-colors">For Individuals</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
+            <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
+            <Link href="/enterprise" className="hover:text-white transition-colors">Enterprise</Link>
+            <Link href="/preview" className="hover:text-white transition-colors">Try Free</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
           <div className="text-xs text-white/20">© 2025 ScaledNative™. All rights reserved.</div>
