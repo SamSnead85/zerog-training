@@ -30,18 +30,29 @@ export default function LearnerLoginPage() {
         setIsLoading(true);
         setError("");
 
-        // Simulate login delay
-        await new Promise(r => setTimeout(r, 1000));
+        try {
+            const res = await fetch("/api/learner/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
 
-        // For demo, just set logged in
-        localStorage.setItem("learner_user", JSON.stringify({
-            email: formData.email,
-            name: formData.email.split("@")[0],
-            isLoggedIn: true,
-            userType: "INDIVIDUAL",
-        }));
+            const data = await res.json();
 
-        router.push("/learn/dashboard");
+            if (!res.ok) {
+                setError(data.error || "Invalid email or password");
+                setIsLoading(false);
+                return;
+            }
+
+            router.push("/learn/dashboard");
+        } catch (err) {
+            setError("Something went wrong. Please try again.");
+            setIsLoading(false);
+        }
     };
 
     return (
