@@ -49,25 +49,56 @@ export default function CoursePlayerPage() {
     const progress = Math.round((completedLessons.length / course.lessons.length) * 100);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem("learner_user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        } else {
-            router.push("/learn/login");
+        // Verify user is logged in and load progress from API
+        async function loadData() {
+            try {
+                const res = await fetch("/api/learner/me");
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    router.push("/learn/login");
+                    return;
+                }
+
+                setUser({ name: data.user.name });
+
+                // Load progress from API
+                const progressRes = await fetch(`/api/learner/progress?courseId=${courseId}`);
+                if (progressRes.ok) {
+                    const progressData = await progressRes.json();
+                    if (progressData.progress) {
+                        setCompletedLessons(progressData.progress.completedLessons || []);
+                    }
+                }
+            } catch (err) {
+                router.push("/learn/login");
+            }
         }
 
-        // Load completed lessons from localStorage
-        const stored = localStorage.getItem(`course_${courseId}_completed`);
-        if (stored) {
-            setCompletedLessons(JSON.parse(stored));
-        }
+        loadData();
     }, [courseId, router]);
 
-    const markComplete = () => {
+    const markComplete = async () => {
         if (!completedLessons.includes(currentLesson.id)) {
             const updated = [...completedLessons, currentLesson.id];
             setCompletedLessons(updated);
-            localStorage.setItem(`course_${courseId}_completed`, JSON.stringify(updated));
+
+            // Save progress to API
+            try {
+                await fetch("/api/learner/progress", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        courseId,
+                        lessonId: currentLesson.id,
+                        completedLessons: updated,
+                        totalLessons: course.lessons.length,
+                    }),
+                });
+            } catch (err) {
+                // Continue even if save fails
+                console.error("Failed to save progress:", err);
+            }
         }
 
         // Auto-advance to next lesson

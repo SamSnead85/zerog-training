@@ -107,22 +107,38 @@ export default function CourseDetailPage() {
     const handlePurchase = async () => {
         setIsProcessing(true);
 
-        // Check if user is logged in
-        const user = localStorage.getItem("learner_user");
-        if (!user) {
-            router.push(`/learn/signup?redirect=/learn/courses/${courseId}`);
-            return;
+        try {
+            // Call checkout API to create Stripe session
+            const res = await fetch("/api/learner/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    type: "course",
+                    itemId: courseId,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                if (res.status === 401) {
+                    // Not logged in, redirect to signup
+                    router.push(`/learn/signup?redirect=/learn/courses/${courseId}`);
+                    return;
+                }
+                alert(data.error || "Failed to start checkout");
+                setIsProcessing(false);
+                return;
+            }
+
+            // Redirect to Stripe checkout
+            if (data.url) {
+                window.location.href = data.url;
+            }
+        } catch (err) {
+            alert("Something went wrong. Please try again.");
+            setIsProcessing(false);
         }
-
-        // Simulate Stripe checkout redirect
-        await new Promise(r => setTimeout(r, 1000));
-
-        // For demo, just mark as purchased and redirect
-        const purchases = JSON.parse(localStorage.getItem("learner_purchases") || "[]");
-        purchases.push({ courseId, purchasedAt: new Date().toISOString() });
-        localStorage.setItem("learner_purchases", JSON.stringify(purchases));
-
-        router.push(`/learn/course/${courseId}`);
     };
 
     const totalLessons = course.curriculum.reduce((acc, section) => acc + section.lessons.length, 0);

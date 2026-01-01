@@ -63,21 +63,35 @@ const mockAchievements = [
 
 export default function LearnerDashboard() {
     const router = useRouter();
-    const [user, setUser] = useState<{ name: string; email: string } | null>(null);
-    const [streak, setStreak] = useState(7);
-    const [xp, setXp] = useState(1250);
+    const [user, setUser] = useState<{ name: string; email: string; xp: number; streakDays: number } | null>(null);
+    const [purchases, setPurchases] = useState<Array<{ courseId?: string; trackId?: string }>>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check if user is logged in
-        const storedUser = localStorage.getItem("learner_user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        } else {
-            router.push("/learn/login");
+        // Fetch user from API
+        async function fetchUser() {
+            try {
+                const res = await fetch("/api/learner/me");
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    router.push("/learn/login");
+                    return;
+                }
+
+                setUser(data.user);
+                setPurchases(data.purchases || []);
+            } catch (err) {
+                router.push("/learn/login");
+            } finally {
+                setLoading(false);
+            }
         }
+
+        fetchUser();
     }, [router]);
 
-    if (!user) {
+    if (loading || !user) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="animate-pulse text-muted-foreground">Loading...</div>
@@ -102,12 +116,12 @@ export default function LearnerDashboard() {
                 <div className="flex items-center gap-4">
                     <Card className="px-4 py-2 flex items-center gap-2 bg-amber-500/10 border-amber-500/20">
                         <Flame className="h-5 w-5 text-amber-500" />
-                        <span className="font-bold text-amber-500">{streak}</span>
+                        <span className="font-bold text-amber-500">{user.streakDays || 0}</span>
                         <span className="text-sm text-muted-foreground">day streak</span>
                     </Card>
                     <Card className="px-4 py-2 flex items-center gap-2 bg-purple-500/10 border-purple-500/20">
                         <Sparkles className="h-5 w-5 text-purple-500" />
-                        <span className="font-bold text-purple-500">{xp.toLocaleString()}</span>
+                        <span className="font-bold text-purple-500">{(user.xp || 0).toLocaleString()}</span>
                         <span className="text-sm text-muted-foreground">XP</span>
                     </Card>
                 </div>
