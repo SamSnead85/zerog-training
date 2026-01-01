@@ -1,0 +1,374 @@
+[
+    {
+        "id": "m3-q1",
+        "question": "What is the fundamental difference between a chatbot and an AI agent?",
+        "type": "mcq",
+        "options": [
+            "Agents are faster than chatbots",
+            "Agents pursue goals autonomously and can use tools, while chatbots only respond to input",
+            "Chatbots can be deployed to production, agents cannot",
+            "Agents only work with OpenAI models"
+        ],
+        "answer": 1,
+        "explanation": "Agents are goal-directed systems that autonomously decide actions and can use tools. Chatbots primarily respond to input without autonomous goal pursuit."
+    },
+    {
+        "id": "m3-q2",
+        "question": "What does the ReAct pattern stand for?",
+        "type": "mcq",
+        "options": [
+            "React JavaScript framework",
+            "Recursive Action",
+            "Reasoning + Acting",
+            "Reactive Architecture"
+        ],
+        "answer": 2,
+        "explanation": "ReAct stands for Reasoning + Acting, a pattern where agents interleave thinking about what to do with actually executing actions."
+    },
+    {
+        "id": "m3-q3",
+        "question": "What is the core agent loop?",
+        "type": "mcq",
+        "options": [
+            "Input → Output → Repeat",
+            "Observe → Think → Act → Observe (repeat)",
+            "Plan → Execute → Report",
+            "Start → Middle → End"
+        ],
+        "answer": 1,
+        "explanation": "The core agent loop is: Observe (receive input/state) → Think (reason about goals) → Act (execute tool/action) → Observe (get result) → Repeat."
+    },
+    {
+        "id": "m3-q4",
+        "question": "What is the most important factor in getting LLMs to use tools correctly?",
+        "type": "mcq",
+        "options": [
+            "Using the most expensive model",
+            "Clear, specific tool descriptions with examples",
+            "Limiting the number of tools to 1",
+            "Using JSON output format"
+        ],
+        "answer": 1,
+        "explanation": "Tool descriptions are critical because the LLM uses them to decide when and how to use each tool. Clear descriptions with examples improve reliability."
+    },
+    {
+        "id": "m3-q5",
+        "question": "Which type of memory persists across agent sessions?",
+        "type": "mcq",
+        "options": [
+            "Short-term memory",
+            "Working memory",
+            "Long-term memory (vector store)",
+            "Conversation buffer memory"
+        ],
+        "answer": 2,
+        "explanation": "Long-term memory using vector stores persists across sessions. Short-term and working memory are cleared between sessions."
+    },
+    {
+        "id": "m3-q6",
+        "question": "What is function calling in LLM APIs?",
+        "type": "mcq",
+        "options": [
+            "The LLM executing JavaScript functions",
+            "A mechanism for LLMs to output structured tool invocations",
+            "Calling the LLM API from a function",
+            "Defining functions in the prompt"
+        ],
+        "answer": 1,
+        "explanation": "Function calling allows LLMs to output structured JSON requests to invoke specific tools/functions, which are then executed by your code."
+    },
+    {
+        "id": "m3-q7",
+        "question": "When should you use parallel tool calls?",
+        "type": "mcq",
+        "options": [
+            "When tools are fast",
+            "When tools are independent and don't depend on each other's output",
+            "Always, for maximum performance",
+            "Never, it causes errors"
+        ],
+        "answer": 1,
+        "explanation": "Parallel tool calls should be used when tools are independent. If Tool B needs Tool A's output, they must run sequentially."
+    },
+    {
+        "id": "m3-q8",
+        "question": "What is the purpose of a ConversationSummaryMemory?",
+        "type": "mcq",
+        "options": [
+            "To delete old messages",
+            "To compress old conversation history into summaries to save tokens",
+            "To make conversations private",
+            "To speed up LLM responses"
+        ],
+        "answer": 1,
+        "explanation": "ConversationSummaryMemory compresses older conversation history into summaries, maintaining context while staying within token limits."
+    },
+    {
+        "id": "m3-q9",
+        "question": "In LangGraph, what are 'nodes'?",
+        "type": "mcq",
+        "options": [
+            "Database records",
+            "Functions that receive state and return state updates",
+            "UI components",
+            "Network servers"
+        ],
+        "answer": 1,
+        "explanation": "In LangGraph, nodes are functions that receive the current state, perform some action, and return updates to the state."
+    },
+    {
+        "id": "m3-q10",
+        "question": "What is a 'conditional edge' in LangGraph?",
+        "type": "mcq",
+        "options": [
+            "An edge that sometimes fails",
+            "An edge that routes to different nodes based on state",
+            "An edge with a time limit",
+            "An edge for error handling"
+        ],
+        "answer": 1,
+        "explanation": "Conditional edges use a function to examine state and decide which node to route to next, enabling dynamic control flow."
+    },
+    {
+        "id": "m3-q11",
+        "question": "What does 'interrupt_before' do in LangGraph?",
+        "type": "mcq",
+        "options": [
+            "Stops the graph permanently",
+            "Pauses execution before a node for human approval",
+            "Cancels the current task",
+            "Removes a node from the graph"
+        ],
+        "answer": 1,
+        "explanation": "interrupt_before pauses the graph before specified nodes, enabling human-in-the-loop patterns where humans can review/approve before proceeding."
+    },
+    {
+        "id": "m3-q12",
+        "question": "In CrewAI, what is a 'crew'?",
+        "type": "mcq",
+        "options": [
+            "A single agent with multiple tools",
+            "A team of agents with defined roles working on tasks",
+            "A configuration file",
+            "A testing framework"
+        ],
+        "answer": 1,
+        "explanation": "In CrewAI, a crew is a team of specialized agents with defined roles that work together on a set of tasks."
+    },
+    {
+        "id": "m3-q13",
+        "question": "What is the key difference between CrewAI and AutoGen?",
+        "type": "mcq",
+        "options": [
+            "CrewAI is free, AutoGen is paid",
+            "CrewAI is task-based with roles, AutoGen is conversation-based",
+            "AutoGen only works with GPT-4",
+            "CrewAI can only use 2 agents"
+        ],
+        "answer": 1,
+        "explanation": "CrewAI models multi-agent work as role-based task assignments. AutoGen models it as conversations between agents until task completion."
+    },
+    {
+        "id": "m3-q14",
+        "question": "When should you choose CrewAI over AutoGen?",
+        "type": "mcq",
+        "options": [
+            "When building coding assistants",
+            "When you have clearly defined roles and sequential workflows",
+            "When agents need to debate freely",
+            "When you need code execution"
+        ],
+        "answer": 1,
+        "explanation": "CrewAI excels at content workflows with clear roles (researcher, writer, editor). AutoGen is better for organic conversations and code generation."
+    },
+    {
+        "id": "m3-q15",
+        "question": "What does 'allow_delegation=True' mean in CrewAI?",
+        "type": "mcq",
+        "options": [
+            "The agent can request human help",
+            "The agent can assign tasks to other agents",
+            "The agent can use any tool",
+            "The agent can modify its own role"
+        ],
+        "answer": 1,
+        "explanation": "allow_delegation=True enables an agent to delegate work to other agents in the crew, useful for manager/coordinator patterns."
+    },
+    {
+        "id": "m3-q16",
+        "question": "What is the 'Reflection' pattern in agent design?",
+        "type": "mcq",
+        "options": [
+            "Using mirrors in the UI",
+            "Agent critiques its own output and improves it",
+            "Copying responses from other agents",
+            "Storing responses in memory"
+        ],
+        "answer": 1,
+        "explanation": "The Reflection pattern has an agent generate output, self-critique it, identify weaknesses, and produce an improved version."
+    },
+    {
+        "id": "m3-q17",
+        "question": "Why is input validation important for agent tools?",
+        "type": "mcq",
+        "options": [
+            "To make tools faster",
+            "LLMs can generate invalid or unsafe inputs that need filtering",
+            "To reduce API costs",
+            "It's not important"
+        ],
+        "answer": 1,
+        "explanation": "LLMs can generate incorrect, malformed, or even malicious inputs. Always validate tool arguments, especially for tools that modify data or systems."
+    },
+    {
+        "id": "m3-q18",
+        "question": "What is 'episodic memory' in agent systems?",
+        "type": "mcq",
+        "options": [
+            "Memory of TV episodes",
+            "Recording and learning from past agent experiences (successes and failures)",
+            "Short-term conversation memory",
+            "Memory of tool usage"
+        ],
+        "answer": 1,
+        "explanation": "Episodic memory stores complete interaction episodes—task, actions taken, outcome, success/failure—enabling agents to learn from experience."
+    },
+    {
+        "id": "m3-q19",
+        "question": "What is the 'Plan-and-Execute' agent pattern?",
+        "type": "mcq",
+        "options": [
+            "Plan everything before writing any code",
+            "Agent creates a multi-step plan, then executes each step",
+            "Execute first, plan later",
+            "Only plan, never execute"
+        ],
+        "answer": 1,
+        "explanation": "In Plan-and-Execute, the agent first breaks a complex goal into steps, then executes each step. This helps with complex, multi-stage tasks."
+    },
+    {
+        "id": "m3-q20",
+        "question": "What happens if you don't set max_iterations for an agent?",
+        "type": "mcq",
+        "options": [
+            "The agent runs faster",
+            "The agent might loop infinitely, consuming resources and money",
+            "Nothing, it's optional",
+            "The agent fails immediately"
+        ],
+        "answer": 1,
+        "explanation": "Without iteration limits, agents can get stuck in infinite loops trying the same action repeatedly. Always set max_iterations for safety."
+    },
+    {
+        "id": "m3-q21",
+        "question": "In AutoGen, what is a UserProxyAgent?",
+        "type": "mcq",
+        "options": [
+            "A proxy server for users",
+            "An agent that represents the user and can execute code",
+            "A UI component",
+            "A logging mechanism"
+        ],
+        "answer": 1,
+        "explanation": "UserProxyAgent represents the human user, can request human input (or run autonomously), and can execute code that other agents write."
+    },
+    {
+        "id": "m3-q22",
+        "question": "True or False: LLMs have persistent memory between API calls.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "LLM APIs are stateless. Each call is independent. Memory must be implemented by including conversation history in each request."
+    },
+    {
+        "id": "m3-q23",
+        "question": "True or False: In LangGraph, you can create cycles where agents loop back to previous nodes.",
+        "type": "tf",
+        "answer": true,
+        "explanation": "LangGraph explicitly supports cycles—for example, Agent → Tools → Agent creates the standard ReAct loop."
+    },
+    {
+        "id": "m3-q24",
+        "question": "True or False: More agents always means better results.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "More agents means more complexity, cost, and potential for confusion. Start with 2-3 agents and add more only when needed."
+    },
+    {
+        "id": "m3-q25",
+        "question": "What is the recommended security practice for dangerous tools (delete, execute)?",
+        "type": "mcq",
+        "options": [
+            "Don't use them at all",
+            "Implement permission checks and confirmation prompts",
+            "Use them only with GPT-4",
+            "Run them in production only"
+        ],
+        "answer": 1,
+        "explanation": "For dangerous tools, implement permission levels, require human confirmation for destructive actions, and validate all inputs."
+    },
+    {
+        "id": "m3-q26",
+        "question": "What is the 'Adversarial Review' multi-agent pattern?",
+        "type": "mcq",
+        "options": [
+            "Agents compete for resources",
+            "A generator proposes solutions, a critic finds flaws, they iterate",
+            "Agents fight each other",
+            "One agent deletes another's work"
+        ],
+        "answer": 1,
+        "explanation": "In Adversarial Review, a generator agent creates solutions while a critic agent finds weaknesses. They iterate until the critic is satisfied."
+    },
+    {
+        "id": "m3-q27",
+        "question": "What is 'checkpointing' in LangGraph?",
+        "type": "mcq",
+        "options": [
+            "Verifying code quality",
+            "Saving agent state to disk so it can be resumed later",
+            "Checking if tools are available",
+            "Validating inputs"
+        ],
+        "answer": 1,
+        "explanation": "Checkpointing saves the agent's state (messages, intermediate results) so long-running tasks can be paused and resumed."
+    },
+    {
+        "id": "m3-q28",
+        "question": "What is the purpose of tool_choice='required' in function calling?",
+        "type": "mcq",
+        "options": [
+            "To make tools optional",
+            "To force the LLM to call at least one tool",
+            "To disable tools",
+            "To cache tool results"
+        ],
+        "answer": 1,
+        "explanation": "tool_choice='required' forces the LLM to make at least one tool call rather than responding with text only."
+    },
+    {
+        "id": "m3-q29",
+        "question": "What is the 'Expert Panel' multi-agent pattern?",
+        "type": "mcq",
+        "options": [
+            "One expert tries everything",
+            "Multiple domain experts contribute, one synthesizes their insights",
+            "Experts vote on the answer",
+            "Random expert selection"
+        ],
+        "answer": 1,
+        "explanation": "In the Expert Panel pattern, multiple specialized agents (security, performance, UX) analyze a problem, then a synthesizer combines their insights."
+    },
+    {
+        "id": "m3-q30",
+        "question": "What is the main benefit of using working memory (scratchpad) for agents?",
+        "type": "mcq",
+        "options": [
+            "It's faster than other memory types",
+            "It stores intermediate results and current task state",
+            "It persists across sessions",
+            "It reduces API costs"
+        ],
+        "answer": 1,
+        "explanation": "Working memory/scratchpad stores the goal, plan steps, intermediate results, and current thought—helping the agent track progress through complex tasks."
+    }
+]

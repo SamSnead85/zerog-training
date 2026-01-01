@@ -1,0 +1,250 @@
+[
+    {
+        "id": "m4-q1",
+        "question": "What is the key difference between LLMOps and traditional MLOps?",
+        "type": "mcq",
+        "options": [
+            "LLMOps uses more GPUs",
+            "LLMOps versions prompts instead of model weights",
+            "LLMOps is only for cloud deployments",
+            "LLMOps doesn't require monitoring"
+        ],
+        "answer": 1,
+        "explanation": "In LLMOps, models are typically API-based, so version control focuses on prompts, configurations, and orchestration logic rather than model weights."
+    },
+    {
+        "id": "m4-q2",
+        "question": "Why is traditional unit testing insufficient for LLM outputs?",
+        "type": "mcq",
+        "options": [
+            "LLMs are too slow for tests",
+            "LLM outputs are non-deterministic and vary between calls",
+            "Unit tests don't work with Python",
+            "LLMs can't be tested"
+        ],
+        "answer": 1,
+        "explanation": "LLM outputs vary between calls, so you can't test for exact output matches. Instead, test behavioral properties like structure, length, and entity preservation."
+    },
+    {
+        "id": "m4-q3",
+        "question": "What is semantic caching?",
+        "type": "mcq",
+        "options": [
+            "Caching based on exact string matches",
+            "Caching responses for semantically similar queries using embeddings",
+            "Caching model weights",
+            "Caching user sessions"
+        ],
+        "answer": 1,
+        "explanation": "Semantic caching uses embeddings to find similar queries, returning cached responses even when the exact query hasn't been seen before."
+    },
+    {
+        "id": "m4-q4",
+        "question": "How much can semantic caching reduce API costs?",
+        "type": "mcq",
+        "options": [
+            "5-10%",
+            "10-20%",
+            "30-50%",
+            "80-90%"
+        ],
+        "answer": 2,
+        "explanation": "Semantic caching can reduce API costs by 30-50% for applications with repetitive queries, like customer support chatbots."
+    },
+    {
+        "id": "m4-q5",
+        "question": "What does 'LLM-as-Judge' mean in monitoring?",
+        "type": "mcq",
+        "options": [
+            "Using an LLM in a legal application",
+            "Using a secondary LLM to evaluate the quality of primary LLM outputs",
+            "LLMs judging competition winners",
+            "Comparing LLM providers"
+        ],
+        "answer": 1,
+        "explanation": "LLM-as-Judge uses a (usually cheaper) LLM to automatically evaluate output quality on dimensions like relevance, accuracy, and helpfulness."
+    },
+    {
+        "id": "m4-q6",
+        "question": "What are the three pillars of observability?",
+        "type": "mcq",
+        "options": [
+            "Speed, cost, quality",
+            "Logs, metrics, traces",
+            "Input, process, output",
+            "CPU, memory, disk"
+        ],
+        "answer": 1,
+        "explanation": "The three pillars are: Logging (what happened), Metrics (trends over time), and Tracing (how requests flow through the system)."
+    },
+    {
+        "id": "m4-q7",
+        "question": "What is a prompt registry?",
+        "type": "mcq",
+        "options": [
+            "A database of user questions",
+            "A central repository for versioned prompts with metadata",
+            "A list of banned prompts",
+            "A prompt generation tool"
+        ],
+        "answer": 1,
+        "explanation": "A prompt registry tracks all production prompts with versions, metadata, and rollback capability—treating prompts as first-class code artifacts."
+    },
+    {
+        "id": "m4-q8",
+        "question": "What is distributed tracing useful for in LLM applications?",
+        "type": "mcq",
+        "options": [
+            "Making LLMs faster",
+            "Seeing the complete request journey through RAG, tools, and API calls",
+            "Reducing token usage",
+            "Encrypting responses"
+        ],
+        "answer": 1,
+        "explanation": "Distributed tracing shows how a request flows through embedding, vector search, LLM calls, and tool execution—essential for debugging complex applications."
+    },
+    {
+        "id": "m4-q9",
+        "question": "What is hallucination detection in LLM monitoring?",
+        "type": "mcq",
+        "options": [
+            "Testing if the LLM is dreaming",
+            "Checking if responses are grounded in provided context",
+            "Detecting user hallucinations",
+            "Measuring response latency"
+        ],
+        "answer": 1,
+        "explanation": "Hallucination detection checks whether LLM responses contain claims not supported by the provided context—identifying potential misinformation."
+    },
+    {
+        "id": "m4-q10",
+        "question": "What should you do when LLM daily spending exceeds budget?",
+        "type": "mcq",
+        "options": [
+            "Nothing, it's normal",
+            "Send an alert and investigate the cause",
+            "Shut down the application",
+            "Switch to a free model"
+        ],
+        "answer": 1,
+        "explanation": "Budget alerts should trigger investigation—it could be a traffic spike (expected) or a bug causing excessive API calls (needs fixing)."
+    },
+    {
+        "id": "m4-q11",
+        "question": "What is request batching for LLM APIs?",
+        "type": "mcq",
+        "options": [
+            "Sending one request at a time",
+            "Grouping multiple requests to process in parallel for efficiency",
+            "Splitting one request into many",
+            "Canceling pending requests"
+        ],
+        "answer": 1,
+        "explanation": "Request batching groups independent requests to execute in parallel, improving throughput and efficiency."
+    },
+    {
+        "id": "m4-q12",
+        "question": "What is the purpose of a fallback LLM provider?",
+        "type": "mcq",
+        "options": [
+            "To save money",
+            "To handle primary provider failures with a backup",
+            "To improve response quality",
+            "To train custom models"
+        ],
+        "answer": 1,
+        "explanation": "Fallback providers (e.g., Claude if OpenAI fails) ensure application resilience when the primary provider experiences outages or rate limits."
+    },
+    {
+        "id": "m4-q13",
+        "question": "What metric indicates LLM quality is degrading?",
+        "type": "mcq",
+        "options": [
+            "Input token count",
+            "Quality score from LLM-as-Judge falling below threshold",
+            "API response time",
+            "Number of users"
+        ],
+        "answer": 1,
+        "explanation": "Quality scores from automated evaluation (LLM-as-Judge) provide early warning when output quality degrades—before users complain."
+    },
+    {
+        "id": "m4-q14",
+        "question": "What is regression testing for LLM outputs?",
+        "type": "mcq",
+        "options": [
+            "Testing model training",
+            "Detecting unexpected changes in output structure or length compared to baselines",
+            "Linear regression analysis",
+            "Testing user regression"
+        ],
+        "answer": 1,
+        "explanation": "LLM regression testing compares new outputs against saved baselines to detect unexpected changes in behavior, structure, or length."
+    },
+    {
+        "id": "m4-q15",
+        "question": "Why use a cheaper model (GPT-3.5) for LLM-as-Judge evaluation?",
+        "type": "mcq",
+        "options": [
+            "Cheaper models are more accurate judges",
+            "To reduce monitoring costs while still getting useful quality signals",
+            "GPT-4 can't evaluate other models",
+            "It's faster"
+        ],
+        "answer": 1,
+        "explanation": "Using a cheaper model for evaluation keeps monitoring costs low while still providing useful quality signals. Sample-based evaluation further reduces costs."
+    },
+    {
+        "id": "m4-q16",
+        "question": "What information should you log for every LLM request?",
+        "type": "mcq",
+        "options": [
+            "Only errors",
+            "Request ID, model, messages, tokens, latency, and cost",
+            "User passwords",
+            "Server CPU usage"
+        ],
+        "answer": 1,
+        "explanation": "Log request ID, model, input/output tokens, latency, and cost. This enables debugging, cost tracking, and performance analysis."
+    },
+    {
+        "id": "m4-q17",
+        "question": "What is the recommended approach for handling rate limits?",
+        "type": "mcq",
+        "options": [
+            "Ignore them",
+            "Exponential backoff with retries",
+            "Switch models immediately",
+            "Increase budget"
+        ],
+        "answer": 1,
+        "explanation": "Exponential backoff (wait longer between retries) handles transient rate limits gracefully while preventing request storms."
+    },
+    {
+        "id": "m4-q18",
+        "question": "True or False: LLM failures are always explicit (error codes).",
+        "type": "tf",
+        "answer": false,
+        "explanation": "LLM failures can be silent—hallucinations, irrelevant responses, or refusals still return 200 OK. Quality monitoring catches these."
+    },
+    {
+        "id": "m4-q19",
+        "question": "True or False: Prompt versioning allows rollback to previous versions if new prompts perform worse.",
+        "type": "tf",
+        "answer": true,
+        "explanation": "Like code versioning, prompt versioning enables rollback when a new prompt version underperforms compared to previous versions."
+    },
+    {
+        "id": "m4-q20",
+        "question": "What percentage of requests should you evaluate with LLM-as-Judge?",
+        "type": "mcq",
+        "options": [
+            "100%",
+            "5-10% (sampling)",
+            "0%",
+            "50%"
+        ],
+        "answer": 1,
+        "explanation": "Sampling 5-10% of requests for quality evaluation balances cost with having enough data to detect issues. Adjust based on volume and budget."
+    }
+]
