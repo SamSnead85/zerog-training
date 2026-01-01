@@ -1,0 +1,177 @@
+{
+    "module": 3,
+    "topic": "Agentic AI & Autonomous Systems",
+    "questions": [
+        {
+            "id": "m3-b-q1",
+            "type": "mcq",
+            "question": "What is the ReAct pattern in agent design?",
+            "options": [
+                "A JavaScript framework",
+                "Reasoning + Acting: alternating between reasoning and taking actions",
+                "A reactive programming paradigm",
+                "React Native for agents"
+            ],
+            "answer": 1,
+            "explanation": "ReAct (Reasoning + Acting) is an agent pattern where the agent alternates between reasoning about what to do and taking actions based on observations."
+        },
+        {
+            "id": "m3-b-q2",
+            "type": "mcq",
+            "question": "What is the purpose of an agent's 'scratchpad' or 'memory'?",
+            "options": [
+                "Storing API keys",
+                "Keeping track of intermediate thoughts, actions, and observations",
+                "Caching model weights",
+                "User authentication"
+            ],
+            "answer": 1,
+            "explanation": "The scratchpad stores the agent's reasoning history, actions taken, and observations received, providing context for future decisions."
+        },
+        {
+            "id": "m3-b-q3",
+            "type": "tf",
+            "question": "An agent can call multiple tools in parallel within a single reasoning step.",
+            "answer": true,
+            "explanation": "Modern agent frameworks like LangGraph support parallel tool execution, allowing agents to gather information from multiple sources simultaneously."
+        },
+        {
+            "id": "m3-b-q4",
+            "type": "mcq",
+            "question": "What is 'function calling' in the context of LLM agents?",
+            "options": [
+                "Calling Python functions",
+                "The LLM's ability to output structured tool calls instead of just text",
+                "Calling customer support",
+                "Recursive functions"
+            ],
+            "answer": 1,
+            "explanation": "Function calling allows LLMs to output structured JSON specifying which tools to call with what arguments, enabling reliable tool use."
+        },
+        {
+            "id": "m3-b-q5",
+            "type": "mcq",
+            "question": "What is the main advantage of LangGraph over simple prompt chaining?",
+            "options": [
+                "Faster execution",
+                "State management, conditional branching, and loops for complex workflows",
+                "Better prompts",
+                "Lower costs"
+            ],
+            "answer": 1,
+            "explanation": "LangGraph provides graph-based orchestration with state management, conditional edges, and cycles, enabling complex non-linear agent workflows."
+        },
+        {
+            "id": "m3-b-q6",
+            "type": "tf",
+            "question": "CrewAI agents can delegate tasks to other agents in the same crew.",
+            "answer": true,
+            "explanation": "CrewAI supports delegation where agents can assign subtasks to other specialized agents, enabling collaborative problem-solving."
+        },
+        {
+            "id": "m3-b-q7",
+            "type": "mcq",
+            "question": "What is a 'tool schema' in function calling?",
+            "options": [
+                "Database schema for tools",
+                "A JSON description of a tool's name, parameters, and expected behavior",
+                "Tooling configuration file",
+                "Hardware specifications"
+            ],
+            "answer": 1,
+            "explanation": "The tool schema describes a tool to the LLM, including its name, description, and parameter types, so the model knows how to call it correctly."
+        },
+        {
+            "id": "m3-b-q8",
+            "type": "mcq",
+            "question": "What pattern helps prevent agents from infinite loops?",
+            "options": [
+                "Using more RAM",
+                "Maximum iteration limits and loop detection",
+                "Faster CPUs",
+                "Longer prompts"
+            ],
+            "answer": 1,
+            "explanation": "Setting maximum iterations, detecting repeated actions, and tracking state helps prevent agents from getting stuck in infinite loops."
+        },
+        {
+            "id": "m3-b-q9",
+            "type": "mcq",
+            "question": "In a multi-agent system, what is a 'supervisor' agent?",
+            "options": [
+                "The most expensive model",
+                "An agent that coordinates and routes tasks to specialized worker agents",
+                "An admin user",
+                "The deployment pipeline"
+            ],
+            "answer": 1,
+            "explanation": "A supervisor agent orchestrates the workflow, deciding which worker agents to activate and how to combine their outputs."
+        },
+        {
+            "id": "m3-b-q10",
+            "type": "tf",
+            "question": "Human-in-the-loop checkpoints allow agents to pause and request human approval for sensitive actions.",
+            "answer": true,
+            "explanation": "Human-in-the-loop patterns enable agents to pause at critical decision points, request human review, and only proceed with approval."
+        },
+        {
+            "id": "m3-b-q11",
+            "type": "mcq",
+            "question": "What is the CRAFT framework for tool design?",
+            "options": [
+                "A crafting game mechanic",
+                "Clear, Readable, Appropriate granularity, Failure-aware, Typed",
+                "Create, Read, Assign, Format, Transfer",
+                "Code Review And Feature Testing"
+            ],
+            "answer": 1,
+            "explanation": "CRAFT guides tool design: Clear purpose, Readable descriptions, Appropriate granularity, Failure modes handled, and Typed inputs/outputs."
+        },
+        {
+            "id": "m3-b-q12",
+            "type": "mcq",
+            "question": "Why should tool docstrings be detailed?",
+            "options": [
+                "For code documentation only",
+                "LLMs read docstrings to understand when and how to use tools",
+                "To increase file size",
+                "For legal compliance"
+            ],
+            "answer": 1,
+            "explanation": "LLMs use tool docstrings as instructions, so detailed descriptions help the model understand when to use each tool and how to call it correctly."
+        },
+        {
+            "id": "m3-b-q13",
+            "type": "mcq",
+            "question": "What is 'structured output' mode in OpenAI's API?",
+            "options": [
+                "Formatting text nicely",
+                "Forcing the model to output valid JSON matching a specified schema",
+                "Database output",
+                "CSV export"
+            ],
+            "answer": 1,
+            "explanation": "Structured output mode ensures the model returns valid JSON matching your schema, making function calls and data extraction reliable."
+        },
+        {
+            "id": "m3-b-q14",
+            "type": "tf",
+            "question": "Agents should return unhelpful error messages to avoid giving attackers information.",
+            "answer": false,
+            "explanation": "Agent tools should return helpful error messages with suggestions so the agent can recover. Security concerns apply to user-facing messages, not internal agent reasoning."
+        },
+        {
+            "id": "m3-b-q15",
+            "type": "mcq",
+            "question": "What is 'agent observability'?",
+            "options": [
+                "Making agents visible on screen",
+                "Tracing agent reasoning, tool calls, and decisions for debugging and monitoring",
+                "Agent surveillance",
+                "Observable signals in physics"
+            ],
+            "answer": 1,
+            "explanation": "Agent observability involves logging and tracing the agent's reasoning process, tool calls, and decisions to enable debugging and performance monitoring."
+        }
+    ]
+}
