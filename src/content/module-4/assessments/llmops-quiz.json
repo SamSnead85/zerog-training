@@ -1,0 +1,177 @@
+{
+    "module": 4,
+    "topic": "LLMOps & Production Systems",
+    "questions": [
+        {
+            "id": "m4-q1",
+            "type": "mcq",
+            "question": "What is the primary purpose of LLMOps?",
+            "options": [
+                "Building AI models from scratch",
+                "Operationalizing and managing LLM applications in production",
+                "Marketing AI products",
+                "Training employees on AI"
+            ],
+            "answer": 1,
+            "explanation": "LLMOps focuses on the operational aspects of deploying, monitoring, and maintaining LLM applications in production environments."
+        },
+        {
+            "id": "m4-q2",
+            "type": "mcq",
+            "question": "Which metric is most important for tracking LLM production costs?",
+            "options": [
+                "Lines of code generated",
+                "Token usage by model and department",
+                "Number of API calls only",
+                "Server uptime"
+            ],
+            "answer": 1,
+            "explanation": "Token usage by model and department enables accurate cost attribution, forecasting, and optimization since LLM pricing is token-based."
+        },
+        {
+            "id": "m4-q3",
+            "type": "tf",
+            "question": "P99 latency represents the response time that 99% of requests complete within.",
+            "answer": true,
+            "explanation": "P99 (99th percentile) latency shows that 99% of requests complete faster than this value, helping identify worst-case performance."
+        },
+        {
+            "id": "m4-q4",
+            "type": "mcq",
+            "question": "What is the purpose of a 'circuit breaker' in LLM applications?",
+            "options": [
+                "Electrical safety",
+                "Preventing cascading failures by temporarily stopping requests after repeated failures",
+                "Faster token processing",
+                "Reducing API costs"
+            ],
+            "answer": 1,
+            "explanation": "Circuit breakers detect failure patterns and temporarily stop requests to a failing service, allowing it to recover and preventing cascade failures."
+        },
+        {
+            "id": "m4-q5",
+            "type": "mcq",
+            "question": "What is 'prompt versioning'?",
+            "options": [
+                "Numbering API versions",
+                "Tracking different versions of prompts like code, with history and rollback capability",
+                "Versioning user messages",
+                "Database versioning"
+            ],
+            "answer": 1,
+            "explanation": "Prompt versioning treats prompts as code assets with version control, enabling tracking changes, A/B testing, and rollback to previous versions."
+        },
+        {
+            "id": "m4-q6",
+            "type": "tf",
+            "question": "Caching LLM responses can significantly reduce costs for repeated queries.",
+            "answer": true,
+            "explanation": "Semantic caching stores responses to similar queries, avoiding redundant API calls and reducing both costs and latency."
+        },
+        {
+            "id": "m4-q7",
+            "type": "mcq",
+            "question": "What is the purpose of 'guardrails' in LLM applications?",
+            "options": [
+                "Physical safety measures",
+                "Validating inputs and outputs to ensure safe, compliant responses",
+                "Testing frameworks",
+                "Deployment automation"
+            ],
+            "answer": 1,
+            "explanation": "Guardrails are checks that validate inputs and outputs for safety, compliance, and policy adherence before responses reach users."
+        },
+        {
+            "id": "m4-q8",
+            "type": "mcq",
+            "question": "What should you log for LLM observability?",
+            "options": [
+                "Only errors",
+                "Request IDs, latency, token usage, model, and success/failure status",
+                "Just timestamps",
+                "User passwords"
+            ],
+            "answer": 1,
+            "explanation": "Comprehensive logging includes request identification, performance metrics, resource usage, and status to enable debugging and optimization."
+        },
+        {
+            "id": "m4-q9",
+            "type": "mcq",
+            "question": "What is 'model fallback'?",
+            "options": [
+                "When a model gives incorrect answers",
+                "Automatically switching to a backup model when the primary fails",
+                "Downgrading to a smaller model for all requests",
+                "Training a new model"
+            ],
+            "answer": 1,
+            "explanation": "Model fallback provides resilience by automatically switching to an alternative model when the primary model is unavailable or timing out."
+        },
+        {
+            "id": "m4-q10",
+            "type": "tf",
+            "question": "Rate limiting is only necessary for public APIs, not internal applications.",
+            "answer": false,
+            "explanation": "Rate limiting protects both public and internal systems from runaway costs, abuse, and ensures fair resource allocation across users."
+        },
+        {
+            "id": "m4-q11",
+            "type": "mcq",
+            "question": "What is the purpose of 'blue-green deployment' for LLM applications?",
+            "options": [
+                "Color coding different models",
+                "Maintaining two identical environments to enable zero-downtime deployments",
+                "Testing in development only",
+                "Debugging prompts"
+            ],
+            "answer": 1,
+            "explanation": "Blue-green deployment maintains two environments (blue and green), allowing instant rollback and zero-downtime deployments."
+        },
+        {
+            "id": "m4-q12",
+            "type": "mcq",
+            "question": "What is 'LLM-as-judge' in quality evaluation?",
+            "options": [
+                "Using lawyers to review AI output",
+                "Using an LLM to evaluate the quality of another LLM's responses",
+                "A legal compliance framework",
+                "Judging AI competitions"
+            ],
+            "answer": 1,
+            "explanation": "LLM-as-judge uses one LLM to evaluate another's outputs against criteria, enabling scalable automated quality assessment."
+        },
+        {
+            "id": "m4-q13",
+            "type": "mcq",
+            "question": "What is the recommended alerting threshold for LLM error rates?",
+            "options": [
+                "Alert on every error",
+                "Alert when error rate exceeds baseline (e.g., >5% for 5 minutes)",
+                "Never alert, just log",
+                "Only alert on weekdays"
+            ],
+            "answer": 1,
+            "explanation": "Threshold-based alerting (e.g., >5% error rate sustained for 5 minutes) balances catching real issues while avoiding alert fatigue."
+        },
+        {
+            "id": "m4-q14",
+            "type": "tf",
+            "question": "Structured logging with JSON format makes logs easier to search and analyze.",
+            "answer": true,
+            "explanation": "JSON-formatted structured logs allow log analysis tools to index and query specific fields, enabling powerful filtering and aggregation."
+        },
+        {
+            "id": "m4-q15",
+            "type": "mcq",
+            "question": "What is 'canary deployment'?",
+            "options": [
+                "Deploying to a small percentage of traffic before full rollout",
+                "Using bird-themed naming",
+                "Testing with fake data",
+                "Emergency deployment procedures"
+            ],
+            "answer": 0,
+            "explanation": "Canary deployment routes a small percentage of traffic to new versions first, allowing issues to be detected before full rollout."
+        }
+    ]
+}

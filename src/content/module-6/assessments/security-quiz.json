@@ -1,0 +1,177 @@
+{
+    "module": 6,
+    "topic": "AI Security & Defense",
+    "questions": [
+        {
+            "id": "m6-q1",
+            "type": "mcq",
+            "question": "What is the most common type of attack against LLM applications?",
+            "options": [
+                "SQL injection",
+                "Prompt injection",
+                "Cross-site scripting",
+                "Buffer overflow"
+            ],
+            "answer": 1,
+            "explanation": "Prompt injection is the most common LLM-specific attack, where malicious instructions are embedded in user input to manipulate AI behavior."
+        },
+        {
+            "id": "m6-q2",
+            "type": "mcq",
+            "question": "What is a 'jailbreak' attempt in the context of LLMs?",
+            "options": [
+                "Breaking out of a jail simulation",
+                "Attempting to bypass the model's safety constraints and policies",
+                "Hacking the server",
+                "DDoS attack"
+            ],
+            "answer": 1,
+            "explanation": "Jailbreaking attempts to bypass the safety guardrails built into LLMs, trying to make them produce harmful or prohibited content."
+        },
+        {
+            "id": "m6-q3",
+            "type": "tf",
+            "question": "Input validation alone is sufficient to prevent all prompt injection attacks.",
+            "answer": false,
+            "explanation": "Defense requires multiple layers: input validation, prompt structure, role anchoring, output filtering, and behavioral guardrails together."
+        },
+        {
+            "id": "m6-q4",
+            "type": "mcq",
+            "question": "What is 'role anchoring' in defensive prompting?",
+            "options": [
+                "Assigning database roles",
+                "Making the AI's identity resistant to change through user input",
+                "Creating user accounts",
+                "HTML anchor tags"
+            ],
+            "answer": 1,
+            "explanation": "Role anchoring establishes a strong AI identity in the system prompt that resists attempts to change its persona or behavior through user input."
+        },
+        {
+            "id": "m6-q5",
+            "type": "mcq",
+            "question": "What is a 'canary token' in prompt security?",
+            "options": [
+                "A pet bird",
+                "A secret string that, if appearing in output, indicates prompt leakage",
+                "User authentication token",
+                "API access key"
+            ],
+            "answer": 1,
+            "explanation": "Canary tokens are unique strings hidden in prompts that, if they appear in the output, reveal the model leaked system prompt content."
+        },
+        {
+            "id": "m6-q6",
+            "type": "tf",
+            "question": "Using XML-style tags like <user_input> helps LLMs distinguish between trusted and untrusted content.",
+            "answer": true,
+            "explanation": "LLMs are trained on structured content and tend to respect tag boundaries, making them useful for delimiting untrusted input."
+        },
+        {
+            "id": "m6-q7",
+            "type": "mcq",
+            "question": "What is 'indirect prompt injection'?",
+            "options": [
+                "Injecting prompts through XML",
+                "Attacks where malicious content is in retrieved data rather than direct user input",
+                "Using intermediary APIs",
+                "Injecting through headers"
+            ],
+            "answer": 1,
+            "explanation": "Indirect injection occurs when malicious instructions are embedded in external data sources (websites, documents) that the AI retrieves and processes."
+        },
+        {
+            "id": "m6-q8",
+            "type": "mcq",
+            "question": "What should you do when an AI detects a potential injection attempt?",
+            "options": [
+                "Ignore it",
+                "Log the attempt, respond safely, and potentially alert security",
+                "Ban the user immediately",
+                "Shut down the system"
+            ],
+            "answer": 1,
+            "explanation": "Graceful handling involves logging for analysis, responding safely to the user, and escalating to security monitoring based on severity."
+        },
+        {
+            "id": "m6-q9",
+            "type": "mcq",
+            "question": "What is 'instruction hierarchy' in prompt design?",
+            "options": [
+                "Organizing code structure",
+                "Establishing priority levels where system instructions override user input",
+                "Corporate hierarchy",
+                "Database schema"
+            ],
+            "answer": 1,
+            "explanation": "Instruction hierarchy establishes clear priority levels (e.g., safety > role > policy > user request) that govern how conflicts are resolved."
+        },
+        {
+            "id": "m6-q10",
+            "type": "tf",
+            "question": "Output filtering can catch attacks that bypass input validation.",
+            "answer": true,
+            "explanation": "Defense in depth means filtering both input and output. Output filters catch harmful content that evaded input validation."
+        },
+        {
+            "id": "m6-q11",
+            "type": "mcq",
+            "question": "What is a recommended way to handle PII in LLM applications?",
+            "options": [
+                "Store all PII in logs for debugging",
+                "Redact PII from prompts and logs, mask in outputs",
+                "Ignore PII concerns",
+                "Only use PII in development"
+            ],
+            "answer": 1,
+            "explanation": "PII should be redacted from prompts and logs, and masked in outputs to protect user privacy and ensure compliance with regulations."
+        },
+        {
+            "id": "m6-q12",
+            "type": "mcq",
+            "question": "What is the purpose of 'self-checking' prompts?",
+            "options": [
+                "Debugging code",
+                "Having the model verify its own response before outputting",
+                "Checking server health",
+                "Validating API keys"
+            ],
+            "answer": 1,
+            "explanation": "Self-checking prompts ask the model to verify its response against safety criteria before outputting, catching potential issues."
+        },
+        {
+            "id": "m6-q13",
+            "type": "tf",
+            "question": "Rate limiting helps prevent abuse even if it doesn't stop injection attacks directly.",
+            "answer": true,
+            "explanation": "Rate limiting reduces an attacker's ability to probe for vulnerabilities and limits the impact of successful attacks."
+        },
+        {
+            "id": "m6-q14",
+            "type": "mcq",
+            "question": "What is the 'defense in depth' principle?",
+            "options": [
+                "Using only the strongest defense",
+                "Layering multiple security controls so failures of one layer don't compromise the system",
+                "Deeply nested code",
+                "Long passwords"
+            ],
+            "answer": 1,
+            "explanation": "Defense in depth uses multiple overlapping security layers so that if one layer fails, others still protect the system."
+        },
+        {
+            "id": "m6-q15",
+            "type": "mcq",
+            "question": "How should refusal messages be phrased for security?",
+            "options": [
+                "With detailed explanations of what triggered the refusal",
+                "Politely but without revealing detection mechanisms",
+                "Harshly to discourage further attempts",
+                "With links to security documentation"
+            ],
+            "answer": 1,
+            "explanation": "Refusals should be polite but vague to avoid giving attackers information about what triggers detection mechanisms."
+        }
+    ]
+}

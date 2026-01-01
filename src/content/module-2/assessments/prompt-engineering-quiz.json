@@ -1,0 +1,177 @@
+{
+    "module": 2,
+    "topic": "Prompt Engineering & AI-Assisted Coding",
+    "questions": [
+        {
+            "id": "m2-q1",
+            "type": "mcq",
+            "question": "What is the role of a 'system prompt' in LLM interactions?",
+            "options": [
+                "It's the user's first message",
+                "It sets the AI's behavior, persona, and constraints throughout the conversation",
+                "It contains the expected output format only",
+                "It's only used for debugging"
+            ],
+            "answer": 1,
+            "explanation": "The system prompt establishes the AI's identity, capabilities, constraints, and behavior patterns that persist throughout the conversation."
+        },
+        {
+            "id": "m2-q2",
+            "type": "mcq",
+            "question": "What is 'few-shot prompting'?",
+            "options": [
+                "Providing examples of desired input-output pairs in the prompt",
+                "Using a smaller model for faster responses",
+                "Limiting the response length",
+                "Making multiple API calls"
+            ],
+            "answer": 0,
+            "explanation": "Few-shot prompting provides examples of desired behavior in the prompt, helping the model understand the expected pattern and format."
+        },
+        {
+            "id": "m2-q3",
+            "type": "tf",
+            "question": "Chain-of-thought prompting asks the model to show its reasoning step by step.",
+            "answer": true,
+            "explanation": "Chain-of-thought prompting uses phrases like 'Think step by step' to encourage the model to show its reasoning process, which often improves accuracy on complex tasks."
+        },
+        {
+            "id": "m2-q4",
+            "type": "mcq",
+            "question": "What does GitHub Copilot primarily use to generate suggestions?",
+            "options": [
+                "Only the current line of code",
+                "The current file and open tabs for context",
+                "Your entire hard drive",
+                "Random code from the internet"
+            ],
+            "answer": 1,
+            "explanation": "Copilot uses context from the current file, open tabs, and neighboring code to generate relevant suggestions tailored to your codebase."
+        },
+        {
+            "id": "m2-q5",
+            "type": "mcq",
+            "question": "What is the recommended approach when Copilot generates incorrect code?",
+            "options": [
+                "Accept it anyway to save time",
+                "Disable Copilot",
+                "Add comments to guide it or regenerate with different context",
+                "Report it as a bug"
+            ],
+            "answer": 2,
+            "explanation": "Adding descriptive comments, function signatures, or adjusting context helps Copilot understand your intent better and generate more accurate code."
+        },
+        {
+            "id": "m2-q6",
+            "type": "mcq",
+            "question": "What is 'prompt injection'?",
+            "options": [
+                "Adding more examples to a prompt",
+                "An attack where malicious instructions are hidden in user input",
+                "Injecting prompts into a database",
+                "A technique for faster responses"
+            ],
+            "answer": 1,
+            "explanation": "Prompt injection is an attack where malicious instructions are embedded in user input to manipulate the AI's behavior beyond its intended purpose."
+        },
+        {
+            "id": "m2-q7",
+            "type": "tf",
+            "question": "Using XML-style tags like <user_input> helps delimit untrusted content in prompts.",
+            "answer": true,
+            "explanation": "XML-style tags are effective delimiters because LLMs are trained to respect tag structures, helping separate trusted instructions from untrusted input."
+        },
+        {
+            "id": "m2-q8",
+            "type": "mcq",
+            "question": "What is the purpose of A/B testing prompts?",
+            "options": [
+                "Testing model latency",
+                "Comparing prompt variations to find which performs better",
+                "Testing user interfaces",
+                "Validating API keys"
+            ],
+            "answer": 1,
+            "explanation": "A/B testing prompts allows you to systematically compare different prompt variations and identify which produces better results for your use case."
+        },
+        {
+            "id": "m2-q9",
+            "type": "mcq",
+            "question": "When should you use structured output (JSON) instead of free-form text?",
+            "options": [
+                "Never, text is always better",
+                "Only for debugging",
+                "When you need to parse the response programmatically",
+                "Only with GPT-4"
+            ],
+            "answer": 2,
+            "explanation": "Structured output like JSON is essential when your application needs to parse and process the response, ensuring consistent and machine-readable formats."
+        },
+        {
+            "id": "m2-q10",
+            "type": "mcq",
+            "question": "What is the 'persona pattern' in prompt engineering?",
+            "options": [
+                "Using multiple AI models",
+                "Assigning specific expertise or personality to the AI",
+                "Personalizing responses based on user history",
+                "A debugging technique"
+            ],
+            "answer": 1,
+            "explanation": "The persona pattern assigns specific expertise, style, or personality to the AI (e.g., 'You are a senior Python developer') to get more appropriate responses."
+        },
+        {
+            "id": "m2-q11",
+            "type": "tf",
+            "question": "Zero-shot prompting provides no examples—just instructions.",
+            "answer": true,
+            "explanation": "Zero-shot prompting gives the model instructions without any examples, relying on the model's pre-trained knowledge to perform the task."
+        },
+        {
+            "id": "m2-q12",
+            "type": "mcq",
+            "question": "What is a good strategy for iterating on prompts?",
+            "options": [
+                "Make random changes until it works",
+                "Change everything at once",
+                "Make one change at a time and measure results",
+                "Use the same prompt for all tasks"
+            ],
+            "answer": 2,
+            "explanation": "Changing one variable at a time allows you to understand what improves or hurts performance, leading to systematic prompt optimization."
+        },
+        {
+            "id": "m2-q13",
+            "type": "mcq",
+            "question": "What is 'prompt chaining'?",
+            "options": [
+                "Using multiple prompts sequentially, where each step feeds into the next",
+                "Repeating the same prompt multiple times",
+                "Connecting multiple AI models",
+                "Encrypting prompts"
+            ],
+            "answer": 0,
+            "explanation": "Prompt chaining breaks complex tasks into sequential steps, where the output of one prompt becomes input for the next, improving reliability."
+        },
+        {
+            "id": "m2-q14",
+            "type": "mcq",
+            "question": "Which comment style is most effective for guiding Copilot?",
+            "options": [
+                "Very brief: 'do sort'",
+                "Detailed: 'Sort a list of users by their last login date, most recent first'",
+                "No comments needed",
+                "Comments in a foreign language"
+            ],
+            "answer": 1,
+            "explanation": "Detailed, descriptive comments help Copilot understand exactly what you need, including the expected behavior and edge cases."
+        },
+        {
+            "id": "m2-q15",
+            "type": "tf",
+            "question": "Including example outputs in your prompt typically improves response quality.",
+            "answer": true,
+            "explanation": "Showing the model what good output looks like (few-shot examples) helps it understand the desired format, style, and content."
+        }
+    ]
+}
