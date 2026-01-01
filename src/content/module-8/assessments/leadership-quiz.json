@@ -1,0 +1,177 @@
+{
+    "module": 8,
+    "topic": "Enterprise AI Leadership",
+    "questions": [
+        {
+            "id": "m8-l-q1",
+            "type": "mcq",
+            "question": "According to research, what is the primary cause of AI initiative failures?",
+            "options": [
+                "Technical limitations (data, models)",
+                "Budget constraints",
+                "Organizational factors (people, process, culture)",
+                "Regulatory restrictions"
+            ],
+            "answer": 2,
+            "explanation": "About 85% of AI failures are due to organizational factors like change management, culture, and people issues—not technical limitations."
+        },
+        {
+            "id": "m8-l-q2",
+            "type": "mcq",
+            "question": "What is the correct approach when starting an AI transformation?",
+            "options": [
+                "Buy an AI platform first, then figure out use cases",
+                "Start with a business problem, let technology follow",
+                "Train everyone on AI before identifying needs",
+                "Transform the entire company at once"
+            ],
+            "answer": 1,
+            "explanation": "Successful AI transformations start with clear business problems and outcomes, then select appropriate technology—not the reverse."
+        },
+        {
+            "id": "m8-l-q3",
+            "type": "tf",
+            "question": "The ADKAR model stands for Awareness, Desire, Knowledge, Ability, Reinforcement.",
+            "answer": true,
+            "explanation": "ADKAR is a change management framework that addresses the personal journey of change: building awareness, desire, knowledge, ability, and reinforcement."
+        },
+        {
+            "id": "m8-l-q4",
+            "type": "mcq",
+            "question": "What is model tiering in cost optimization?",
+            "options": [
+                "Using only the most expensive model",
+                "Routing requests to appropriate models based on complexity",
+                "Pricing models by tier",
+                "Tiered access control"
+            ],
+            "answer": 1,
+            "explanation": "Model tiering routes simple requests to cheaper models and complex requests to more capable ones, optimizing cost while maintaining quality."
+        },
+        {
+            "id": "m8-l-q5",
+            "type": "mcq",
+            "question": "In the AI Capability Maturity Model, what characterizes Level 3 'Operating'?",
+            "options": [
+                "Understanding AI potential",
+                "Running proofs of concept",
+                "Production deployments and scaling",
+                "AI-first culture and innovation leadership"
+            ],
+            "answer": 2,
+            "explanation": "Level 3 'Operating' is characterized by production AI deployments and active scaling of successful initiatives."
+        },
+        {
+            "id": "m8-l-q6",
+            "type": "tf",
+            "question": "Semantic caching can reduce LLM API costs by storing responses to similar queries.",
+            "answer": true,
+            "explanation": "Semantic caching uses embeddings to identify similar queries and returns cached responses, eliminating redundant API calls."
+        },
+        {
+            "id": "m8-l-q7",
+            "type": "mcq",
+            "question": "What is the 'D' in ADKAR change management?",
+            "options": [
+                "Development",
+                "Desire - personal motivation to participate",
+                "Direction",
+                "Deployment"
+            ],
+            "answer": 1,
+            "explanation": "The 'D' stands for Desire—helping individuals understand 'what's in it for me' and building personal motivation for change."
+        },
+        {
+            "id": "m8-l-q8",
+            "type": "mcq",
+            "question": "What is the recommended cultural shift for AI adoption?",
+            "options": [
+                "From 'AI will replace us' to 'AI augments our capabilities'",
+                "From 'experiment freely' to 'perfect on first try'",
+                "From 'AI is everyone's opportunity' to 'AI is IT's job'",
+                "From 'fail fast' to 'never fail'"
+            ],
+            "answer": 0,
+            "explanation": "Successful AI adoption requires shifting from fear of replacement to understanding AI as a tool that augments human capabilities."
+        },
+        {
+            "id": "m8-l-q9",
+            "type": "mcq",
+            "question": "What is the anti-pattern of 'Boil the Ocean'?",
+            "options": [
+                "Not investing enough in AI",
+                "Trying to transform the entire company at once",
+                "Using only one AI vendor",
+                "Moving too slowly"
+            ],
+            "answer": 1,
+            "explanation": "'Boil the Ocean' is attempting to transform everything simultaneously. The fix is to start small, prove value, then scale what works."
+        },
+        {
+            "id": "m8-l-q10",
+            "type": "tf",
+            "question": "Model distillation involves training a smaller model to match a larger model's outputs.",
+            "answer": true,
+            "explanation": "Model distillation uses a large model (teacher) to generate high-quality outputs, then fine-tunes a smaller model (student) on those outputs for cost savings."
+        },
+        {
+            "id": "m8-l-q11",
+            "type": "mcq",
+            "question": "What is an AI Ethics Board responsible for?",
+            "options": [
+                "Building AI models",
+                "Setting policies, reviewing use cases, and ensuring compliance",
+                "Customer support",
+                "Marketing AI capabilities"
+            ],
+            "answer": 1,
+            "explanation": "An AI Ethics Board is a cross-functional executive group that sets policies, reviews AI use cases, and ensures ethical compliance."
+        },
+        {
+            "id": "m8-l-q12",
+            "type": "mcq",
+            "question": "Which metric category includes 'automation rate' and 'processing time'?",
+            "options": [
+                "Financial metrics",
+                "Operational metrics",
+                "Strategic metrics",
+                "Quality metrics"
+            ],
+            "answer": 1,
+            "explanation": "Operational metrics measure day-to-day performance improvements like automation rate, processing time, and error rate."
+        },
+        {
+            "id": "m8-l-q13",
+            "type": "mcq",
+            "question": "What is the combined cost savings potential when applying multiple optimization strategies?",
+            "options": [
+                "10-20%",
+                "30-50%",
+                "70-90%",
+                "99-100%"
+            ],
+            "answer": 2,
+            "explanation": "Combining model tiering, caching, prompt optimization, and output control can achieve 70-90% cost reduction compared to unoptimized approaches."
+        },
+        {
+            "id": "m8-l-q14",
+            "type": "tf",
+            "question": "The 'Reinforcement' step in ADKAR involves celebrating successes and providing incentives.",
+            "answer": true,
+            "explanation": "Reinforcement sustains change through celebrating successes, performance incentives, and ongoing communication."
+        },
+        {
+            "id": "m8-l-q15",
+            "type": "mcq",
+            "question": "What should executives emphasize to address employee job security concerns about AI?",
+            "options": [
+                "AI will definitely not affect any jobs",
+                "AI augments human capabilities rather than replacing them",
+                "AI changes are optional",
+                "Job losses are inevitable"
+            ],
+            "answer": 1,
+            "explanation": "The message should be that AI augments and enhances human work, creating new opportunities rather than simply replacing jobs."
+        }
+    ]
+}
