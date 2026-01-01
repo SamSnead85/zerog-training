@@ -1,0 +1,415 @@
+{
+    "module": 9,
+    "title": "Context Engineering Mastery",
+    "description": "Comprehensive assessment covering context engineering principles, memory architectures, MCP integration, and production optimization strategies.",
+    "passingScore": 75,
+    "questions": [
+        {
+            "id": "ce-001",
+            "type": "mcq",
+            "question": "What is the primary difference between prompt engineering and context engineering?",
+            "options": [
+                "Prompt engineering is for GPT models, context engineering is for Claude",
+                "Prompt engineering focuses on instructions; context engineering manages the entire information environment",
+                "Context engineering is just advanced prompt engineering with more tokens",
+                "Prompt engineering is deprecated; context engineering replaced it"
+            ],
+            "answer": 1,
+            "explanation": "Context engineering is a paradigm shift that focuses on designing, managing, and optimizing the complete information environment an AI operates within, not just the prompt instructions."
+        },
+        {
+            "id": "ce-002",
+            "type": "mcq",
+            "question": "Which of the following is NOT one of the 5 Pillars of Context Engineering?",
+            "options": [
+                "Curation",
+                "Persistence",
+                "Optimization",
+                "Compression"
+            ],
+            "answer": 2,
+            "explanation": "The 5 Pillars are: Curation (selecting relevant info), Persistence (memory across sessions), Isolation (separating concerns), Compression (reducing tokens), and Selection (retrieval strategies). Optimization is a goal, not a pillar."
+        },
+        {
+            "id": "ce-003",
+            "type": "mcq",
+            "question": "In the context of KV-cache optimization, what is a 'stable prompt prefix'?",
+            "options": [
+                "A prompt that never changes between model versions",
+                "A static portion of the system prompt that remains identical across requests",
+                "A prefix that includes the current timestamp for tracking",
+                "A randomly generated session identifier"
+            ],
+            "answer": 1,
+            "explanation": "A stable prompt prefix is a static portion of the system prompt that remains identical across requests, allowing the LLM's KV-cache to be reused for faster and cheaper inference."
+        },
+        {
+            "id": "ce-004",
+            "type": "tf",
+            "question": "Including the current timestamp in your system prompt improves KV-cache hit rates.",
+            "answer": false,
+            "explanation": "Including dynamic elements like timestamps in the system prompt prevents cache reuse because each request has a different prefix, causing cache misses."
+        },
+        {
+            "id": "ce-005",
+            "type": "mcq",
+            "question": "What is the recommended approach when conversation history exceeds the context window limit?",
+            "options": [
+                "Truncate from the beginning to fit",
+                "Summarize older messages while keeping recent turns intact",
+                "Start a new conversation session",
+                "Increase the model's context window size"
+            ],
+            "answer": 1,
+            "explanation": "Smart truncation involves summarizing older messages to capture key information while keeping recent messages intact, as they are most relevant to the current interaction."
+        },
+        {
+            "id": "ce-006",
+            "type": "mcq",
+            "question": "In a tiered memory architecture, which tier has the fastest access time?",
+            "options": [
+                "Long-term vector store",
+                "Working memory (context window)",
+                "Short-term cache (Redis)",
+                "All tiers have equal access time"
+            ],
+            "answer": 1,
+            "explanation": "Working memory (the context window) has the fastest access because it's already loaded into the model's attention. Short-term cache is next (~1ms), and long-term storage is slowest (~100ms)."
+        },
+        {
+            "id": "ce-007",
+            "type": "mcq",
+            "question": "What type of memory stores specific events like 'User complained about billing on Jan 15'?",
+            "options": [
+                "Semantic memory",
+                "Procedural memory",
+                "Episodic memory",
+                "Working memory"
+            ],
+            "answer": 2,
+            "explanation": "Episodic memory stores specific events, conversations, and interactions with timestamps and context. Semantic memory stores general facts; procedural memory stores learned patterns."
+        },
+        {
+            "id": "ce-008",
+            "type": "mcq",
+            "question": "Which type of memory would store 'For billing questions, always check payment history first'?",
+            "options": [
+                "Semantic memory",
+                "Procedural memory",
+                "Episodic memory",
+                "Declarative memory"
+            ],
+            "answer": 1,
+            "explanation": "Procedural memory stores learned patterns, workflows, and optimized behaviors. This pattern describes a learned procedure for handling billing questions."
+        },
+        {
+            "id": "ce-009",
+            "type": "tf",
+            "question": "MCP (Model Context Protocol) is designed to replace traditional API integrations entirely.",
+            "answer": false,
+            "explanation": "MCP doesn't replace APIs; it standardizes how AI models connect to and use them. MCP servers typically wrap existing APIs to make them accessible to AI in a standardized way."
+        },
+        {
+            "id": "ce-010",
+            "type": "mcq",
+            "question": "In MCP architecture, what is the role of an 'MCP Server'?",
+            "options": [
+                "Hosts the LLM model for inference",
+                "Exposes data and tools via the MCP protocol",
+                "Manages user authentication for the AI app",
+                "Caches LLM responses for performance"
+            ],
+            "answer": 1,
+            "explanation": "An MCP Server is a service that exposes data (as resources) and actions (as tools) via the standardized MCP protocol, allowing any MCP-compatible AI application to use them."
+        },
+        {
+            "id": "ce-011",
+            "type": "mcq",
+            "question": "What communication protocol does MCP use for client-server communication?",
+            "options": [
+                "GraphQL",
+                "REST with JSON",
+                "JSON-RPC 2.0",
+                "gRPC with Protocol Buffers"
+            ],
+            "answer": 2,
+            "explanation": "MCP uses JSON-RPC 2.0 for communication between hosts, clients, and servers. This allows for standardized request/response patterns with a familiar JSON format."
+        },
+        {
+            "id": "ce-012",
+            "type": "mcq",
+            "question": "What is 'context rot' in the context of AI systems?",
+            "options": [
+                "When the context window becomes corrupted",
+                "Performance degradation from irrelevant or outdated information in context",
+                "When the LLM forgets information from earlier in the context",
+                "Network latency causing context delivery failures"
+            ],
+            "answer": 1,
+            "explanation": "Context rot refers to the degradation in AI performance when the context window becomes polluted with irrelevant, outdated, or contradictory information, reducing the model's effectiveness."
+        },
+        {
+            "id": "ce-013",
+            "type": "mcq",
+            "question": "What is the primary benefit of 'append-only' context patterns?",
+            "options": [
+                "Reduces storage costs",
+                "Simplifies debugging",
+                "Maximizes KV-cache validity across turns",
+                "Enables faster retrieval"
+            ],
+            "answer": 2,
+            "explanation": "Append-only patterns ensure that previous context is never modified, only added to. This maintains KV-cache validity across conversation turns because the prefix remains identical."
+        },
+        {
+            "id": "ce-014",
+            "type": "mcq",
+            "question": "In a context budget system, which section should typically have the LOWEST priority for truncation?",
+            "options": [
+                "Retrieved documents",
+                "System prompt",
+                "Conversation history from yesterday",
+                "Tool results from 10 turns ago"
+            ],
+            "answer": 1,
+            "explanation": "The system prompt should have the lowest priority for truncation (highest importance) because it defines the agent's behavior and should never be removed or modified."
+        },
+        {
+            "id": "ce-015",
+            "type": "tf",
+            "question": "RAG (Retrieval-Augmented Generation) is a complete replacement for context engineering.",
+            "answer": false,
+            "explanation": "RAG is a retrieval technique within context engineering, not a replacement. Context engineering encompasses RAG plus memory management, context budgeting, compression, and the full information environment."
+        },
+        {
+            "id": "ce-016",
+            "type": "mcq",
+            "question": "What is 'memory compaction' in AI agent systems?",
+            "options": [
+                "Clearing all memory to free resources",
+                "Converting raw conversation history to summarized key facts",
+                "Compressing model weights for deployment",
+                "Reducing the number of API calls"
+            ],
+            "answer": 1,
+            "explanation": "Memory compaction is the process of summarizing older conversations and extracting key facts to store efficiently, freeing up context window space while preserving important information."
+        },
+        {
+            "id": "ce-017",
+            "type": "mcq",
+            "question": "Which MCP capability allows AI to perform actions in external systems?",
+            "options": [
+                "Resources",
+                "Tools",
+                "Prompts",
+                "Sampling"
+            ],
+            "answer": 1,
+            "explanation": "MCP Tools represent actions the AI can take in external systems (e.g., create ticket, send email). Resources provide read access to data, while Prompts are templates and Sampling requests AI generations."
+        },
+        {
+            "id": "ce-018",
+            "type": "mcq",
+            "question": "What is the purpose of a 're-ranker' in a memory retrieval pipeline?",
+            "options": [
+                "To sort memories by timestamp",
+                "To remove duplicate memories",
+                "To score and order retrieved memories by relevance to the current query",
+                "To compress memories for storage"
+            ],
+            "answer": 2,
+            "explanation": "A re-ranker takes initially retrieved memories and scores them more precisely against the current query, often using a cross-encoder model, to ensure the most relevant memories are included in context."
+        },
+        {
+            "id": "ce-019",
+            "type": "tf",
+            "question": "Semantic deduplication helps reduce context tokens by removing content that is semantically similar.",
+            "answer": true,
+            "explanation": "Semantic deduplication identifies content that is semantically similar (even if worded differently) and keeps only one version, reducing redundant information in the context window."
+        },
+        {
+            "id": "ce-020",
+            "type": "mcq",
+            "question": "What is 'context-first design' in AI system development?",
+            "options": [
+                "Writing prompts before building the application",
+                "Designing the information environment before writing prompts",
+                "Prioritizing context window size when choosing models",
+                "Testing with large contexts before small ones"
+            ],
+            "answer": 1,
+            "explanation": "Context-first design means mapping all information the AI might need, designing retrieval and memory systems, and defining context structure BEFORE writing prompts. This leads to more robust systems."
+        },
+        {
+            "id": "ce-021",
+            "type": "mcq",
+            "question": "What security consideration is MOST critical when implementing MCP servers for enterprise data?",
+            "options": [
+                "Using HTTPS instead of HTTP",
+                "Implementing authentication, authorization, and audit logging",
+                "Rate limiting requests",
+                "Encrypting the MCP configuration file"
+            ],
+            "answer": 1,
+            "explanation": "While all are important, authentication (verifying identity), authorization (checking permissions), and audit logging (tracking access) are the most critical for enterprise data security and compliance."
+        },
+        {
+            "id": "ce-022",
+            "type": "mcq",
+            "question": "What is the benefit of 'lazy context loading'?",
+            "options": [
+                "It makes the code easier to write",
+                "It loads context only when needed, reducing unnecessary token usage",
+                "It delays all processing until the last moment",
+                "It allows larger context windows"
+            ],
+            "answer": 1,
+            "explanation": "Lazy context loading means loading specific context sections only when they are needed for the current query, rather than loading everything upfront. This reduces token usage and costs."
+        },
+        {
+            "id": "ce-023",
+            "type": "mcq",
+            "question": "In the context of token costs, which is typically more expensive per token?",
+            "options": [
+                "Input tokens",
+                "Output tokens",
+                "They cost the same",
+                "Depends on the model only"
+            ],
+            "answer": 1,
+            "explanation": "For most LLM APIs, output tokens are more expensive than input tokens (e.g., GPT-4 Turbo charges $10/1M input tokens vs $30/1M output tokens). This makes context optimization even more impactful."
+        },
+        {
+            "id": "ce-024",
+            "type": "tf",
+            "question": "Intent-based context routing loads the same context for every user query regardless of what they're asking about.",
+            "answer": false,
+            "explanation": "Intent-based context routing classifies the user's query and loads only the relevant context for that intent. An order inquiry loads order data; a billing question loads payment information."
+        },
+        {
+            "id": "ce-025",
+            "type": "mcq",
+            "question": "What is a 'knowledge graph' used for in semantic memory?",
+            "options": [
+                "Visualizing conversation flows",
+                "Storing facts as subject-predicate-object relationships",
+                "Graphing token usage over time",
+                "Mapping user navigation paths"
+            ],
+            "answer": 1,
+            "explanation": "Knowledge graphs store semantic facts as triples (subject, predicate, object), such as 'User-prefers-email communication'. This structured format enables efficient querying of relationships and facts."
+        },
+        {
+            "id": "ce-026",
+            "type": "mcq",
+            "question": "What is the 'reflection' pattern in agent memory systems?",
+            "options": [
+                "Mirroring user inputs back to them",
+                "Periodically reviewing and consolidating memories to extract insights",
+                "Using mirrors in the UI for visual feedback",
+                "Reflecting on past model training"
+            ],
+            "answer": 1,
+            "explanation": "The reflection pattern involves periodically reviewing accumulated memories to identify patterns, resolve conflicts, archive outdated information, and extract higher-level insights for future use."
+        },
+        {
+            "id": "ce-027",
+            "type": "tf",
+            "question": "MCP is an open standard that works with multiple AI model providers, not just Anthropic.",
+            "answer": true,
+            "explanation": "While Anthropic introduced MCP, it's designed as an open, model-agnostic standard. OpenAI, Hugging Face, LangChain, and others have adopted it, making MCP servers reusable across model providers."
+        },
+        {
+            "id": "ce-028",
+            "type": "mcq",
+            "question": "What is the primary goal of 'isolation' in context engineering?",
+            "options": [
+                "Keeping the AI separate from the internet",
+                "Separating context windows for different tasks to prevent contamination",
+                "Isolating users from each other",
+                "Running the AI in a container"
+            ],
+            "answer": 1,
+            "explanation": "Isolation means separating context windows for specialized sub-tasks or domains, often through sub-agents. This prevents context contamination where information from one task pollutes another."
+        },
+        {
+            "id": "ce-029",
+            "type": "mcq",
+            "question": "Which technique helps identify what information should be extracted from a conversation for long-term storage?",
+            "options": [
+                "Token counting",
+                "Entity extraction and fact identification",
+                "Spell checking",
+                "Sentiment analysis only"
+            ],
+            "answer": 1,
+            "explanation": "Entity extraction identifies key subjects (people, products, dates), and fact identification extracts relationships and information worth storing in long-term memory for future retrieval."
+        },
+        {
+            "id": "ce-030",
+            "type": "mcq",
+            "question": "What is the recommended approach for handling memory conflicts (e.g., user said they prefer email, then later said phone)?",
+            "options": [
+                "Always keep the first recorded preference",
+                "Always use the most recent preference",
+                "Store both with timestamps and use the more recent in context",
+                "Delete all conflicting information"
+            ],
+            "answer": 2,
+            "explanation": "Best practice is to store preferences with timestamps and confidence scores, then use the most recent preference in context while maintaining the full history for auditing purposes."
+        },
+        {
+            "id": "ce-031",
+            "type": "tf",
+            "question": "Larger context windows eliminate the need for context engineering.",
+            "answer": false,
+            "explanation": "Larger context windows make context engineering MORE important, not less. More space means more potential for irrelevant information, higher costs, and the need for even more sophisticated curation."
+        },
+        {
+            "id": "ce-032",
+            "type": "mcq",
+            "question": "What is the 'compaction trigger' in a memory buffer system?",
+            "options": [
+                "A physical button that triggers compression",
+                "The condition that initiates summarization of older messages",
+                "A cache invalidation event",
+                "An error handling mechanism"
+            ],
+            "answer": 1,
+            "explanation": "A compaction trigger is the condition (message count, token threshold, or time) that initiates the summarization of older messages to keep the working memory within budget."
+        },
+        {
+            "id": "ce-033",
+            "type": "mcq",
+            "question": "For production AI agents, which logging approach is recommended for MCP tool calls?",
+            "options": [
+                "No logging to protect privacy",
+                "Log only errors",
+                "Comprehensive audit logging with request IDs, timestamps, and sanitized arguments",
+                "Log only successful calls"
+            ],
+            "answer": 2,
+            "explanation": "Enterprise AI requires comprehensive audit logging that tracks all tool calls with unique request IDs, timestamps, user info, and sanitized arguments for security, compliance, and debugging."
+        },
+        {
+            "id": "ce-034",
+            "type": "tf",
+            "question": "Priority-based truncation removes low-importance sections before high-importance ones when context exceeds the budget.",
+            "answer": true,
+            "explanation": "Priority-based truncation assigns importance levels to context sections and removes or compresses the lowest priority sections first when the total exceeds the budget, preserving critical information."
+        },
+        {
+            "id": "ce-035",
+            "type": "mcq",
+            "question": "What is the purpose of 'time decay' in memory retrieval?",
+            "options": [
+                "To delete memories after a certain time",
+                "To reduce the relevance score of older memories compared to recent ones",
+                "To slow down retrieval for rate limiting",
+                "To compress old memories automatically"
+            ],
+            "answer": 1,
+            "explanation": "Time decay reduces the relevance score of older memories, making recent information more likely to be retrieved. This reflects the reality that recent context is usually more relevant."
+        }
+    ]
+}

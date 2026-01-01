@@ -1561,6 +1561,96 @@ export const module10: AIModule = {
 };
 
 // ============================================
+// MODULE 11: CONTEXT ENGINEERING MASTERY
+// ============================================
+
+export const module11: AIModule = {
+    id: "module-11",
+    number: 11,
+    title: "Context Engineering Mastery",
+    subtitle: "Beyond Prompt Engineering: The Production AI Paradigm",
+    description: "Master the cutting-edge discipline of context engineering — the skill that separates experimental AI from production-grade systems. Learn memory architectures, MCP integration, and optimization strategies that enable reliable, cost-effective AI at scale.",
+    duration: "12-15 hours",
+    level: "professional",
+    status: "available",
+    prerequisites: ["AI-Native Developer Foundations", "Module 3: Agentic AI"],
+    learningObjectives: [
+        { id: "11-1", text: "Apply the 5 Pillars of Context Engineering to production systems" },
+        { id: "11-2", text: "Design multi-tier memory architectures for AI agents" },
+        { id: "11-3", text: "Implement Model Context Protocol (MCP) for enterprise integration" },
+        { id: "11-4", text: "Optimize context windows for cost and performance" },
+    ],
+    topics: [
+        {
+            id: "11-1",
+            title: "Beyond Prompt Engineering",
+            description: "The paradigm shift from prompts to context",
+            duration: "2.5 hours",
+            subtopics: [
+                "Why prompts alone fail in production",
+                "The 5 Pillars: Curation, Persistence, Isolation, Compression, Selection",
+                "Context-first design patterns",
+                "RAG as a technique within context engineering",
+            ],
+        },
+        {
+            id: "11-2",
+            title: "Context Window Optimization",
+            description: "Token economics and cache optimization",
+            duration: "2.5 hours",
+            subtopics: [
+                "Token budget architecture and allocation",
+                "KV-cache hit rate optimization",
+                "Stable prompt prefixes and append-only patterns",
+                "Smart truncation and priority-based compression",
+            ],
+        },
+        {
+            id: "11-3",
+            title: "Memory Architectures for AI Agents",
+            description: "Building persistent, intelligent memory systems",
+            duration: "3 hours",
+            subtopics: [
+                "Episodic, semantic, and procedural memory",
+                "Tiered memory architecture (working, short-term, long-term)",
+                "Memory compaction and retrieval pipelines",
+                "Reflection patterns for memory consolidation",
+            ],
+        },
+        {
+            id: "11-4",
+            title: "Model Context Protocol (MCP)",
+            description: "The universal standard for AI integration",
+            duration: "3 hours",
+            subtopics: [
+                "MCP architecture: hosts, clients, servers",
+                "Building MCP servers for enterprise data",
+                "Tools vs resources vs prompts capabilities",
+                "Security, authentication, and audit logging",
+            ],
+        },
+        {
+            id: "11-5",
+            title: "Layered Context Architecture",
+            description: "Production context assembly systems",
+            duration: "2 hours",
+            subtopics: [
+                "Instruction layer design",
+                "Knowledge layer curation",
+                "Dynamic context loading with intent routing",
+                "Production context assembly pipelines",
+            ],
+        },
+    ],
+    handsOnProjects: [
+        { id: "p11-1", title: "Production Context System", description: "Build complete context engineering system with memory and budget management", difficulty: "advanced", duration: "5 hours" },
+        { id: "p11-2", title: "MCP Enterprise Server", description: "Create MCP server for enterprise data integration", difficulty: "advanced", duration: "3 hours" },
+        { id: "p11-3", title: "Context Optimization Challenge", description: "Reduce token costs by 80% while maintaining quality", difficulty: "advanced", duration: "2 hours" },
+    ],
+    assessmentType: "Production context system deployment + Performance optimization report",
+};
+
+// ============================================
 // COMPLETE CURRICULUM EXPORT
 // ============================================
 
@@ -1575,6 +1665,7 @@ export const aiNativeCurriculum: AIModule[] = [
     module8,
     module9,
     module10,
+    module11,
 ];
 
 export const getModuleById = (id: string): AIModule | undefined => {
@@ -1590,7 +1681,7 @@ export const getCertificationTrack = (level: CertificationLevel): CertificationT
 };
 
 export const getTotalDuration = (): string => {
-    return "90-120 hours";
+    return "100-135 hours";
 };
 
 export const getTotalModules = (): number => {
