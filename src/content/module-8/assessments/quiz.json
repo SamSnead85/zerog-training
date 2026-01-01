@@ -1,0 +1,152 @@
+[
+    {
+        "id": "m8-q1",
+        "question": "What is the purpose of an AI API gateway in enterprise architecture?",
+        "type": "mcq",
+        "options": [
+            "Storing AI models",
+            "Single entry point for auth, rate limiting, routing, and cost tracking",
+            "Training models",
+            "Generating embeddings"
+        ],
+        "answer": 1,
+        "explanation": "The AI API gateway provides centralized authentication, rate limiting, request routing, and cost attribution for all AI requests in the enterprise."
+    },
+    {
+        "id": "m8-q2",
+        "question": "What is model routing?",
+        "type": "mcq",
+        "options": [
+            "Physical network routing",
+            "Intelligently directing requests to optimal models based on requirements",
+            "Training multiple models",
+            "Load balancing"
+        ],
+        "answer": 1,
+        "explanation": "Model routing directs requests to the optimal model based on factors like required quality, latency constraints, and cost optimization."
+    },
+    {
+        "id": "m8-q3",
+        "question": "What should a prompt registry track?",
+        "type": "mcq",
+        "options": [
+            "Only the latest prompt",
+            "All versions with metadata, ownership, and approval status",
+            "User queries",
+            "Model weights"
+        ],
+        "answer": 1,
+        "explanation": "A prompt registry tracks all prompt versions with metadata (author, approval status, performance metrics) enabling versioning and rollback."
+    },
+    {
+        "id": "m8-q4",
+        "question": "What is departmental cost attribution?",
+        "type": "mcq",
+        "options": [
+            "Charging customers",
+            "Tracking AI costs per department/application for budgeting and chargeback",
+            "Reducing costs",
+            "Free AI usage"
+        ],
+        "answer": 1,
+        "explanation": "Cost attribution tracks AI spending by department and application, enabling budgets, chargeback to cost centers, and spend accountability."
+    },
+    {
+        "id": "m8-q5",
+        "question": "What is a fallback chain in enterprise AI?",
+        "type": "mcq",
+        "options": [
+            "A backup database",
+            "Ordered list of providers to try if the primary fails",
+            "Error messages",
+            "Cost optimization"
+        ],
+        "answer": 1,
+        "explanation": "A fallback chain defines the order of providers to try (e.g., OpenAI → Anthropic → Internal) if the primary provider fails or hits limits."
+    },
+    {
+        "id": "m8-q6",
+        "question": "What should model governance policies control?",
+        "type": "mcq",
+        "options": [
+            "Only model training",
+            "Who can access which models for what use cases",
+            "Model file storage",
+            "Network configurations"
+        ],
+        "answer": 1,
+        "explanation": "Model governance policies control access by department, required approvals, allowed use cases, and data classification requirements."
+    },
+    {
+        "id": "m8-q7",
+        "question": "What metrics should an AI observability dashboard show?",
+        "type": "mcq",
+        "options": [
+            "Only request counts",
+            "Requests by model, latency percentiles, cost by department, and error rates",
+            "User demographics",
+            "Storage usage"
+        ],
+        "answer": 1,
+        "explanation": "AI dashboards should show requests (by model/status), latency (p50/p95/p99), costs (by department/application), and error rates."
+    },
+    {
+        "id": "m8-q8",
+        "question": "Why implement rate limiting per application?",
+        "type": "mcq",
+        "options": [
+            "To slow down applications",
+            "Prevent runaway costs and ensure fair resource distribution",
+            "Improve model quality",
+            "For debugging"
+        ],
+        "answer": 1,
+        "explanation": "Per-application rate limits prevent any single application from consuming all API quota and ensure fair distribution of AI resources."
+    },
+    {
+        "id": "m8-q9",
+        "question": "What is the benefit of a centralized AI orchestration layer?",
+        "type": "mcq",
+        "options": [
+            "Faster models",
+            "Consistent capabilities, governance, and cost control across all applications",
+            "Cheaper storage",
+            "Better UI"
+        ],
+        "answer": 1,
+        "explanation": "Centralized orchestration ensures consistent security, governance, prompt management, and cost control across all enterprise AI applications."
+    },
+    {
+        "id": "m8-q10",
+        "question": "What should happen when an application exceeds its budget?",
+        "type": "mcq",
+        "options": [
+            "Nothing",
+            "Alert and optionally block further requests until budget reset or increase",
+            "Delete the application",
+            "Reduce model quality"
+        ],
+        "answer": 1,
+        "explanation": "When budget is exceeded, alert stakeholders and optionally block requests. This prevents runaway costs while allowing budget adjustments if needed."
+    },
+    {
+        "id": "m8-q11",
+        "question": "True or False: Each application should manage its own LLM API keys.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "API keys should be managed centrally through the gateway for security, rotation, and cost attribution. Applications authenticate to the gateway."
+    },
+    {
+        "id": "m8-q12",
+        "question": "What is the purpose of audit logging in enterprise AI?",
+        "type": "mcq",
+        "options": [
+            "Debugging code",
+            "Tracking all AI requests for security, compliance, and forensics",
+            "Improving model quality",
+            "Reducing costs"
+        ],
+        "answer": 1,
+        "explanation": "Audit logs record all AI requests and responses for security investigations, compliance requirements, and forensic analysis."
+    }
+]

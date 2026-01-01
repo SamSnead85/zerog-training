@@ -1,0 +1,126 @@
+[
+    {
+        "id": "m7-q1",
+        "question": "When should you consider fine-tuning instead of using RAG?",
+        "type": "mcq",
+        "options": [
+            "When you need to add frequently-updated knowledge",
+            "When you want consistent style, format, or domain vocabulary",
+            "When you have a small budget",
+            "When you need real-time information"
+        ],
+        "answer": 1,
+        "explanation": "Fine-tuning is best for style, format, and domain vocabulary—things that don't change often. RAG is better for updatable knowledge."
+    },
+    {
+        "id": "m7-q2",
+        "question": "What is the recommended minimum number of examples for fine-tuning format adherence?",
+        "type": "mcq",
+        "options": [
+            "5-10",
+            "50-200",
+            "1000+",
+            "10000+"
+        ],
+        "answer": 1,
+        "explanation": "For format adherence (e.g., always output valid JSON), 50-200 high-quality examples is typically sufficient."
+    },
+    {
+        "id": "m7-q3",
+        "question": "Why is data quality more important than quantity for fine-tuning?",
+        "type": "mcq",
+        "options": [
+            "It's cheaper",
+            "The model learns patterns from examples, and bad examples teach bad patterns",
+            "Faster training",
+            "It's not more important"
+        ],
+        "answer": 1,
+        "explanation": "The model learns from the patterns in your training data. 100 excellent examples teach better habits than 1000 mediocre ones."
+    },
+    {
+        "id": "m7-q4",
+        "question": "What is model distillation?",
+        "type": "mcq",
+        "options": [
+            "Removing water from models",
+            "Training a smaller model to match a larger model's quality for specific tasks",
+            "Compressing model weights",
+            "Simplifying prompts"
+        ],
+        "answer": 1,
+        "explanation": "Distillation uses outputs from a powerful model (like GPT-4) to fine-tune a smaller, cheaper model to achieve similar quality on specific tasks."
+    },
+    {
+        "id": "m7-q5",
+        "question": "What should a fine-tuning training example end with?",
+        "type": "mcq",
+        "options": [
+            "A user message",
+            "A system message",
+            "An assistant message",
+            "It doesn't matter"
+        ],
+        "answer": 2,
+        "explanation": "Training examples should end with the assistant's response—this is what the model is learning to generate."
+    },
+    {
+        "id": "m7-q6",
+        "question": "What is NOT a good use case for fine-tuning?",
+        "type": "mcq",
+        "options": [
+            "Learning company-specific terminology",
+            "Adding new knowledge that changes frequently",
+            "Consistent output formatting",
+            "Reducing latency by using a smaller model"
+        ],
+        "answer": 1,
+        "explanation": "Fine-tuning bakes knowledge into the model—it can't be easily updated. Use RAG for knowledge that changes frequently."
+    },
+    {
+        "id": "m7-q7",
+        "question": "What is the ROI calculation for fine-tuning?",
+        "type": "mcq",
+        "options": [
+            "Only training cost matters",
+            "One-time training cost vs. long-term savings from using cheaper models",
+            "Revenue generated",
+            "Number of users"
+        ],
+        "answer": 1,
+        "explanation": "Fine-tuning ROI compares one-time training cost against long-term savings—e.g., using fine-tuned GPT-4o mini instead of GPT-4o saves ~95% per request."
+    },
+    {
+        "id": "m7-q8",
+        "question": "How should you evaluate a fine-tuned model?",
+        "type": "mcq",
+        "options": [
+            "Trust that it works",
+            "Run it against held-out test cases with expected patterns",
+            "Only check training loss",
+            "Count the number of parameters"
+        ],
+        "answer": 1,
+        "explanation": "Evaluate against test cases that weren't in training data, checking if responses match expected patterns and quality standards."
+    },
+    {
+        "id": "m7-q9",
+        "question": "True or False: Fine-tuning completely replaces the base model's knowledge.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "Fine-tuning adds to/adjusts the base model's behavior. The original capabilities remain, enhanced by your specific training."
+    },
+    {
+        "id": "m7-q10",
+        "question": "What should you avoid including in fine-tuning examples?",
+        "type": "mcq",
+        "options": [
+            "System prompts",
+            "User questions",
+            "Refusal examples (unless intentional for safety)",
+            "Long responses"
+        ],
+        "answer": 2,
+        "explanation": "Avoid examples where the assistant refuses to help (unless teaching specific safety behaviors). The model might learn to refuse inappropriately."
+    }
+]

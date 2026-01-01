@@ -1,0 +1,191 @@
+[
+    {
+        "id": "m5-q1",
+        "question": "What is the primary purpose of RAG (Retrieval-Augmented Generation)?",
+        "type": "mcq",
+        "options": [
+            "To make LLMs run faster",
+            "To ground LLM responses in your actual data rather than relying on training knowledge",
+            "To reduce the cost of API calls",
+            "To train custom models"
+        ],
+        "answer": 1,
+        "explanation": "RAG retrieves relevant documents at query time and provides them as context, grounding responses in actual data rather than potentially outdated or hallucinated knowledge."
+    },
+    {
+        "id": "m5-q2",
+        "question": "What are the four stages of a RAG pipeline in order?",
+        "type": "mcq",
+        "options": [
+            "Query → Generate → Retrieve → Embed",
+            "Index → Embed → Retrieve → Generate",
+            "Generate → Index → Embed → Retrieve",
+            "Retrieve → Embed → Index → Generate"
+        ],
+        "answer": 1,
+        "explanation": "The four stages are: (1) Index documents, (2) Embed user query, (3) Retrieve similar chunks, (4) Generate answer using context."
+    },
+    {
+        "id": "m5-q3",
+        "question": "What is the recommended starting chunk size for document indexing?",
+        "type": "mcq",
+        "options": [
+            "100 characters",
+            "500 characters",
+            "1000 characters with 200 overlap",
+            "5000 characters"
+        ],
+        "answer": 2,
+        "explanation": "Starting with 1000 character chunks and 200 character overlap is a good baseline. Tune based on retrieval quality for your specific use case."
+    },
+    {
+        "id": "m5-q4",
+        "question": "What is Maximum Marginal Relevance (MMR) used for?",
+        "type": "mcq",
+        "options": [
+            "Finding the single best match",
+            "Balancing relevance with diversity in results",
+            "Speeding up vector search",
+            "Reducing embedding dimensions"
+        ],
+        "answer": 1,
+        "explanation": "MMR balances relevance (finding similar documents) with diversity (not returning near-duplicates), especially useful when top results are too similar."
+    },
+    {
+        "id": "m5-q5",
+        "question": "What is query rewriting in advanced RAG?",
+        "type": "mcq",
+        "options": [
+            "Modifying the database query",
+            "Generating alternative phrasings of the user query to improve retrieval",
+            "Rewriting the user's question to be shorter",
+            "Translating queries to another language"
+        ],
+        "answer": 1,
+        "explanation": "Query rewriting generates alternative phrasings (e.g., 'work from home' → 'remote work policy') to improve retrieval when user phrasing differs from document language."
+    },
+    {
+        "id": "m5-q6",
+        "question": "What is HyDE (Hypothetical Document Embeddings)?",
+        "type": "mcq",
+        "options": [
+            "A vector database",
+            "Generating a hypothetical answer and searching for similar real documents",
+            "A type of embedding model",
+            "Hiding documents from search"
+        ],
+        "answer": 1,
+        "explanation": "HyDE generates a hypothetical document that would answer the question, then searches for real documents similar to that hypothesis—bridging question-document phrasing gaps."
+    },
+    {
+        "id": "m5-q7",
+        "question": "When should you prefer hybrid search over pure vector search?",
+        "type": "mcq",
+        "options": [
+            "When you only need conceptual matching",
+            "When exact term matching (IDs, product codes) is important",
+            "When using images",
+            "When storing very short documents"
+        ],
+        "answer": 1,
+        "explanation": "Hybrid search combines vector (semantic) and keyword (BM25) search. It excels when you need both conceptual matching AND exact term matching like product codes."
+    },
+    {
+        "id": "m5-q8",
+        "question": "What is the benefit of re-ranking in a two-stage retrieval system?",
+        "type": "mcq",
+        "options": [
+            "Faster initial retrieval",
+            "Uses a more accurate cross-encoder model to improve precision after fast initial recall",
+            "Reduces token usage",
+            "Allows parallel processing"
+        ],
+        "answer": 1,
+        "explanation": "Re-ranking uses slower but more accurate cross-encoders to reorder results from fast initial retrieval, improving precision on the final results."
+    },
+    {
+        "id": "m5-q9",
+        "question": "What is contextual compression in RAG?",
+        "type": "mcq",
+        "options": [
+            "Compressing vector embeddings",
+            "Extracting only relevant portions from retrieved documents",
+            "Reducing file sizes",
+            "Limiting context length"
+        ],
+        "answer": 1,
+        "explanation": "Contextual compression uses an LLM to extract only the relevant portions from retrieved documents, removing noise and irrelevant content."
+    },
+    {
+        "id": "m5-q10",
+        "question": "What is parent document retrieval?",
+        "type": "mcq",
+        "options": [
+            "Retrieving documents about parents",
+            "Indexing small chunks but returning larger parent documents for context",
+            "Finding the oldest documents",
+            "Retrieving from parent directories"
+        ],
+        "answer": 1,
+        "explanation": "Parent document retrieval indexes small chunks (for precise matching) but returns larger parent documents (for complete context), balancing search precision with generation quality."
+    },
+    {
+        "id": "m5-q11",
+        "question": "True or False: Fine-tuning is the best way to add new knowledge to an LLM.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "RAG is usually better for adding knowledge because it's updatable. Fine-tuning bakes knowledge in permanently—good for stable patterns, bad for changing facts."
+    },
+    {
+        "id": "m5-q12",
+        "question": "Why should you always include metadata when indexing documents?",
+        "type": "mcq",
+        "options": [
+            "It makes embeddings more accurate",
+            "It enables filtering and provides sources for citations",
+            "It's required by vector databases",
+            "It reduces storage costs"
+        ],
+        "answer": 1,
+        "explanation": "Metadata (source, date, category) enables filtering during retrieval and provides source citations in answers, building user trust."
+    },
+    {
+        "id": "m5-q13",
+        "question": "What is semantic chunking?",
+        "type": "mcq",
+        "options": [
+            "Splitting by character count",
+            "Splitting based on semantic similarity using embeddings",
+            "Splitting by sentence",
+            "Splitting by paragraph"
+        ],
+        "answer": 1,
+        "explanation": "Semantic chunking uses embeddings to split at natural semantic boundaries rather than fixed character counts, creating more coherent chunks."
+    },
+    {
+        "id": "m5-q14",
+        "question": "What is the difference between bi-encoders and cross-encoders?",
+        "type": "mcq",
+        "options": [
+            "Bi-encoders are faster but less accurate; cross-encoders are slower but more accurate",
+            "Cross-encoders are faster",
+            "They produce the same results",
+            "Bi-encoders only work with text, cross-encoders with images"
+        ],
+        "answer": 0,
+        "explanation": "Bi-encoders encode query and documents separately (fast, used for initial retrieval). Cross-encoders encode pairs together (slow, accurate, used for re-ranking)."
+    },
+    {
+        "id": "m5-q15",
+        "question": "What is the alpha parameter in hybrid search?",
+        "type": "mcq",
+        "options": [
+            "The number of results to return",
+            "The weight balance between vector and keyword search",
+            "The embedding dimension",
+            "The chunk overlap"
+        ],
+        "answer": 1,
+        "explanation": "Alpha controls the balance: Alpha=0 is pure BM25 (keyword), Alpha=1 is pure vector (semantic). Alpha=0.5 gives equal weight to both."
+    }
+]

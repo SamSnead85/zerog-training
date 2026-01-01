@@ -1,0 +1,152 @@
+[
+    {
+        "id": "m6-q1",
+        "question": "What is prompt injection?",
+        "type": "mcq",
+        "options": [
+            "Adding more context to prompts",
+            "Tricking an LLM into ignoring its instructions and following attacker instructions",
+            "Injecting code into prompts",
+            "A technique for faster prompting"
+        ],
+        "answer": 1,
+        "explanation": "Prompt injection tricks the LLM into ignoring system instructions and following attacker-controlled instructions instead."
+    },
+    {
+        "id": "m6-q2",
+        "question": "What is the difference between direct and indirect prompt injection?",
+        "type": "mcq",
+        "options": [
+            "Direct is faster than indirect",
+            "Direct: attacker controls user input; Indirect: malicious content in processed data",
+            "There is no difference",
+            "Indirect is more dangerous"
+        ],
+        "answer": 1,
+        "explanation": "Direct injection: attacker types malicious input directly. Indirect injection: malicious instructions hidden in data the LLM processes (websites, documents, emails)."
+    },
+    {
+        "id": "m6-q3",
+        "question": "What is a prompt guard?",
+        "type": "mcq",
+        "options": [
+            "A security officer watching prompts",
+            "A separate LLM that detects prompt injection attempts before processing",
+            "A firewall for APIs",
+            "Encryption for prompts"
+        ],
+        "answer": 1,
+        "explanation": "A prompt guard uses a secondary LLM to analyze user input for injection attempts before the main LLM processes the request."
+    },
+    {
+        "id": "m6-q4",
+        "question": "Why is output filtering important in AI security?",
+        "type": "mcq",
+        "options": [
+            "To make outputs shorter",
+            "Even with input protections, LLMs might leak sensitive information in outputs",
+            "To improve grammar",
+            "To reduce API costs"
+        ],
+        "answer": 1,
+        "explanation": "Output filtering catches sensitive information (PII, API keys, secrets) that might appear in LLM responses despite input protections."
+    },
+    {
+        "id": "m6-q5",
+        "question": "What is data poisoning in RAG systems?",
+        "type": "mcq",
+        "options": [
+            "Corrupted file storage",
+            "Injecting malicious documents into the knowledge base that contain hidden instructions",
+            "Database performance issues",
+            "Expired training data"
+        ],
+        "answer": 1,
+        "explanation": "Data poisoning injects malicious documents containing hidden instructions into the RAG knowledge base, which then influence LLM outputs."
+    },
+    {
+        "id": "m6-q6",
+        "question": "What is trust-based retrieval?",
+        "type": "mcq",
+        "options": [
+            "Trusting all retrieved documents",
+            "Weighting search results based on source trustworthiness",
+            "Using HTTPS for retrieval",
+            "Encrypting results"
+        ],
+        "answer": 1,
+        "explanation": "Trust-based retrieval assigns trust levels to sources (high for internal docs, low for external) and weights results accordingly to reduce poisoning risk."
+    },
+    {
+        "id": "m6-q7",
+        "question": "What pattern should you check for in input sanitization for prompt injection?",
+        "type": "mcq",
+        "options": [
+            "SQL keywords",
+            "Phrases like 'ignore previous instructions' or 'you are now'",
+            "JavaScript code",
+            "HTML tags only"
+        ],
+        "answer": 1,
+        "explanation": "Suspicious patterns include 'ignore previous instructions', 'disregard system prompt', 'you are now', and similar role/instruction override attempts."
+    },
+    {
+        "id": "m6-q8",
+        "question": "What is the defense-in-depth approach for AI security?",
+        "type": "mcq",
+        "options": [
+            "Using one very strong defense",
+            "Layering multiple defenses: input → guard → prompt → output",
+            "Deep learning for security",
+            "Hiring more security staff"
+        ],
+        "answer": 1,
+        "explanation": "Defense in depth layers multiple protective mechanisms: input sanitization, prompt guard, secure prompt construction, and output filtering."
+    },
+    {
+        "id": "m6-q9",
+        "question": "What sensitive information should output filters detect?",
+        "type": "mcq",
+        "options": [
+            "Only passwords",
+            "PII (SSN, credit cards), API keys, tokens, and secrets",
+            "Only names",
+            "Only phone numbers"
+        ],
+        "answer": 1,
+        "explanation": "Output filters should detect and redact all sensitive information: SSNs, credit cards, API keys, auth tokens, passwords, and other secrets."
+    },
+    {
+        "id": "m6-q10",
+        "question": "True or False: Indirect prompt injection is less dangerous because users control their own input.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "Indirect injection is MORE dangerous because attacks can be hidden in ANY data source (websites, documents, emails) that the LLM processes."
+    },
+    {
+        "id": "m6-q11",
+        "question": "What should you do if a prompt guard detects a potential injection?",
+        "type": "mcq",
+        "options": [
+            "Process it anyway",
+            "Block the request, log the attempt, and potentially flag the user",
+            "Ask the user to rephrase",
+            "Ignore the guard result"
+        ],
+        "answer": 1,
+        "explanation": "Block the request, log the attempt for security analysis, and potentially flag the user account for review if attacks are repeated."
+    },
+    {
+        "id": "m6-q12",
+        "question": "How should you handle HTML-like tags in user input?",
+        "type": "mcq",
+        "options": [
+            "Render them",
+            "Remove or escape them to prevent role/instruction injection",
+            "Ignore them",
+            "Convert to markdown"
+        ],
+        "answer": 1,
+        "explanation": "Remove or escape HTML-like tags, especially <system>, <user>, <assistant> which could be used to inject fake conversation turns."
+    }
+]
