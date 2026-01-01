@@ -1,0 +1,315 @@
+[
+    {
+        "id": "m2-q1",
+        "question": "What is the MOST important factor that affects GitHub Copilot's suggestion quality?",
+        "type": "mcq",
+        "options": [
+            "The speed of your internet connection",
+            "The context from open files, comments, and code structure",
+            "The version of VS Code you're using",
+            "How fast you type"
+        ],
+        "answer": 1,
+        "explanation": "Copilot's suggestions are driven by context: open files, nearby code, comments, function signatures, and import statements. Better context leads to better suggestions."
+    },
+    {
+        "id": "m2-q2",
+        "question": "Which technique involves writing comments before code to guide Copilot?",
+        "type": "mcq",
+        "options": [
+            "Test-Driven Development",
+            "Comment-Driven Development",
+            "Behavior-Driven Development",
+            "Type-Driven Development"
+        ],
+        "answer": 1,
+        "explanation": "Comment-Driven Development means writing descriptive comments first, then letting Copilot implement the code based on your specifications."
+    },
+    {
+        "id": "m2-q3",
+        "question": "What is the recommended mental model for working with GitHub Copilot?",
+        "type": "mcq",
+        "options": [
+            "A senior developer who knows everything",
+            "A talented junior developer who needs guidance and review",
+            "A replacement for human programmers",
+            "An infallible code generator"
+        ],
+        "answer": 1,
+        "explanation": "Think of Copilot as a talented junior developer: fast at implementation, good with patterns, but needs direction and all code requires review."
+    },
+    {
+        "id": "m2-q4",
+        "question": "How do you see all available Copilot suggestions in VS Code?",
+        "type": "mcq",
+        "options": [
+            "Press Enter",
+            "Press Tab repeatedly",
+            "Press Ctrl+Enter (or Cmd+Enter on Mac)",
+            "Press Escape twice"
+        ],
+        "answer": 2,
+        "explanation": "Ctrl+Enter (or Cmd+Enter) opens a panel showing all available Copilot suggestions, letting you compare and choose the best option."
+    },
+    {
+        "id": "m2-q5",
+        "question": "When should you prefer ChatGPT/Claude over GitHub Copilot?",
+        "type": "mcq",
+        "options": [
+            "When writing simple functions",
+            "When you need inline code completion",
+            "When debugging errors or discussing architecture",
+            "When writing unit tests"
+        ],
+        "answer": 2,
+        "explanation": "ChatGPT/Claude excel at interactive discussions, debugging with full error context, and exploring architectural decisions. Copilot is better for inline code generation."
+    },
+    {
+        "id": "m2-q6",
+        "question": "What does the 'I' stand for in the CRISPE prompting framework?",
+        "type": "mcq",
+        "options": [
+            "Intelligence",
+            "Input",
+            "Integration",
+            "Implementation"
+        ],
+        "answer": 1,
+        "explanation": "CRISPE stands for Capacity, Role context, Input (the code/problem), Specifics, Preference, and Evaluation."
+    },
+    {
+        "id": "m2-q7",
+        "question": "Which AI assistant has the largest context window?",
+        "type": "mcq",
+        "options": [
+            "ChatGPT (GPT-4 Turbo)",
+            "Claude 3.5 Sonnet",
+            "GitHub Copilot",
+            "They all have the same context window"
+        ],
+        "answer": 1,
+        "explanation": "Claude 3.5 Sonnet offers a 200K token context window, compared to GPT-4 Turbo's 128K. This makes Claude better for analyzing long codebases."
+    },
+    {
+        "id": "m2-q8",
+        "question": "What is the keyboard shortcut to accept only the next word from a Copilot suggestion?",
+        "type": "mcq",
+        "options": [
+            "Tab",
+            "Ctrl+→ (or Cmd+→ on Mac)",
+            "Enter",
+            "Space"
+        ],
+        "answer": 1,
+        "explanation": "Ctrl+→ (Cmd+→ on Mac) accepts only the next word from the suggestion, giving you more control over what's inserted."
+    },
+    {
+        "id": "m2-q9",
+        "question": "What is a major security risk when blindly accepting AI-generated code?",
+        "type": "mcq",
+        "options": [
+            "The code might be too slow",
+            "The code might contain SQL injection or other vulnerabilities",
+            "The AI might use deprecated APIs",
+            "The code might not be well-formatted"
+        ],
+        "answer": 1,
+        "explanation": "AI can generate code with security vulnerabilities like SQL injection, XSS, or improper input validation. Always review generated code for security issues."
+    },
+    {
+        "id": "m2-q10",
+        "question": "What is ChatGPT's 'Code Interpreter' feature best used for?",
+        "type": "mcq",
+        "options": [
+            "Writing code suggestions inline",
+            "Running Python code and analyzing data directly",
+            "Reviewing code for security issues",
+            "Generating documentation"
+        ],
+        "answer": 1,
+        "explanation": "ChatGPT's Code Interpreter can execute Python code in a sandboxed environment, making it ideal for data analysis, file processing, and testing code snippets."
+    },
+    {
+        "id": "m2-q11",
+        "question": "What is the benefit of opening related files when using Copilot?",
+        "type": "mcq",
+        "options": [
+            "It makes Copilot run faster",
+            "It provides patterns for Copilot to follow in new code",
+            "It reduces API costs",
+            "It enables offline mode"
+        ],
+        "answer": 1,
+        "explanation": "Open files provide context. If you're writing a new API endpoint, having an existing endpoint open helps Copilot follow your established patterns."
+    },
+    {
+        "id": "m2-q12",
+        "question": "What command in Copilot Chat generates unit tests for selected code?",
+        "type": "mcq",
+        "options": [
+            "/explain",
+            "/tests",
+            "/docs",
+            "/fix"
+        ],
+        "answer": 1,
+        "explanation": "The /tests command in Copilot Chat generates unit tests for the selected code. Other commands include /explain, /fix, and /docs."
+    },
+    {
+        "id": "m2-q13",
+        "question": "Which statement about AI coding assistants is TRUE?",
+        "type": "mcq",
+        "options": [
+            "They always generate correct, bug-free code",
+            "They remember your preferences from previous sessions",
+            "They may suggest non-existent packages or outdated APIs",
+            "They understand your complete business logic perfectly"
+        ],
+        "answer": 2,
+        "explanation": "AI assistants can hallucinate: suggesting packages that don't exist, using outdated APIs, or misunderstanding context. Always verify suggested packages and API calls."
+    },
+    {
+        "id": "m2-q14",
+        "question": "What is the '@workspace' command used for in Copilot Chat?",
+        "type": "mcq",
+        "options": [
+            "To create a new workspace",
+            "To give Copilot context about your entire project",
+            "To share code with teammates",
+            "To switch between projects"
+        ],
+        "answer": 1,
+        "explanation": "@workspace expands Copilot's context to include your entire project, not just the current file, helping it understand project-wide patterns and dependencies."
+    },
+    {
+        "id": "m2-q15",
+        "question": "When should you break a complex AI prompt into multiple turns?",
+        "type": "mcq",
+        "options": [
+            "Never - always use single prompts",
+            "When the task involves multiple steps or needs clarification",
+            "Only when using Claude, not ChatGPT",
+            "Only when the response is too long"
+        ],
+        "answer": 1,
+        "explanation": "Multi-turn conversations help with complex tasks. Build context step by step: first the schema, then models, then endpoints, then security review."
+    },
+    {
+        "id": "m2-q16",
+        "question": "What should you always include when asking an AI to generate code?",
+        "type": "mcq",
+        "options": [
+            "Your full resume",
+            "Language version and framework specifics",
+            "The name of your manager",
+            "The deadline for the project"
+        ],
+        "answer": 1,
+        "explanation": "Specific language versions (Python 3.12) and framework versions (FastAPI 0.109+) help AI generate compatible, up-to-date code."
+    },
+    {
+        "id": "m2-q17",
+        "question": "What is Claude's 'Artifacts' feature?",
+        "type": "mcq",
+        "options": [
+            "A way to save conversation history",
+            "A side panel where Claude creates runnable code that you can preview",
+            "The ability to generate images",
+            "A plugin marketplace"
+        ],
+        "answer": 1,
+        "explanation": "Claude's Artifacts appear in a side panel, showing runnable code, SVGs, or other outputs that you can interact with and iterate on."
+    },
+    {
+        "id": "m2-q18",
+        "question": "What is the first thing you should check after AI generates code?",
+        "type": "mcq",
+        "options": [
+            "Whether it's well-commented",
+            "Whether it actually runs without errors",
+            "Whether the variable names are good",
+            "Whether it uses the latest syntax"
+        ],
+        "answer": 1,
+        "explanation": "First verify the code runs. AI can generate code with syntax errors, import issues, or reference non-existent packages. Test before trusting."
+    },
+    {
+        "id": "m2-q19",
+        "question": "True or False: Copilot's context includes your entire codebase automatically.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "Copilot's context is primarily from open files and the current file. It doesn't automatically index your entire codebase unless you use @workspace in Copilot Chat."
+    },
+    {
+        "id": "m2-q20",
+        "question": "True or False: ChatGPT and Claude remember context between separate conversation sessions.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "LLM APIs are stateless. Each conversation is independent. Memory features (if enabled) provide limited persistence, but not full conversation history."
+    },
+    {
+        "id": "m2-q21",
+        "question": "If Copilot keeps suggesting something different than what you want, what's the best first step?",
+        "type": "mcq",
+        "options": [
+            "Restart your computer",
+            "Add a more specific comment explaining what you want",
+            "Report it as a bug",
+            "Switch to a different AI assistant"
+        ],
+        "answer": 1,
+        "explanation": "If suggestions are off-target, your context might be misleading. Add clearer comments, type a few characters manually, or start with a more specific function signature."
+    },
+    {
+        "id": "m2-q22",
+        "question": "What approach should you use for safety-critical code generation?",
+        "type": "mcq",
+        "options": [
+            "Trust AI completely since it's highly trained",
+            "Use Claude for its more conservative responses and thoroughly review",
+            "Skip AI entirely for safety-critical code",
+            "Use the fastest model available"
+        ],
+        "answer": 1,
+        "explanation": "For safety-critical code, Claude's conservative approach (Constitutional AI) can be helpful, but all AI-generated code must still be thoroughly reviewed by humans."
+    },
+    {
+        "id": "m2-q23",
+        "question": "What is 'signature-driven development' in the context of Copilot?",
+        "type": "mcq",
+        "options": [
+            "Writing code that generates digital signatures",
+            "Using detailed function signatures with types and docstrings to guide Copilot",
+            "Signing your code for verification",
+            "Using a template for function definitions"
+        ],
+        "answer": 1,
+        "explanation": "Signature-driven development uses detailed function signatures (name, parameters with types, return type, docstring) to give Copilot strong signals about what to generate."
+    },
+    {
+        "id": "m2-q24",
+        "question": "Which is NOT a valid strategy when AI-generated code has bugs?",
+        "type": "mcq",
+        "options": [
+            "Ask the AI to debug and fix the issue",
+            "Break the problem into smaller steps",
+            "Regenerate without any additional context",
+            "Provide example input and expected output"
+        ],
+        "answer": 2,
+        "explanation": "Simply regenerating without adding context rarely helps. Instead, provide the error message, ask specifically about the issue, or break the problem into smaller steps."
+    },
+    {
+        "id": "m2-q25",
+        "question": "What should you request along with generated code to maximize learning?",
+        "type": "mcq",
+        "options": [
+            "The AI's confidence level",
+            "An explanation of why this approach was chosen over alternatives",
+            "The training data used",
+            "The token count"
+        ],
+        "answer": 1,
+        "explanation": "Asking for explanations ('why this approach over alternatives', 'what are the trade-offs') helps you learn and verify the AI understood the requirements."
+    }
+]

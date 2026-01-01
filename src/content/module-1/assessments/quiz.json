@@ -1,0 +1,374 @@
+[
+    {
+        "id": "m1-q1",
+        "question": "What is the primary purpose of a vector database in an AI application?",
+        "type": "mcq",
+        "options": [
+            "To store user login credentials securely",
+            "To perform fast similarity searches on vector embeddings",
+            "To store relational data in tables",
+            "To cache frequently accessed API responses"
+        ],
+        "answer": 1,
+        "explanation": "Vector databases are optimized for storing and querying high-dimensional vectors (embeddings), making them ideal for semantic search and finding conceptually similar items."
+    },
+    {
+        "id": "m1-q2",
+        "question": "During LLM pre-training, what is the model primarily learning to do?",
+        "type": "mcq",
+        "options": [
+            "Follow human instructions accurately",
+            "Predict the next token in a sequence",
+            "Generate creative images",
+            "Translate between languages"
+        ],
+        "answer": 1,
+        "explanation": "Pre-training teaches the model to predict the next token based on context. This simple objective, applied billions of times, teaches the model grammar, facts, and reasoning patterns."
+    },
+    {
+        "id": "m1-q3",
+        "question": "What does RLHF stand for in the context of LLM training?",
+        "type": "mcq",
+        "options": [
+            "Rapid Learning High Frequency",
+            "Reinforcement Learning from Human Feedback",
+            "Recursive Language Handling Framework",
+            "Real-time Language Hyperparameter Fine-tuning"
+        ],
+        "answer": 1,
+        "explanation": "RLHF (Reinforcement Learning from Human Feedback) is the final training phase where human raters evaluate model responses, teaching the model to produce helpful, harmless, and honest outputs."
+    },
+    {
+        "id": "m1-q4",
+        "question": "Approximately how many tokens does 100 words of English text typically convert to?",
+        "type": "mcq",
+        "options": [
+            "50 tokens",
+            "100 tokens",
+            "133 tokens",
+            "200 tokens"
+        ],
+        "answer": 2,
+        "explanation": "The rule of thumb is 1 token ≈ 0.75 words, so 100 words ≈ 133 tokens. This is important for estimating API costs and context window usage."
+    },
+    {
+        "id": "m1-q5",
+        "question": "What happens when your prompt exceeds the model's context window limit?",
+        "type": "mcq",
+        "options": [
+            "The model automatically compresses the text",
+            "The API returns a detailed error message",
+            "The beginning of the prompt is silently truncated",
+            "The model switches to a larger context version"
+        ],
+        "answer": 2,
+        "explanation": "Most APIs truncate from the beginning of the conversation history when limits are exceeded. This means your system prompt or early context may be lost silently."
+    },
+    {
+        "id": "m1-q6",
+        "question": "Which statement about LLM output tokens is TRUE?",
+        "type": "mcq",
+        "options": [
+            "Output tokens are typically cheaper than input tokens",
+            "Output tokens cost the same as input tokens",
+            "Output tokens are typically 2-3x more expensive than input tokens",
+            "Output token costs depend on the content generated"
+        ],
+        "answer": 2,
+        "explanation": "Output tokens are typically 2-3x more expensive than input tokens. This is why designing prompts that encourage concise responses can significantly reduce costs."
+    },
+    {
+        "id": "m1-q7",
+        "question": "What is the main advantage of Claude (Anthropic) over GPT-4 for certain applications?",
+        "type": "mcq",
+        "options": [
+            "Lower pricing for all use cases",
+            "Larger context window (200K tokens)",
+            "Better image generation capabilities",
+            "Faster response times"
+        ],
+        "answer": 1,
+        "explanation": "Claude 3.5 Sonnet offers a 200K token context window, significantly larger than GPT-4's standard context. This makes it excellent for processing long documents."
+    },
+    {
+        "id": "m1-q8",
+        "question": "What is an embedding in the context of AI applications?",
+        "type": "mcq",
+        "options": [
+            "A compressed version of the original text",
+            "A numerical vector representing the semantic meaning of text",
+            "The model's internal memory storage",
+            "A technique for reducing model size"
+        ],
+        "answer": 1,
+        "explanation": "An embedding is a high-dimensional vector (list of numbers) that represents the semantic meaning of text. Similar concepts have similar embeddings, enabling semantic search."
+    },
+    {
+        "id": "m1-q9",
+        "question": "Which orchestration framework is best suited for complex document Q&A and RAG applications?",
+        "type": "mcq",
+        "options": [
+            "FastAPI",
+            "LangChain",
+            "LlamaIndex",
+            "Flask"
+        ],
+        "answer": 2,
+        "explanation": "LlamaIndex is specifically designed for data-intensive applications like document Q&A and RAG. While LangChain is more general-purpose, LlamaIndex excels at indexing and retrieval."
+    },
+    {
+        "id": "m1-q10",
+        "question": "What is the primary benefit of using open-source LLMs like Llama 3.1 over proprietary models?",
+        "type": "mcq",
+        "options": [
+            "They are always more accurate",
+            "They have larger context windows",
+            "Full control over data and no per-token API costs",
+            "They require less compute resources"
+        ],
+        "answer": 2,
+        "explanation": "Open-source models provide full control over your data (never leaves your servers) and eliminate per-token API costs—you only pay for compute infrastructure."
+    },
+    {
+        "id": "m1-q11",
+        "question": "Which prompt engineering technique involves providing example input-output pairs?",
+        "type": "mcq",
+        "options": [
+            "Zero-shot prompting",
+            "Chain-of-thought prompting",
+            "Few-shot prompting",
+            "System prompting"
+        ],
+        "answer": 2,
+        "explanation": "Few-shot prompting includes examples of the desired input-output format in the prompt. This helps the model understand the pattern you want it to follow."
+    },
+    {
+        "id": "m1-q12",
+        "question": "What is the purpose of chain-of-thought (CoT) prompting?",
+        "type": "mcq",
+        "options": [
+            "To reduce the number of API calls",
+            "To encourage the model to show its reasoning steps",
+            "To chain multiple models together",
+            "To improve response speed"
+        ],
+        "answer": 1,
+        "explanation": "Chain-of-thought prompting encourages the model to break down complex problems into steps, showing its reasoning. This often improves accuracy on logical and mathematical tasks."
+    },
+    {
+        "id": "m1-q13",
+        "question": "In a typical RAG (Retrieval-Augmented Generation) system, what happens first?",
+        "type": "mcq",
+        "options": [
+            "The LLM generates a response",
+            "The user query is embedded and similar documents are retrieved",
+            "The documents are summarized",
+            "The response is cached for future use"
+        ],
+        "answer": 1,
+        "explanation": "In RAG, the user query is first converted to an embedding and used to retrieve relevant documents from a vector database. These documents are then included as context for the LLM."
+    },
+    {
+        "id": "m1-q14",
+        "question": "What is the 'temperature' parameter in LLM API calls?",
+        "type": "mcq",
+        "options": [
+            "The processing power allocated to the request",
+            "A measure of how random/creative the model's outputs are",
+            "The time limit for generating a response",
+            "The number of tokens in the response"
+        ],
+        "answer": 1,
+        "explanation": "Temperature controls randomness. Lower values (0.0-0.3) produce more deterministic, focused outputs. Higher values (0.7-1.0) produce more creative, varied outputs."
+    },
+    {
+        "id": "m1-q15",
+        "question": "Which vector database is best for local development and prototyping?",
+        "type": "mcq",
+        "options": [
+            "Pinecone",
+            "Weaviate",
+            "Chroma",
+            "Elasticsearch"
+        ],
+        "answer": 2,
+        "explanation": "Chroma is designed for local development with easy setup (can run in-memory), making it ideal for prototyping before scaling to production databases."
+    },
+    {
+        "id": "m1-q16",
+        "question": "Parameters in an LLM represent what?",
+        "type": "mcq",
+        "options": [
+            "The number of words the model knows",
+            "Learned numerical weights that encode patterns from training",
+            "The amount of memory the model uses",
+            "The number of languages the model supports"
+        ],
+        "answer": 1,
+        "explanation": "Parameters are numerical values (weights) learned during training that encode patterns about language, facts, and reasoning. More parameters generally means more capacity for nuance."
+    },
+    {
+        "id": "m1-q17",
+        "question": "What is the main purpose of a system prompt?",
+        "type": "mcq",
+        "options": [
+            "To provide examples for the model to follow",
+            "To set the model's role, behavior, and constraints",
+            "To handle error messages",
+            "To cache previous responses"
+        ],
+        "answer": 1,
+        "explanation": "System prompts establish the model's persona, define how it should behave, and set constraints. They persist across the conversation and influence all responses."
+    },
+    {
+        "id": "m1-q18",
+        "question": "When should you use model routing in production?",
+        "type": "mcq",
+        "options": [
+            "When you want to use only one model",
+            "When you want to send simple tasks to cheaper models and complex tasks to powerful ones",
+            "When you need to train a custom model",
+            "When you want to reduce response latency"
+        ],
+        "answer": 1,
+        "explanation": "Model routing uses cheaper, faster models (e.g., GPT-3.5) for simple tasks and reserves expensive, powerful models (e.g., GPT-4) for complex tasks, optimizing cost and performance."
+    },
+    {
+        "id": "m1-q19",
+        "question": "What is the primary advantage of using LangChain's LCEL (pipe syntax)?",
+        "type": "mcq",
+        "options": [
+            "It makes code run faster",
+            "It creates readable, composable chains where each component can be tested independently",
+            "It reduces API costs",
+            "It improves model accuracy"
+        ],
+        "answer": 1,
+        "explanation": "LCEL's pipe syntax (component1 | component2 | ...) creates readable chains where each component is independent and can be tested, modified, or reused separately."
+    },
+    {
+        "id": "m1-q20",
+        "question": "Which is NOT a valid way to optimize LLM API costs?",
+        "type": "mcq",
+        "options": [
+            "Caching responses for identical prompts",
+            "Using shorter, more concise prompts",
+            "Increasing the temperature parameter",
+            "Routing simple tasks to cheaper models"
+        ],
+        "answer": 2,
+        "explanation": "Temperature affects output randomness, not cost. Caching, concise prompts, and model routing are all effective cost optimization strategies."
+    },
+    {
+        "id": "m1-q21",
+        "question": "In the context of LLMs, what is a 'knowledge cutoff'?",
+        "type": "mcq",
+        "options": [
+            "The maximum length of a response",
+            "The date after which the model has no training data",
+            "The point at which the model refuses to answer",
+            "The limit on how many facts the model can retrieve"
+        ],
+        "answer": 1,
+        "explanation": "The knowledge cutoff is the date of the most recent training data. Models cannot know about events after this date unless specifically updated or given the information."
+    },
+    {
+        "id": "m1-q22",
+        "question": "True or False: Bigger LLM models (more parameters) are always better for every use case.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "Bigger is not always better. Smaller models can be faster, cheaper, and equally accurate for simpler tasks. The right model size depends on the specific use case."
+    },
+    {
+        "id": "m1-q23",
+        "question": "True or False: Each API call to an LLM is stateless - the model doesn't remember previous calls.",
+        "type": "tf",
+        "answer": true,
+        "explanation": "LLM APIs are stateless. Each call is independent - the apparent 'memory' comes from including conversation history in each request, not from the model actually remembering."
+    },
+    {
+        "id": "m1-q24",
+        "question": "True or False: Vector databases can only store text data.",
+        "type": "tf",
+        "answer": false,
+        "explanation": "Vector databases store vectors (embeddings), which can represent any type of data: text, images, audio, etc. Any data that can be converted to an embedding can be stored and searched."
+    },
+    {
+        "id": "m1-q25",
+        "question": "What does 'fine-tuning' an LLM accomplish?",
+        "type": "mcq",
+        "options": [
+            "Makes the model larger with more parameters",
+            "Specializes the model for specific tasks or behaviors",
+            "Increases the context window size",
+            "Reduces the cost per token"
+        ],
+        "answer": 1,
+        "explanation": "Fine-tuning further trains a pre-trained model on curated examples to specialize it for specific tasks, domains, or behaviors. It doesn't change the model size."
+    },
+    {
+        "id": "m1-q26",
+        "question": "Which cost is typically NOT associated with using LLM APIs?",
+        "type": "mcq",
+        "options": [
+            "Input token cost",
+            "Output token cost",
+            "GPU rental cost",
+            "Model training cost"
+        ],
+        "answer": 3,
+        "explanation": "When using LLM APIs, you pay for tokens (input and output), not for training the model. Training costs are borne by the provider (OpenAI, Anthropic, etc.)."
+    },
+    {
+        "id": "m1-q27",
+        "question": "What is the recommended approach for handling long documents that exceed the context window?",
+        "type": "mcq",
+        "options": [
+            "Wait for models with larger context windows",
+            "Chunk the document into smaller pieces with overlap",
+            "Compress the text before sending",
+            "Send multiple API calls with the full document"
+        ],
+        "answer": 1,
+        "explanation": "Chunking with overlap is the standard approach. Documents are split into manageable pieces with overlapping sections to maintain context continuity between chunks."
+    },
+    {
+        "id": "m1-q28",
+        "question": "Which Google model offers the largest context window as of 2024?",
+        "type": "mcq",
+        "options": [
+            "GPT-4 Turbo",
+            "Claude 3.5 Sonnet",
+            "Gemini 1.5 Pro",
+            "Llama 3.1"
+        ],
+        "answer": 2,
+        "explanation": "Gemini 1.5 Pro offers up to 2 million tokens context, significantly larger than other mainstream models. This enables processing of very long documents or codebases."
+    },
+    {
+        "id": "m1-q29",
+        "question": "What is the primary security concern when storing API keys?",
+        "type": "mcq",
+        "options": [
+            "Keys might expire too quickly",
+            "Keys should never be hardcoded in source code",
+            "Keys limit the number of API calls",
+            "Keys slow down API response times"
+        ],
+        "answer": 1,
+        "explanation": "Hardcoded API keys in source code can be accidentally committed to version control and exposed. Always use environment variables or secrets managers for API keys."
+    },
+    {
+        "id": "m1-q30",
+        "question": "Which approach is recommended for building production AI applications?",
+        "type": "mcq",
+        "options": [
+            "Lock into a single LLM provider for consistency",
+            "Build abstraction layers that allow easy switching between providers",
+            "Always use the most expensive model for best results",
+            "Avoid using orchestration frameworks for simplicity"
+        ],
+        "answer": 1,
+        "explanation": "Building abstraction layers (using libraries like LangChain) prevents vendor lock-in and allows easy switching between providers as pricing, features, and capabilities evolve."
+    }
+]
