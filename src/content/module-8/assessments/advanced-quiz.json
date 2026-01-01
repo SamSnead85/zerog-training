@@ -1,0 +1,130 @@
+{
+    "module": 8,
+    "topic": "Enterprise AI Architecture",
+    "questions": [
+        {
+            "id": "m8-q21",
+            "type": "mcq",
+            "question": "What is the primary purpose of an AI Gateway in enterprise architecture?",
+            "options": [
+                "To train models faster",
+                "To provide a single control point for authentication, rate limiting, and cost tracking",
+                "To store vector embeddings",
+                "To generate documentation"
+            ],
+            "answer": 1,
+            "explanation": "An AI Gateway serves as a unified control plane for all AI requests, enabling centralized authentication, rate limiting, cost attribution, and routing."
+        },
+        {
+            "id": "m8-q22",
+            "type": "mcq",
+            "question": "In the context of AI governance, what does RBAC stand for?",
+            "options": [
+                "Retrieval-Based Access Control",
+                "Role-Based Access Control",
+                "Risk-Based Algorithm Control",
+                "Resource-Based API Control"
+            ],
+            "answer": 1,
+            "explanation": "Role-Based Access Control assigns permissions to roles rather than individuals, making it easier to manage access policies at scale."
+        },
+        {
+            "id": "m8-q23",
+            "type": "mcq",
+            "question": "According to the EU AI Act, which category of AI systems is banned outright?",
+            "options": [
+                "Minimal risk",
+                "Limited risk",
+                "High risk",
+                "Unacceptable risk"
+            ],
+            "answer": 3,
+            "explanation": "Unacceptable risk AI systems, such as social scoring and real-time biometric mass surveillance, are prohibited under the EU AI Act."
+        },
+        {
+            "id": "m8-q24",
+            "type": "mcq",
+            "question": "What is the purpose of smart model routing in enterprise AI platforms?",
+            "options": [
+                "To encrypt model weights",
+                "To select the optimal model based on task requirements and constraints",
+                "To automatically train new models",
+                "To compress model responses"
+            ],
+            "answer": 1,
+            "explanation": "Smart routing dynamically selects the best model based on factors like context length, task type, latency requirements, and cost optimization."
+        },
+        {
+            "id": "m8-q25",
+            "type": "mcq",
+            "question": "Which of the following is NOT typically part of an AI observability stack?",
+            "options": [
+                "Metrics (token usage, latency)",
+                "Structured logging",
+                "Distributed tracing",
+                "Model training pipelines"
+            ],
+            "answer": 3,
+            "explanation": "AI observability focuses on monitoring production AI systems through metrics, logs, and traces. Training pipelines are part of MLOps, not observability."
+        },
+        {
+            "id": "m8-q26",
+            "type": "tf",
+            "question": "The NIST AI Risk Management Framework has four core functions: Govern, Map, Measure, and Manage.",
+            "answer": true,
+            "explanation": "The NIST AI RMF is organized around these four functions that provide a structured approach to identifying, assessing, and managing AI risks."
+        },
+        {
+            "id": "m8-q27",
+            "type": "mcq",
+            "question": "What should an AI audit log capture for compliance purposes?",
+            "options": [
+                "Only successful requests",
+                "Only error messages",
+                "All requests with user, resource, action, outcome, and metadata",
+                "Only requests from admin users"
+            ],
+            "answer": 2,
+            "explanation": "Comprehensive audit logs capture all AI interactions including user identity, resources accessed, actions taken, outcomes, and relevant metadata for compliance and forensics."
+        },
+        {
+            "id": "m8-q28",
+            "type": "mcq",
+            "question": "What is the purpose of a prompt registry in enterprise AI platforms?",
+            "options": [
+                "To cache API responses",
+                "To version, manage, and govern prompt templates",
+                "To train custom models",
+                "To generate test data"
+            ],
+            "answer": 1,
+            "explanation": "A prompt registry provides version control, approval workflows, and governance for prompt templates, treating them as production artifacts."
+        },
+        {
+            "id": "m8-q29",
+            "type": "mcq",
+            "question": "In cost management for AI platforms, what is 'cost attribution'?",
+            "options": [
+                "Predicting future AI costs",
+                "Tracking which teams/applications are responsible for AI spending",
+                "Reducing model inference costs",
+                "Attributing model outputs to training data"
+            ],
+            "answer": 1,
+            "explanation": "Cost attribution involves tracking AI spending by department, application, or user to enable accountability and budget management."
+        },
+        {
+            "id": "m8-q30",
+            "type": "mcq",
+            "question": "Under the EU AI Act, what obligation applies to 'limited risk' AI systems like chatbots?",
+            "options": [
+                "They are banned",
+                "They require full risk management systems",
+                "Users must be informed they are interacting with AI",
+                "No obligations apply"
+            ],
+            "answer": 2,
+            "explanation": "Limited risk AI systems have transparency obligations - users must be informed when they are interacting with AI rather than a human."
+        }
+    ]
+}

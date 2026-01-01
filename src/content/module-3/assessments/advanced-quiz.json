@@ -1,0 +1,130 @@
+{
+    "module": 3,
+    "topic": "Agentic AI",
+    "questions": [
+        {
+            "id": "m3-q21",
+            "type": "mcq",
+            "question": "In CrewAI, what is the purpose of the 'backstory' field for an agent?",
+            "options": [
+                "To provide context that shapes the agent's behavior and decision-making",
+                "To store the agent's conversation history",
+                "To define the agent's output format",
+                "To specify the agent's API credentials"
+            ],
+            "answer": 0,
+            "explanation": "The backstory gives the LLM context about the agent's persona, experience, and expertise, which influences how it approaches tasks and makes decisions."
+        },
+        {
+            "id": "m3-q22",
+            "type": "mcq",
+            "question": "What does the 'allow_delegation' parameter control in a CrewAI agent?",
+            "options": [
+                "Whether the agent can modify files",
+                "Whether the agent can ask other crew members for help",
+                "Whether the agent can access external APIs",
+                "Whether the agent can spawn new agents"
+            ],
+            "answer": 1,
+            "explanation": "When allow_delegation is True, an agent can delegate subtasks to other agents in the crew when it needs assistance."
+        },
+        {
+            "id": "m3-q23",
+            "type": "mcq",
+            "question": "In the CrewAI Task definition, what is the purpose of the 'context' parameter?",
+            "options": [
+                "To provide system environment variables",
+                "To pass outputs from other tasks as input dependencies",
+                "To set the task's priority level",
+                "To define error handling behavior"
+            ],
+            "answer": 1,
+            "explanation": "The context parameter creates task dependencies by passing the output of specified tasks as input to the current task, enabling information flow between agents."
+        },
+        {
+            "id": "m3-q24",
+            "type": "mcq",
+            "question": "What process type should you use in CrewAI when tasks need to be coordinated by a manager agent?",
+            "options": [
+                "Process.sequential",
+                "Process.parallel",
+                "Process.hierarchical",
+                "Process.autonomous"
+            ],
+            "answer": 2,
+            "explanation": "Process.hierarchical uses a manager agent to coordinate and delegate tasks to other agents, enabling more dynamic task allocation."
+        },
+        {
+            "id": "m3-q25",
+            "type": "tf",
+            "question": "In LangGraph, a state machine can only have one entry point.",
+            "answer": true,
+            "explanation": "LangGraph requires a single START node that defines where the graph begins execution, though the graph can have multiple end points and complex branching."
+        },
+        {
+            "id": "m3-q26",
+            "type": "mcq",
+            "question": "What is the difference between conditional_edges and normal edges in LangGraph?",
+            "options": [
+                "Conditional edges are faster",
+                "Conditional edges allow routing based on runtime conditions",
+                "Normal edges support parallel execution",
+                "There is no difference"
+            ],
+            "answer": 1,
+            "explanation": "Conditional edges evaluate a function at runtime to determine which node to transition to next, enabling dynamic workflow routing based on state or outputs."
+        },
+        {
+            "id": "m3-q27",
+            "type": "mcq",
+            "question": "In a multi-agent debate system, what is the primary benefit of having agents critique each other's responses?",
+            "options": [
+                "It reduces API costs",
+                "It improves response quality through iterative refinement",
+                "It speeds up response time",
+                "It reduces hallucinations by 100%"
+            ],
+            "answer": 1,
+            "explanation": "Multi-agent debate leverages diverse perspectives and critique to iteratively improve responses, catching errors and adding nuance that single agents might miss."
+        },
+        {
+            "id": "m3-q28",
+            "type": "mcq",
+            "question": "What is the recommended approach for handling tool errors in agent systems?",
+            "options": [
+                "Immediately terminate the agent loop",
+                "Retry indefinitely until success",
+                "Implement retry logic with fallback strategies",
+                "Ignore errors and continue"
+            ],
+            "answer": 2,
+            "explanation": "Production agent systems should implement retry logic with exponential backoff and fallback strategies to handle transient failures gracefully."
+        },
+        {
+            "id": "m3-q29",
+            "type": "mcq",
+            "question": "In AutoGen, what is the purpose of the 'is_termination_msg' parameter?",
+            "options": [
+                "To format the final output",
+                "To determine when the conversation should end",
+                "To handle error messages",
+                "To filter out spam messages"
+            ],
+            "answer": 1,
+            "explanation": "is_termination_msg is a function that evaluates each message to determine if the multi-agent conversation has reached its goal and should terminate."
+        },
+        {
+            "id": "m3-q30",
+            "type": "mcq",
+            "question": "What is a key advantage of using a planner agent pattern?",
+            "options": [
+                "It reduces the number of LLM calls",
+                "It creates an explicit action plan before execution",
+                "It eliminates the need for tools",
+                "It guarantees correct outputs"
+            ],
+            "answer": 1,
+            "explanation": "A planner agent first generates an explicit plan, which can be reviewed and refined before execution, leading to more structured and predictable agent behavior."
+        }
+    ]
+}
