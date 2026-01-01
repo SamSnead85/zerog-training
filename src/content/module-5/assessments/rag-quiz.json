@@ -1,0 +1,144 @@
+{
+    "module": 5,
+    "topic": "RAG & Knowledge Systems",
+    "questions": [
+        {
+            "id": "m5-q1",
+            "type": "mcq",
+            "question": "What is the primary purpose of RAG (Retrieval-Augmented Generation)?",
+            "options": [
+                "To train models faster",
+                "To ground LLM responses in specific knowledge sources",
+                "To reduce model size",
+                "To enable multi-modal outputs"
+            ],
+            "answer": 1,
+            "explanation": "RAG retrieves relevant context from knowledge sources and provides it to the LLM, grounding responses in factual, verifiable information."
+        },
+        {
+            "id": "m5-q2",
+            "type": "mcq",
+            "question": "What is hybrid search in RAG systems?",
+            "options": [
+                "Using multiple LLMs",
+                "Combining semantic and keyword-based retrieval",
+                "Searching across multiple databases",
+                "Using both text and images"
+            ],
+            "answer": 1,
+            "explanation": "Hybrid search combines semantic search (embeddings) with keyword search (BM25) to get the best of both approaches."
+        },
+        {
+            "id": "m5-q3",
+            "type": "mcq",
+            "question": "What is the purpose of a re-ranking stage in RAG?",
+            "options": [
+                "To reduce the number of documents",
+                "To improve the ordering of retrieved documents by relevance",
+                "To compress documents",
+                "To translate documents"
+            ],
+            "answer": 1,
+            "explanation": "Re-ranking uses a cross-encoder to more accurately score the relevance of initially retrieved documents, improving precision."
+        },
+        {
+            "id": "m5-q4",
+            "type": "tf",
+            "question": "Chunking strategy doesn't significantly impact RAG system quality.",
+            "answer": false,
+            "explanation": "Chunking strategy is critical. Poor chunking can split important context or retrieve irrelevant information, significantly impacting answer quality."
+        },
+        {
+            "id": "m5-q5",
+            "type": "mcq",
+            "question": "What does HyDE (Hypothetical Document Embeddings) do?",
+            "options": [
+                "Encrypts documents for security",
+                "Generates a hypothetical answer to embed instead of the query",
+                "Creates synthetic training data",
+                "Compresses document storage"
+            ],
+            "answer": 1,
+            "explanation": "HyDE generates a hypothetical answer to the query and embeds that instead of the query itself, often improving retrieval when query and document language differ."
+        },
+        {
+            "id": "m5-q6",
+            "type": "mcq",
+            "question": "What metric measures how many relevant documents were retrieved out of all relevant documents?",
+            "options": [
+                "Precision",
+                "Recall",
+                "F1 Score",
+                "MRR"
+            ],
+            "answer": 1,
+            "explanation": "Recall measures the proportion of relevant documents that were successfully retrieved out of all relevant documents in the corpus."
+        },
+        {
+            "id": "m5-q7",
+            "type": "mcq",
+            "question": "What is the typical advantage of using overlap between chunks?",
+            "options": [
+                "Reduces storage costs",
+                "Ensures context at chunk boundaries isn't lost",
+                "Speeds up search",
+                "Reduces embedding costs"
+            ],
+            "answer": 1,
+            "explanation": "Chunk overlap ensures that important context that might span chunk boundaries is captured in at least one chunk."
+        },
+        {
+            "id": "m5-q8",
+            "type": "tf",
+            "question": "Cross-encoders are faster but less accurate than bi-encoders.",
+            "answer": false,
+            "explanation": "Cross-encoders are slower but more accurate. They process query and document together, enabling deeper relevance understanding."
+        },
+        {
+            "id": "m5-q9",
+            "type": "mcq",
+            "question": "What is the purpose of query expansion in RAG?",
+            "options": [
+                "To make queries longer",
+                "To generate multiple phrasings of the query for better recall",
+                "To add metadata to queries",
+                "To encrypt queries"
+            ],
+            "answer": 1,
+            "explanation": "Query expansion generates alternative phrasings of the query, improving recall by matching documents that use different terminology."
+        },
+        {
+            "id": "m5-q10",
+            "type": "mcq",
+            "question": "Which approach should you use for documents where precision terms matter (like product codes)?",
+            "options": [
+                "Pure semantic search",
+                "Hybrid search with higher keyword weight",
+                "HyDE only",
+                "No retrieval needed"
+            ],
+            "answer": 1,
+            "explanation": "For precise terms like product codes or names, keyword search is more reliable. Hybrid search with higher BM25 weight balances precision with semantic understanding."
+        },
+        {
+            "id": "m5-q11",
+            "type": "mcq",
+            "question": "What is MRR (Mean Reciprocal Rank)?",
+            "options": [
+                "Average of all document rankings",
+                "The average of 1/rank for the first relevant document",
+                "Maximum retrieval rate",
+                "Minimum recall requirement"
+            ],
+            "answer": 1,
+            "explanation": "MRR averages 1/rank where rank is the position of the first relevant document. Higher MRR means relevant docs appear earlier."
+        },
+        {
+            "id": "m5-q12",
+            "type": "tf",
+            "question": "RAG systems should always use fine-tuned models instead of general-purpose ones.",
+            "answer": false,
+            "explanation": "RAG often works well with general-purpose models since the retrieved context provides domain-specific information. Fine-tuning is only needed for specific formatting or behavioral requirements."
+        }
+    ]
+}

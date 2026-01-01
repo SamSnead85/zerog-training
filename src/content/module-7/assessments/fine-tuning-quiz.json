@@ -1,0 +1,144 @@
+{
+    "module": 7,
+    "topic": "Fine-Tuning & Customization",
+    "questions": [
+        {
+            "id": "m7-q1",
+            "type": "mcq",
+            "question": "When should you consider fine-tuning instead of RAG?",
+            "options": [
+                "When you need to add frequently changing knowledge",
+                "When you need consistent style, format, or domain vocabulary",
+                "When you have less than 10 examples",
+                "When you need real-time data"
+            ],
+            "answer": 1,
+            "explanation": "Fine-tuning is best for baking in consistent style, format, or domain-specific language. RAG is better for updatable knowledge."
+        },
+        {
+            "id": "m7-q2",
+            "type": "mcq",
+            "question": "What is the minimum recommended number of examples for format-focused fine-tuning?",
+            "options": [
+                "10-20 examples",
+                "50-100 examples",
+                "500+ examples",
+                "10,000+ examples"
+            ],
+            "answer": 1,
+            "explanation": "For simple format adherence, 50-100 high-quality examples are typically sufficient. More complex behaviors need more data."
+        },
+        {
+            "id": "m7-q3",
+            "type": "tf",
+            "question": "Fine-tuning is a good approach for adding up-to-date factual knowledge.",
+            "answer": false,
+            "explanation": "Fine-tuning bakes knowledge permanently into the model. For facts that change, RAG is better as it can be updated without retraining."
+        },
+        {
+            "id": "m7-q4",
+            "type": "mcq",
+            "question": "In the GREAT framework for training data quality, what does the 'E' stand for?",
+            "options": [
+                "Efficient",
+                "Example of ideal behavior",
+                "Exact match",
+                "Error-free"
+            ],
+            "answer": 1,
+            "explanation": "GREAT: Grammar, Relevant, Example of ideal behavior, Accurate, Tone-appropriate. Each training example should demonstrate the exact behavior you want."
+        },
+        {
+            "id": "m7-q5",
+            "type": "mcq",
+            "question": "What percentage of your training data should cover common scenarios?",
+            "options": [
+                "20%",
+                "40%",
+                "60%",
+                "90%"
+            ],
+            "answer": 2,
+            "explanation": "The recommended distribution is 60% common scenarios, 20% edge cases, 10% error handling, and 10% boundary enforcement."
+        },
+        {
+            "id": "m7-q6",
+            "type": "mcq",
+            "question": "What is model distillation in the context of fine-tuning?",
+            "options": [
+                "Reducing model size through pruning",
+                "Training a smaller model to match a larger model's outputs",
+                "Encrypting model weights",
+                "Removing harmful outputs"
+            ],
+            "answer": 1,
+            "explanation": "Model distillation trains a smaller/cheaper model (like GPT-4o mini) to produce outputs matching a larger model (like GPT-4o), reducing costs while maintaining quality."
+        },
+        {
+            "id": "m7-q7",
+            "type": "tf",
+            "question": "It's important to include refusal examples in your fine-tuning data.",
+            "answer": true,
+            "explanation": "Including examples of appropriate refusals teaches the model boundaries—what requests to decline and how to decline them gracefully."
+        },
+        {
+            "id": "m7-q8",
+            "type": "mcq",
+            "question": "What file format does OpenAI use for fine-tuning data?",
+            "options": [
+                "CSV",
+                "JSON",
+                "JSONL (JSON Lines)",
+                "XML"
+            ],
+            "answer": 2,
+            "explanation": "OpenAI fine-tuning uses JSONL format where each line is a complete JSON object representing one training example."
+        },
+        {
+            "id": "m7-q9",
+            "type": "mcq",
+            "question": "What is the purpose of deduplicating training data?",
+            "options": [
+                "To reduce training costs only",
+                "To encourage the model to memorize specific responses",
+                "To prevent the model from overweighting similar examples",
+                "To make validation easier"
+            ],
+            "answer": 2,
+            "explanation": "Near-duplicate examples waste training budget and can cause the model to overfit to specific phrasings rather than learning general patterns."
+        },
+        {
+            "id": "m7-q10",
+            "type": "mcq",
+            "question": "What should the last message in a fine-tuning conversation example always be?",
+            "options": [
+                "A system message",
+                "A user message",
+                "An assistant message",
+                "Any role is fine"
+            ],
+            "answer": 2,
+            "explanation": "Fine-tuning examples must end with an assistant message, as this is what the model is being trained to produce."
+        },
+        {
+            "id": "m7-q11",
+            "type": "tf",
+            "question": "1,000 mediocre examples typically perform better than 100 high-quality examples.",
+            "answer": false,
+            "explanation": "Quality beats quantity in fine-tuning. 100 excellent examples that demonstrate ideal behavior often outperform 1,000 mediocre ones."
+        },
+        {
+            "id": "m7-q12",
+            "type": "mcq",
+            "question": "What is a hyperparameter commonly adjusted during fine-tuning?",
+            "options": [
+                "Context window size",
+                "Number of training epochs",
+                "Model architecture",
+                "Tokenizer vocabulary"
+            ],
+            "answer": 1,
+            "explanation": "The number of training epochs (n_epochs) is a key hyperparameter. Too few may underfit, too many may overfit to the training data."
+        }
+    ]
+}
