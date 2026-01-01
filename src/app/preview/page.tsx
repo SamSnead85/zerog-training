@@ -290,12 +290,19 @@ export default function PreviewPage() {
                             {demoLessons.map((lesson) => (
                                 <button
                                     key={lesson.id}
-                                    onClick={() => setActiveLesson(lesson.id)}
+                                    onClick={() => {
+                                        // If quiz is done, don't navigate to lesson - show completion
+                                        if (quizScore !== null) return;
+                                        setActiveLesson(lesson.id);
+                                    }}
+                                    disabled={quizScore !== null}
                                     className={cn(
                                         "w-full text-left p-3 rounded-lg border transition-all",
-                                        activeLesson === lesson.id
-                                            ? "border-purple-500/50 bg-purple-500/10"
-                                            : "border-white/5 hover:border-white/20 bg-white/[0.02]"
+                                        quizScore !== null
+                                            ? "opacity-50 cursor-not-allowed border-white/5 bg-white/[0.02]"
+                                            : activeLesson === lesson.id
+                                                ? "border-purple-500/50 bg-purple-500/10"
+                                                : "border-white/5 hover:border-white/20 bg-white/[0.02]"
                                     )}
                                 >
                                     <div className="flex items-start gap-3">
