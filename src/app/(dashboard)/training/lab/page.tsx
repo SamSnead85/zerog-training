@@ -1,5 +1,5 @@
-import InteractiveLab from "@/components/lessons/InteractiveLab";
+import MeaningfulLab from "@/components/lessons/MeaningfulLab";
 
 export default function LabPage() {
-    return <InteractiveLab />;
+    return <MeaningfulLab />;
 }

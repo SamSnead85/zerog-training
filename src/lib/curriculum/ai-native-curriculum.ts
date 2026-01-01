@@ -3,26 +3,202 @@
 
 export type CertificationLevel = "foundations" | "associate" | "professional" | "architect";
 export type ModuleStatus = "available" | "coming_soon" | "locked";
+export type LabType = "guided" | "independent" | "debug" | "design";
+export type AssessmentDifficulty = "recall" | "apply" | "analyze" | "create";
 
+// ============================================
+// LEARNING OBJECTIVE TAXONOMY (Bloom's)
+// ============================================
 export interface LearningObjective {
     id: string;
     text: string;
+    // Optional for backward compatibility - will be added progressively
+    bloomLevel?: "remember" | "understand" | "apply" | "analyze" | "evaluate" | "create";
+    measurable?: string; // How this is measured
 }
 
+// ============================================
+// ENHANCED TOPIC STRUCTURE
+// ============================================
 export interface Topic {
     id: string;
     title: string;
     description: string;
     duration: string;
     subtopics?: string[];
+    // New: Concept mastery components
+    keyTakeaways?: string[];
+    commonMisconceptions?: string[];
+    prerequisiteTopics?: string[];
 }
 
+// ============================================
+// WORKED EXAMPLE (Expert Reasoning)
+// ============================================
+export interface WorkedExample {
+    id: string;
+    scenario: string;
+    context: string;
+    thinkingProcess: string[];   // Step-by-step expert reasoning
+    implementation: string;       // Code or solution
+    pitfalls: string[];          // What NOT to do
+    alternativeApproaches?: string[];
+}
+
+// ============================================
+// CONCEPT CHECK (Knowledge Verification)
+// ============================================
+export interface ConceptCheck {
+    id: string;
+    question: string;
+    difficulty: AssessmentDifficulty;
+    options: string[];
+    correctIndex: number;
+    explanation: string;         // Why this is correct
+    relatedTopicId: string;
+}
+
+// ============================================
+// MEANINGFUL LAB STRUCTURE
+// ============================================
+export interface Lab {
+    id: string;
+    title: string;
+    type: LabType;
+    duration: string;
+    difficulty: "beginner" | "intermediate" | "advanced" | "expert";
+
+    // Context and setup
+    scenario: string;
+    businessContext: string;
+    prerequisites: string[];
+
+    // Multi-stage structure
+    stages: {
+        id: string;
+        title: string;
+        objective: string;
+        instructions: string[];
+        starterCode?: string;
+        hints: string[];
+        validationCriteria: string[];
+        // Real validation - not just pattern matching
+        testCases?: {
+            input: string;
+            expectedOutput: string;
+            description: string;
+        }[];
+    }[];
+
+    // Deliverables
+    deliverables: string[];
+    rubric: {
+        criterion: string;
+        weight: number;
+        excellent: string;
+        satisfactory: string;
+        needsImprovement: string;
+    }[];
+
+    // Reflection
+    reflectionQuestions: string[];
+}
+
+// ============================================
+// HANDS-ON PROJECT (Legacy support + enhanced)
+// ============================================
 export interface HandsOnProject {
     id: string;
     title: string;
     description: string;
     difficulty: "beginner" | "intermediate" | "advanced";
     duration: string;
+    // Enhanced with more detail
+    businessContext?: string;
+    deliverables?: string[];
+    successCriteria?: string[];
+}
+
+// ============================================
+// CAPSTONE PROJECT (Portfolio-worthy)
+// ============================================
+export interface CapstoneProject {
+    id: string;
+    title: string;
+    description: string;
+    duration: string;
+    level: CertificationLevel;
+
+    // Project specification
+    businessCase: string;
+    requirements: {
+        category: string;
+        items: string[];
+    }[];
+
+    // Architecture guidance
+    suggestedArchitecture?: string;
+    technologyStack: string[];
+
+    // Deliverables and evaluation
+    deliverables: {
+        name: string;
+        description: string;
+        format: string;
+    }[];
+
+    rubric: {
+        category: string;
+        weight: number;
+        criteria: {
+            description: string;
+            excellent: string;
+            satisfactory: string;
+            needsImprovement: string;
+        }[];
+    }[];
+
+    // For Architect level
+    requiresOralDefense?: boolean;
+    defenseTopics?: string[];
+}
+
+// ============================================
+// COMPREHENSIVE ASSESSMENT STRUCTURE
+// ============================================
+export interface AssessmentDetails {
+    // Theory assessment
+    conceptChecks: {
+        count: number;
+        passingScore: number;
+        timeLimit: string;
+    };
+
+    // Practical assessment
+    labs: {
+        required: number;
+        types: LabType[];
+        mustPassAll: boolean;
+    };
+
+    // Portfolio component
+    portfolio: {
+        required: boolean;
+        projectId?: string;
+        peerReview?: boolean;
+    };
+
+    // Proctoring
+    proctored: boolean;
+    identityVerification?: boolean;
+
+    // Final certification
+    finalExam?: {
+        format: string;
+        duration: string;
+        passingScore: number;
+        retakePolicy: string;
+    };
 }
 
 export interface LearningResource {
@@ -35,6 +211,9 @@ export interface LearningResource {
     description?: string;
 }
 
+// ============================================
+// ENHANCED AI MODULE
+// ============================================
 export interface AIModule {
     id: string;
     number: number;
@@ -45,11 +224,35 @@ export interface AIModule {
     level: CertificationLevel;
     status: ModuleStatus;
     prerequisites?: string[];
+
+    // Learning objectives with Bloom's taxonomy
     learningObjectives: LearningObjective[];
+
+    // Content structure
     topics: Topic[];
+
+    // Practical components
     handsOnProjects: HandsOnProject[];
+    labs?: Lab[];
+
+    // External resources (supplementary)
     resources?: LearningResource[];
+
+    // Assessment (legacy string for backward compatibility)
     assessmentType: string;
+
+    // New: Comprehensive assessment details
+    assessmentDetails?: AssessmentDetails;
+
+    // New: Worked examples for the module
+    workedExamples?: WorkedExample[];
+
+    // New: Concept checks for the module
+    conceptChecks?: ConceptCheck[];
+
+    // Capstone reference (if this module is part of a capstone)
+    capstoneProjectId?: string;
+
     thumbnail?: string;
 }
 
@@ -174,10 +377,42 @@ export const module1: AIModule = {
     level: "foundations",
     status: "available",
     learningObjectives: [
-        { id: "1-1", text: "Understand how Large Language Models (LLMs) work at a conceptual level" },
-        { id: "1-2", text: "Explain transformers, embeddings, and attention mechanisms" },
-        { id: "1-3", text: "Differentiate between AI, ML, Deep Learning, and Generative AI" },
-        { id: "1-4", text: "Recognize when to use AI vs traditional programming approaches" },
+        {
+            id: "1-1",
+            text: "Understand how Large Language Models (LLMs) work at a conceptual level",
+            bloomLevel: "understand",
+            measurable: "Correctly explain the transformer architecture and attention mechanism in your own words"
+        },
+        {
+            id: "1-2",
+            text: "Explain transformers, embeddings, and attention mechanisms",
+            bloomLevel: "understand",
+            measurable: "Create a diagram showing how tokens flow through a transformer model"
+        },
+        {
+            id: "1-3",
+            text: "Differentiate between AI, ML, Deep Learning, and Generative AI",
+            bloomLevel: "analyze",
+            measurable: "Correctly categorize 10 different AI applications into their appropriate technology category"
+        },
+        {
+            id: "1-4",
+            text: "Recognize when to use AI vs traditional programming approaches",
+            bloomLevel: "evaluate",
+            measurable: "Given 5 business scenarios, correctly recommend AI or traditional approach with justification"
+        },
+        {
+            id: "1-5",
+            text: "Apply prompt engineering techniques to generate high-quality code",
+            bloomLevel: "apply",
+            measurable: "Write prompts that successfully generate working code for 3 different use cases"
+        },
+        {
+            id: "1-6",
+            text: "Design a multi-step prompt workflow for complex development tasks",
+            bloomLevel: "create",
+            measurable: "Build a prompt chain that decomposes a complex coding task into manageable steps"
+        }
     ],
     topics: [
         {
@@ -190,6 +425,16 @@ export const module1: AIModule = {
                 "Understanding tokens, context windows, and model parameters",
                 "The economics of AI: API costs, latency, and throughput",
             ],
+            keyTakeaways: [
+                "LLMs predict the next token based on patterns learned from massive text datasets",
+                "Context window size is a critical constraint for production AI applications",
+                "Token-based pricing means prompt optimization directly impacts costs"
+            ],
+            commonMisconceptions: [
+                "LLMs don't 'understand' - they predict statistically likely continuations",
+                "More parameters doesn't always mean better results for your use case",
+                "Fine-tuning is not always necessary - RAG may be more cost-effective"
+            ]
         },
         {
             id: "1-2",
@@ -203,6 +448,17 @@ export const module1: AIModule = {
                 "Agent frameworks: LangGraph, CrewAI, AutoGen",
                 "Deployment platforms: Vertex AI, Azure AI, AWS Bedrock",
             ],
+            keyTakeaways: [
+                "Choose LLM provider based on: capability, cost, latency, and compliance requirements",
+                "Vector databases enable semantic search over unstructured data",
+                "Orchestration frameworks reduce boilerplate but add complexity"
+            ],
+            commonMisconceptions: [
+                "OpenAI is not always the best choice - Claude excels at certain tasks",
+                "You don't always need a vector database - simple caching may suffice",
+                "Framework lock-in is real - evaluate before committing"
+            ],
+            prerequisiteTopics: ["1-1"]
         },
         {
             id: "1-3",
@@ -216,12 +472,50 @@ export const module1: AIModule = {
                 "Structured output generation (JSON, XML)",
                 "Prompt chaining for complex workflows",
             ],
+            keyTakeaways: [
+                "Few-shot examples dramatically improve output quality for specific formats",
+                "Chain-of-thought prompting helps with reasoning tasks",
+                "Structured output (JSON mode) is essential for production integrations"
+            ],
+            commonMisconceptions: [
+                "Long prompts aren't always better - clarity beats verbosity",
+                "Temperature affects creativity, not accuracy",
+                "Prompt engineering is not 'magic words' - it's clear communication"
+            ],
+            prerequisiteTopics: ["1-1", "1-2"]
         },
     ],
     handsOnProjects: [
-        { id: "p1-1", title: "Code Documentation Generator", description: "Build a code documentation generator using prompt engineering", difficulty: "beginner", duration: "2 hours" },
-        { id: "p1-2", title: "Bug Analysis Assistant", description: "Create a bug analysis assistant with structured output", difficulty: "beginner", duration: "2 hours" },
-        { id: "p1-3", title: "Code Review Workflow", description: "Implement a multi-step code review workflow", difficulty: "intermediate", duration: "3 hours" },
+        {
+            id: "p1-1",
+            title: "Code Documentation Generator",
+            description: "Build a code documentation generator using prompt engineering",
+            difficulty: "beginner",
+            duration: "2 hours",
+            businessContext: "Automate the tedious task of writing docstrings and README files",
+            deliverables: ["Working Python script", "5 example outputs", "Prompt template documentation"],
+            successCriteria: ["Generates accurate docstrings", "Handles multiple languages", "Produces consistent formatting"]
+        },
+        {
+            id: "p1-2",
+            title: "Bug Analysis Assistant",
+            description: "Create a bug analysis assistant with structured output",
+            difficulty: "beginner",
+            duration: "2 hours",
+            businessContext: "Help developers quickly understand and categorize bug reports",
+            deliverables: ["Bug analyzer script", "JSON schema for output", "Test with 10 real bugs"],
+            successCriteria: ["Correctly identifies bug type", "Suggests root cause", "Provides fix recommendations"]
+        },
+        {
+            id: "p1-3",
+            title: "Code Review Workflow",
+            description: "Implement a multi-step code review workflow",
+            difficulty: "intermediate",
+            duration: "3 hours",
+            businessContext: "Augment human code review with AI-powered analysis",
+            deliverables: ["Multi-stage review pipeline", "Report generator", "Integration documentation"],
+            successCriteria: ["Identifies security issues", "Suggests performance improvements", "Maintains consistent review quality"]
+        },
     ],
     resources: [
         { id: "r1-1", type: "video", title: "But what is a GPT? Visual intro to transformers", source: "3Blue1Brown", url: "https://www.youtube.com/watch?v=wjZofJX0v4M", duration: "27 min", description: "Visual explanation of how transformers work" },
@@ -232,6 +526,121 @@ export const module1: AIModule = {
         { id: "r1-6", type: "documentation", title: "OpenAI API Documentation", source: "OpenAI", url: "https://platform.openai.com/docs", description: "Official API docs and best practices" },
     ],
     assessmentType: "Prompt engineering challenge + LLM architecture quiz + Project submission",
+
+    // NEW: Comprehensive assessment details
+    assessmentDetails: {
+        conceptChecks: {
+            count: 20,
+            passingScore: 80,
+            timeLimit: "30 minutes"
+        },
+        labs: {
+            required: 2,
+            types: ["guided", "independent"],
+            mustPassAll: true
+        },
+        portfolio: {
+            required: true,
+            projectId: "p1-3",
+            peerReview: false
+        },
+        proctored: false,
+        finalExam: {
+            format: "20 MCQ + 3 short answer + 1 prompt engineering challenge",
+            duration: "90 minutes",
+            passingScore: 75,
+            retakePolicy: "Unlimited retakes after 24 hours"
+        }
+    },
+
+    // NEW: Worked examples with expert reasoning
+    workedExamples: [
+        {
+            id: "we1-1",
+            scenario: "Building a prompt to generate unit tests",
+            context: "A developer needs to generate comprehensive unit tests for a Python function that validates email addresses",
+            thinkingProcess: [
+                "First, I need to understand what the function does and its expected inputs/outputs",
+                "I should specify the testing framework (pytest) in the prompt for consistency",
+                "Edge cases are crucial - I need to prompt for boundary conditions explicitly",
+                "I'll use few-shot examples to show the expected test format",
+                "Finally, I'll ask for test descriptions to ensure readability"
+            ],
+            implementation: `def generate_unit_tests(function_code: str) -> str:
+    prompt = f"""You are an expert Python test engineer. Generate comprehensive pytest unit tests for this function:
+
+{function_code}
+
+Requirements:
+1. Include at least 5 test cases
+2. Cover edge cases: empty input, invalid format, boundary conditions
+3. Use descriptive test names following: test_<what>_<condition>_<expected>
+4. Include docstrings explaining each test's purpose
+
+Example format:
+def test_validate_email_valid_format_returns_true():
+    \"\"\"Verify that properly formatted emails are accepted.\"\"\"
+    assert validate_email("user@example.com") == True
+
+Generate tests now:"""
+    return call_llm(prompt)`,
+            pitfalls: [
+                "Don't assume the LLM knows your testing conventions - be explicit",
+                "Avoid vague instructions like 'write good tests' - specify criteria",
+                "Don't forget to ask for edge case coverage explicitly"
+            ],
+            alternativeApproaches: [
+                "Use chain-of-thought: first analyze the function, then generate tests",
+                "Provide existing tests as examples for consistent style"
+            ]
+        }
+    ],
+
+    // NEW: Concept checks for knowledge verification
+    conceptChecks: [
+        {
+            id: "cc1-1",
+            question: "What is the primary mechanism that allows transformers to process long sequences efficiently?",
+            difficulty: "recall",
+            options: [
+                "Recurrent connections",
+                "Self-attention mechanism",
+                "Convolutional layers",
+                "Memory cells"
+            ],
+            correctIndex: 1,
+            explanation: "The self-attention mechanism allows transformers to process all positions in a sequence simultaneously, computing relationships between every pair of tokens in parallel. This is fundamentally different from RNNs which process sequentially.",
+            relatedTopicId: "1-1"
+        },
+        {
+            id: "cc1-2",
+            question: "A developer wants to build a customer support chatbot. The company has 10,000 support documents. Which approach is most cost-effective for the initial implementation?",
+            difficulty: "analyze",
+            options: [
+                "Fine-tune GPT-4 on all support documents",
+                "Use RAG with a vector database",
+                "Train a custom model from scratch",
+                "Use few-shot prompting with random documents"
+            ],
+            correctIndex: 1,
+            explanation: "RAG (Retrieval Augmented Generation) is most cost-effective because it doesn't require expensive fine-tuning. Documents are embedded once and retrieved at query time, allowing the base model to generate responses grounded in relevant documents.",
+            relatedTopicId: "1-2"
+        },
+        {
+            id: "cc1-3",
+            question: "When using chain-of-thought prompting, what is the primary benefit?",
+            difficulty: "apply",
+            options: [
+                "Reduces API costs by using fewer tokens",
+                "Improves reasoning accuracy on complex problems",
+                "Generates responses faster",
+                "Eliminates the need for examples"
+            ],
+            correctIndex: 1,
+            explanation: "Chain-of-thought prompting encourages the model to 'show its work' by reasoning step-by-step. This dramatically improves accuracy on math, logic, and multi-step reasoning tasks by making the reasoning process explicit.",
+            relatedTopicId: "1-3"
+        }
+    ]
 };
 
 // ============================================
