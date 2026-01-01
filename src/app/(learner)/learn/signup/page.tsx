@@ -22,12 +22,12 @@ export default function LearnerSignupPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [step, setStep] = useState<"email" | "details">("email");
-
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         name: "",
     });
+    const [error, setError] = useState("");
 
     const handleEmailSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -39,21 +39,33 @@ export default function LearnerSignupPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        setError("");
 
-        // Simulate signup delay
-        await new Promise(r => setTimeout(r, 1000));
+        try {
+            const res = await fetch("/api/learner/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                    name: formData.name,
+                }),
+            });
 
-        // Store learner in localStorage for demo
-        localStorage.setItem("learner_user", JSON.stringify({
-            email: formData.email,
-            name: formData.name,
-            isLoggedIn: true,
-            createdAt: new Date().toISOString(),
-            userType: "INDIVIDUAL",
-        }));
+            const data = await res.json();
 
-        // Redirect to learner dashboard
-        router.push("/learn/dashboard");
+            if (!res.ok) {
+                setError(data.error || "Failed to create account");
+                setIsLoading(false);
+                return;
+            }
+
+            // Redirect to learner dashboard
+            router.push("/learn/dashboard");
+        } catch (err) {
+            setError("Something went wrong. Please try again.");
+            setIsLoading(false);
+        }
     };
 
     return (

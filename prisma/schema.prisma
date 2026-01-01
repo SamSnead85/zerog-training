@@ -628,3 +628,182 @@ model DemoLead {
   @@index([email])
   @@map("demo_leads")
 }
+
+// =============================================================================
+// INDIVIDUAL CONSUMER USERS (B2C - Direct to Consumer)
+// =============================================================================
+
+model IndividualUser {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  emailVerified   DateTime?
+  name            String?
+  passwordHash    String?
+  avatarUrl       String?
+  
+  // Stripe Customer
+  stripeCustomerId String?
+  
+  // Gamification
+  xp              Int      @default(0)
+  streakDays      Int      @default(0)
+  lastActiveAt    DateTime?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  purchases       Purchase[]
+  progress        IndividualProgress[]
+  certificates    IndividualCertificate[]
+  sessions        IndividualSession[]
+  
+  @@index([email])
+  @@map("individual_users")
+}
+
+// =============================================================================
+// COURSE & TRACK PRODUCTS (Stripe Integration)
+// =============================================================================
+
+model CourseProduct {
+  id              String   @id @default(cuid())
+  stripeProductId String?  @unique
+  stripePriceId   String?  @unique
+  
+  courseId        String   @unique // Maps to internal course ID
+  title           String
+  description     String?
+  priceInCents    Int
+  
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  
+  purchases       Purchase[]
+  
+  @@map("course_products")
+}
+
+model TrackProduct {
+  id              String   @id @default(cuid())
+  stripeProductId String?  @unique
+  stripePriceId   String?  @unique
+  
+  trackId         String   @unique
+  title           String
+  description     String?
+  priceInCents    Int
+  courseIds       String[] // Courses included in track
+  
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  
+  purchases       Purchase[]
+  
+  @@map("track_products")
+}
+
+// =============================================================================
+// PURCHASES (Stripe Transactions)
+// =============================================================================
+
+model Purchase {
+  id                    String   @id @default(cuid())
+  stripePaymentIntentId String?  @unique
+  stripeSessionId       String?  @unique
+  
+  type                  PurchaseType
+  status                PurchaseStatus @default(PENDING)
+  amountPaid            Int      // In cents
+  
+  userId                String
+  user                  IndividualUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  courseProductId       String?
+  courseProduct         CourseProduct? @relation(fields: [courseProductId], references: [id])
+  
+  trackProductId        String?
+  trackProduct          TrackProduct? @relation(fields: [trackProductId], references: [id])
+  
+  purchasedAt           DateTime?
+  createdAt             DateTime @default(now())
+  
+  @@index([userId])
+  @@map("purchases")
+}
+
+enum PurchaseType {
+  COURSE
+  TRACK
+}
+
+enum PurchaseStatus {
+  PENDING
+  COMPLETED
+  REFUNDED
+  FAILED
+}
+
+// =============================================================================
+// INDIVIDUAL PROGRESS (B2C Learning Progress)
+// =============================================================================
+
+model IndividualProgress {
+  id                  String   @id @default(cuid())
+  courseId            String
+  lessonId            String?
+  completionPercent   Int      @default(0)
+  completedLessons    String[] // Array of completed lesson IDs
+  
+  userId              String
+  user                IndividualUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  lastAccessedAt      DateTime?
+  completedAt         DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@map("individual_progress")
+}
+
+// =============================================================================
+// INDIVIDUAL CERTIFICATES
+// =============================================================================
+
+model IndividualCertificate {
+  id                String   @id @default(cuid())
+  verificationCode  String   @unique @default(cuid())
+  
+  trackId           String
+  trackTitle        String
+  userName          String
+  
+  issuedAt          DateTime @default(now())
+  
+  userId            String
+  user              IndividualUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([verificationCode])
+  @@map("individual_certificates")
+}
+
+// =============================================================================
+// INDIVIDUAL SESSIONS (B2C Auth)
+// =============================================================================
+
+model IndividualSession {
+  id           String   @id @default(cuid())
+  token        String   @unique
+  userId       String
+  user         IndividualUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  
+  @@index([token])
+  @@index([userId])
+  @@map("individual_sessions")
+}
+
