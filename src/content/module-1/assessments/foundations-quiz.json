@@ -1,0 +1,183 @@
+{
+    "module": 1,
+    "topic": "AI-Native Foundations",
+    "questions": [
+        {
+            "id": "m1-q1",
+            "type": "mcq",
+            "question": "What is the primary difference between AI-Assisted and AI-Native development?",
+            "options": [
+                "AI-Native uses more expensive models",
+                "AI-Native integrates AI throughout the workflow rather than adding it on top",
+                "AI-Assisted is faster than AI-Native",
+                "AI-Native requires less human oversight"
+            ],
+            "answer": 1,
+            "explanation": "AI-Native development means fundamentally redesigning workflows with AI as an integral part, not just adding AI tools to existing processes."
+        },
+        {
+            "id": "m1-q2",
+            "type": "mcq",
+            "question": "What are tokens in the context of LLMs?",
+            "options": [
+                "Complete words only",
+                "Subword pieces that models process",
+                "Authentication credentials",
+                "Training data samples"
+            ],
+            "answer": 1,
+            "explanation": "LLMs process tokens, which are subword pieces like 'Trans' and 'former' from 'Transformer'. This is how models tokenize text for processing."
+        },
+        {
+            "id": "m1-q3",
+            "type": "mcq",
+            "question": "What does a higher temperature setting (e.g., 0.9) do to LLM outputs?",
+            "options": [
+                "Makes responses more deterministic",
+                "Makes responses more creative and varied",
+                "Reduces response length",
+                "Increases accuracy"
+            ],
+            "answer": 1,
+            "explanation": "Higher temperature increases randomness in token selection, making outputs more creative and varied. Lower temperature (0.0) produces more deterministic, focused responses."
+        },
+        {
+            "id": "m1-q4",
+            "type": "tf",
+            "question": "LLMs can reliably provide accurate real-time information like current stock prices.",
+            "answer": false,
+            "explanation": "LLMs have a knowledge cutoff date and cannot access real-time information. For current data, you need tools like function calling to fetch live information."
+        },
+        {
+            "id": "m1-q5",
+            "type": "mcq",
+            "question": "According to the NATIVE framework, what does the 'T' stand for?",
+            "options": [
+                "Test",
+                "Transform",
+                "Train",
+                "Target"
+            ],
+            "answer": 1,
+            "explanation": "In NATIVE: Navigate, Assess, Transform, Integrate, Value, Evolve. Transform means redesigning processes around AI rather than just adding it."
+        },
+        {
+            "id": "m1-q6",
+            "type": "mcq",
+            "question": "What is a context window in LLMs?",
+            "options": [
+                "The browser window where you interact with the AI",
+                "The maximum amount of text the model can process at once",
+                "The size of the training dataset",
+                "The response length limit"
+            ],
+            "answer": 1,
+            "explanation": "The context window is the maximum amount of text (measured in tokens) that an LLM can 'see' and process in a single request."
+        },
+        {
+            "id": "m1-q7",
+            "type": "mcq",
+            "question": "What is hallucination in the context of LLMs?",
+            "options": [
+                "When the model refuses to respond",
+                "When the model confidently generates incorrect or made-up information",
+                "When the model runs out of context",
+                "When the model outputs code instead of text"
+            ],
+            "answer": 1,
+            "explanation": "Hallucination occurs when LLMs confidently generate information that is factually incorrect or completely fabricated, which is why verification is important."
+        },
+        {
+            "id": "m1-q8",
+            "type": "tf",
+            "question": "The best practice is to always use the most powerful (and expensive) model for every task.",
+            "answer": false,
+            "explanation": "Cost-effective AI development uses the cheapest model that meets quality requirements. Start with smaller models and upgrade only if needed."
+        },
+        {
+            "id": "m1-q9",
+            "type": "mcq",
+            "question": "What temperature setting should you use for code generation tasks?",
+            "options": [
+                "Temperature 0 (deterministic)",
+                "Temperature 0.5 (balanced)",
+                "Temperature 1.0 (creative)",
+                "Temperature doesn't matter for code"
+            ],
+            "answer": 0,
+            "explanation": "Code generation benefits from low or zero temperature to produce consistent, deterministic outputs. Creative variation in code usually leads to errors."
+        },
+        {
+            "id": "m1-q10",
+            "type": "mcq",
+            "question": "Why is human review essential when using LLM outputs?",
+            "options": [
+                "LLMs can't produce any useful output",
+                "Legal requirements mandate it",
+                "LLMs can produce errors and hallucinations in important outputs",
+                "It's not actually necessary for most tasks"
+            ],
+            "answer": 2,
+            "explanation": "LLMs can produce plausible-sounding but incorrect information. For important outputs, human review catches errors the model might make."
+        },
+        {
+            "id": "m1-q11",
+            "type": "mcq",
+            "question": "Approximately how many words is 1,000 tokens in English?",
+            "options": [
+                "About 250 words",
+                "About 500 words",
+                "About 750 words",
+                "About 1,000 words"
+            ],
+            "answer": 2,
+            "explanation": "One token is approximately 0.75 words in English, so 1,000 tokens equals roughly 750 words or about 3 pages of text."
+        },
+        {
+            "id": "m1-q12",
+            "type": "tf",
+            "question": "LLMs are trained to predict the next word in text, which produces emergent capabilities.",
+            "answer": true,
+            "explanation": "The core training objective of LLMs is next-word prediction. By learning patterns across massive text datasets, models develop emergent capabilities like reasoning and code generation."
+        },
+        {
+            "id": "m1-q13",
+            "type": "mcq",
+            "question": "What is the '80/20 principle' as applied to AI-assisted development?",
+            "options": [
+                "80% of developers use AI, 20% don't",
+                "LLMs get you 80% of the way fast, the last 20% needs human refinement",
+                "You should spend 80% of time prompting, 20% reviewing",
+                "80% of code is generated, 20% is written manually"
+            ],
+            "answer": 1,
+            "explanation": "LLMs excel at producing a strong first draft quickly (80% of the work), but human expertise is still needed for refinement, edge cases, and verification (the last 20%)."
+        },
+        {
+            "id": "m1-q14",
+            "type": "mcq",
+            "question": "For which type of task would you choose Claude over GPT-4o?",
+            "options": [
+                "General coding tasks",
+                "Processing very long documents (150K+ tokens)",
+                "Fast response times",
+                "Cost optimization"
+            ],
+            "answer": 1,
+            "explanation": "Claude 3.5 Sonnet has a 200K token context window, making it better suited for very long documents compared to GPT-4o's 128K window."
+        },
+        {
+            "id": "m1-q15",
+            "type": "mcq",
+            "question": "What is the recommended approach to using structured outputs with LLMs?",
+            "options": [
+                "Always use free-form text responses",
+                "Constrain outputs to specific formats like JSON to reduce errors",
+                "Let the model decide the format",
+                "Only use structured outputs for code"
+            ],
+            "answer": 1,
+            "explanation": "Constraining outputs to structured formats like JSON reduces errors and makes responses easier to parse and validate programmatically."
+        }
+    ]
+}
