@@ -13,10 +13,86 @@ import {
     Award,
     BookOpen,
     Timer,
+    Video,
+    MessageSquare,
 } from "lucide-react";
 import { Suspense } from "react";
 
-// Track pricing data
+// Individual plan pricing
+const planData: Record<string, {
+    id: string;
+    title: string;
+    description: string;
+    price: number;
+    originalPrice: number;
+    modules: string;
+    duration: string;
+    gradient: string;
+    features: string[];
+    badge?: string;
+}> = {
+    essentials: {
+        id: "essentials",
+        title: "AI-Native Essentials",
+        description: "Foundation knowledge for AI-Native development.",
+        price: 299,
+        originalPrice: 399,
+        modules: "Modules 1-4",
+        duration: "20+ hours",
+        gradient: "from-blue-500/20 to-cyan-500/20",
+        features: [
+            "Modules 1-4 (Foundations)",
+            "20+ hours of content",
+            "Interactive prompt labs",
+            "Foundation certificate",
+            "Community access",
+            "Lifetime access",
+        ],
+    },
+    professional: {
+        id: "professional",
+        title: "AI-Native Professional",
+        description: "Complete curriculum with full NATIVE certification.",
+        price: 799,
+        originalPrice: 999,
+        modules: "All 11 modules",
+        duration: "100+ hours",
+        gradient: "from-purple-500/20 to-pink-500/20",
+        badge: "Most Popular",
+        features: [
+            "All 11 modules (100+ hours)",
+            "15 interactive AI labs",
+            "NATIVE Practitioner Certification",
+            "AI-Native Product Management",
+            "Code generation mastery",
+            "Context engineering deep dive",
+            "Priority community support",
+            "Lifetime access + updates",
+        ],
+    },
+    expert: {
+        id: "expert",
+        title: "Expert + Live Training",
+        description: "Premium access with personal trainer guidance.",
+        price: 1499,
+        originalPrice: 1999,
+        modules: "All 11 modules + Live",
+        duration: "100+ hours + 2hr session",
+        gradient: "from-emerald-500/20 to-teal-500/20",
+        badge: "Best Value",
+        features: [
+            "Everything in Professional",
+            "2-hour 1:1 live session with trainer",
+            "Review of your actual projects",
+            "Custom implementation guidance",
+            "30-day priority support",
+            "Career guidance call",
+            "LinkedIn recommendation",
+        ],
+    },
+};
+
+// Legacy track pricing (for backwards compatibility)
 const trackData: Record<string, {
     id: string;
     title: string;
@@ -47,48 +123,46 @@ const trackData: Record<string, {
         duration: "33 hours",
         gradient: "from-purple-500/20 to-pink-500/20",
     },
-    "prompt-specialist": {
-        id: "prompt-specialist",
-        title: "Prompt Engineering Specialist",
-        description: "Deep dive into prompt engineering for LLMs.",
-        price: 249,
-        originalPrice: 297,
-        courses: 3,
-        duration: "15 hours",
-        gradient: "from-amber-500/20 to-orange-500/20",
-    },
-    "ai-leader": {
-        id: "ai-leader",
-        title: "AI Transformation Leader",
-        description: "Strategic leadership training for executives driving AI transformation.",
-        price: 349,
-        originalPrice: 396,
-        courses: 4,
-        duration: "14 hours",
-        gradient: "from-emerald-500/20 to-teal-500/20",
-    },
 };
 
 function CheckoutContent() {
     const searchParams = useSearchParams();
-    const trackId = searchParams.get("track") || "native-practitioner";
-    const track = trackData[trackId] || trackData["native-practitioner"];
+    const planId = searchParams.get("plan");
+    const trackId = searchParams.get("track");
+
+    // Check if using new plan system or legacy track system
+    const plan = planId ? planData[planId] : null;
+    const track = trackId ? trackData[trackId] : null;
+
+    // Use plan if available, otherwise fall back to track, otherwise default
+    const item = plan || track || planData["professional"];
+    const isPlan = !!plan;
 
     const handleEnroll = async () => {
         // In production, this would integrate with Stripe
-        // For now, redirect to a contact/enterprise page
         alert("Stripe checkout integration coming soon! Contact us for enrollment.");
     };
+
+    const features = isPlan && plan ? plan.features : [
+        "Full certification curriculum",
+        "Hands-on labs & exercises",
+        "Certification exam (3 attempts)",
+        "Official digital certificate",
+        "LinkedIn badge",
+        "Lifetime access to content",
+        "Community access",
+        "Certificate verification",
+    ];
 
     return (
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Breadcrumb */}
             <Link
-                href={`/learn/tracks/${track.id}`}
+                href="/pricing"
                 className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6"
             >
                 <ArrowLeft className="h-4 w-4" />
-                Back to Track Details
+                Back to Pricing
             </Link>
 
             <div className="grid lg:grid-cols-5 gap-8">
@@ -97,27 +171,38 @@ function CheckoutContent() {
                     <div>
                         <h1 className="text-3xl font-bold mb-2">Complete Your Enrollment</h1>
                         <p className="text-muted-foreground">
-                            You're enrolling in the <span className="font-medium text-foreground">{track.title}</span> certification program.
+                            You're enrolling in <span className="font-medium text-foreground">{item.title}</span>
                         </p>
                     </div>
 
                     {/* Order Summary Card */}
-                    <Card className={`p-6 bg-gradient-to-r ${track.gradient}`}>
+                    <Card className={`p-6 bg-gradient-to-r ${item.gradient}`}>
                         <div className="flex items-start gap-4">
                             <div className="h-12 w-12 rounded-xl bg-background/80 flex items-center justify-center">
-                                <Award className="h-6 w-6 text-primary" />
+                                {isPlan && planId === "expert" ? (
+                                    <Video className="h-6 w-6 text-primary" />
+                                ) : (
+                                    <Award className="h-6 w-6 text-primary" />
+                                )}
                             </div>
                             <div className="flex-1">
-                                <h2 className="text-lg font-bold">{track.title}</h2>
-                                <p className="text-sm text-muted-foreground mt-1">{track.description}</p>
+                                <div className="flex items-center gap-2">
+                                    <h2 className="text-lg font-bold">{item.title}</h2>
+                                    {"badge" in item && item.badge && (
+                                        <Badge className="bg-primary text-primary-foreground text-xs">
+                                            {item.badge}
+                                        </Badge>
+                                    )}
+                                </div>
+                                <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
                                 <div className="flex items-center gap-4 mt-3 text-sm">
                                     <span className="flex items-center gap-1">
                                         <BookOpen className="h-4 w-4" />
-                                        {track.courses} courses
+                                        {"modules" in item ? item.modules : `${(item as NonNullable<typeof track>).courses} courses`}
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <Clock className="h-4 w-4" />
-                                        {track.duration}
+                                        {item.duration}
                                     </span>
                                 </div>
                             </div>
@@ -128,23 +213,31 @@ function CheckoutContent() {
                     <Card className="p-6">
                         <h3 className="font-bold mb-4">What's Included</h3>
                         <div className="grid sm:grid-cols-2 gap-3">
-                            {[
-                                "Full certification curriculum",
-                                "Hands-on labs & exercises",
-                                "Certification exam (3 attempts)",
-                                "Official digital certificate",
-                                "LinkedIn badge",
-                                "Lifetime access to content",
-                                "Community access",
-                                "Certificate verification",
-                            ].map((item, i) => (
+                            {features.map((feature, i) => (
                                 <div key={i} className="flex items-center gap-2 text-sm">
                                     <CheckCircle2 className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                                    {item}
+                                    {feature}
                                 </div>
                             ))}
                         </div>
                     </Card>
+
+                    {/* Expert Live Session Info */}
+                    {isPlan && planId === "expert" && (
+                        <Card className="p-6 border-emerald-500/20 bg-emerald-500/5">
+                            <div className="flex items-start gap-4">
+                                <MessageSquare className="h-8 w-8 text-emerald-500 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold mb-2">Your 1:1 Live Session</h3>
+                                    <p className="text-sm text-muted-foreground">
+                                        After enrollment, you'll receive a link to schedule your 2-hour session
+                                        with a certified trainer. Bring your actual projects and get personalized
+                                        guidance on implementing AI-native practices.
+                                    </p>
+                                </div>
+                            </div>
+                        </Card>
+                    )}
 
                     {/* Trust Signals */}
                     <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
@@ -170,16 +263,16 @@ function CheckoutContent() {
 
                         <div className="space-y-3 mb-6">
                             <div className="flex justify-between text-sm">
-                                <span>{track.title}</span>
-                                <span className="line-through text-muted-foreground">${track.originalPrice}</span>
+                                <span>{item.title}</span>
+                                <span className="line-through text-muted-foreground">${item.originalPrice}</span>
                             </div>
                             <div className="flex justify-between text-sm text-emerald-500">
                                 <span>Limited-time discount</span>
-                                <span>-${track.originalPrice - track.price}</span>
+                                <span>-${item.originalPrice - item.price}</span>
                             </div>
                             <div className="border-t pt-3 flex justify-between font-bold text-lg">
                                 <span>Total</span>
-                                <span>${track.price}</span>
+                                <span>${item.price}</span>
                             </div>
                         </div>
 
@@ -191,7 +284,7 @@ function CheckoutContent() {
                             Complete Purchase
                         </Button>
 
-                        <p className="text-xs text-center text-muted-foreground">
+                        <p className="text-xs text-center text-muted-foreward">
                             By purchasing, you agree to our Terms of Service
                         </p>
 
@@ -199,13 +292,27 @@ function CheckoutContent() {
                         <div className="mt-6 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
                             <div className="flex items-center gap-2">
                                 <Badge className="bg-amber-500/20 text-amber-600 border-amber-500/30">
-                                    Save ${track.originalPrice - track.price}
+                                    Save ${item.originalPrice - item.price}
                                 </Badge>
                                 <span className="text-xs text-muted-foreground">
                                     Limited-time offer
                                 </span>
                             </div>
                         </div>
+
+                        {/* Upgrade CTA for Essentials */}
+                        {isPlan && planId === "essentials" && (
+                            <div className="mt-6 pt-6 border-t text-center">
+                                <p className="text-sm text-muted-foreground mb-2">
+                                    Want the full curriculum?
+                                </p>
+                                <Link href="/learn/checkout?plan=professional">
+                                    <Button variant="outline" size="sm" className="w-full">
+                                        Upgrade to Professional (+$500)
+                                    </Button>
+                                </Link>
+                            </div>
+                        )}
 
                         {/* Enterprise Option */}
                         <div className="mt-6 pt-6 border-t text-center">
