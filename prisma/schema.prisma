@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  engineType = "library"
 }
 
 datasource db {
@@ -643,6 +644,10 @@ model IndividualUser {
   
   // Stripe Customer
   stripeCustomerId String?
+  
+  // Password Reset
+  resetToken        String?
+  resetTokenExpiry  DateTime?
   
   // Gamification
   xp              Int      @default(0)
