@@ -63,7 +63,7 @@ interface SkillGap {
 }
 
 const skillGaps: SkillGap[] = [
-    { skill: "Agile Methodology", currentLevel: 65, targetLevel: 90, suggestedCourse: "safe-scrum-master" },
+    { skill: "Agile Methodology", currentLevel: 65, targetLevel: 90, suggestedCourse: "native-framework" },
     { skill: "Data Analysis", currentLevel: 40, targetLevel: 75, suggestedCourse: "data-analytics" },
     { skill: "Communication", currentLevel: 70, targetLevel: 85, suggestedCourse: "effective-feedback" },
 ];

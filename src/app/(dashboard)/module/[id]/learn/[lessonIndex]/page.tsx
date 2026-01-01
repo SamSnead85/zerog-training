@@ -35,7 +35,7 @@ import { DiscussionThread } from "@/components/social/DiscussionThread";
 
 // Map module IDs to content
 const contentMap: Record<string, typeof safeScrumMasterContent> = {
-    "safe-scrum-master": safeScrumMasterContent,
+    "native-framework": safeScrumMasterContent,
     "leadership-fundamentals": leadershipContent,
     "hipaa-essentials": hipaaContent,
     "project-management": projectManagementContent,

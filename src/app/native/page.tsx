@@ -172,7 +172,7 @@ export default function NativeFrameworkPage() {
                             {
                                 icon: Target,
                                 title: "Proven Methodology",
-                                desc: "Built on frameworks from SAFe, DeepLearning.AI, and enterprise best practices",
+                                desc: "Built on frameworks from DeepLearning.AI, Google Cloud, and enterprise best practices",
                             },
                             {
                                 icon: Users,

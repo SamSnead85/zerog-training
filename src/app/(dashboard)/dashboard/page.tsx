@@ -50,11 +50,11 @@ const achievements = [
 // Continue learning courses
 const continuelearning = [
     {
-        id: "safe-scrum-master",
-        title: "SAFe Scrum Master",
-        category: "Agile",
+        id: "native-framework",
+        title: "NATIVE Framework Foundations",
+        category: "AI-Native SDLC",
         progress: 65,
-        nextLesson: "Facilitating PI Planning",
+        nextLesson: "Augment Execution Patterns",
         thumbnail: "/images/training/network-security.png",
         duration: "35 min left",
         xpReward: 150,
@@ -106,7 +106,7 @@ const recommended = [
 const recentActivity = [
     { type: "completed", title: "Completed 'Introduction to AI'", time: "2 hours ago", xp: 100 },
     { type: "achievement", title: "Earned 'Quick Learner' badge", time: "Yesterday", xp: 50 },
-    { type: "started", title: "Started 'SAFe Scrum Master'", time: "2 days ago", xp: 25 },
+    { type: "started", title: "Started 'NATIVE Framework'", time: "2 days ago", xp: 25 },
 ];
 
 export default function DashboardPage() {

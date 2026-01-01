@@ -50,7 +50,7 @@ const mockTemplates: AITemplate[] = [
     { id: "4", title: "Leadership Fundamentals", description: "Generate leadership development content with situational exercises", category: "leadership", estimatedDuration: "60 min", difficulty: "advanced", usageCount: 1500, rating: 4.8, isNew: false, isFeatured: false },
     { id: "5", title: "Data Privacy (GDPR/CCPA)", description: "Create data protection training covering major privacy regulations", category: "compliance", estimatedDuration: "40 min", difficulty: "intermediate", usageCount: 980, rating: 4.6, isNew: false, isFeatured: false },
     { id: "6", title: "Prompt Engineering Basics", description: "Build AI prompt engineering training for team productivity", category: "technology", estimatedDuration: "35 min", difficulty: "beginner", usageCount: 1800, rating: 4.9, isNew: true, isFeatured: true },
-    { id: "7", title: "SAFe Agile Overview", description: "Generate Scaled Agile Framework training with PI Planning scenarios", category: "leadership", estimatedDuration: "50 min", difficulty: "intermediate", usageCount: 1100, rating: 4.7, isNew: false, isFeatured: false },
+    { id: "7", title: "AI-Native Framework Fundamentals", description: "Generate NATIVE framework training with real-world implementation scenarios", category: "leadership", estimatedDuration: "50 min", difficulty: "intermediate", usageCount: 1100, rating: 4.7, isNew: false, isFeatured: false },
     { id: "8", title: "Patient Safety Essentials", description: "Create Joint Commission compliant patient safety training", category: "healthcare", estimatedDuration: "35 min", difficulty: "beginner", usageCount: 750, rating: 4.8, isNew: false, isFeatured: false },
 ];
 

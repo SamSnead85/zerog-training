@@ -44,7 +44,7 @@ const mockModules: ModuleProgress[] = [
 
 export function CourseProgressDetail({
     courseId = "sample",
-    courseTitle = "SAFe Scrum Master Certification",
+    courseTitle = "NATIVE Framework Certification",
     modules = mockModules,
 }: Partial<CourseProgressDetailProps>) {
     const completedCount = modules.filter((m) => m.completed).length;

@@ -113,7 +113,7 @@ export default function AINativePlatformPage() {
 
                     <p className="text-lg text-white/50 max-w-2xl mx-auto mb-10">
                         Comprehensive, role-specific curriculum that transforms professionals into AI-powered practitioners.
-                        Built on frameworks from SAFe, DeepLearning.AI, Google Cloud, and Microsoft.
+                        Built on frameworks from DeepLearning.AI, Google Cloud, Microsoft, and enterprise best practices.
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-4 mb-16">
