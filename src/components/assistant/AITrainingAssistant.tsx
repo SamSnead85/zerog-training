@@ -148,6 +148,9 @@ export function AITrainingAssistant() {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    // Get context-aware suggestions based on current page
+    const pageContext = pageContexts[pathname] || pageContexts.default;
+
     // Routes where the AI assistant should NOT appear (marketing/landing pages)
     const excludedRoutes = [
         "/",           // Landing page
@@ -163,6 +166,7 @@ export function AITrainingAssistant() {
         "/login",      // Login page
         "/signup",     // Signup page
         "/register",   // Register page
+        "/learn",      // Learn pages (marketing)
     ];
 
     // Check if current page should show assistant
@@ -171,17 +175,9 @@ export function AITrainingAssistant() {
         (route !== "/" && pathname?.startsWith(route + "/"))
     );
 
-    // Don't render on excluded pages
-    if (!shouldShowAssistant) {
-        return null;
-    }
-
-    // Get context-aware suggestions based on current page
-    const pageContext = pageContexts[pathname] || pageContexts.default;
-
     // Initialize with context-aware welcome messages
     useEffect(() => {
-        if (isOpen && messages.length === 0) {
+        if (isOpen && messages.length === 0 && shouldShowAssistant) {
             const contextGreeting = pageContext.greeting;
             const welcomeMsgs: Message[] = [
                 {
@@ -206,11 +202,11 @@ export function AITrainingAssistant() {
             ];
             setMessages(welcomeMsgs);
         }
-    }, [isOpen]);
+    }, [isOpen, shouldShowAssistant, pageContext.greeting, pageContext.suggestions, messages.length]);
 
     // Update context greeting when page changes (if already open)
     useEffect(() => {
-        if (isOpen && messages.length > 0) {
+        if (isOpen && messages.length > 0 && shouldShowAssistant) {
             const lastContextMessage = messages.find(m => m.id === "context-greeting");
             if (lastContextMessage && lastContextMessage.content !== pageContext.greeting) {
                 const contextMessage: Message = {
@@ -224,7 +220,7 @@ export function AITrainingAssistant() {
                 setShowQuickActions(true);
             }
         }
-    }, [pathname]);
+    }, [pathname, shouldShowAssistant, isOpen, messages, pageContext.greeting, pageContext.suggestions]);
 
     // Auto-scroll to bottom
     useEffect(() => {
@@ -322,6 +318,11 @@ export function AITrainingAssistant() {
         setSavedChats(prev => prev + 1);
         // In production, implement actual save functionality
     };
+
+    // Don't render on excluded pages (placed after all hooks)
+    if (!shouldShowAssistant) {
+        return null;
+    }
 
     // Closed state - Floating button
     if (!isOpen) {
