@@ -176,6 +176,6 @@ export function getBaseUrl(): string {
   if (process.env.DEPLOY_PRIME_URL) {
     return process.env.DEPLOY_PRIME_URL;
   }
-  // Local development
-  return `http://localhost:${process.env.PORT ?? 3000}`;
+  // Local development - fallback to production URL for safety
+  return process.env.NEXT_PUBLIC_APP_URL || "https://scalednative.com";
 }

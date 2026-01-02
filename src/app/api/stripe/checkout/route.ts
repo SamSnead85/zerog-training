@@ -114,7 +114,7 @@ export async function POST(request: Request) {
         }
 
         // Get app URL for redirects
-        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://scalednative.com";
 
         // Create Stripe Checkout Session
         const session = await stripe.checkout.sessions.create({
