@@ -334,7 +334,7 @@ export default function PreviewPage() {
                                 variant={quizScore !== null ? "outline" : "default"}
                             >
                                 <Target className="h-4 w-4" />
-                                {quizScore !== null ? `Score: ${quizScore}/5` : "Take Quiz"}
+                                {quizScore !== null ? `Score: ${quizScore}/15` : "Take Quiz"}
                             </Button>
                         )}
 
@@ -366,7 +366,7 @@ export default function PreviewPage() {
                                 <div>
                                     <h1 className="text-3xl font-bold mb-2">Preview Complete!</h1>
                                     <p className="text-white/60 text-lg">
-                                        You scored {quizScore}/5 on the quiz
+                                        You scored {quizScore}/15 on the knowledge check
                                     </p>
                                 </div>
                                 <div className="max-w-md mx-auto p-6 rounded-2xl bg-white/[0.02] border border-white/10">
@@ -484,11 +484,75 @@ function DemoQuiz({ onComplete, onBack }: { onComplete: (score: number) => void;
     const [answers, setAnswers] = useState<number[]>([]);
 
     const questions = [
+        // Lesson 1: The Agentic Revolution
         {
             q: "What does 'A' in NATIVE framework stand for?",
             options: ["Autonomous", "Augmented", "Artificial", "Adaptive"],
             correct: 1,
         },
+        {
+            q: "By 2026, what percentage of enterprise software development is predicted to involve AI agents?",
+            options: ["25%", "50%", "75%", "90%"],
+            correct: 1,
+        },
+        {
+            q: "What's a key capability of AI agents compared to traditional AI tools?",
+            options: [
+                "They cost less",
+                "They execute multi-step workflows autonomously",
+                "They only work with text",
+                "They require constant human input",
+            ],
+            correct: 1,
+        },
+        // Lesson 2: AI Agent Design
+        {
+            q: "What should an enterprise AI agent's prompt include?",
+            options: [
+                "Just the task description",
+                "Persona, capabilities, and constraints",
+                "Only technical specifications",
+                "Marketing copy",
+            ],
+            correct: 1,
+        },
+        {
+            q: "What are 'guardrails' in an AI agent?",
+            options: [
+                "Physical safety equipment",
+                "Constraints that prevent unwanted behaviors",
+                "Performance metrics",
+                "User interface elements",
+            ],
+            correct: 1,
+        },
+        // Lesson 3: AI-Native Product Strategy
+        {
+            q: "In AI-Native product strategy, what's the first question to ask?",
+            options: [
+                "What AI tools should we buy?",
+                "How do we replace all humans?",
+                "What decisions can AI make autonomously?",
+                "How do we add AI to existing features?",
+            ],
+            correct: 2,
+        },
+        {
+            q: "What's the difference between 'AI as a feature' and 'AI-Native'?",
+            options: [
+                "AI-Native costs more",
+                "AI-Native means AI is the core capability, not an add-on",
+                "They are the same",
+                "AI as a feature is more advanced",
+            ],
+            correct: 1,
+        },
+        {
+            q: "In the customer support transformation example, what percentage did AI handle?",
+            options: ["50%", "60%", "70%", "80%"],
+            correct: 3,
+        },
+        // Lesson 4: Context Engineering
         {
             q: "What's the key difference between prompt and context engineering?",
             options: [
@@ -500,27 +564,53 @@ function DemoQuiz({ onComplete, onBack }: { onComplete: (score: number) => void;
             correct: 1,
         },
         {
-            q: "In AI-Native product strategy, what's the first question?",
-            options: [
-                "What AI tools should we buy?",
-                "How do we replace all humans?",
-                "What decisions can AI make autonomously?",
-                "How do we add AI to existing features?",
-            ],
-            correct: 2,
-        },
-        {
             q: "What % of context window do most people use?",
             options: ["Less than 1%", "About 50%", "Around 80%", "100%"],
             correct: 0,
         },
         {
-            q: "What makes production code generation different?",
+            q: "What should expert context engineering include?",
+            options: [
+                "Just the question",
+                "Domain knowledge, policies, history, and examples",
+                "Only company name",
+                "Personal opinions",
+            ],
+            correct: 1,
+        },
+        {
+            q: "Modern LLMs have context windows of how many tokens?",
+            options: ["1,000-5,000", "10,000-50,000", "100,000-200,000", "1 million+"],
+            correct: 2,
+        },
+        // Lesson 5: Code Generation
+        {
+            q: "What makes production code generation different from basic code generation?",
             options: [
                 "Using GPT-4 instead of GPT-3",
                 "Role, constraints, context, examples, and output specs",
                 "Writing longer prompts",
                 "Paying for premium AI access",
+            ],
+            correct: 1,
+        },
+        {
+            q: "What's the first layer in the 5-Layer Prompt technique?",
+            options: [
+                "Constraints",
+                "Role Definition",
+                "Examples",
+                "Output Specification",
+            ],
+            correct: 1,
+        },
+        {
+            q: "What should production code generation output include?",
+            options: [
+                "Just the code",
+                "Implementation, unit tests, and documentation",
+                "Only comments",
+                "Marketing materials",
             ],
             correct: 1,
         },
@@ -543,8 +633,15 @@ function DemoQuiz({ onComplete, onBack }: { onComplete: (score: number) => void;
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Quick Quiz</h1>
-                <Badge>Q{currentQ + 1}/5</Badge>
+                <h1 className="text-2xl font-bold">Knowledge Check</h1>
+                <Badge>Q{currentQ + 1}/{questions.length}</Badge>
+            </div>
+            {/* Progress bar */}
+            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div
+                    className="h-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-300"
+                    style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}
+                />
             </div>
             <Card className="p-8 bg-white/[0.02]">
                 <h2 className="text-xl font-medium mb-6">{questions[currentQ].q}</h2>
