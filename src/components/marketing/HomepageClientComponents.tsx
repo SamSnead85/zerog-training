@@ -18,20 +18,15 @@ export function HomepageWrapper({ children }: HomepageWrapperProps) {
     );
 }
 
-// Client-side nav demo button
+// Client-side nav button - links to pricing (Contact Sales is in hero)
 export function NavDemoButton() {
-    const [isOpen, setIsOpen] = useState(false);
-
     return (
-        <>
-            <button
-                onClick={() => setIsOpen(true)}
-                className="px-5 py-2.5 rounded-full bg-white text-black font-medium text-sm hover:bg-white/90 transition-all"
-            >
-                Contact Sales
-            </button>
-            <RequestDemoModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
-        </>
+        <a
+            href="/pricing"
+            className="px-5 py-2.5 rounded-full bg-white text-black font-medium text-sm hover:bg-white/90 transition-all"
+        >
+            Get Started
+        </a>
     );
 }
 

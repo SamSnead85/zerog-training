@@ -1,7 +1,8 @@
 import { GoogleGenerativeAI, GenerativeModel, Content } from "@google/generative-ai";
 
-// Initialize Gemini with API key
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+// Initialize Gemini with API key (check multiple possible env var names)
+const API_KEY = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY || "";
+const genAI = new GoogleGenerativeAI(API_KEY);
 
 export interface LabExecutionRequest {
     labId: string;
