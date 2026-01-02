@@ -139,8 +139,37 @@ function CheckoutContent() {
     const isPlan = !!plan;
 
     const handleEnroll = async () => {
-        // In production, this would integrate with Stripe
-        alert("Stripe checkout integration coming soon! Contact us for enrollment.");
+        try {
+            // Call our Stripe checkout API
+            const response = await fetch("/api/stripe/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    planId: item.id,
+                    quantity: 1,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert(`Error: ${data.error}`);
+                return;
+            }
+
+            if (data.mode === "demo") {
+                alert("Stripe is in demo mode. Configure STRIPE_SECRET_KEY to enable payments.");
+                return;
+            }
+
+            // Redirect to Stripe Checkout
+            if (data.url) {
+                window.location.href = data.url;
+            }
+        } catch (error) {
+            console.error("Checkout error:", error);
+            alert("An error occurred. Please try again.");
+        }
     };
 
     const features = isPlan && plan ? plan.features : [

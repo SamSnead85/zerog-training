@@ -15,29 +15,42 @@ const stripe = process.env.STRIPE_SECRET_KEY
     : null;
 
 // Plan configurations with Stripe price IDs
-// You'll need to create these products in Stripe Dashboard and update the priceIds
 const PLANS = {
-    starter: {
-        name: "Starter",
-        price: 29,
-        priceId: process.env.STRIPE_STARTER_PRICE_ID || "price_starter_monthly",
-        description: "For individuals and small businesses",
+    professional: {
+        name: "Professional",
+        price: 49,
+        priceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID || "price_1SkwXS4Z6NZJLjYu0yP9Ans8",
+        description: "Full AI-Native training for individuals",
     },
-    pro: {
-        name: "Pro",
-        price: 99,
-        priceId: process.env.STRIPE_PRO_PRICE_ID || "price_pro_monthly",
-        description: "Create training and share with your team",
+    "professional-annual": {
+        name: "Professional Annual",
+        price: 470,
+        priceId: process.env.STRIPE_PROFESSIONAL_ANNUAL_PRICE_ID || "price_1SkwXS4Z6NZJLjYu2tyP7WK4",
+        description: "Full AI-Native training - Annual (save 20%)",
+        annual: true,
     },
-    "enterprise-access": {
-        name: "Enterprise Access",
+    team: {
+        name: "Team",
+        price: 299,
+        priceId: process.env.STRIPE_TEAM_PRICE_ID || "price_1SkwXS4Z6NZJLjYuGyozXNBj",
+        description: "For teams up to 10 members",
+    },
+    "team-annual": {
+        name: "Team Annual",
+        price: 2868,
+        priceId: process.env.STRIPE_TEAM_ANNUAL_PRICE_ID || "price_1SkwXT4Z6NZJLjYusdinASoO",
+        description: "Team plan - Annual (save 20%)",
+        annual: true,
+    },
+    "enterprise-seat": {
+        name: "Enterprise Per-Seat",
         price: 75,
-        priceId: process.env.STRIPE_ENTERPRISE_ACCESS_PRICE_ID || "price_enterprise_access_monthly",
-        description: "Full AI-Native training per user",
+        priceId: process.env.STRIPE_ENTERPRISE_SEAT_PRICE_ID || "price_1SkwXT4Z6NZJLjYuaXjWDD2E",
+        description: "Enterprise per-seat pricing",
         perSeat: true,
     },
     enterprise: {
-        name: "Enterprise",
+        name: "Enterprise Custom",
         price: 0,
         priceId: null, // Contact sales
         description: "Custom solutions for large organizations",
