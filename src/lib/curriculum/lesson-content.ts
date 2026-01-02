@@ -4616,3 +4616,7 @@ export function getLessonByModuleAndNumber(moduleId: string, lessonNumber: numbe
     return allLessons.find(l => l.moduleId === moduleId && l.lessonNumber === lessonNumber);
 }
 
+export function getLessonByModuleAndId(moduleId: string, lessonId: string): LessonContent | undefined {
+    return allLessons.find(l => l.moduleId === moduleId && l.id === lessonId);
+}
+
