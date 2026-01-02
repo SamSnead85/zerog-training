@@ -153,11 +153,14 @@ export default function PricingPage() {
             {/* Navigation Header */}
             <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl border-b border-white/5">
                 <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">
-                    <Link href="/" className="flex items-center gap-3 group">
+                    {/* Hide brand on mobile since hero shows it immediately below */}
+                    <Link href="/" className="hidden md:flex items-center gap-3 group">
                         <span className="font-playfair text-2xl font-medium tracking-tight italic">
                             ScaledNative<sup className="text-[10px] align-super ml-0.5">™</sup>
                         </span>
                     </Link>
+                    {/* Mobile: just show hamburger space */}
+                    <div className="md:hidden w-8" />
 
                     <div className="hidden md:flex items-center gap-10">
                         <Link href="/native" className="text-sm text-white/40 hover:text-white transition-colors">
@@ -190,12 +193,9 @@ export default function PricingPage() {
             {/* Hero */}
             <section className="pt-32 pb-16 px-6">
                 <div className="mx-auto max-w-6xl text-center">
-                    <Badge className="mb-4 bg-purple-500/20 text-purple-300 border-purple-500/30">
-                        Premium AI Training
-                    </Badge>
                     <h1 className="text-4xl md:text-5xl font-bold mb-6">
                         Invest in{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                        <span className="text-white/80">
                             AI-Native Skills
                         </span>
                     </h1>
@@ -217,12 +217,12 @@ export default function PricingPage() {
                                 className={cn(
                                     "p-6 relative overflow-hidden",
                                     plan.highlight
-                                        ? "border-purple-500/50 bg-purple-500/5"
+                                        ? "border-white/20 bg-white/[0.05]"
                                         : "bg-white/[0.02]"
                                 )}
                             >
                                 {plan.badge && (
-                                    <Badge className="absolute top-4 right-4 bg-purple-500 text-white">
+                                    <Badge className="absolute top-4 right-4 bg-white/10 text-white border-white/20">
                                         {plan.badge}
                                     </Badge>
                                 )}
@@ -249,7 +249,7 @@ export default function PricingPage() {
                                         className={cn(
                                             "w-full",
                                             plan.highlight
-                                                ? "bg-gradient-to-r from-purple-600 to-blue-600"
+                                                ? "bg-white text-black hover:bg-white/90"
                                                 : plan.id === "demo"
                                                     ? "bg-white/10 hover:bg-white/20"
                                                     : ""
@@ -395,7 +395,7 @@ export default function PricingPage() {
             </section>
 
             {/* Testimonials */}
-            <section className="py-16 px-6 bg-gradient-to-b from-purple-500/5 to-transparent">
+            <section className="py-16 px-6 bg-white/[0.02]">
                 <div className="mx-auto max-w-5xl">
                     <h2 className="text-2xl font-bold text-center mb-10">What Professionals Say</h2>
                     <div className="grid md:grid-cols-3 gap-6">
@@ -409,7 +409,7 @@ export default function PricingPage() {
                                 "The interactive labs are game-changing. I went from dabbling with ChatGPT to building actual AI agents in my workflow. Worth every penny."
                             </p>
                             <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold">
+                                <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 font-bold">
                                     JL
                                 </div>
                                 <div>
@@ -428,7 +428,7 @@ export default function PricingPage() {
                                 "Finally, AI training that's actually practical. The context engineering module alone saved me hours of trial and error. Highly recommend for any product leader."
                             </p>
                             <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">
+                                <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 font-bold">
                                     SP
                                 </div>
                                 <div>
@@ -447,7 +447,7 @@ export default function PricingPage() {
                                 "We enrolled our entire engineering team. The certification path and progress tracking made it easy to manage. Seeing real productivity gains within weeks."
                             </p>
                             <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">
+                                <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 font-bold">
                                     MK
                                 </div>
                                 <div>
@@ -513,7 +513,7 @@ export default function PricingPage() {
                             </Button>
                         </Link>
                         <Link href="/learn/checkout?plan=professional">
-                            <Button size="lg" className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600 min-w-[180px]">
+                            <Button size="lg" className="gap-2 bg-white text-black hover:bg-white/90 min-w-[180px]">
                                 <Award className="h-5 w-5" />
                                 Get Certified
                             </Button>
