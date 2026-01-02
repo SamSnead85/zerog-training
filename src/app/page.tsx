@@ -109,7 +109,6 @@ export default function PremiumLandingPage() {
             <Link href="/login" className="text-sm text-white/40 hover:text-white transition-colors">
               Sign in
             </Link>
-            <NavDemoButton />
           </div>
         </div>
       </nav>
