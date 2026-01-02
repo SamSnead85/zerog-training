@@ -171,7 +171,11 @@ export default function PremiumLandingPage() {
 
           {/* CTAs - Premium Pill Style */}
           <div className="flex flex-wrap justify-center gap-4 mb-20">
-            <HeroDemoButton />
+            <Link href="/pricing">
+              <button className="px-8 py-4 rounded-full bg-white text-black font-semibold text-base hover:shadow-[0_0_60px_rgba(255,255,255,0.15)] transition-all">
+                Get Started
+              </button>
+            </Link>
             <Link href="/ai-native">
               <button className="px-8 py-4 rounded-full bg-white/5 text-white font-medium text-base border border-white/20 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all">
                 Explore Platform

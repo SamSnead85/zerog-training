@@ -103,9 +103,12 @@ export default function EnterprisePage() {
                         <Link href="/pricing" className="text-sm text-white/60 hover:text-white transition-colors">Pricing</Link>
                     </nav>
                     <div className="flex items-center gap-3">
-                        <Link href="/contact?type=enterprise">
+                        <Link href="/login" className="text-sm text-white/60 hover:text-white transition-colors">
+                            Sign in
+                        </Link>
+                        <Link href="/pricing">
                             <button className="px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-colors">
-                                Contact Sales
+                                View Pricing
                             </button>
                         </Link>
                     </div>
