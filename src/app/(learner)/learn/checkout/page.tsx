@@ -142,6 +142,13 @@ function CheckoutContent() {
 
     const handleEnroll = async () => {
         setIsLoading(true);
+
+        // Safety timeout - if redirect doesn't happen in 15s, reset state
+        const timeoutId = setTimeout(() => {
+            setIsLoading(false);
+            alert("Checkout is taking longer than expected. Please try again.");
+        }, 15000);
+
         try {
             // Call our Stripe checkout API
             const response = await fetch("/api/stripe/checkout", {
@@ -153,15 +160,26 @@ function CheckoutContent() {
                 }),
             });
 
+            if (!response.ok) {
+                clearTimeout(timeoutId);
+                const errorText = await response.text();
+                console.error("Checkout API error:", response.status, errorText);
+                alert("Unable to connect to payment processor. Please try again.");
+                setIsLoading(false);
+                return;
+            }
+
             const data = await response.json();
 
             if (data.error) {
+                clearTimeout(timeoutId);
                 alert(`Error: ${data.error}`);
                 setIsLoading(false);
                 return;
             }
 
             if (data.mode === "demo") {
+                clearTimeout(timeoutId);
                 alert("Stripe is in demo mode. Configure STRIPE_SECRET_KEY to enable payments.");
                 setIsLoading(false);
                 return;
@@ -169,11 +187,35 @@ function CheckoutContent() {
 
             // Redirect to Stripe Checkout
             if (data.url) {
-                window.location.href = data.url;
+                // Clear timeout before redirect - page will unload
+                clearTimeout(timeoutId);
+
+                // Use window.location.assign for more reliable redirect
+                try {
+                    window.location.assign(data.url);
+                } catch {
+                    // Fallback if assign fails (some browsers)
+                    window.location.href = data.url;
+                }
+
+                // If we're still here after 2s, something went wrong with the redirect
+                setTimeout(() => {
+                    setIsLoading(false);
+                    // Open in new tab as fallback
+                    const newWindow = window.open(data.url, "_blank");
+                    if (!newWindow) {
+                        alert("Pop-up blocked. Please allow pop-ups for this site or click the button again.");
+                    }
+                }, 2000);
+            } else {
+                clearTimeout(timeoutId);
+                alert("Unable to start checkout. Please try again.");
+                setIsLoading(false);
             }
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error("Checkout error:", error);
-            alert("An error occurred. Please try again.");
+            alert("Connection error. Please check your internet and try again.");
             setIsLoading(false);
         }
     };
