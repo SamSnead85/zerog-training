@@ -59,6 +59,16 @@ export async function POST(request: NextRequest) {
             }
         });
 
+        // Send welcome email (fire and forget - don't block signup)
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL || ''}/api/email/welcome`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: user.email,
+                name: user.name || user.email,
+            }),
+        }).catch(err => console.error("Welcome email failed:", err));
+
         // Set cookie
         const response = NextResponse.json({
             success: true,

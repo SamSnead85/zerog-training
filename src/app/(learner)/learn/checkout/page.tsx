@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useState } from "react";
 import { Card, Badge, Button } from "@/components/ui";
 import {
     ArrowLeft,
@@ -15,6 +16,7 @@ import {
     Timer,
     Video,
     MessageSquare,
+    Loader2,
 } from "lucide-react";
 import { Suspense } from "react";
 
@@ -134,11 +136,12 @@ function CheckoutContent() {
     const plan = planId ? planData[planId] : null;
     const track = trackId ? trackData[trackId] : null;
 
-    // Use plan if available, otherwise fall back to track, otherwise default
     const item = plan || track || planData["professional"];
     const isPlan = !!plan;
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleEnroll = async () => {
+        setIsLoading(true);
         try {
             // Call our Stripe checkout API
             const response = await fetch("/api/stripe/checkout", {
@@ -154,11 +157,13 @@ function CheckoutContent() {
 
             if (data.error) {
                 alert(`Error: ${data.error}`);
+                setIsLoading(false);
                 return;
             }
 
             if (data.mode === "demo") {
                 alert("Stripe is in demo mode. Configure STRIPE_SECRET_KEY to enable payments.");
+                setIsLoading(false);
                 return;
             }
 
@@ -169,6 +174,7 @@ function CheckoutContent() {
         } catch (error) {
             console.error("Checkout error:", error);
             alert("An error occurred. Please try again.");
+            setIsLoading(false);
         }
     };
 
@@ -308,9 +314,19 @@ function CheckoutContent() {
                         <Button
                             className="w-full gap-2 text-lg py-6 mb-4"
                             onClick={handleEnroll}
+                            disabled={isLoading}
                         >
-                            <Sparkles className="h-5 w-5" />
-                            Complete Purchase
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                    Processing...
+                                </>
+                            ) : (
+                                <>
+                                    <Sparkles className="h-5 w-5" />
+                                    Complete Purchase
+                                </>
+                            )}
                         </Button>
 
                         <p className="text-xs text-center text-muted-foreward">
