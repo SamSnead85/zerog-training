@@ -87,12 +87,12 @@ export default function AINativePlatformPage() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <Link href="/login" className="text-sm text-white/40 hover:text-white transition-colors">
+                        <Link href="/learn/login" className="text-sm text-white/40 hover:text-white transition-colors">
                             Sign in
                         </Link>
-                        <Link href="/contact">
+                        <Link href="/pricing">
                             <button className="px-5 py-2.5 rounded-full bg-white text-black font-medium text-sm hover:bg-white/90 transition-all">
-                                Request Demo
+                                Get Started
                             </button>
                         </Link>
                     </div>

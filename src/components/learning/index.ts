@@ -2,3 +2,5 @@
 export { Quiz, sampleQuizQuestions, type QuizQuestion, type QuizProps } from './Quiz';
 export { CodeEditor, sampleCodeExercise, type CodeExercise, type CodeEditorProps } from './CodeEditor';
 export { VideoPlayer, sampleVideo, type VideoLesson, type VideoPlayerProps } from './VideoPlayer';
+export { SkillInsights, SkillInsightsCompact } from './SkillInsights';
+export { AdaptiveQuiz, type AdaptiveQuestion } from './AdaptiveQuiz';

@@ -144,6 +144,7 @@ export default function LearnerLoginPage() {
                     <div className="grid grid-cols-2 gap-3">
                         <button
                             type="button"
+                            onClick={() => alert("Google sign-in coming soon! Please use email/password for now.")}
                             className="h-12 flex items-center justify-center gap-2 rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors text-sm font-medium"
                         >
                             <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -156,6 +157,7 @@ export default function LearnerLoginPage() {
                         </button>
                         <button
                             type="button"
+                            onClick={() => alert("GitHub sign-in coming soon! Please use email/password for now.")}
                             className="h-12 flex items-center justify-center gap-2 rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors text-sm font-medium"
                         >
                             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
