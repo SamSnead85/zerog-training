@@ -55,6 +55,31 @@ const PLANS = {
         priceId: null, // Contact sales
         description: "Custom solutions for large organizations",
     },
+    // Legacy track IDs - map to professional plan for backwards compatibility
+    "native-practitioner": {
+        name: "NATIVE Certified Practitioner",
+        price: 49,
+        priceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID || "price_1SkwXS4Z6NZJLjYu0yP9Ans8",
+        description: "NATIVE framework certification",
+    },
+    "ai-engineer": {
+        name: "AI Engineering Professional",
+        price: 49,
+        priceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID || "price_1SkwXS4Z6NZJLjYu0yP9Ans8",
+        description: "AI engineering certification",
+    },
+    "essentials": {
+        name: "AI-Native Essentials",
+        price: 49,
+        priceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID || "price_1SkwXS4Z6NZJLjYu0yP9Ans8",
+        description: "Foundation modules",
+    },
+    "expert": {
+        name: "Expert + Live Training",
+        price: 49,
+        priceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID || "price_1SkwXS4Z6NZJLjYu0yP9Ans8",
+        description: "Premium with live sessions",
+    },
 };
 
 export async function POST(request: Request) {
