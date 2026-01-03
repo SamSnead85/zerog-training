@@ -234,7 +234,7 @@ export default function TracksPage() {
                 <p className="text-muted-foreground mb-6">
                     Take our quick assessment to get a personalized recommendation
                 </p>
-                <Link href="/learn/quiz">
+                <Link href="/assessment">
                     <Button variant="outline" size="lg" className="gap-2">
                         Take Skills Assessment
                         <ArrowRight className="h-4 w-4" />

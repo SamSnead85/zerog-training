@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -22,9 +22,15 @@ interface LearnerLayoutProps {
 export default function LearnerLayout({ children }: LearnerLayoutProps) {
     const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // Check if user is logged in
-    const isLoggedIn = typeof window !== "undefined" && localStorage.getItem("learner_user");
+    // Check if user is logged in via cookie or localStorage
+    useEffect(() => {
+        const hasLocalStorage = localStorage.getItem("learner_user");
+        // Check for learner_session cookie (set by OAuth callback)
+        const hasCookie = document.cookie.includes("learner_session=");
+        setIsLoggedIn(!!(hasLocalStorage || hasCookie));
+    }, [pathname]); // Re-check on route changes
 
     const navItems = [
         { href: "/learn/courses", label: "Courses", icon: BookOpen },
