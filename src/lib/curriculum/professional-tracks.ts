@@ -1,7 +1,7 @@
 // AI-Native Training V2.0 - Multi-Track Curriculum
 // Comprehensive 5-Track Professional Transformation Program
 
-export type TrackId = "developers" | "product-managers" | "business-analysts" | "project-managers" | "everyone";
+export type TrackId = "developers" | "product-managers" | "business-analysts" | "project-managers" | "everyone" | "executives";
 export type CertificationLevel = "foundation" | "professional" | "architect" | "essentials";
 
 export interface LearningObjective {
@@ -665,6 +665,153 @@ export const everyoneTrack: ProfessionalTrack = {
 };
 
 // ============================================
+// TRACK 6: AI TRANSFORMATION LEADERSHIP (EXECUTIVES)
+// ============================================
+
+export const executiveTrack: ProfessionalTrack = {
+    id: "executives" as TrackId,
+    title: "AI Transformation Leadership",
+    headline: "Lead the AI Revolution: Strategic Leadership for Enterprise Transformation",
+    tagline: "Drive AI adoption, measure ROI, and build an AI-native culture",
+    description: "Designed for C-suite executives, VPs, and senior leaders driving AI transformation. This strategic track equips you to build enterprise AI strategy, establish governance frameworks, measure and communicate AI ROI, and lead the organizational change required for AI-native success.",
+    icon: "🎯",
+    color: "rose",
+    certification: "AI Transformation Leader",
+    certificationCode: "ZGTL",
+    totalDuration: "8-10 hours",
+    modules: [
+        {
+            id: "exec-1",
+            number: 1,
+            title: "The AI Transformation Imperative",
+            subtitle: "Understanding Why AI-Native Organizations Win",
+            description: "Understand the strategic imperative for AI transformation. Learn how AI-native organizations are outperforming competitors, the risks of delayed adoption, and how to assess your organization's readiness for transformation.",
+            duration: "2 hours",
+            learningObjectives: [
+                { id: "exec1-1", text: "Articulate the business case for enterprise AI transformation" },
+                { id: "exec1-2", text: "Identify competitive risks of delayed AI adoption" },
+                { id: "exec1-3", text: "Assess organizational readiness for AI transformation" },
+            ],
+            topics: [
+                { id: "exec1-t1", title: "The AI-Native Advantage", description: "How leaders are pulling ahead with AI", duration: "45 min" },
+                { id: "exec1-t2", title: "Competitive Landscape Analysis", description: "What your competitors are doing with AI", duration: "45 min" },
+                { id: "exec1-t3", title: "Readiness Assessment Framework", description: "Evaluating your organization's AI maturity", duration: "30 min" },
+            ],
+            handsOnProjects: [
+                { id: "exec1-p1", title: "AI Readiness Report", description: "Assess your organization using the NATIVE framework", difficulty: "beginner", duration: "1 hour" },
+            ],
+        },
+        {
+            id: "exec-2",
+            number: 2,
+            title: "Building Enterprise AI Strategy",
+            subtitle: "From Vision to Actionable Roadmap",
+            description: "Develop a comprehensive enterprise AI strategy aligned with business objectives. Learn to prioritize AI initiatives, allocate resources effectively, and create roadmaps that deliver measurable value.",
+            duration: "2.5 hours",
+            learningObjectives: [
+                { id: "exec2-1", text: "Develop an enterprise AI vision aligned with business strategy" },
+                { id: "exec2-2", text: "Prioritize AI initiatives using value/complexity frameworks" },
+                { id: "exec2-3", text: "Create phased AI transformation roadmaps" },
+                { id: "exec2-4", text: "Allocate budget and resources for AI initiatives" },
+            ],
+            topics: [
+                { id: "exec2-t1", title: "Strategic Vision Development", description: "Aligning AI with business objectives", duration: "45 min" },
+                { id: "exec2-t2", title: "Initiative Prioritization", description: "Identifying high-value AI opportunities", duration: "45 min" },
+                { id: "exec2-t3", title: "Roadmap Development", description: "Phased approach to transformation", duration: "30 min" },
+                { id: "exec2-t4", title: "Investment Planning", description: "Budgeting for AI success", duration: "30 min" },
+            ],
+            handsOnProjects: [
+                { id: "exec2-p1", title: "AI Strategy Blueprint", description: "Create a 12-month AI transformation roadmap", difficulty: "intermediate", duration: "1.5 hours" },
+            ],
+        },
+        {
+            id: "exec-3",
+            number: 3,
+            title: "AI Governance & Risk Management",
+            subtitle: "Establishing Trust, Ethics, and Compliance Frameworks",
+            description: "Build robust AI governance frameworks that address ethics, compliance, and risk. Learn to establish AI policies, manage bias and fairness concerns, and ensure responsible AI deployment across the enterprise.",
+            duration: "2 hours",
+            learningObjectives: [
+                { id: "exec3-1", text: "Establish enterprise AI governance frameworks" },
+                { id: "exec3-2", text: "Address AI ethics and responsible use requirements" },
+                { id: "exec3-3", text: "Manage AI-specific risks and compliance needs" },
+                { id: "exec3-4", text: "Create AI transparency and accountability policies" },
+            ],
+            topics: [
+                { id: "exec3-t1", title: "AI Governance Foundations", description: "Building the governance structure", duration: "45 min" },
+                { id: "exec3-t2", title: "Ethics & Responsible AI", description: "Principles for trustworthy AI", duration: "45 min" },
+                { id: "exec3-t3", title: "Risk & Compliance", description: "Managing AI-specific risks", duration: "30 min" },
+            ],
+            handsOnProjects: [
+                { id: "exec3-p1", title: "AI Governance Charter", description: "Draft an AI governance framework for your organization", difficulty: "intermediate", duration: "1 hour" },
+            ],
+        },
+        {
+            id: "exec-4",
+            number: 4,
+            title: "Measuring AI ROI & Value",
+            subtitle: "Demonstrating Impact to Stakeholders and Boards",
+            description: "Master the art of measuring and communicating AI value. Learn to define AI success metrics, build business cases that resonate with boards, and demonstrate tangible ROI from AI investments.",
+            duration: "1.5 hours",
+            learningObjectives: [
+                { id: "exec4-1", text: "Define meaningful AI success metrics and KPIs" },
+                { id: "exec4-2", text: "Calculate and demonstrate AI ROI" },
+                { id: "exec4-3", text: "Present AI value to boards and stakeholders" },
+            ],
+            topics: [
+                { id: "exec4-t1", title: "AI Metrics Framework", description: "Defining what success looks like", duration: "30 min" },
+                { id: "exec4-t2", title: "ROI Calculation Methods", description: "Quantifying AI value", duration: "30 min" },
+                { id: "exec4-t3", title: "Executive Communication", description: "Presenting AI impact to stakeholders", duration: "30 min" },
+            ],
+            handsOnProjects: [
+                { id: "exec4-p1", title: "AI Value Dashboard", description: "Create an executive dashboard for AI metrics", difficulty: "beginner", duration: "45 min" },
+            ],
+        },
+        {
+            id: "exec-5",
+            number: 5,
+            title: "Leading AI Cultural Transformation",
+            subtitle: "Building an AI-Native Organization",
+            description: "Lead the cultural transformation required for AI success. Learn to overcome resistance, build AI champions across the organization, develop AI talent, and create a sustainable culture of AI innovation.",
+            duration: "2 hours",
+            learningObjectives: [
+                { id: "exec5-1", text: "Lead organizational change for AI adoption" },
+                { id: "exec5-2", text: "Build AI champions and centers of excellence" },
+                { id: "exec5-3", text: "Develop AI talent and skills strategies" },
+                { id: "exec5-4", text: "Create sustainable AI innovation culture" },
+            ],
+            topics: [
+                { id: "exec5-t1", title: "Change Management for AI", description: "Overcoming resistance and building momentum", duration: "45 min" },
+                { id: "exec5-t2", title: "Building AI Champions", description: "Creating advocates across the organization", duration: "30 min" },
+                { id: "exec5-t3", title: "Talent & Skills Strategy", description: "Developing AI capabilities in your workforce", duration: "30 min" },
+                { id: "exec5-t4", title: "Innovation Culture", description: "Sustaining AI-native practices", duration: "15 min" },
+            ],
+            handsOnProjects: [
+                { id: "exec5-p1", title: "Transformation Playbook", description: "Create a change management plan for AI adoption", difficulty: "advanced", duration: "1 hour" },
+            ],
+        },
+    ],
+    capstoneProject: {
+        title: "Enterprise AI Transformation Strategy",
+        description: "Develop a complete executive presentation for AI transformation at your organization, including strategy, governance, ROI projections, and change management plan.",
+        objectives: [
+            "Assess current organizational AI maturity",
+            "Develop comprehensive AI vision and strategy",
+            "Create governance and risk framework",
+            "Build business case with ROI projections",
+            "Design change management and talent strategy",
+        ],
+        deliverables: [
+            "Executive AI Strategy Presentation",
+            "AI Transformation Roadmap (12-24 months)",
+            "AI Governance Framework Document",
+            "ROI Model and Business Case",
+            "Change Management Playbook",
+        ],
+    },
+};
+
+// ============================================
 // EXPORTS
 // ============================================
 
@@ -673,6 +820,7 @@ export const allTracks: ProfessionalTrack[] = [
     businessAnalystsTrack,
     projectManagersTrack,
     everyoneTrack,
+    executiveTrack,
 ];
 
 export const getTrackById = (id: TrackId): ProfessionalTrack | undefined => {
@@ -685,6 +833,7 @@ export const getTrackColor = (color: string): string => {
         emerald: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/30",
         amber: "from-amber-500/20 to-amber-500/5 border-amber-500/30",
         blue: "from-blue-500/20 to-blue-500/5 border-blue-500/30",
+        rose: "from-rose-500/20 to-rose-500/5 border-rose-500/30",
     };
     return colors[color] || colors.blue;
 };
