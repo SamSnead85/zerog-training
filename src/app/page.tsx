@@ -158,14 +158,15 @@ export default function PremiumLandingPage() {
 
           {/* Tagline - Ultra Bold Sans */}
           <h2 className="font-montserrat text-3xl md:text-5xl lg:text-6xl font-black tracking-[-0.04em] leading-[0.92] mb-8 uppercase">
-            AI-Powered Workforce
+            From AI Fluency
             <br />
-            Transformation
+            <span className="bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent">To AI Self-Sufficiency</span>
           </h2>
 
-          {/* Sub-headline - Clean and Light */}
-          <p className="text-lg md:text-xl text-white/50 max-w-xl mx-auto mb-12 font-light">
-            The enterprise platform for building AI-Native teams.
+          {/* Sub-headline - Implementation Focus */}
+          <p className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-12 font-light">
+            You have the strategy. We provide the engine.<br />
+            <span className="text-white/70">The implementation platform for building AI-Native enterprises.</span>
           </p>
 
           {/* CTAs - Premium Pill Style */}
@@ -417,10 +418,11 @@ export default function PremiumLandingPage() {
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-20">
             <h2 className="font-montserrat text-4xl md:text-5xl font-bold mb-6">
-              ScaledNative is different.
+              The Implementation Layer
             </h2>
-            <p className="text-lg text-white/40 max-w-xl mx-auto">
-              Real training. Verified skills. Powered by AI.
+            <p className="text-lg text-white/40 max-w-2xl mx-auto">
+              We don't reteach theory. We turn AI knowledge into production-grade capability.<br />
+              Hands-on labs. Real workflows. Deep expertise.
             </p>
           </div>
 
@@ -447,8 +449,9 @@ export default function PremiumLandingPage() {
           <h2 className="font-montserrat text-4xl md:text-5xl font-bold tracking-tight mb-8">
             The NATIVE Framework<sup className="text-lg md:text-xl align-super ml-1">™</sup>
           </h2>
-          <p className="text-lg text-white/40 mb-16">
-            The enterprise standard for AI-Native transformation.
+          <p className="text-lg text-white/40 mb-16 max-w-2xl mx-auto">
+            The enterprise implementation standard for AI transformation.<br />
+            <span className="text-white/60">Post-strategy. Production-focused. Self-sufficiency as the goal.</span>
           </p>
 
           <div className="flex justify-center gap-4 mb-12">
@@ -486,10 +489,10 @@ export default function PremiumLandingPage() {
       <section className="py-32 px-8 border-t border-white/5">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-montserrat text-4xl md:text-5xl font-bold mb-6">
-            Ready to transform?
+            Your AI transformation doesn't end<br />with a certificate.
           </h2>
           <p className="text-lg text-white/40 mb-10">
-            Join the enterprises building AI-Native workforces.
+            <span className="text-white/70">It begins on our platform.</span> Join enterprises building AI self-sufficiency.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <FooterDemoButton />

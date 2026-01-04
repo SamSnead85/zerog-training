@@ -21,38 +21,38 @@ export default function NativeFrameworkPage() {
         {
             letter: "N",
             title: "Navigate",
-            description: "Assess your organization's AI readiness and identify transformation opportunities",
-            outcomes: ["AI Readiness Assessment", "Gap Analysis", "Opportunity Mapping"],
+            description: "Assess your technical readiness and data landscape. Identify where AI implementation will deliver the highest ROI.",
+            outcomes: ["Technical Readiness Audit", "Data Infrastructure Review", "Implementation Roadmap"],
         },
         {
             letter: "A",
-            title: "Architect",
-            description: "Design role-specific learning paths aligned with business objectives",
-            outcomes: ["Custom Curricula", "Role Mapping", "Success Metrics"],
+            title: "Activate",
+            description: "Build and deploy your first AI workflow in a sandboxed environment. Hands-on from day one.",
+            outcomes: ["Pilot Project Deployment", "Sandbox Environment", "First Working Prototype"],
         },
         {
             letter: "T",
             title: "Transform",
-            description: "Deliver adaptive, AI-powered training that meets learners where they are",
-            outcomes: ["Adaptive Learning", "Hands-On Labs", "Real-World Projects"],
+            description: "Scale your initial success into a production-grade, integrated system capable of enterprise demands.",
+            outcomes: ["Production Deployment", "Enterprise Scale", "Performance Optimization"],
         },
         {
             letter: "I",
             title: "Integrate",
-            description: "Embed AI capabilities into daily workflows and existing tools",
-            outcomes: ["Workflow Integration", "Tool Training", "Process Automation"],
+            description: "Connect your AI capabilities across the enterprise using MLOps pipelines and secure API integrations.",
+            outcomes: ["MLOps Implementation", "API Integrations", "Cross-System Workflows"],
         },
         {
             letter: "V",
             title: "Validate",
-            description: "Verify skill acquisition through assessments and portfolio building",
-            outcomes: ["Skill Verification", "Portfolio Projects", "Certifications"],
+            description: "Measure technical performance and business impact. Verify compliance and ensure reliability.",
+            outcomes: ["Performance Metrics", "ROI Validation", "Compliance Verification"],
         },
         {
             letter: "E",
             title: "Evolve",
-            description: "Continuously adapt training as AI technology and business needs change",
-            outcomes: ["Continuous Learning", "Trend Updates", "Capability Growth"],
+            description: "Use advanced modules to maintain, monitor, and continuously improve your AI systems for long-term self-sufficiency.",
+            outcomes: ["Continuous Improvement", "Self-Sufficiency", "Advanced Capabilities"],
         },
     ];
 
@@ -99,13 +99,21 @@ export default function NativeFrameworkPage() {
                 </div>
 
                 <div className="relative z-10 mx-auto max-w-5xl text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-8">
+                        <span className="text-sm font-medium text-cyan-400">Post-Strategy Implementation Standard</span>
+                    </div>
+
                     <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-6">
                         The NATIVE Framework<sup className="text-lg md:text-xl align-super ml-1">™</sup>
                     </h1>
 
-                    <p className="text-lg text-white/50 max-w-2xl mx-auto mb-12">
-                        The enterprise standard for AI-Native workforce transformation.
-                        A proven 6-phase methodology for building AI-powered organizations.
+                    <p className="text-lg text-white/50 max-w-3xl mx-auto mb-8">
+                        The enterprise implementation standard for turning AI strategy into production-grade capability.
+                        <span className="block mt-2 text-white/70">Six phases from pilot to self-sufficiency.</span>
+                    </p>
+
+                    <p className="text-sm text-white/40 max-w-2xl mx-auto">
+                        You've learned the theory. You've completed the workshops. Now it's time to build.
                     </p>
                 </div>
             </section>
