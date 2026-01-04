@@ -140,6 +140,15 @@ export async function GET(request: NextRequest) {
             path: "/",
         });
 
+        // Set a client-readable cookie for header auth state detection
+        response.cookies.set("learner_logged_in", "true", {
+            httpOnly: false,  // Readable by client-side JS
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            expires: expiresAt,
+            path: "/",
+        });
+
         return response;
 
     } catch (error) {

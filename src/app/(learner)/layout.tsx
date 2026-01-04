@@ -27,8 +27,8 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
     // Check if user is logged in via cookie or localStorage
     useEffect(() => {
         const hasLocalStorage = localStorage.getItem("learner_user");
-        // Check for learner_session cookie (set by OAuth callback)
-        const hasCookie = document.cookie.includes("learner_session=");
+        // Check for learner_logged_in cookie (non-HttpOnly, set by OAuth callback)
+        const hasCookie = document.cookie.includes("learner_logged_in=true");
         setIsLoggedIn(!!(hasLocalStorage || hasCookie));
     }, [pathname]); // Re-check on route changes
 
@@ -90,6 +90,7 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                                         <button
                                             onClick={() => {
                                                 localStorage.removeItem("learner_user");
+                                                document.cookie = "learner_logged_in=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                                                 window.location.href = "/learn";
                                             }}
                                             className="text-sm text-white/40 hover:text-white transition-colors"
@@ -156,6 +157,7 @@ export default function LearnerLayout({ children }: LearnerLayoutProps) {
                                         <button
                                             onClick={() => {
                                                 localStorage.removeItem("learner_user");
+                                                document.cookie = "learner_logged_in=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                                                 window.location.href = "/learn";
                                             }}
                                             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/50"
