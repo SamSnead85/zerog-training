@@ -198,6 +198,51 @@ Traditional programming involves writing explicit rules: if X, then Y. AI, and s
 - Input: Massive text data → Model that predicts next tokens
 - Example: GPT-4 trained on internet text, can generate human-like responses`
             },
+            { type: "heading", level: 2, text: "💡 Pro Tips from Industry Experts" },
+            {
+                type: "callout",
+                style: "tip",
+                content: "**Start Small, Think Big**: Don't try to AI-enable everything at once. Pick one workflow—code reviews, documentation, or test generation—and master it before expanding. The best AI-native developers build expertise incrementally."
+            },
+            {
+                type: "callout",
+                style: "tip",
+                content: "**Treat AI as a Junior Developer**: Review AI-generated code with the same scrutiny you'd give a junior team member. AI is fast but not infallible. Your expertise in architecture, security, and business logic remains essential."
+            },
+            {
+                type: "callout",
+                style: "tip",
+                content: "**Build a Prompt Library**: Save and iterate on prompts that work well. A personal library of tested prompts for common tasks (refactoring, debugging, documentation) will 10x your productivity over time."
+            },
+            { type: "heading", level: 2, text: "⚠️ Common Mistakes to Avoid" },
+            {
+                type: "callout",
+                style: "warning",
+                content: "**Mistake #1: Blindly Trusting AI Output** — AI can generate plausible-looking code that contains subtle bugs, security vulnerabilities, or performance issues. Always review, test, and understand the code before committing."
+            },
+            {
+                type: "callout",
+                style: "warning",
+                content: "**Mistake #2: Using AI for Everything** — AI excels at boilerplate, documentation, and exploration. It struggles with complex architecture decisions, business logic edge cases, and novel problem domains. Know when to rely on your own expertise."
+            },
+            {
+                type: "callout",
+                style: "warning",
+                content: "**Mistake #3: Ignoring Context Limits** — LLMs have context windows (the amount of text they can 'see' at once). Overloading context with irrelevant information degrades quality. Be selective about what context you provide."
+            },
+            { type: "heading", level: 2, text: "📈 Business Impact: Why This Matters" },
+            {
+                type: "text",
+                content: `Understanding AI fundamentals isn't just about technical skills—it's about delivering measurable business value.
+
+**Productivity Gains**: Developers using AI tools effectively report 30-50% productivity improvements on routine tasks like code generation, documentation, and bug fixing. McKinsey research shows AI-assisted developers complete tasks 25-75% faster depending on task complexity.
+
+**Quality Improvements**: AI tools can identify bugs and security vulnerabilities earlier in the development cycle. Teams using AI-powered code review catch 15-30% more issues before production.
+
+**Competitive Advantage**: Companies with AI-native development practices ship features faster and more reliably. In competitive markets, this speed-to-market advantage compounds over time.
+
+**Career Impact**: AI-native developers command premium salaries and are in high demand. Understanding AI isn't optional for career growth—it's essential for staying relevant in the next decade of software development.`
+            },
             { type: "heading", level: 2, text: "Key AI Terms Every Developer Should Know" },
             {
                 type: "code",
