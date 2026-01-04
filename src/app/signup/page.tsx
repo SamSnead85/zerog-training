@@ -237,6 +237,29 @@ function SignupForm() {
                             </div>
                         </div>
 
+                        {/* Prior Certification Recognition */}
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-foreground flex items-center gap-2">
+                                <Award className="h-4 w-4 text-amber-500" />
+                                Prior AI Certification <span className="text-xs text-muted-foreground font-normal">(optional)</span>
+                            </label>
+                            <select
+                                className="w-full h-11 px-4 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none"
+                                defaultValue=""
+                            >
+                                <option value="">Select if you have prior certification...</option>
+                                <option value="scaled-agile">Scaled Agile - AI-Native Foundations</option>
+                                <option value="google-ai">Google Cloud - AI/ML Certification</option>
+                                <option value="aws-ai">AWS - Machine Learning Specialty</option>
+                                <option value="microsoft-ai">Microsoft - AI Engineer Associate</option>
+                                <option value="ibm-ai">IBM - AI Enterprise Workflow</option>
+                                <option value="other">Other AI/ML Certification</option>
+                            </select>
+                            <p className="text-xs text-muted-foreground">
+                                Already certified? Unlock our <span className="text-cyan-500 font-medium">Implementation Accelerator</span> path and skip foundational content.
+                            </p>
+                        </div>
+
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-foreground">Password</label>
                             <div className="relative">

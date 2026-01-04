@@ -111,14 +111,18 @@ export default function MethodologyPage() {
                         <span className="text-sm font-medium text-primary">IACET Accredited Provider</span>
                     </div>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-                        The Bedrock of Our{" "}
+                        The Implementation Layer for{" "}
                         <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                            Credibility
+                            AI Transformation
                         </span>
                     </h1>
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-                        Our multi-layered quality framework ensures every piece of content is authoritative,
-                        effective, and built by proven industry leaders.
+                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
+                        You've learned the theory. You've completed the workshops.
+                        <span className="text-foreground font-medium"> Now it's time to build.</span>
+                    </p>
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                        We don't reteach the basics—we turn AI knowledge into production-grade capability.
+                        Think of us as the graduate school to foundational AI training.
                     </p>
                 </div>
             </section>
