@@ -101,51 +101,30 @@ const individualPlans = [
     },
 ];
 
-const enterprisePlans = [
-    {
-        id: "team",
-        name: "Team",
-        seats: "5-10 seats",
-        price: "$599",
-        period: "per seat",
-        features: [
-            "All Professional features",
-            "Team admin dashboard",
-            "Progress tracking",
-            "Group completion certificates",
-            "Slack/Teams integration",
-        ],
-    },
-    {
-        id: "department",
-        name: "Department",
-        seats: "11-50 seats",
-        price: "$499",
-        period: "per seat",
-        features: [
-            "All Team features",
-            "LMS integration (SCORM)",
-            "Custom branding",
-            "Dedicated success manager",
-            "Quarterly business reviews",
-        ],
-    },
-    {
-        id: "enterprise",
-        name: "Enterprise",
-        seats: "50+ seats",
-        price: "Custom",
-        period: "",
-        features: [
-            "All Department features",
-            "On-site training workshops",
-            "Live trainer sessions",
-            "Custom content development",
-            "Executive briefings",
-            "SLA & priority support",
-        ],
-    },
+const volumePricingTiers = [
+    { range: "25–49", price: "$2,500" },
+    { range: "50–99", price: "$2,300" },
+    { range: "100–199", price: "$2,100" },
+    { range: "200–349", price: "$1,900" },
+    { range: "350–499", price: "$1,700" },
+    { range: "500+", price: "Custom" },
 ];
+
+const enterpriseIncludes = [
+    "Unlimited access to all training modules",
+    "Role-specific learning paths",
+    "Enterprise analytics & usage reporting",
+    "Centralized user management",
+    "Priority support",
+    "Annual license (no per-course fees)",
+];
+
+const exampleTotals = [
+    { users: 200, rate: "$1,900", total: "$380,000" },
+    { users: 300, rate: "$1,900", total: "$570,000" },
+    { users: 500, rate: "$1,700", total: "$850,000" },
+];
+
 
 export default function PricingPage() {
     return (
@@ -272,49 +251,92 @@ export default function PricingPage() {
                             <Building2 className="h-3 w-3 mr-1" />
                             For Organizations
                         </Badge>
-                        <h2 className="text-3xl font-bold mb-4">Enterprise Training</h2>
+                        <h2 className="text-3xl font-bold mb-4">Enterprise Plan</h2>
                         <p className="text-white/60 max-w-xl mx-auto">
-                            Transform your entire organization with group training,
-                            live sessions, and on-site workshops.
+                            Designed for teams of 25+ users. Annual licenses with volume-based pricing.
+                            <br />Net-30 invoicing available.
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6 mb-12">
-                        {enterprisePlans.map((plan) => (
-                            <Card key={plan.id} className="p-6 bg-white/[0.02]">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <Users className="h-5 w-5 text-blue-400" />
-                                    <span className="text-sm text-white/50">{plan.seats}</span>
+                    <div className="grid lg:grid-cols-2 gap-8 mb-12">
+                        {/* Volume Pricing Table */}
+                        <Card className="p-6 bg-white/[0.02]">
+                            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                                <Users className="h-5 w-5 text-blue-400" />
+                                Progressive Volume Pricing
+                            </h3>
+                            <p className="text-sm text-white/50 mb-4">
+                                Per-user pricing automatically decreases as more users are added.
+                            </p>
+                            <div className="space-y-2">
+                                <div className="flex justify-between text-xs text-white/40 uppercase tracking-wider pb-2 border-b border-white/10">
+                                    <span>Number of Users</span>
+                                    <span>Price per User (Annual)</span>
                                 </div>
-                                <h3 className="text-xl font-bold">{plan.name}</h3>
-                                <div className="mt-3 mb-4">
-                                    <span className="text-2xl font-bold">{plan.price}</span>
-                                    {plan.period && (
-                                        <span className="text-white/50 ml-2">{plan.period}</span>
-                                    )}
-                                </div>
-                                <ul className="space-y-2">
-                                    {plan.features.map((feature, i) => (
-                                        <li key={i} className="flex items-start gap-2 text-sm">
-                                            <Check className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                                            <span className="text-white/70">{feature}</span>
-                                        </li>
+                                {volumePricingTiers.map((tier, i) => (
+                                    <div key={i} className={cn(
+                                        "flex justify-between py-2 text-sm",
+                                        i === 0 ? "text-white font-medium" : "text-white/70"
+                                    )}>
+                                        <span>{tier.range}</span>
+                                        <span className="font-mono">{tier.price}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-6 pt-4 border-t border-white/10">
+                                <p className="text-xs text-white/40 mb-3">Example Annual Totals:</p>
+                                <div className="space-y-1 text-sm">
+                                    {exampleTotals.map((ex, i) => (
+                                        <div key={i} className="text-white/60">
+                                            {ex.users} users × {ex.rate} = <span className="text-white font-medium">{ex.total}/year</span>
+                                        </div>
                                     ))}
-                                </ul>
-                            </Card>
-                        ))}
+                                </div>
+                            </div>
+                        </Card>
+
+                        {/* What's Included */}
+                        <Card className="p-6 bg-white/[0.02]">
+                            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                                <Check className="h-5 w-5 text-emerald-400" />
+                                What&apos;s Included
+                            </h3>
+                            <p className="text-sm text-white/50 mb-4">
+                                Full platform access for your entire organization.
+                            </p>
+                            <ul className="space-y-3">
+                                {enterpriseIncludes.map((item, i) => (
+                                    <li key={i} className="flex items-start gap-3 text-sm">
+                                        <Check className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                                        <span className="text-white/80">{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="mt-6 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                                <p className="text-sm text-blue-300">
+                                    <strong>Starting at $2,500</strong> per user / year
+                                    <br />
+                                    <span className="text-blue-300/70">Annual, prepaid • Full platform + all training tracks</span>
+                                </p>
+                            </div>
+                        </Card>
                     </div>
 
+                    {/* CTA */}
                     <div className="text-center">
-                        <Link href="/enterprise">
-                            <Button size="lg" className="gap-2">
-                                <Headphones className="h-5 w-5" />
-                                Talk to Sales
+                        <Link href="/contact?type=invoice">
+                            <Button size="lg" className="gap-2 bg-white text-black hover:bg-white/90">
+                                <Sparkles className="h-5 w-5" />
+                                Request Invoice
                             </Button>
                         </Link>
+                        <p className="text-sm text-white/40 mt-4">
+                            Credit card, ACH, or wire transfer accepted
+                        </p>
                     </div>
                 </div>
             </section>
+
 
             {/* Live Training Add-On */}
             <section className="py-16 px-6">

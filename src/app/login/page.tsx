@@ -267,10 +267,14 @@ function LoginForm() {
                         </button>
                     </div>
 
-                    {/* Forgot Password */}
-                    <div className="mt-6 text-center">
-                        <Link href="/forgot-password" className="text-sm text-primary hover:underline">
-                            Forgot your password?
+                    {/* Forgot Password & Back to Site */}
+                    <div className="mt-6 flex items-center justify-center gap-4 text-sm">
+                        <Link href="/forgot-password" className="text-primary hover:underline">
+                            Forgot password?
+                        </Link>
+                        <span className="text-white/20">|</span>
+                        <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+                            ← Back to site
                         </Link>
                     </div>
 
