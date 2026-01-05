@@ -88,8 +88,11 @@ const trackDemoContent: Record<string, {
     }>;
     videoUrl?: string;
     videoTitle?: string;
+    videoChapters?: Array<{ time: string; title: string }>;
+    resources?: Array<{ title: string; type: string; size: string }>;
     labTitle?: string;
     labCode?: string;
+    labOutput?: string;
     labSteps?: Array<{ title: string; completed: boolean; current?: boolean }>;
     quizQuestion?: string;
     quizOptions?: string[];
@@ -215,82 +218,123 @@ result = executor.invoke({"input": "My order hasn't arrived"})`,
     },
     professional: {
         stops: [
-            { id: "video", title: "RAG Architecture Deep Dive", type: "video", icon: Play, description: "Production RAG systems and semantic search" },
-            { id: "lab", title: "Build a RAG Pipeline", type: "lab", icon: Database, description: "Create a knowledge base with vector search" },
-            { id: "quiz", title: "RAG & Security Quiz", type: "quiz", icon: Shield, description: "Validate RAG patterns and AI security knowledge" },
-            { id: "project", title: "Enterprise Knowledge System", type: "project", icon: Target, description: "Full production RAG implementation" },
+            { id: "video", title: "Healthcare AI Deep Dive", type: "video", icon: Play, description: "Building AI for regulated industries" },
+            { id: "lab", title: "Patient Services CRM Lab", type: "lab", icon: Database, description: "Generate a healthcare CRM with AI" },
+            { id: "quiz", title: "Healthcare AI Quiz", type: "quiz", icon: Shield, description: "HIPAA compliance and AI security" },
+            { id: "project", title: "Enterprise Health Platform", type: "project", icon: Target, description: "Full patient services application" },
             { id: "cert", title: "NATIVE-P Certification", type: "certification", icon: Award, description: "Professional Developer credential" },
         ],
         videoUrl: "https://www.youtube.com/embed/sVcwVQRHIc8",
-        videoTitle: "Building Production RAG Systems - LangChain",
-        labTitle: "Build a Production RAG Pipeline",
-        labCode: `# Production RAG Pipeline Lab
-# Build semantic search over enterprise documents
-
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Pinecone
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.chains import RetrievalQA
-
-# 1. Document Processing
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
-    chunk_overlap=200,
-    separators=["\\n\\n", "\\n", ". ", " "]
-)
-chunks = text_splitter.split_documents(documents)
-
-# 2. Generate Embeddings
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-
-# 3. Store in Vector Database
-vectorstore = Pinecone.from_documents(
-    chunks,
-    embeddings,
-    index_name="enterprise-knowledge"
-)
-
-# 4. Create Retrieval Chain
-retriever = vectorstore.as_retriever(
-    search_type="mmr",  # Maximal Marginal Relevance
-    search_kwargs={"k": 5, "fetch_k": 20}
-)
-
-qa_chain = RetrievalQA.from_chain_type(
-    llm=llm,
-    chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=True
-)
-
-# Query the knowledge base
-result = qa_chain.invoke("What is our refund policy?")`,
-        labSteps: [
-            { title: "Load and chunk documents", completed: true },
-            { title: "Generate embeddings", completed: true },
-            { title: "Configure vector store", completed: true },
-            { title: "Implement retrieval chain", completed: false, current: true },
-            { title: "Add re-ranking layer", completed: false },
-            { title: "Implement security filters", completed: false },
+        videoTitle: "Building Production RAG Systems for Healthcare",
+        videoChapters: [
+            { time: "0:00", title: "Introduction to Healthcare AI" },
+            { time: "4:32", title: "HIPAA Compliance Essentials" },
+            { time: "12:18", title: "Patient Data Architecture" },
+            { time: "23:45", title: "Secure RAG Implementation" },
+            { time: "38:20", title: "Production Deployment" },
         ],
-        quizQuestion: "What is the purpose of chunking in RAG systems?",
+        resources: [
+            { title: "Healthcare AI Compliance Guide", type: "PDF", size: "2.4 MB" },
+            { title: "HIPAA Data Handling Checklist", type: "Article", size: "5 min read" },
+            { title: "Patient CRM Reference Architecture", type: "Diagram", size: "1.2 MB" },
+        ],
+        labTitle: "Build a Patient Services CRM",
+        labCode: `# Healthcare Patient Services CRM Generator
+# AI-Powered Application Development Lab
+
+from healthcrm import PatientModel, ServiceRecord
+from ai_generator import CRMBuilder, HIPAAValidator
+
+# 1. Define Patient Data Schema
+class Patient(PatientModel):
+    patient_id: str
+    medical_record_number: str
+    date_of_birth: date
+    insurance_provider: str
+    primary_physician: str
+    conditions: list[str]
+    medications: list[Medication]
+    visit_history: list[Visit]
+
+# 2. Generate HIPAA-Compliant API Endpoints
+crm_builder = CRMBuilder(
+    model=Patient,
+    security="HIPAA",
+    encryption="AES-256"
+)
+
+# 3. Auto-generate Database Schema
+db_schema = crm_builder.generate_schema()
+print("📊 Generated PostgreSQL schema...")
+
+# 4. Create REST API with Audit Logging
+api = crm_builder.generate_api(
+    endpoints=["create", "read", "update", "search"],
+    audit_logging=True,
+    role_based_access=True
+)
+print("🔐 Generated secure API endpoints...")
+
+# 5. Build React Dashboard Components
+dashboard = crm_builder.generate_ui(
+    theme="healthcare-professional",
+    components=["PatientList", "RecordViewer", "AppointmentScheduler"]
+)
+print("🖥️  Generated React dashboard...")
+
+# 6. Validate HIPAA Compliance
+validator = HIPAAValidator()
+report = validator.audit(api, db_schema)
+print(f"✅ HIPAA Validation: {report.status}")`,
+        labOutput: `📊 Generated PostgreSQL schema...
+   → Created table: patients (12 columns)
+   → Created table: medical_records (8 columns)
+   → Created table: appointments (6 columns)
+   → Applied encryption to PHI fields
+
+🔐 Generated secure API endpoints...
+   → POST /api/patients (with audit logging)
+   → GET /api/patients/:id (role-based access)
+   → PUT /api/patients/:id (HIPAA compliant)
+   → GET /api/patients/search (encrypted query)
+
+🖥️  Generated React dashboard...
+   → PatientList.tsx (142 lines)
+   → RecordViewer.tsx (89 lines)
+   → AppointmentScheduler.tsx (156 lines)
+   → index.css (healthcare-professional theme)
+
+✅ HIPAA Validation: PASSED
+   → PHI encryption: ✓
+   → Audit logging: ✓
+   → Access controls: ✓
+   → Data retention policy: ✓`,
+        labSteps: [
+            { title: "Define patient data model", completed: true },
+            { title: "Configure HIPAA security", completed: true },
+            { title: "Generate database schema", completed: true },
+            { title: "Create REST API endpoints", completed: true },
+            { title: "Build React dashboard", completed: false, current: true },
+            { title: "Run HIPAA validation", completed: false },
+        ],
+        quizQuestion: "What is required for HIPAA-compliant AI systems handling PHI?",
         quizOptions: [
-            "To make documents load faster",
-            "To split documents into optimal sizes for embedding and retrieval",
-            "To encrypt sensitive data",
-            "To reduce API costs",
+            "Open-source models only",
+            "End-to-end encryption, audit logging, and access controls",
+            "Cloud deployment is prohibited",
+            "AI cannot process patient data",
         ],
         quizCorrectIndex: 1,
-        quizExplanation: "Chunking splits documents into appropriately sized pieces that can be effectively embedded and retrieved. Chunk size affects retrieval quality and context relevance.",
-        projectTitle: "Enterprise Knowledge Management System",
-        projectScenario: "Build a production-grade knowledge system that enables employees to query company documentation, policies, and procedures using natural language.",
+        quizExplanation: "HIPAA requires technical safeguards including encryption, comprehensive audit trails, and role-based access controls when AI systems process Protected Health Information (PHI).",
+        projectTitle: "Enterprise Patient Services Platform",
+        projectScenario: "Build a complete patient services application for a regional healthcare network, including appointment scheduling, medical record access, prescription management, and provider messaging.",
         projectDeliverables: [
-            "Document ingestion pipeline with metadata extraction",
-            "Hybrid search (semantic + keyword) implementation",
-            "Re-ranking with cross-encoders for precision",
-            "Role-based access control for sensitive documents",
-            "Query analytics and feedback loop",
-            "Hallucination detection and source citation",
+            "Patient portal with secure authentication",
+            "Medical records viewer with role-based access",
+            "AI-powered appointment scheduling assistant",
+            "Prescription refill workflow automation",
+            "Provider messaging with HIPAA encryption",
+            "Analytics dashboard for administrators",
         ],
     },
     architect: {
@@ -615,26 +659,81 @@ export default function EnterpriseTourPage() {
                         {currentStopData.type === "video" && (
                             <Card className="p-6 space-y-6">
                                 <div>
-                                    <Badge variant="outline" className="mb-2">Expert Content</Badge>
+                                    <Badge variant="outline" className="mb-2">Expert Video Content</Badge>
                                     <h2 className="text-2xl font-bold">{demoContent.videoTitle}</h2>
-                                    <p className="text-muted-foreground mt-1">Learn from industry leaders</p>
+                                    <p className="text-muted-foreground mt-1">Curated from industry practitioners and thought leaders</p>
                                 </div>
-                                <div className="aspect-video bg-slate-900 rounded-xl overflow-hidden">
-                                    <iframe
-                                        src={demoContent.videoUrl}
-                                        className="w-full h-full"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    />
-                                </div>
-                                <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
-                                    <h3 className="font-semibold mb-2 flex items-center gap-2 text-primary">
-                                        <Lightbulb className="w-4 h-4" /> Why This Matters
-                                    </h3>
-                                    <p className="text-sm text-muted-foreground">
-                                        Our curriculum integrates insights from Google, DeepLearning.AI, and enterprise practitioners
-                                        to ensure your team learns from the best in the industry.
-                                    </p>
+
+                                <div className="grid lg:grid-cols-[1fr_300px] gap-6">
+                                    {/* Video Player */}
+                                    <div>
+                                        <div className="relative aspect-video bg-slate-900 rounded-xl overflow-hidden border border-border shadow-2xl">
+                                            {/* Branded overlay header */}
+                                            <div className="absolute top-0 left-0 right-0 z-10 p-3 bg-gradient-to-b from-black/80 to-transparent">
+                                                <div className="flex items-center gap-2 text-xs text-white/60">
+                                                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                                    ScaledNative Training
+                                                </div>
+                                            </div>
+                                            <iframe
+                                                src={`${demoContent.videoUrl}?modestbranding=1&rel=0&showinfo=0`}
+                                                className="w-full h-full"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            />
+                                        </div>
+
+                                        {/* Chapters */}
+                                        {demoContent.videoChapters && (
+                                            <div className="mt-4 p-4 rounded-xl bg-muted/30 border border-border/50">
+                                                <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                                                    <BookOpen className="w-4 h-4 text-primary" />
+                                                    Chapters
+                                                </h3>
+                                                <div className="grid grid-cols-2 gap-2 text-sm">
+                                                    {demoContent.videoChapters.map((chapter, i) => (
+                                                        <button key={i} className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-left">
+                                                            <span className="text-xs text-primary font-mono">{chapter.time}</span>
+                                                            <span className="text-muted-foreground">{chapter.title}</span>
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Resources Sidebar */}
+                                    <div className="space-y-4">
+                                        <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
+                                            <h3 className="font-semibold mb-2 flex items-center gap-2 text-primary">
+                                                <Lightbulb className="w-4 h-4" /> Why This Matters
+                                            </h3>
+                                            <p className="text-sm text-muted-foreground">
+                                                Our curriculum integrates insights from enterprise practitioners
+                                                to ensure your team learns from the best in the industry.
+                                            </p>
+                                        </div>
+
+                                        {demoContent.resources && (
+                                            <div className="p-4 rounded-xl bg-muted/30 border border-border/50">
+                                                <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                                                    <FileText className="w-4 h-4" />
+                                                    Supplementary Materials
+                                                </h3>
+                                                <div className="space-y-2">
+                                                    {demoContent.resources.map((resource, i) => (
+                                                        <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-background/50 border border-border/30">
+                                                            <div className="flex items-center gap-2">
+                                                                <Badge variant="secondary" className="h-5 text-[10px]">{resource.type}</Badge>
+                                                                <span className="text-sm">{resource.title}</span>
+                                                            </div>
+                                                            <span className="text-xs text-muted-foreground">{resource.size}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </Card>
                         )}
@@ -646,30 +745,53 @@ export default function EnterpriseTourPage() {
                                     <div>
                                         <Badge variant="outline" className="mb-2">Hands-On Lab</Badge>
                                         <h2 className="text-2xl font-bold">{demoContent.labTitle}</h2>
-                                        <p className="text-muted-foreground mt-1">Interactive coding environment</p>
+                                        <p className="text-muted-foreground mt-1">AI-powered application development</p>
                                     </div>
                                 </div>
                                 <div className="grid lg:grid-cols-[1fr_280px] gap-6">
-                                    <div className="bg-[#1e1e1e] rounded-xl overflow-hidden border border-border">
-                                        <div className="flex items-center gap-2 px-4 py-2 bg-[#252526] border-b border-[#3c3c3c]">
-                                            <div className="flex gap-1.5">
-                                                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                                                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                                                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                                    <div className="space-y-4">
+                                        {/* Code Editor */}
+                                        <div className="bg-[#1e1e1e] rounded-xl overflow-hidden border border-border">
+                                            <div className="flex items-center gap-2 px-4 py-2 bg-[#252526] border-b border-[#3c3c3c]">
+                                                <div className="flex gap-1.5">
+                                                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                                                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                                                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                                                </div>
+                                                <span className="text-xs text-[#858585] ml-2">healthcare_crm_generator.py</span>
+                                                <div className="ml-auto flex gap-2">
+                                                    <Badge className="h-5 text-[10px] bg-green-500/20 text-green-400 border-green-500/30">✓ HIPAA Mode</Badge>
+                                                </div>
                                             </div>
-                                            <span className="text-xs text-[#858585] ml-2">lab_exercise.py</span>
+                                            <pre className="p-4 text-sm font-mono text-[#d4d4d4] overflow-x-auto max-h-[300px]">
+                                                <code>{demoContent.labCode}</code>
+                                            </pre>
+                                            <div className="px-4 py-3 bg-[#252526] border-t border-[#3c3c3c] flex items-center justify-between">
+                                                <span className="text-xs text-[#858585]">Python 3.11 • ScaledNative Runtime</span>
+                                                <Button size="sm" className="h-7 text-xs bg-emerald-600 hover:bg-emerald-700">
+                                                    <Play className="w-3 h-3 mr-1" /> Run Code
+                                                </Button>
+                                            </div>
                                         </div>
-                                        <pre className="p-4 text-sm font-mono text-[#d4d4d4] overflow-x-auto max-h-[400px]">
-                                            <code>{demoContent.labCode}</code>
-                                        </pre>
-                                        <div className="px-4 py-3 bg-[#252526] border-t border-[#3c3c3c] flex items-center justify-between">
-                                            <span className="text-xs text-[#858585]">Python 3.11</span>
-                                            <Button size="sm" className="h-7 text-xs">
-                                                <Play className="w-3 h-3 mr-1" /> Run Code
-                                            </Button>
-                                        </div>
+
+                                        {/* Terminal Output */}
+                                        {demoContent.labOutput && (
+                                            <div className="bg-black rounded-xl overflow-hidden border border-emerald-500/30">
+                                                <div className="flex items-center gap-2 px-4 py-2 bg-emerald-900/30 border-b border-emerald-500/20">
+                                                    <Terminal className="w-4 h-4 text-emerald-400" />
+                                                    <span className="text-xs text-emerald-400 font-mono">Output</span>
+                                                    <Badge className="ml-auto h-5 text-[10px] bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse" />
+                                                        Executed
+                                                    </Badge>
+                                                </div>
+                                                <pre className="p-4 text-sm font-mono text-emerald-300/90 overflow-x-auto max-h-[250px]">
+                                                    <code>{demoContent.labOutput}</code>
+                                                </pre>
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="space-y-3">
+                                    <div className="space-y-4">
                                         <h3 className="font-semibold text-sm">Lab Progress</h3>
                                         {demoContent.labSteps?.map((step, i) => (
                                             <div
@@ -689,6 +811,25 @@ export default function EnterpriseTourPage() {
                                                 </div>
                                             </div>
                                         ))}
+
+                                        {/* Generated Files Preview */}
+                                        <div className="mt-6 p-4 rounded-lg bg-muted/30 border border-border/50">
+                                            <h4 className="font-semibold text-xs text-muted-foreground mb-3">GENERATED FILES</h4>
+                                            <div className="space-y-2 text-xs font-mono">
+                                                <div className="flex items-center gap-2 text-blue-400">
+                                                    <FileText className="w-3 h-3" /> db/schema.sql
+                                                </div>
+                                                <div className="flex items-center gap-2 text-green-400">
+                                                    <Code className="w-3 h-3" /> api/patients.ts
+                                                </div>
+                                                <div className="flex items-center gap-2 text-purple-400">
+                                                    <Layers className="w-3 h-3" /> components/PatientList.tsx
+                                                </div>
+                                                <div className="flex items-center gap-2 text-amber-400">
+                                                    <Shield className="w-3 h-3" /> middleware/hipaa.ts
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </Card>
