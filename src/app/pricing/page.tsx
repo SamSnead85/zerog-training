@@ -112,6 +112,7 @@ const volumePricingTiers = [
 
 const enterpriseIncludes = [
     "Unlimited access to all training modules",
+    "Highly customizable to your organization",
     "Role-specific learning paths",
     "Enterprise analytics & usage reporting",
     "Centralized user management",

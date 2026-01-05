@@ -56,11 +56,23 @@ export default function ContactPage() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setIsSubmitted(true);
+            } else {
+                console.error("Contact form submission failed");
+            }
+        } catch (error) {
+            console.error("Contact form error:", error);
+        }
 
         setIsSubmitting(false);
-        setIsSubmitted(true);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
