@@ -160,7 +160,7 @@ export default function PremiumLandingPage() {
           <h2 className="font-montserrat text-3xl md:text-5xl lg:text-6xl font-black tracking-[-0.04em] leading-[0.92] mb-8 uppercase">
             From AI Fluency
             <br />
-            <span className="bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent">To AI Self-Sufficiency</span>
+            <span className="text-white/90">To AI Self-Sufficiency</span>
           </h2>
 
           {/* Sub-headline - Implementation Focus */}
@@ -205,21 +205,21 @@ export default function PremiumLandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <Link href="/enterprise" className="group p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/30 hover:bg-white/[0.05] transition-all text-left">
                 <div className="flex items-center gap-3 mb-3">
-                  <Users className="h-5 w-5 text-cyan-400" />
+                  <Users className="h-5 w-5 text-[#c9a55c]" />
                   <span className="font-semibold">For Organizations</span>
                 </div>
                 <p className="text-sm text-white/50">Team training, compliance, enterprise features, and dedicated support.</p>
-                <div className="mt-4 text-xs text-white/30 group-hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <div className="mt-4 text-xs text-white/30 group-hover:text-white/70 transition-colors flex items-center gap-1">
                   Contact Sales <ArrowRight className="h-3 w-3" />
                 </div>
               </Link>
               <Link href="/learn" className="group p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/30 hover:bg-white/[0.05] transition-all text-left">
                 <div className="flex items-center gap-3 mb-3">
-                  <Sparkles className="h-5 w-5 text-cyan-400" />
+                  <Sparkles className="h-5 w-5 text-[#c9a55c]" />
                   <span className="font-semibold">For Individuals</span>
                 </div>
                 <p className="text-sm text-white/50">Self-paced courses, certifications, and career development starting at $99.</p>
-                <div className="mt-4 text-xs text-white/30 group-hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <div className="mt-4 text-xs text-white/30 group-hover:text-white/70 transition-colors flex items-center gap-1">
                   Browse Courses <ArrowRight className="h-3 w-3" />
                 </div>
               </Link>
@@ -264,11 +264,11 @@ export default function PremiumLandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Article 1: NATIVE SDLC Evolution */}
-            <Link href="/insights/native-sdlc-evolution" className="group p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-blue-500/5 border border-white/5 hover:border-purple-500/30 hover:from-purple-500/10 hover:to-blue-500/10 transition-all">
+            <Link href="/insights/native-sdlc-evolution" className="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/20 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-4">
-                <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-[10px] uppercase tracking-wider font-medium">Operating Model</span>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-[10px] uppercase tracking-wider font-medium">Operating Model</span>
               </div>
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-purple-200 transition-colors">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-white/90 transition-colors">
                 Beyond Agile: Why the AI Era Demands a New Operating Model
               </h3>
               <p className="text-sm text-white/50 leading-relaxed">
@@ -277,11 +277,11 @@ export default function PremiumLandingPage() {
             </Link>
 
             {/* Article 2: AI Skills Gap Crisis */}
-            <Link href="/insights/ai-skills-gap-crisis" className="group p-6 rounded-2xl bg-gradient-to-br from-amber-500/5 to-red-500/5 border border-white/5 hover:border-amber-500/30 hover:from-amber-500/10 hover:to-red-500/10 transition-all">
+            <Link href="/insights/ai-skills-gap-crisis" className="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/20 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-4">
-                <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] uppercase tracking-wider font-medium">Workforce Crisis</span>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-[10px] uppercase tracking-wider font-medium">Workforce Crisis</span>
               </div>
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-amber-200 transition-colors">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-white/90 transition-colors">
                 The AI Skills Gap Crisis: Why Traditional Training Failed
               </h3>
               <p className="text-sm text-white/50 leading-relaxed">
@@ -290,11 +290,11 @@ export default function PremiumLandingPage() {
             </Link>
 
             {/* Article 3: AI Fluency */}
-            <Link href="/insights/ai-fluency-new-literacy" className="group p-6 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-cyan-500/5 border border-white/5 hover:border-emerald-500/30 hover:from-emerald-500/10 hover:to-cyan-500/10 transition-all">
+            <Link href="/insights/ai-fluency-new-literacy" className="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/20 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-4">
-                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] uppercase tracking-wider font-medium">AI Literacy</span>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-[10px] uppercase tracking-wider font-medium">AI Literacy</span>
               </div>
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-emerald-200 transition-colors">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-white/90 transition-colors">
                 From Prompt Engineering to AI Fluency: The New Digital Literacy
               </h3>
               <p className="text-sm text-white/50 leading-relaxed">
@@ -303,11 +303,11 @@ export default function PremiumLandingPage() {
             </Link>
 
             {/* Article 4: Why AI Initiatives Fail */}
-            <Link href="/insights/why-ai-initiatives-fail" className="group p-6 rounded-2xl bg-gradient-to-br from-rose-500/5 to-pink-500/5 border border-white/5 hover:border-rose-500/30 hover:from-rose-500/10 hover:to-pink-500/10 transition-all">
+            <Link href="/insights/why-ai-initiatives-fail" className="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/20 hover:bg-white/[0.04] transition-all">
               <div className="flex items-center gap-2 mb-4">
-                <span className="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[10px] uppercase tracking-wider font-medium">Strategy</span>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-[10px] uppercase tracking-wider font-medium">Strategy</span>
               </div>
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-rose-200 transition-colors">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-white/90 transition-colors">
                 Why 70% of AI Initiatives Fail: The Foundation First Approach
               </h3>
               <p className="text-sm text-white/50 leading-relaxed">
@@ -366,19 +366,19 @@ export default function PremiumLandingPage() {
           {/* Compliance Badges */}
           <div className="flex flex-wrap justify-center gap-6 mt-12 text-xs text-white/40 uppercase tracking-wider">
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
-              <Shield className="h-4 w-4 text-emerald-500" />
+              <Shield className="h-4 w-4 text-[#c9a55c]" />
               HITRUST Certified
             </div>
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
-              <Shield className="h-4 w-4 text-blue-500" />
+              <Shield className="h-4 w-4 text-[#c9a55c]" />
               SOC 2 Type II
             </div>
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
-              <Shield className="h-4 w-4 text-purple-500" />
+              <Shield className="h-4 w-4 text-[#c9a55c]" />
               HIPAA Compliant
             </div>
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/5">
-              <Shield className="h-4 w-4 text-amber-500" />
+              <Shield className="h-4 w-4 text-[#c9a55c]" />
               GDPR Ready
             </div>
           </div>
