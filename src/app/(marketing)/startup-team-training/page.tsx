@@ -18,9 +18,6 @@ export default function StartupTeamTrainingPage() {
                 </div>
             </nav>
             <section className="pt-32 pb-20 px-6"><div className="max-w-6xl mx-auto text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 mb-8">
-                    <span className="text-sm text-emerald-400">Startup-Friendly</span>
-                </div>
                 <h1 className="text-5xl md:text-7xl font-bold mb-6">Startup Team<br />AI Training</h1>
                 <p className="text-xl text-white/60 max-w-3xl mx-auto mb-8">Fast-track your team's AI skills. Affordable, practical, no enterprise overhead.</p>
                 <Link href="/demo" className="px-8 py-4 bg-emerald-600 text-white rounded-full font-semibold">Talk to Us</Link>

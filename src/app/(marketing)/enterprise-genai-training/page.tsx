@@ -18,9 +18,6 @@ export default function EnterpriseGenAITrainingPage() {
                 </div>
             </nav>
             <section className="pt-32 pb-20 px-6"><div className="max-w-6xl mx-auto text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 mb-8">
-                    <span className="text-sm text-blue-400">Enterprise-Grade</span>
-                </div>
                 <h1 className="text-5xl md:text-7xl font-bold mb-6">Enterprise<br />Generative AI</h1>
                 <p className="text-xl text-white/60 max-w-3xl mx-auto mb-8">GenAI at scale. Safe, compliant, and effective adoption for enterprises.</p>
                 <Link href="/demo" className="px-8 py-4 bg-blue-600 text-white rounded-full font-semibold">Request Demo</Link>

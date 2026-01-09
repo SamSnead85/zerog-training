@@ -99,9 +99,6 @@ export default function NativeFrameworkPage() {
                 </div>
 
                 <div className="relative z-10 mx-auto max-w-5xl text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-8">
-                        <span className="text-sm font-medium text-cyan-400">Post-Strategy Implementation Standard</span>
-                    </div>
 
                     <h1 className="font-montserrat text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-6">
                         The NATIVE Framework<sup className="text-lg md:text-xl align-super ml-1">™</sup>
