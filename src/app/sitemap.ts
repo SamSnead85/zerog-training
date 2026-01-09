@@ -201,6 +201,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: '/proptech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
         { url: '/healthtech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
         { url: '/legaltech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+
+        // More Tech Verticals
+        { url: '/insurtech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/supplychaintech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/agtech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+
+        // More Roles (Batch 3)
+        { url: '/ai-training-data-teams', priority: 0.8, changeFrequency: 'weekly' as const },
     ];
 
     // Training & Learning pages
