@@ -216,6 +216,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: '/robotics-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
         { url: '/iot-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
         { url: '/automotivetech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+
+        // Cutting Edge Tech
+        { url: '/blockchain-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/quantum-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/defense-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+
+        // More Roles (Batch 4)
+        { url: '/ai-training-customer-success', priority: 0.8, changeFrequency: 'weekly' as const },
+        { url: '/ai-training-finance-teams', priority: 0.8, changeFrequency: 'weekly' as const },
     ];
 
     // Training & Learning pages
