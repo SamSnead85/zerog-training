@@ -180,6 +180,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: '/ai-fluency-training', priority: 0.85, changeFrequency: 'weekly' as const },
         { url: '/ai-learning-management', priority: 0.8, changeFrequency: 'monthly' as const },
         { url: '/startup-team-training', priority: 0.8, changeFrequency: 'monthly' as const },
+
+        // More Industries (Batch 3)
+        { url: '/fintech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/saas-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/venture-capital-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/cybersecurity-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/biotech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/clean-energy-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+
+        // More Roles (Batch 2)
+        { url: '/ai-training-product-teams', priority: 0.8, changeFrequency: 'weekly' as const },
+        { url: '/ai-training-content-teams', priority: 0.8, changeFrequency: 'weekly' as const },
+        { url: '/ai-training-revenue-teams', priority: 0.8, changeFrequency: 'weekly' as const },
+
+        // Tech Industry Verticals
+        { url: '/hr-tech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/martech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/edtech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/proptech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/healthtech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/legaltech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
     ];
 
     // Training & Learning pages
