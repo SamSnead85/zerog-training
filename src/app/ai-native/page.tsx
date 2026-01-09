@@ -23,21 +23,21 @@ import {
 export default function AINativePlatformPage() {
     const certificationTracks = [
         {
-            level: "Foundation",
+            level: "Practitioner",
             badge: "🎓",
             duration: "16-20 hours",
             description: "Master AI fundamentals and prompt engineering essentials",
             modules: ["AI Fundamentals", "AI-Assisted Coding Mastery"],
         },
         {
-            level: "Associate",
+            level: "Developer",
             badge: "🏅",
             duration: "24-30 hours",
             description: "Build agentic AI systems and MLOps pipelines",
             modules: ["Agentic AI Systems", "AI Engineering & MLOps"],
         },
         {
-            level: "Professional",
+            level: "Engineer",
             badge: "🏆",
             duration: "30-35 hours",
             description: "Advanced frameworks, RAG systems, and security",
@@ -49,6 +49,20 @@ export default function AINativePlatformPage() {
             duration: "35-45 hours",
             description: "Enterprise architecture, deployment, and leadership",
             modules: ["Enterprise Architecture", "Production Deployment", "AI Leadership"],
+        },
+        {
+            level: "Transformation Leader",
+            badge: "🚀",
+            duration: "25-30 hours",
+            description: "Lead enterprise-wide AI transformation initiatives",
+            modules: ["Change Management", "AI Governance & Strategy"],
+        },
+        {
+            level: "Data Strategist",
+            badge: "🔷",
+            duration: "30-35 hours",
+            description: "Master data pipelines, governance, and AI/ML data strategy",
+            modules: ["Data Pipeline Design", "Data Governance", "ML Feature Engineering"],
         },
     ];
 
@@ -257,12 +271,14 @@ export default function AINativePlatformPage() {
                         <p className="text-white/40">Progress from fundamentals to enterprise leadership</p>
                     </div>
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 flex-wrap">
                         {[
-                            { level: "Foundation", duration: "16-20h", badge: "🎓" },
-                            { level: "Associate", duration: "24-30h", badge: "🏅" },
-                            { level: "Professional", duration: "30-35h", badge: "🏆" },
+                            { level: "Practitioner", duration: "16-20h", badge: "🎓" },
+                            { level: "Developer", duration: "24-30h", badge: "🏅" },
+                            { level: "Engineer", duration: "30-35h", badge: "🏆" },
                             { level: "Architect", duration: "35-45h", badge: "⚡" },
+                            { level: "Leader", duration: "25-30h", badge: "🚀" },
+                            { level: "Data", duration: "30-35h", badge: "🔷" },
                         ].map((step, i) => (
                             <div key={i} className="flex items-center gap-4">
                                 <div className="p-6 rounded-xl bg-white/[0.02] border border-white/10 text-center min-w-[120px]">
@@ -270,7 +286,7 @@ export default function AINativePlatformPage() {
                                     <div className="font-semibold text-sm">{step.level}</div>
                                     <div className="text-xs text-white/40">{step.duration}</div>
                                 </div>
-                                {i < 3 && <ChevronRight className="h-5 w-5 text-white/20 hidden md:block" />}
+                                {i < 5 && <ChevronRight className="h-5 w-5 text-white/20 hidden md:block" />}
                             </div>
                         ))}
                     </div>
@@ -318,10 +334,10 @@ export default function AINativePlatformPage() {
                         </Link>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Footer */}
-            <footer className="py-12 px-8 border-t border-white/5">
+            < footer className="py-12 px-8 border-t border-white/5" >
                 <div className="mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
                     <span className="font-playfair text-lg italic">ScaledNative<sup className="text-[8px]">™</sup></span>
                     <div className="flex gap-8 text-sm text-white/30">
@@ -332,7 +348,7 @@ export default function AINativePlatformPage() {
                     </div>
                     <div className="text-xs text-white/20">© 2025 ScaledNative™. All rights reserved.</div>
                 </div>
-            </footer>
-        </div>
+            </footer >
+        </div >
     );
 }

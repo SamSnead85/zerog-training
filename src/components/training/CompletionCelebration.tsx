@@ -1,225 +1,261 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Trophy, Star, Sparkles, Award, Download, Loader2 } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Card, Badge, Button } from "@/components/ui";
+import {
+    Trophy,
+    Star,
+    Sparkles,
+    PartyPopper,
+    Share2,
+    Download,
+    X,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui";
-import Link from "next/link";
-import { useAuth } from "@/lib/auth/AuthContext";
+import confetti from "canvas-confetti";
 
 interface CompletionCelebrationProps {
-    courseName: string;
-    trackName?: string;
-    moduleId?: string;
-    xpEarned: number;
-    certificateAvailable?: boolean;
-    isTrackComplete?: boolean;
-    modulesCompleted?: number;
-    totalHours?: number;
-    skills?: string[];
-    onContinue?: () => void;
-    isVisible: boolean;
+    show: boolean;
+    type: "lesson" | "module" | "track" | "certification";
+    title: string;
+    subtitle?: string;
+    xpEarned?: number;
+    badgeEarned?: string;
+    onClose: () => void;
+    onShare?: () => void;
+    onDownloadCertificate?: () => void;
 }
 
 export function CompletionCelebration({
-    courseName,
-    trackName,
-    moduleId,
-    xpEarned,
-    certificateAvailable = false,
-    isTrackComplete = false,
-    modulesCompleted = 1,
-    totalHours = 8,
-    skills = [],
-    onContinue,
-    isVisible,
+    show,
+    type,
+    title,
+    subtitle,
+    xpEarned = 0,
+    badgeEarned,
+    onClose,
+    onShare,
+    onDownloadCertificate,
 }: CompletionCelebrationProps) {
-    const [showConfetti, setShowConfetti] = useState(false);
-    const [certificateId, setCertificateId] = useState<string | null>(null);
-    const [isGeneratingCert, setIsGeneratingCert] = useState(false);
-    const { user } = useAuth();
+    const [animationPhase, setAnimationPhase] = useState(0);
 
-    useEffect(() => {
-        if (isVisible) {
-            setShowConfetti(true);
-            const timer = setTimeout(() => setShowConfetti(false), 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [isVisible]);
+    // Trigger confetti animation
+    const triggerConfetti = useCallback(() => {
+        const duration = 3000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
 
-    // Generate certificate when track is complete
-    useEffect(() => {
-        if (isVisible && isTrackComplete && user && moduleId && !certificateId) {
-            generateCertificate();
-        }
-    }, [isVisible, isTrackComplete, user, moduleId]);
+        const randomInRange = (min: number, max: number) =>
+            Math.random() * (max - min) + min;
 
-    const generateCertificate = async () => {
-        if (!user || !moduleId) return;
-
-        setIsGeneratingCert(true);
-        try {
-            const response = await fetch('/api/certificates', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    moduleId,
-                    trackName: trackName || courseName,
-                    certificationTitle: `ScaledNative Certified - ${courseName}`,
-                    score: 100, // Would come from actual assessment
-                    skills: skills.length > 0 ? skills : [
-                        "AI-Native Thinking",
-                        "Prompt Engineering",
-                        "AI Tool Proficiency"
-                    ],
-                }),
-            });
-
-            const data = await response.json();
-            if (data.success && data.certificate) {
-                setCertificateId(data.certificate.certificateId);
+        const interval = setInterval(() => {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
             }
-        } catch (error) {
-            console.error("Failed to generate certificate:", error);
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                colors: ['#10b981', '#6366f1', '#f59e0b', '#ec4899'],
+            });
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                colors: ['#10b981', '#6366f1', '#f59e0b', '#ec4899'],
+            });
+        }, 250);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (show) {
+            setAnimationPhase(1);
+            setTimeout(() => setAnimationPhase(2), 300);
+            setTimeout(() => setAnimationPhase(3), 600);
+            triggerConfetti();
+        } else {
+            setAnimationPhase(0);
         }
-        setIsGeneratingCert(false);
+    }, [show, triggerConfetti]);
+
+    if (!show) return null;
+
+    const celebrationConfig = {
+        lesson: {
+            icon: Star,
+            gradient: "from-blue-500 to-cyan-500",
+            message: "Lesson Complete!",
+        },
+        module: {
+            icon: Trophy,
+            gradient: "from-emerald-500 to-teal-500",
+            message: "Module Mastered!",
+        },
+        track: {
+            icon: Sparkles,
+            gradient: "from-purple-500 to-pink-500",
+            message: "Track Finished!",
+        },
+        certification: {
+            icon: PartyPopper,
+            gradient: "from-amber-500 to-orange-500",
+            message: "Certified!",
+        },
     };
 
-    if (!isVisible) return null;
+    const config = celebrationConfig[type];
+    const Icon = config.icon;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-            {/* Confetti particles */}
-            {showConfetti && (
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {Array.from({ length: 50 }).map((_, i) => (
-                        <div
-                            key={i}
-                            className="absolute w-3 h-3 rounded-full animate-confetti"
-                            style={{
-                                left: `${Math.random() * 100}%`,
-                                top: `-10px`,
-                                backgroundColor: ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96E6A1'][i % 5],
-                                animationDelay: `${Math.random() * 2}s`,
-                                animationDuration: `${2 + Math.random() * 2}s`,
-                            }}
-                        />
-                    ))}
-                </div>
-            )}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+            {/* Close button */}
+            <button
+                onClick={onClose}
+                className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+                <X className="h-6 w-6 text-white/60" />
+            </button>
 
-            <div className="bg-card border border-border rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl animate-scale-in">
-                <div className="mb-6">
-                    <div className={cn(
-                        "inline-flex items-center justify-center w-20 h-20 rounded-full mb-4",
-                        isTrackComplete
-                            ? "bg-gradient-to-br from-amber-500/30 to-amber-600/20 border-2 border-amber-500/50"
-                            : "bg-yellow-500/20"
-                    )}>
-                        {isTrackComplete ? (
-                            <Award className="h-10 w-10 text-amber-400" />
-                        ) : (
-                            <Trophy className="h-10 w-10 text-yellow-500" />
-                        )}
-                    </div>
-                    <h2 className="text-2xl font-bold mb-2">
-                        {isTrackComplete ? "🎓 Certification Earned!" : "Congratulations! 🎉"}
-                    </h2>
-                    <p className="text-muted-foreground">
-                        You've completed <span className="font-semibold text-foreground">{courseName}</span>
-                    </p>
-                    {isTrackComplete && trackName && (
-                        <p className="text-amber-400 font-medium mt-2">
-                            {trackName}
-                        </p>
-                    )}
+            <Card className={cn(
+                "relative p-8 max-w-md w-full mx-4 text-center overflow-hidden transition-all duration-500",
+                animationPhase >= 1 ? "scale-100 opacity-100" : "scale-90 opacity-0"
+            )}>
+                {/* Animated background glow */}
+                <div className={cn(
+                    "absolute inset-0 opacity-20 bg-gradient-to-br",
+                    config.gradient
+                )} />
+
+                {/* Icon */}
+                <div className={cn(
+                    "relative mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-6 transition-all duration-500",
+                    `bg-gradient-to-br ${config.gradient}`,
+                    animationPhase >= 2 ? "scale-100" : "scale-0"
+                )}>
+                    <Icon className="h-12 w-12 text-white" />
                 </div>
 
-                <div className="flex justify-center gap-6 mb-6">
-                    <div className="text-center">
-                        <div className="flex items-center justify-center gap-1 text-yellow-500">
-                            <Star className="h-5 w-5 fill-current" />
-                            <span className="text-2xl font-bold">+{xpEarned}</span>
-                        </div>
-                        <span className="text-xs text-muted-foreground">XP Earned</span>
-                    </div>
-                    {isTrackComplete && (
-                        <div className="text-center">
-                            <div className="flex items-center justify-center gap-1 text-emerald-500">
-                                <span className="text-2xl font-bold">{modulesCompleted}</span>
-                            </div>
-                            <span className="text-xs text-muted-foreground">Modules</span>
-                        </div>
+                {/* Message */}
+                <div className={cn(
+                    "relative transition-all duration-500",
+                    animationPhase >= 3 ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                )}>
+                    <h2 className="text-2xl font-bold mb-2">{config.message}</h2>
+                    <h3 className="text-xl font-semibold mb-1">{title}</h3>
+                    {subtitle && (
+                        <p className="text-white/60 mb-6">{subtitle}</p>
                     )}
-                    {(certificateAvailable || isTrackComplete) && (
-                        <div className="text-center">
-                            <div className="flex items-center justify-center gap-1 text-amber-500">
-                                <Award className="h-5 w-5" />
-                                <span className="text-sm font-semibold">
-                                    {isGeneratingCert ? (
-                                        <Loader2 className="h-4 w-4 animate-spin" />
-                                    ) : (
-                                        "Ready"
-                                    )}
-                                </span>
-                            </div>
-                            <span className="text-xs text-muted-foreground">Certificate</span>
-                        </div>
-                    )}
-                </div>
 
-                <div className="flex flex-col gap-2">
-                    {(certificateAvailable || isTrackComplete) && (
-                        certificateId ? (
-                            <Link href={`/certificate/${certificateId}`}>
-                                <Button className="w-full gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black">
-                                    <Award className="h-4 w-4" />
-                                    View & Download Certificate
-                                </Button>
-                            </Link>
-                        ) : (
-                            <Button
-                                className="w-full gap-2"
-                                disabled={isGeneratingCert}
-                                onClick={generateCertificate}
-                            >
-                                {isGeneratingCert ? (
-                                    <>
-                                        <Loader2 className="h-4 w-4 animate-spin" />
-                                        Generating Certificate...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Award className="h-4 w-4" />
-                                        Generate Certificate
-                                    </>
-                                )}
+                    {/* XP Earned */}
+                    {xpEarned > 0 && (
+                        <Badge className="mb-4 bg-amber-500/20 text-amber-400 border-amber-500/30 text-lg px-4 py-2">
+                            +{xpEarned} XP Earned!
+                        </Badge>
+                    )}
+
+                    {/* Badge Earned */}
+                    {badgeEarned && (
+                        <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
+                            <p className="text-sm text-white/60 mb-2">New Badge Unlocked</p>
+                            <p className="font-semibold text-emerald-400">{badgeEarned}</p>
+                        </div>
+                    )}
+
+                    {/* Actions */}
+                    <div className="flex gap-3 justify-center">
+                        {onShare && (
+                            <Button variant="outline" onClick={onShare} className="gap-2">
+                                <Share2 className="h-4 w-4" />
+                                Share
                             </Button>
-                        )
-                    )}
-                    <Button variant="outline" onClick={onContinue} className="w-full">
-                        Continue Learning
-                    </Button>
+                        )}
+                        {onDownloadCertificate && type === "certification" && (
+                            <Button onClick={onDownloadCertificate} className="gap-2">
+                                <Download className="h-4 w-4" />
+                                Download Certificate
+                            </Button>
+                        )}
+                        <Button onClick={onClose}>
+                            Continue Learning
+                        </Button>
+                    </div>
                 </div>
+            </Card>
+        </div>
+    );
+}
+
+// Streak indicator component
+export function StreakIndicator({
+    currentStreak,
+    longestStreak,
+    todayComplete
+}: {
+    currentStreak: number;
+    longestStreak: number;
+    todayComplete: boolean;
+}) {
+    return (
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+            <div className={cn(
+                "w-10 h-10 rounded-full flex items-center justify-center",
+                todayComplete ? "bg-amber-500/20" : "bg-white/10"
+            )}>
+                <span className="text-lg">🔥</span>
+            </div>
+            <div>
+                <p className="font-semibold">{currentStreak} Day Streak</p>
+                <p className="text-xs text-white/50">
+                    {todayComplete ? "Keep it up!" : "Complete a lesson to continue!"}
+                </p>
+            </div>
+            <div className="ml-auto text-right">
+                <p className="text-xs text-white/50">Best</p>
+                <p className="font-medium text-amber-400">{longestStreak}</p>
             </div>
         </div>
     );
 }
 
-// Add confetti animation - add to globals.css if not already present
-const confettiStyles = `
-@keyframes confetti {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-    }
-}
+// XP Progress indicator
+export function XPProgress({
+    currentXP,
+    levelXP,
+    level,
+}: {
+    currentXP: number;
+    levelXP: number;
+    level: number;
+}) {
+    const progress = (currentXP / levelXP) * 100;
 
-.animate-confetti {
-    animation: confetti 3s ease-out forwards;
+    return (
+        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-sm">
+                        {level}
+                    </div>
+                    <span className="font-medium">Level {level}</span>
+                </div>
+                <span className="text-sm text-white/60">
+                    {currentXP} / {levelXP} XP
+                </span>
+            </div>
+            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div
+                    className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500"
+                    style={{ width: `${progress}%` }}
+                />
+            </div>
+            <p className="text-xs text-white/40 mt-1 text-right">
+                {levelXP - currentXP} XP to Level {level + 1}
+            </p>
+        </div>
+    );
 }
-`;

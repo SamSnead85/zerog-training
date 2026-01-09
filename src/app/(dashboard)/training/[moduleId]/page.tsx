@@ -35,6 +35,8 @@ const levelConfig = {
     associate: { color: "bg-emerald-500/20 text-emerald-500 border-emerald-500/30" },
     professional: { color: "bg-purple-500/20 text-purple-500 border-purple-500/30" },
     architect: { color: "bg-amber-500/20 text-amber-500 border-amber-500/30" },
+    leader: { color: "bg-rose-500/20 text-rose-500 border-rose-500/30" },
+    data: { color: "bg-cyan-500/20 text-cyan-500 border-cyan-500/30" },
 };
 
 const difficultyConfig = {

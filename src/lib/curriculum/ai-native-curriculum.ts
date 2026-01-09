@@ -1,7 +1,7 @@
 // AI-Native Training Curriculum - Flagship ScaledNative Offering
 // Based on DeepLearning.AI, Google Cloud, Microsoft, and NATIVE Framework
 
-export type CertificationLevel = "foundations" | "associate" | "professional" | "architect";
+export type CertificationLevel = "foundations" | "associate" | "professional" | "architect" | "leader" | "data";
 export type ModuleStatus = "available" | "coming_soon" | "locked";
 export type LabType = "guided" | "independent" | "debug" | "design";
 export type AssessmentDifficulty = "recall" | "apply" | "analyze" | "create";
@@ -332,8 +332,8 @@ export const certificationTracks: CertificationTrack[] = [
     {
         id: "foundations-cert",
         level: "foundations",
-        shortTitle: "Foundations",
-        title: "AI-Native Foundations",
+        shortTitle: "Practitioner",
+        title: "AI NATIVE Practitioner",
         description: "Master the fundamentals of AI and become AI-literate. Understand LLMs, prompt engineering, and the AI development ecosystem. Perfect for all employees beginning their AI-Native journey.",
         duration: "16-20 hours",
         modules: ["module-1", "module-2"],
@@ -381,8 +381,8 @@ export const certificationTracks: CertificationTrack[] = [
     {
         id: "associate-cert",
         level: "associate",
-        shortTitle: "Associate",
-        title: "AI-Native Associate Developer",
+        shortTitle: "Developer",
+        title: "AI NATIVE Developer",
         description: "Build AI-powered applications with agentic workflows and MLOps practices. Learn from Andrew Ng's Agentic AI curriculum. Design, build, and deploy production AI systems.",
         duration: "24-30 hours",
         modules: ["module-3", "module-4"],
@@ -434,8 +434,8 @@ export const certificationTracks: CertificationTrack[] = [
     {
         id: "professional-cert",
         level: "professional",
-        shortTitle: "Professional",
-        title: "AI-Native Professional Developer",
+        shortTitle: "Engineer",
+        title: "AI NATIVE Engineering Professional",
         description: "Master advanced frameworks (LangGraph, CrewAI, AutoGen), production RAG systems, fine-tuning, and AI security. Lead enterprise AI implementations with responsible AI practices.",
         duration: "30-35 hours",
         modules: ["module-5", "module-6", "module-7"],
@@ -489,7 +489,7 @@ export const certificationTracks: CertificationTrack[] = [
         id: "architect-cert",
         level: "architect",
         shortTitle: "Architect",
-        title: "AI-Native Solutions Architect",
+        title: "AI NATIVE Solutions Architect",
         description: "Design enterprise-scale AI platforms with multi-model orchestration, production deployment, cost optimization, and governance frameworks. Lead AI transformation initiatives across organizations.",
         duration: "35-45 hours",
         modules: ["module-8", "module-9", "module-10"],
@@ -550,6 +550,114 @@ export const certificationTracks: CertificationTrack[] = [
                 requiredEvery: "3 years",
                 options: ["exam", "project-portfolio"],
                 continuingEducationHours: 40
+            }
+        }
+    },
+    {
+        id: "leader-cert",
+        level: "leader",
+        shortTitle: "Leader",
+        title: "AI NATIVE Transformation Leader",
+        description: "Lead enterprise-wide AI transformation initiatives. Master change management, AI governance, strategic planning, and stakeholder alignment. Guide organizations through the cultural and operational shifts required for AI adoption.",
+        duration: "25-30 hours",
+        modules: ["module-leader-1", "module-leader-2"],
+        prerequisites: ["AI NATIVE Practitioner"],
+        validityPeriod: "3 years",
+        badge: "rocket",
+        badgeColor: "bg-rose-500",
+        nativeCertified: true,
+        certificationCode: "NATIVE-TL",
+        examDetails: {
+            format: "Case study analysis + transformation roadmap",
+            passingScore: "80%",
+            duration: "3 hours"
+        },
+        assessmentRequirements: {
+            writtenExam: {
+                questionTypes: ["case-study", "essay"],
+                questionCount: 25,
+                passingScore: 80,
+                timeLimit: "2 hours",
+                proctored: true,
+                identityVerification: true
+            },
+            practicalExam: {
+                format: "take-home-project",
+                duration: "48 hours",
+                rubricCriteria: [
+                    "Strategic vision and alignment",
+                    "Change management approach",
+                    "Stakeholder communication plan",
+                    "Risk mitigation strategy",
+                    "Success metrics and KPIs",
+                    "Governance framework design"
+                ],
+                passingScore: 80
+            },
+            portfolio: {
+                required: true,
+                capstoneProjectId: "capstone-leader",
+                peerReviewRequired: true,
+                minimumScore: 80
+            },
+            recertification: {
+                requiredEvery: "3 years",
+                options: ["exam", "continuing-education"],
+                continuingEducationHours: 30
+            }
+        }
+    },
+    {
+        id: "data-cert",
+        level: "data",
+        shortTitle: "Data",
+        title: "AI NATIVE Data Strategist",
+        description: "Master data strategies for AI success. Design data pipelines, implement data governance, ensure data quality, and build the foundation for effective AI/ML systems. Bridge the gap between data engineering and AI implementation.",
+        duration: "30-35 hours",
+        modules: ["module-data-1", "module-data-2", "module-data-3"],
+        prerequisites: ["AI NATIVE Practitioner"],
+        validityPeriod: "2 years",
+        badge: "database",
+        badgeColor: "bg-cyan-500",
+        nativeCertified: true,
+        certificationCode: "NATIVE-DS",
+        examDetails: {
+            format: "40 multiple choice + data pipeline design challenge",
+            passingScore: "80%",
+            duration: "3 hours"
+        },
+        assessmentRequirements: {
+            writtenExam: {
+                questionTypes: ["mcq", "case-study"],
+                questionCount: 40,
+                passingScore: 80,
+                timeLimit: "90 minutes",
+                proctored: true,
+                identityVerification: true
+            },
+            practicalExam: {
+                format: "take-home-project",
+                duration: "4 hours",
+                rubricCriteria: [
+                    "Data pipeline architecture",
+                    "Data quality controls",
+                    "Governance and compliance",
+                    "Scalability design",
+                    "ML feature engineering",
+                    "Documentation quality"
+                ],
+                passingScore: 80
+            },
+            portfolio: {
+                required: true,
+                capstoneProjectId: "capstone-data",
+                peerReviewRequired: true,
+                minimumScore: 80
+            },
+            recertification: {
+                requiredEvery: "2 years",
+                options: ["exam", "continuing-education"],
+                continuingEducationHours: 25
             }
         }
     },

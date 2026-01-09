@@ -40,7 +40,9 @@ const levelIcons = {
     foundations: GraduationCap,
     associate: Layers,
     professional: Trophy,
-    architect: Crown
+    architect: Crown,
+    leader: Trophy,
+    data: Layers
 };
 
 const levelColors = {
@@ -67,6 +69,18 @@ const levelColors = {
         text: "text-amber-500",
         border: "border-amber-500",
         light: "bg-amber-500/10"
+    },
+    leader: {
+        bg: "bg-rose-500",
+        text: "text-rose-500",
+        border: "border-rose-500",
+        light: "bg-rose-500/10"
+    },
+    data: {
+        bg: "bg-cyan-500",
+        text: "text-cyan-500",
+        border: "border-cyan-500",
+        light: "bg-cyan-500/10"
     }
 };
 

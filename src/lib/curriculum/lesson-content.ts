@@ -1411,7 +1411,29 @@ export const module3Lessons: LessonContent[] = [
         duration: "30 min",
         contentType: "interactive",
         content: [
-            { type: "heading", level: 1, text: "What Are AI Agents?" },
+            { type: "heading", level: 1, text: "The Rise of Autonomous Agents" },
+            {
+                type: "video-enhanced",
+                video: {
+                    id: "vid-m3-agents",
+                    title: "The Agentic Future: From Chatbots to Workers",
+                    description: "Understand the fundamental shift from passive LLMs to active, goal-oriented agents. Featuring insights from AutoGPT and BabyAGI creators.",
+                    videoUrl: "https://www.youtube.com/watch?v=fqvlhmO23uE", // Placeholder highly relevant video
+                    duration: "15 min",
+                    chapters: [
+                        { time: "0:00", title: "The Evolution of AI" },
+                        { time: "3:45", title: "Key Components of an Agent" },
+                        { time: "8:20", title: "Planning & Reasoning" },
+                        { time: "12:10", title: "Real-world Use Cases" }
+                    ],
+                    keyTakeaways: [
+                        "Agents add 'Agency' (Planning + Tools) to LLMs",
+                        "The ReAct pattern (Reason + Act) is the core loop",
+                        "Agents can access the internet, run code, and file tickets",
+                        "The future of software is agentic workflows, not just chat"
+                    ]
+                }
+            },
             {
                 type: "text",
                 content: `AI Agents represent a paradigm shift from simple chatbots to autonomous systems that can:
@@ -1428,39 +1450,6 @@ Think of an agent as an LLM with hands—it can not only think but also act.`
                 type: "callout",
                 style: "info",
                 content: "A chatbot responds to queries. An agent takes actions to accomplish goals."
-            },
-            {
-                type: "code",
-                language: "python",
-                code: `# Chatbot: Simple Q&A
-def chatbot(question):
-    return llm.generate(question)
-
-# Agent: Plans and executes
-def agent(goal):
-    plan = llm.plan(goal)  # Break down the goal
-    
-    for step in plan:
-        if step.needs_tool:
-            result = tools.execute(step.tool, step.args)
-            observations.append(result)
-        else:
-            result = llm.reason(step, observations)
-    
-    return final_answer`,
-                caption: "Key difference: Agents plan and use tools"
-            },
-            { type: "heading", level: 2, text: "The ReAct Pattern" },
-            {
-                type: "text",
-                content: `**ReAct** (Reasoning + Acting) is the foundational pattern for AI agents:
-
-1. **Thought**: The agent reasons about what to do
-2. **Action**: The agent selects and executes a tool
-3. **Observation**: The agent observes the result
-4. **Repeat**: Loop until task is complete
-
-This cycle allows agents to break complex tasks into manageable steps.`
             },
             {
                 type: "quiz",
@@ -1482,15 +1471,15 @@ This cycle allows agents to break complex tasks into manageable steps.`
                     {
                         id: "agent-q2",
                         type: "multi-select",
-                        question: "What are the steps in the ReAct pattern?",
+                        question: "What are the core components of an Agent?",
                         options: [
-                            { id: "a", text: "Thought" },
-                            { id: "b", text: "Training" },
-                            { id: "c", text: "Action" },
-                            { id: "d", text: "Observation" },
+                            { id: "a", text: "LLM (Brain)" },
+                            { id: "b", text: "Tools (Hands)" },
+                            { id: "c", text: "Planning (Reasoning)" },
+                            { id: "d", text: "Memory (Context)" },
                         ],
-                        correctAnswers: ["a", "c", "d"],
-                        explanation: "ReAct = Thought → Action → Observation, repeated until complete."
+                        correctAnswers: ["a", "b", "c", "d"],
+                        explanation: "A complete agent needs a Brain (LLM), Hands (Tools), Reasoning capabilities (Planning), and Context (Memory)."
                     },
                 ]
             }
@@ -1502,7 +1491,7 @@ This cycle allows agents to break complex tasks into manageable steps.`
         topicId: "3-2",
         lessonNumber: 2,
         title: "Building Tool-Using Agents",
-        duration: "40 min",
+        duration: "45 min",
         contentType: "interactive",
         content: [
             { type: "heading", level: 1, text: "Giving Agents Tools" },
@@ -1513,103 +1502,107 @@ This cycle allows agents to break complex tasks into manageable steps.`
 - **Search tools**: Google, Wikipedia, vector search
 - **Code tools**: Python REPL, SQL queries
 - **API tools**: Weather, stocks, calendar
-- **File tools**: Read/write files
-- **Browser tools**: Navigate web pages`
+- **File tools**: Read/write files`
             },
-            { type: "heading", level: 2, text: "Defining Tools" },
+            { type: "heading", level: 2, text: "🧪 Interactive Lab: Build a ReAct Agent" },
             {
-                type: "code",
-                language: "python",
-                code: `# Define a tool with OpenAI function calling
+                type: "interactive-lab",
+                lab: {
+                    id: "lab-m3-01",
+                    title: "Build Your First ReAct Agent",
+                    objective: "Implement a basic Reason-Act (ReAct) loop to solve multi-step problems",
+                    difficulty: "intermediate",
+                    estimatedTime: "25 min",
+                    tools: ["Python", "OpenAI API"],
+                    starterCode: `# Build a ReAct Agent
+# Goal: Create an agent that can answer questions requiring tools
+
+from openai import OpenAI
+import json
+
+client = OpenAI()
+
+# 1. Define Tools
+def get_stock_price(symbol: str):
+    """Get current stock price"""
+    if symbol == "AAPL": return "$185.50"
+    if symbol == "GOOGL": return "$140.20"
+    return "$50.00"
+
 tools = [
     {
         "type": "function",
         "function": {
-            "name": "get_weather",
-            "description": "Get current weather for a city",
+            "name": "get_stock_price",
+            "description": "Get the current stock price for a given symbol",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "city": {
-                        "type": "string",
-                        "description": "City name"
-                    }
+                    "symbol": {"type": "string", "description": "Stock symbol (e.g. AAPL)"}
                 },
-                "required": ["city"]
+                "required": ["symbol"]
             }
         }
     }
 ]
 
-# The actual function implementation
-def get_weather(city: str) -> str:
-    # Call weather API
-    return f"Weather in {city}: 72°F, sunny"
+# 2. Implement the ReAct Loop
+def run_agent(user_query):
+    messages = [{"role": "user", "content": user_query}]
+    
+    # Step 1: LLM decides what to do
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=messages,
+        tools=tools,
+        tool_choice="auto"
+    )
+    
+    msg = response.choices[0].message
+    
+    # Step 2: If tool call needed, execute it
+    if msg.tool_calls:
+        print(f"🤖 Agent decided to call: {msg.tool_calls[0].function.name}")
+        # TODO: Execute the tool and append result to messages
+        pass
+        
+    # Step 3: Get final answer
+    # TODO: Call LLM again with tool result
+    
+    return "Final Answer"
 
-# Use with OpenAI
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[{"role": "user", "content": "What's the weather in Tokyo?"}],
-    tools=tools,
-    tool_choice="auto"
-)
-
-# If the model wants to call a tool
-if response.choices[0].message.tool_calls:
-    tool_call = response.choices[0].message.tool_calls[0]
-    result = get_weather(tool_call.function.arguments["city"])`,
-                caption: "OpenAI function calling pattern"
-            },
-            {
-                type: "callout",
-                style: "tip",
-                content: "Good tool descriptions are crucial. The LLM uses them to decide when and how to use each tool."
-            },
-            {
-                type: "exercise",
-                exercise: {
-                    id: "ex-tool-1",
-                    title: "Define a Calculator Tool",
-                    description: "Complete the tool definition for a simple calculator that can add two numbers.",
-                    language: "python",
-                    starterCode: `# Define a calculator tool
-calculator_tool = {
-    "type": "function",
-    "function": {
-        "name": "add_numbers",
-        "description": "???",  # What should this say?
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "a": {"type": "number", "description": "First number"},
-                "b": {"type": "number", "description": "???"}  # Complete this
-            },
-            "required": ["a", "b"]
-        }
-    }
-}
-
-print(calculator_tool["function"]["name"])`,
-                    solution: `# Define a calculator tool
-calculator_tool = {
-    "type": "function",
-    "function": {
-        "name": "add_numbers",
-        "description": "Add two numbers together and return the sum",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "a": {"type": "number", "description": "First number"},
-                "b": {"type": "number", "description": "Second number to add"}
-            },
-            "required": ["a", "b"]
-        }
-    }
-}
-
-print(calculator_tool["function"]["name"])`,
-                    expectedOutput: "add_numbers",
-                    hint: "Fill in the description and the missing parameter description"
+# Test
+print(run_agent("What is Apple's stock price?"))`,
+                    steps: [
+                        {
+                            id: "step-1",
+                            title: "Handle Tool Execution",
+                            instruction: "Extract the tool function arguments and call the `get_stock_price` function",
+                            hint: "Use json.loads() to parse call.function.arguments"
+                        },
+                        {
+                            id: "step-2",
+                            title: "Update Context",
+                            instruction: "Add the tool output back to the messages list with role='tool'",
+                            hint: "The LLM needs to see the result of its action to know what to do next"
+                        },
+                        {
+                            id: "step-3",
+                            title: "Final Generation",
+                            instruction: "Call the LLM again with the updated message history to get the final natural language answer",
+                            expectedOutput: "The stock price of Apple (AAPL) is $185.50.",
+                            hint: "The LLM will see the tool output and formulate a sentence"
+                        }
+                    ],
+                    successCriteria: [
+                        "Agent correctly identifies when to use a tool",
+                        "Tool execution returns correct mock data",
+                        "Agent integrates tool output into final response"
+                    ],
+                    hints: [
+                        "The 'tool_call_id' must match when sending the tool output back",
+                        "Check for 'tool_calls' in the message before trying to access them"
+                    ]
                 }
             }
         ]
@@ -1619,254 +1612,70 @@ print(calculator_tool["function"]["name"])`,
         moduleId: "module-3",
         topicId: "3-3",
         lessonNumber: 3,
-        title: "Multi-Agent Systems",
-        duration: "45 min",
+        title: "Multi-Agent Orchestration",
+        duration: "50 min",
         contentType: "interactive",
         content: [
-            { type: "heading", level: 1, text: "When One Agent Isn't Enough" },
+            { type: "heading", level: 1, text: "Orchestrating Teams of Agents" },
             {
                 type: "text",
-                content: `Complex tasks often benefit from multiple specialized agents working together:
+                content: `Single agents are powerful, but teams of agents are exponential. By assigning specialized roles, we can tackle much larger problems.
 
-**Researcher Agent**: Gathers information
-**Analyst Agent**: Processes and synthesizes
-**Writer Agent**: Creates final output
-**Critic Agent**: Reviews and improves
-
-This separation of concerns improves quality and manageability.`
+**Common Patterns:**
+1. **Sequential Handoffs**: Research → Write → Review
+2. **Hierarchical**: Manager agent delegates to Worker agents
+3. **Joint Collaboration**: Agents discuss and debate via shared history`
             },
-            { type: "heading", level: 2, text: "Agent Orchestration Patterns" },
-            {
-                type: "code",
-                language: "python",
-                code: `# Multi-agent orchestration example
-class AgentTeam:
-    def __init__(self):
-        self.researcher = Agent(role="researcher")
-        self.analyst = Agent(role="analyst")
-        self.writer = Agent(role="writer")
-    
-    def complete_task(self, goal: str) -> str:
-        # 1. Researcher gathers information
-        research = self.researcher.execute(
-            f"Research: {goal}"
-        )
-        
-        # 2. Analyst synthesizes findings
-        analysis = self.analyst.execute(
-            f"Analyze this research:\\n{research}"
-        )
-        
-        # 3. Writer produces final output
-        output = self.writer.execute(
-            f"Write a report based on:\\n{analysis}"
-        )
-        
-        return output
-
-# Usage
-team = AgentTeam()
-report = team.complete_task("Market analysis for AI training platforms")`,
-                caption: "Sequential multi-agent pipeline"
-            },
-            {
-                type: "callout",
-                style: "warning",
-                content: "Multi-agent systems increase complexity. Start with a single agent and add more only when needed."
-            },
-            { type: "heading", level: 2, text: "Popular Agent Frameworks" },
-            {
-                type: "text",
-                content: `**LangChain/LangGraph**: Most popular, great for complex workflows
-**CrewAI**: Focused on multi-agent collaboration
-**AutoGen**: Microsoft's framework for conversational agents
-**OpenAI Assistants**: Managed agent infrastructure
-
-Each has tradeoffs in flexibility, complexity, and vendor lock-in.`
-            },
-            {
-                type: "quiz",
-                title: "Multi-Agent Quiz",
-                questions: [
-                    {
-                        id: "ma-q1",
-                        type: "multiple-choice",
-                        question: "When should you use multiple agents instead of one?",
-                        options: [
-                            { id: "a", text: "Always, more agents = better results" },
-                            { id: "b", text: "When tasks are complex and benefit from specialization" },
-                            { id: "c", text: "Only for production systems" },
-                            { id: "d", text: "Never, single agents are always better" },
-                        ],
-                        correctAnswers: ["b"],
-                        explanation: "Multi-agent systems add complexity. Use them when task complexity justifies the overhead and specialization improves quality."
-                    },
-                    {
-                        id: "ma-q2",
-                        type: "multi-select",
-                        question: "Which are popular agent frameworks?",
-                        options: [
-                            { id: "a", text: "LangChain" },
-                            { id: "b", text: "React.js" },
-                            { id: "c", text: "CrewAI" },
-                            { id: "d", text: "AutoGen" },
-                        ],
-                        correctAnswers: ["a", "c", "d"],
-                        explanation: "LangChain, CrewAI, and AutoGen are agent frameworks. React.js is a frontend framework."
-                    },
-                ]
-            },
-            { type: "heading", level: 2, text: "🧪 Hands-On Lab: Build a Tool-Using Agent" },
-            {
-                type: "interactive-lab",
-                lab: {
-                    id: "lab-m3-01",
-                    title: "Create an AI Agent with Custom Tools",
-                    objective: "Build an AI agent that can use custom tools to complete complex tasks autonomously",
-                    difficulty: "intermediate",
-                    estimatedTime: "25 min",
-                    tools: ["Python", "OpenAI API", "LangChain"],
-                    starterCode: `# AI Agent Lab
-# Build an agent with custom tools
-
-from openai import OpenAI
-
-client = OpenAI()
-
-# Step 1: Define your tools
-tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "search_database",
-            "description": "Search for information in the company database",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "query": {"type": "string", "description": "Search query"}
-                },
-                "required": ["query"]
-            }
-        }
-    },
-    # TODO: Add more tools
-]
-
-# Step 2: Implement the agent loop
-def agent_loop(user_task: str) -> str:
-    messages = [{"role": "user", "content": user_task}]
-    
-    while True:
-        response = client.chat.completions.create(
-            model="gpt-4",
-            messages=messages,
-            tools=tools,
-            tool_choice="auto"
-        )
-        
-        # TODO: Handle tool calls or return final response
-        pass
-
-# Step 3: Test your agent
-result = agent_loop("Find the Q4 sales report and summarize it")
-print(result)`,
-                    steps: [
-                        {
-                            id: "step-1",
-                            title: "Define your tool schemas",
-                            instruction: "Create 2-3 tool definitions with clear names, descriptions, and parameters",
-                            hint: "Include tools for different actions: search, calculate, format, etc."
-                        },
-                        {
-                            id: "step-2",
-                            title: "Implement tool handlers",
-                            instruction: "Create functions that execute each tool and return results",
-                            code: "def search_database(query: str) -> str:\n    # Mock implementation\n    return f\"Found 3 results for '{query}'\"",
-                            hint: "Return structured data that the LLM can use to continue reasoning"
-                        },
-                        {
-                            id: "step-3",
-                            title: "Build the agent loop",
-                            instruction: "Handle the conversation cycle: call LLM → execute tools → feed results back",
-                            hint: "Check if response has tool_calls. If so, execute and add results to messages."
-                        },
-                        {
-                            id: "step-4",
-                            title: "Add termination logic",
-                            instruction: "Detect when the agent has completed its task and should return the final answer",
-                            hint: "If no tool_calls, the agent is done and you can return the final message"
-                        }
-                    ],
-                    successCriteria: [
-                        "Defined at least 2 tools with proper schemas",
-                        "Implemented tool handler functions",
-                        "Built a working agent loop with tool execution",
-                        "Agent completes a multi-step task successfully"
-                    ],
-                    hints: [
-                        "Use tool_choice='auto' to let the model decide when to use tools",
-                        "Always add tool results back to the messages array",
-                        "Handle errors gracefully so the agent can recover"
-                    ]
-                }
-            },
-            { type: "heading", level: 2, text: "📋 Capstone Project" },
+            { type: "heading", level: 2, text: "📋 Project: Design a Content Marketing Team" },
             {
                 type: "project",
                 project: {
                     id: "proj-m3-01",
-                    title: "Autonomous Customer Support Agent",
-                    scenario: "Your company receives thousands of customer support tickets daily. You've been asked to build an AI agent that can autonomously handle common inquiries—checking order status, processing returns, answering product questions—while escalating complex issues to human agents.",
-                    industry: "retail",
+                    title: "Multi-Agent Content System",
+                    scenario: "Design a fully autonomous content creation team. The system should take a topic as input and output a high-quality, SEO-optimized blog post with social media snippets.",
+                    industry: "general",
                     deliverables: [
-                        "A tool-using agent with access to order database, return processing, and FAQ retrieval",
-                        "Intent classification to route tickets appropriately",
-                        "Conversation memory to handle multi-turn interactions",
-                        "Human escalation logic for complex or sensitive issues",
-                        "Performance dashboard showing resolution rates and escalation patterns"
+                        "Architecture diagram defining 3+ specialized agents (e.g., Researcher, SEO Specialist, Writer)",
+                        "Detailed prompt definitions for each agent persona",
+                        "Orchestration logic (how they pass data)",
+                        "Quality control mechanism (how the Editor agent rejects bad drafts)"
                     ],
                     rubric: [
-                        { criterion: "Tool Design", description: "Tools are well-defined, appropriately scoped, and have clear error handling", weight: 25 },
-                        { criterion: "Agent Logic", description: "Agent reasons correctly about when to use tools vs respond directly", weight: 30 },
-                        { criterion: "Conversation Quality", description: "Maintains context, asks clarifying questions, and provides helpful responses", weight: 25 },
-                        { criterion: "Escalation Handling", description: "Correctly identifies when human intervention is needed", weight: 20 }
+                        { criterion: "Role Specialization", description: "Each agent has a distinct, well-defined purpose", weight: 30 },
+                        { criterion: "Workflow Logic", description: "Handoffs between agents are logical and robust", weight: 30 },
+                        { criterion: "loop Handling", description: "System has mechanisms to improve poor quality (feedback loops)", weight: 20 },
+                        { criterion: "Implementation Feasibility", description: "Design uses realistic patterns (LangGraph, CrewAI)", weight: 20 }
                     ],
                     resources: [
-                        { title: "OpenAI Function Calling Guide", url: "https://platform.openai.com/docs/guides/function-calling" },
-                        { title: "LangChain Agents Tutorial", url: "https://python.langchain.com/docs/modules/agents/" },
-                        { title: "CrewAI Documentation", url: "https://docs.crewai.com/" }
+                        { title: "CrewAI Documentation", url: "https://docs.crewai.com/" },
+                        { title: "LangGraph Multi-Agent Tutorials", url: "https://python.langchain.com/docs/langgraph/" }
                     ],
-                    estimatedHours: 10,
-                    skills: ["AI Agents", "Tool Design", "Conversation Design", "Python", "LangChain"]
+                    estimatedHours: 6,
+                    skills: ["System Design", "Agent Orchestration", "Prompt Engineering", "Workflow Automation"]
                 }
             },
-            { type: "heading", level: 2, text: "🤖 AI Simulation: Sell an AI Agent Solution" },
+            { type: "heading", level: 2, text: "🤖 Simulation: The CTO Review" },
             {
                 type: "simulation",
                 simulation: {
                     id: "sim-m3-01",
-                    title: "Enterprise AI Sales Meeting",
-                    scenario: "You're meeting with the VP of Operations at a large e-commerce company. They're interested in AI agents for their customer service team but are worried about cost, reliability, and the impact on their human workforce.",
-                    aiPersona: "Marcus Williams, VP of Operations at ShopMax",
-                    userRole: "AI Solutions Consultant",
+                    title: "Defend Your Agent Architecture",
+                    scenario: "You are presenting your multi-agent architecture to the CTO, who is worried about infinite loops and costs.",
+                    aiPersona: "Marcus, Cost-Conscious CTO",
+                    userRole: "System Architect",
                     objectives: [
-                        "Demonstrate the ROI of AI agents for customer service",
-                        "Address concerns about job displacement for human agents",
-                        "Explain the hybrid human-AI model",
-                        "Propose a pilot program with clear success metrics"
+                        "Explain how you prevent agents from arguing forever (loops)",
+                        "Justify the cost of multiple agents vs one large prompt",
+                        "Demonstrate observability plans"
                     ],
                     sampleDialogues: [
-                        { role: "user", message: "Thanks for taking the time to meet, Marcus. I understand you're looking to improve customer service efficiency. What are your biggest pain points right now?" },
-                        { role: "ai", message: "We're drowning in tickets. Our agents handle 5,000 tickets a day, and response times have crept up to 4 hours. We've tried hiring more agents but the training time is killing us. I've heard AI might help, but I'm skeptical about quality and worried about my team's jobs." },
-                        { role: "user", message: "Those are valid concerns. The goal isn't to replace your team—it's to make them superheroes. AI handles the repetitive stuff: order status checks, return processing, password resets. That frees your human agents for high-value interactions where empathy matters." },
-                        { role: "ai", message: "Interesting. But how reliable is this really? I can't afford customer complaints about bot interactions." },
-                        { role: "user", message: "Great question. We recommend starting with a hybrid model—AI drafts responses, but humans approve them. Over time, as confidence scores improve, you can increase automation. Plus, there's always a 'talk to human' escape hatch." }
+                        { role: "ai", message: "This looks expensive. Why do we need 4 agents? Can't GPT-4 just do it in one shot?" },
+                        { role: "user", message: "One shot works for simple tasks, but for this complex workflow, context gets lost. Specialized agents reduce hallucinations and actually save tokens by keeping context focused." }
                     ],
                     successCriteria: [
-                        "Framed AI as augmenting human agents, not replacing them",
-                        "Quantified potential ROI (ticket resolution time, cost per ticket)",
-                        "Proposed a low-risk pilot program",
-                        "Addressed reliability concerns with hybrid human-AI approach"
+                        "Successfully argued for agent specialization",
+                        "Proposed concrete loop limits (max turns)",
+                        "Explained the cost-quality trade-off effectively"
                     ]
                 }
             }
@@ -2362,91 +2171,73 @@ export const module5Lessons: LessonContent[] = [
         moduleId: "module-5",
         topicId: "5-1",
         lessonNumber: 1,
-        title: "Deploying AI Applications",
-        duration: "40 min",
+        title: "Enterprise AI Security & Governance",
+        duration: "45 min",
         contentType: "interactive",
         content: [
-            { type: "heading", level: 1, text: "From Prototype to Production" },
+            { type: "heading", level: 1, text: "Securing AI at Scale" },
+            {
+                type: "video-enhanced",
+                video: {
+                    id: "vid-m5-security",
+                    title: "The Enterprise AI Security Framework",
+                    description: "A comprehensive guide to securing LLM applications, covering prompt injection, data leakage, and access control. Based on OWASP Top 10 for LLMs.",
+                    videoUrl: "https://www.youtube.com/watch?v=2h4KfxPq7iA", // Placeholder enterprise security video
+                    duration: "22 min",
+                    chapters: [
+                        { time: "0:00", title: "The New Attack Surface" },
+                        { time: "5:30", title: "Prompt Injection Defense" },
+                        { time: "12:15", title: "Data Exfiltration Prevention" },
+                        { time: "18:40", title: "Zero Trust for AI Agents" }
+                    ],
+                    keyTakeaways: [
+                        "Input validation is no longer enough; you need semantic firewalls",
+                        "Treat LLM output as untrusted user input",
+                        "Implement strict RBAC (Role-Based Access Control) for tools",
+                        "Monitor for 'Jailbreak' attempts in real-time"
+                    ]
+                }
+            },
             {
                 type: "text",
-                content: `Deploying AI applications is fundamentally different from traditional software deployment. In this lesson, we'll cover the key considerations for production-ready AI.
+                content: `Deploying AI in the enterprise requires a shift from "can we build it?" to "can we secure it?". 
 
-**Key Challenges:**
-- Model versioning and rollback
-- Latency requirements
-- Cost management
-- Scaling inference
-- Error handling for non-deterministic outputs`
+**Key Risks:**
+- **Prompt Injection**: Attackers manipulating the model's instructions
+- **Data Leakage**: Sensitive PII/PHI entering the training data or prompt context
+- **Model Theft**: Unauthorized access to proprietary fine-tuned models
+- **Excessive Agency**: Agents performing unauthorized actions`
             },
-            { type: "heading", level: 2, text: "Deployment Patterns" },
+            { type: "heading", level: 2, text: "Defense in Depth" },
             {
                 type: "callout",
-                style: "tip",
-                content: "Start with synchronous APIs, then optimize with queues and caching as you scale."
+                style: "warning",
+                content: "Never trust the model to police itself. System prompts can be overridden. Use external guardrails."
             },
             {
                 type: "code",
                 language: "python",
-                code: `# Pattern 1: Synchronous API (Simple, direct)
-@app.post("/generate")
-async def generate(request: PromptRequest):
-    response = await llm.generate(request.prompt)
-    return {"result": response}
+                code: `# Implementing a Semantic Firewall (Guardrails)
+# Using the open-source NVidia NeMo Guardrails syntax
 
-# Pattern 2: Queue-based (Better for long tasks)
-@app.post("/generate")
-async def generate(request: PromptRequest):
-    job_id = await queue.enqueue(
-        task="generate",
-        prompt=request.prompt
-    )
-    return {"job_id": job_id, "status": "processing"}
+define rails input
+  # Block jailbreak attempts
+  user attempt jailbreak
+  bot refuse respond
 
-@app.get("/jobs/{job_id}")
-async def get_job(job_id: str):
-    result = await queue.get_result(job_id)
-    return result
+define flow jailbreak
+  user attempt jailbreak
+  bot refuse respond
+  stop
 
-# Pattern 3: Streaming (Best UX for long responses)
-@app.post("/generate/stream")
-async def generate_stream(request: PromptRequest):
-    async def event_generator():
-        async for chunk in llm.stream(request.prompt):
-            yield f"data: {chunk}\\n\\n"
-    return StreamingResponse(event_generator())`,
-                caption: "Three deployment patterns for AI APIs"
-            },
-            { type: "heading", level: 2, text: "Caching Strategies" },
-            {
-                type: "text",
-                content: `**Why Cache?**
-- LLM calls are expensive ($0.01-$0.10 per call)
-- Identical prompts = identical responses (at temperature 0)
-- Reduces latency from seconds to milliseconds
-
-**Caching Approaches:**
-1. **Exact match**: Cache full prompt → response pairs
-2. **Semantic similarity**: Find similar past queries using embeddings
-3. **Partial caching**: Cache expensive computations (embeddings, retrieval)`
-            },
-            {
-                type: "quiz",
-                title: "Deployment Quiz",
-                questions: [
-                    {
-                        id: "deploy-q1",
-                        type: "multiple-choice",
-                        question: "When should you use streaming responses?",
-                        options: [
-                            { id: "a", text: "For very short responses only" },
-                            { id: "b", text: "When user experience matters and responses are long" },
-                            { id: "c", text: "Only in development environments" },
-                            { id: "d", text: "When you want to reduce costs" },
-                        ],
-                        correctAnswers: ["b"],
-                        explanation: "Streaming improves perceived latency for long responses. Users see output immediately rather than waiting."
-                    },
-                ]
+# PII Redaction
+define flow redact pii
+  user ask question
+  $prompt = call redact_pii($input)
+  bot calls llm($prompt)
+  $response = call unredact_pii($output)
+  bot respond $response`,
+                caption: "Guardrails configuration example"
             }
         ]
     },
@@ -2455,99 +2246,94 @@ async def generate_stream(request: PromptRequest):
         moduleId: "module-5",
         topicId: "5-2",
         lessonNumber: 2,
-        title: "Monitoring & Observability",
-        duration: "35 min",
+        title: "Compliance & PII Protection",
+        duration: "40 min",
         contentType: "interactive",
         content: [
-            { type: "heading", level: 1, text: "Observability for AI Systems" },
+            { type: "heading", level: 1, text: "Handling Sensitive Data" },
             {
                 type: "text",
-                content: `AI applications need specialized monitoring beyond traditional APM. You need to track not just uptime, but quality.
+                content: `In regulated industries (Healthcare, Finance), strict rules apply to data usage. You cannot simply send customer data to a public LLM API.
 
-**What to Monitor:**
-- Latency (p50, p95, p99)
-- Token usage and costs
-- Error rates and types
-- Response quality metrics
-- Model drift`
+**Strategies:**
+1. **Data Redaction**: Mask PII before sending
+2. **Private VPC Deployment**: Run models in your own cloud
+3. **Local Inference**: Run open-source models (Llama 3, Mistral) on-prem`
             },
-            { type: "heading", level: 2, text: "Key Metrics" },
+            { type: "heading", level: 2, text: "🧪 Interactive Lab: PII Redaction Pipeline" },
             {
-                type: "callout",
-                style: "warning",
-                content: "Unlike traditional APIs, AI outputs can be \"wrong\" without throwing errors. Quality monitoring is essential."
-            },
-            {
-                type: "code",
-                language: "python",
-                code: `# Comprehensive AI monitoring
-from datadog import statsd
-import time
+                type: "interactive-lab",
+                lab: {
+                    id: "lab-m5-01",
+                    title: "Build a HIPAA-Compliant PII Redactor",
+                    objective: "Implement a robust presidio-based PII redaction system for healthcare data",
+                    difficulty: "advanced",
+                    estimatedTime: "35 min",
+                    tools: ["Python", "Microsoft Presidio", "Regular Expressions"],
+                    starterCode: `# Build a PII Redaction Pipeline
+# Goal: Mask patient names, SSNs, and conditions before sending to LLM
 
-class AIMonitor:
-    def track_generation(self, prompt, response, model, metadata=None):
-        start = time.time()
-        latency = time.time() - start
-        
-        # Latency tracking
-        statsd.histogram("ai.generation.latency", latency)
-        
-        # Token tracking
-        input_tokens = count_tokens(prompt)
-        output_tokens = count_tokens(response)
-        statsd.increment("ai.tokens.input", input_tokens)
-        statsd.increment("ai.tokens.output", output_tokens)
-        
-        # Cost estimation
-        cost = self.estimate_cost(model, input_tokens, output_tokens)
-        statsd.increment("ai.cost.usd", cost)
-        
-        # Quality signals (if available)
-        if metadata and "user_rating" in metadata:
-            statsd.histogram("ai.quality.user_rating", metadata["user_rating"])
-        
-        # Log for debugging
-        self.log_interaction(prompt, response, {
-            "latency": latency,
-            "tokens": input_tokens + output_tokens,
-            "cost": cost,
-            "model": model
-        })`,
-                caption: "Comprehensive AI monitoring implementation"
-            },
-            { type: "heading", level: 2, text: "Evaluating Quality" },
-            {
-                type: "text",
-                content: `**Automated Quality Checks:**
-- Factuality (does it match your data?)
-- Relevance (does it answer the question?)
-- Toxicity filtering
-- PII detection
-- Format compliance
+from presidio_analyzer import AnalyzerEngine
+from presidio_anonymizer import AnonymizerEngine
 
-**Human Feedback:**
-- Thumbs up/down ratings
-- A/B testing different prompts
-- Sample review workflows`
-            },
-            {
-                type: "quiz",
-                title: "Observability Quiz",
-                questions: [
-                    {
-                        id: "obs-q1",
-                        type: "multi-select",
-                        question: "What should you monitor for AI applications?",
-                        options: [
-                            { id: "a", text: "Latency percentiles" },
-                            { id: "b", text: "Token usage" },
-                            { id: "c", text: "Output quality" },
-                            { id: "d", text: "Keyboard clicks per user" },
-                        ],
-                        correctAnswers: ["a", "b", "c"],
-                        explanation: "Latency, token usage, and quality are essential AI metrics. Keyboard clicks aren't relevant to AI monitoring."
-                    },
-                ]
+# 1. Setup Engines
+analyzer = AnalyzerEngine()
+anonymizer = AnonymizerEngine()
+
+def secure_prompt(user_input: str):
+    # Step 1: Analyze text for PII entities
+    results = analyzer.analyze(
+        text=user_input,
+        entities=["PERSON", "PHONE_NUMBER", "US_SSN", "EMAIL_ADDRESS"],
+        language='en'
+    )
+    
+    # Step 2: Anonymize identified entities
+    anonymized_result = anonymizer.anonymize(
+        text=user_input,
+        analyzer_results=results
+    )
+    
+    return anonymized_result.text
+
+# Test Data
+patient_note = "Patient Sarah Connor (SSN: 123-45-6789) called from 555-0199 regarding her T800 prescription."
+
+# Run Pipeline
+safe_note = secure_prompt(patient_note)
+print(f"Original: {patient_note}")
+print(f"Redacted: {safe_note}")`,
+                    steps: [
+                        {
+                            id: "step-1",
+                            title: "Configure Analyzer",
+                            instruction: "Initialize the Presidio analyzer and define which entities to detect (PHI)",
+                            hint: "Include PERSON, US_SSN, and PHONE_NUMBER"
+                        },
+                        {
+                            id: "step-2",
+                            title: "Verify Detection",
+                            instruction: "Run the analyzer on the test note and inspect the detected spans",
+                            code: "results = analyzer.analyze(text=patient_note, language='en')",
+                            expectedOutput: "List of identified PII entities with confidence scores"
+                        },
+                        {
+                            id: "step-3",
+                            title: "Implement Anonymization",
+                            instruction: "Replace the detected entities with generic placeholders (e.g. <PERSON>)",
+                            hint: "The AnonymizerEngine handles the replacement logic automatically"
+                        }
+                    ],
+                    successCriteria: [
+                        "Successfully identifies Name, SSN, and Phone Number",
+                        "Replaces real data with placeholders",
+                        "Original text is completely scrubbed of PHI"
+                    ],
+                    hints: [
+                        "Presidio uses Spacy under the hood for NER (Named Entity Recognition)",
+                        "You can add custom regex patterns for specific IDs like Medical Record Numbers (MRN)"
+                    ]
+                }
             }
         ]
     },
@@ -2556,172 +2342,75 @@ class AIMonitor:
         moduleId: "module-5",
         topicId: "5-3",
         lessonNumber: 3,
-        title: "Scaling AI Infrastructure",
-        duration: "40 min",
+        title: "Governance & Architecture Review",
+        duration: "50 min",
         contentType: "interactive",
         content: [
-            { type: "heading", level: 1, text: "Scaling AI to Millions of Users" },
+            { type: "heading", level: 1, text: "Designing for Governance" },
             {
                 type: "text",
-                content: `As your AI application grows, you'll face unique scaling challenges. This lesson covers strategies for handling high traffic efficiently.
+                content: `Governance is about control, visibility, and accountability.
 
-**Scaling Dimensions:**
-- Request throughput (requests/second)
-- Context length (tokens per request)
-- Concurrent users
-- Data volume (for RAG)`
+**The 5 Pillars of AI Governance:**
+1. **Explainability**: Can we understand why the model made a decision?
+2. **Fairness**: Is the model biased against certain groups?
+3. **Privacy**: Is data handled according to law (GDPR/CCPA)?
+4. **Security**: Is the system resilient to attack?
+5. **Transparency**: Do users know they are interacting with AI?`
             },
-            { type: "heading", level: 2, text: "Architecture Patterns" },
-            {
-                type: "code",
-                language: "python",
-                code: `# Scalable AI Architecture
-
-# 1. Load balancing across LLM providers
-class LLMRouter:
-    def __init__(self):
-        self.providers = {
-            "openai": OpenAIClient(),
-            "anthropic": AnthropicClient(),
-            "azure": AzureOpenAIClient()
-        }
-    
-    def route(self, request):
-        # Route based on latency, cost, or availability
-        if request.priority == "low_latency":
-            return self.fastest_available()
-        elif request.priority == "low_cost":
-            return self.cheapest_available()
-        else:
-            return self.round_robin()
-
-# 2. Vector database sharding
-vector_db = ShardedVectorStore(
-    shards=10,
-    replication_factor=3,
-    index_type="HNSW"
-)
-
-# 3. Request prioritization
-class PriorityQueue:
-    def __init__(self):
-        self.premium_queue = asyncio.Queue()  # Process first
-        self.standard_queue = asyncio.Queue() # Process second
-    
-    async def enqueue(self, request, tier):
-        if tier == "enterprise":
-            await self.premium_queue.put(request)
-        else:
-            await self.standard_queue.put(request)`,
-                caption: "Patterns for scaling AI infrastructure"
-            },
-            {
-                type: "callout",
-                style: "info",
-                content: "Consider using multiple LLM providers for redundancy. If OpenAI is down, fall back to Anthropic or Azure."
-            },
-            { type: "heading", level: 2, text: "Cost Optimization" },
-            {
-                type: "text",
-                content: `**Strategies to Reduce Costs:**
-
-1. **Model selection**: Use smaller models for simpler tasks
-2. **Prompt optimization**: Shorter prompts = lower costs
-3. **Caching**: Avoid duplicate calls
-4. **Batching**: Group requests when possible
-5. **Rate limiting**: Prevent abuse
-6. **Tiered access**: Premium features for paying users`
-            },
-            {
-                type: "quiz",
-                title: "Scaling Quiz",
-                questions: [
-                    {
-                        id: "scale-q1",
-                        type: "multiple-choice",
-                        question: "Why use multiple LLM providers?",
-                        options: [
-                            { id: "a", text: "It's always cheaper" },
-                            { id: "b", text: "For redundancy and to avoid single points of failure" },
-                            { id: "c", text: "Different models can't do the same tasks" },
-                            { id: "d", text: "Compliance requires it" },
-                        ],
-                        correctAnswers: ["b"],
-                        explanation: "Multiple providers provide redundancy. If one is down or rate-limited, you can fail over to another."
-                    },
-                    {
-                        id: "scale-q2",
-                        type: "multi-select",
-                        question: "Which are valid cost optimization strategies?",
-                        options: [
-                            { id: "a", text: "Caching responses" },
-                            { id: "b", text: "Using larger models" },
-                            { id: "c", text: "Shorter prompts" },
-                            { id: "d", text: "Batching requests" },
-                        ],
-                        correctAnswers: ["a", "c", "d"],
-                        explanation: "Caching, shorter prompts, and batching reduce costs. Larger models increase costs."
-                    },
-                ]
-            },
-            { type: "heading", level: 2, text: "📋 Capstone Project" },
-            {
-                type: "project",
-                project: {
-                    id: "proj-m5-01",
-                    title: "Production-Ready AI Platform",
-                    scenario: "Your company's AI pilot has been successful and leadership wants to scale it across the organization. You've been tasked with designing and building a production-ready AI platform that can handle 10,000 daily active users, maintain 99.9% uptime, and stay within budget.",
-                    industry: "general",
-                    deliverables: [
-                        "Architecture diagram showing load balancing, caching, and failover strategies",
-                        "Multi-model routing system with fallback providers",
-                        "Comprehensive monitoring dashboard with latency, cost, and quality metrics",
-                        "Cost optimization module with model selection and caching",
-                        "Capacity planning document with scaling triggers and cost projections"
-                    ],
-                    rubric: [
-                        { criterion: "Architecture Design", description: "System handles traffic spikes, provider outages, and maintains low latency", weight: 30 },
-                        { criterion: "Cost Efficiency", description: "Implements effective caching, model selection, and token optimization", weight: 25 },
-                        { criterion: "Observability", description: "Comprehensive metrics, alerting, and debugging capabilities", weight: 25 },
-                        { criterion: "Documentation", description: "Clear runbooks, capacity plans, and operational procedures", weight: 20 }
-                    ],
-                    resources: [
-                        { title: "LangSmith (LLM Observability)", url: "https://smith.langchain.com/" },
-                        { title: "OpenAI Rate Limits", url: "https://platform.openai.com/docs/guides/rate-limits" },
-                        { title: "Semantic Caching Strategies", url: "https://www.pinecone.io/learn/semantic-caching/" }
-                    ],
-                    estimatedHours: 15,
-                    skills: ["System Design", "Cloud Architecture", "Monitoring", "Cost Optimization", "Python"]
-                }
-            },
-            { type: "heading", level: 2, text: "🤖 AI Simulation: CFO Budget Approval" },
+            { type: "heading", level: 2, text: "🤖 Simulation: The Privacy Review Board" },
             {
                 type: "simulation",
                 simulation: {
                     id: "sim-m5-01",
-                    title: "Securing AI Budget from the CFO",
-                    scenario: "You need to get budget approval to scale your AI platform for next year. The CFO is data-driven and skeptical of 'AI hype'. She wants to see clear ROI and cost projections before approving the $500K annual budget request.",
-                    aiPersona: "Jennifer Walsh, CFO of TechCorp Industries",
-                    userRole: "VP of Engineering",
+                    title: "Pass the Privacy Architecture Review",
+                    scenario: "You are the Lead Architect proposing a new GenAI customer support bot. You must convince the Chief Privacy Officer (CPO) and CISO that your architecture is safe.",
+                    aiPersona: "Dr. Elena Vance, Chief Privacy Officer (Strict, detail-oriented)",
+                    userRole: "Lead AI Architect",
                     objectives: [
-                        "Present clear ROI with quantified business impact",
-                        "Address concerns about unpredictable AI costs",
-                        "Propose cost controls and governance mechanisms",
-                        "Negotiate a realistic budget with milestones"
+                        "Explain your data retention policy",
+                        "Defend your choice of a cloud-hosted LLM vs on-prem",
+                        "Demonstrate how 'Right to be Forgotten' requests are handled"
                     ],
                     sampleDialogues: [
-                        { role: "user", message: "Thank you for meeting with me, Jennifer. I'd like to discuss the AI platform budget for next year." },
-                        { role: "ai", message: "I've reviewed your proposal. Half a million dollars for AI infrastructure is a significant ask. Walk me through the ROI—and I mean real numbers, not 'AI is the future' generalities." },
-                        { role: "user", message: "Absolutely. Our pilot saved the customer support team 2,000 hours per month—that's $400K annually in labor costs alone. We project 5x savings at scale, yielding $2M in annual savings against the $500K investment." },
-                        { role: "ai", message: "Those numbers look good, but I'm worried about cost overruns. I've seen AI projects where API costs exploded unexpectedly. How do we control spending?" },
-                        { role: "user", message: "Great concern. We're implementing three controls: First, hard budget caps with automatic rate limiting. Second, tiered service levels—internal tools use cheaper models, customer-facing uses premium. Third, monthly cost reviews with your team." }
+                        { role: "ai", message: "I see you're planning to send customer chat logs to OpenAI. That's a non-starter for EU customers. What is your fallback plan?" },
+                        { role: "user", message: "We have a dual-stack architecture. For EU data, we route to a dedicated Azure OpenAI instance in the France Central region, ensuring data residency compliance. No data leaves the EU." },
+                        { role: "ai", message: "And what about model training? Will our data be used to train their base models?" },
+                        { role: "user", message: "No, we have an Enterprise agreement with explicit Zero-Data-Retention (ZDR) clauses for training. We also sanitize logs before long-term storage." }
                     ],
                     successCriteria: [
-                        "Presented quantified ROI (cost savings, revenue impact)",
-                        "Addressed cost control concerns with specific mechanisms",
-                        "Proposed tiered spending with milestone-based releases",
-                        "Committed to regular financial reviews and accountability"
+                        "Addressed Data Residency requirements clearly",
+                        "Confirmed no training on customer data",
+                        "Explained the redaction layer implementation"
                     ]
+                }
+            },
+            { type: "heading", level: 2, text: "📋 Capstone Project: Governance Framework" },
+            {
+                type: "project",
+                project: {
+                    id: "proj-m5-01",
+                    title: "Enterprise AI Policy Generator",
+                    scenario: "Your organization needs a formal AI Acceptable Use Policy (AUP). Create a comprehensive policy document and technical implementation guide.",
+                    industry: "legal",
+                    deliverables: [
+                        "AI Acceptable Use Policy (AUP) Document",
+                        "Technical Guardrails Configuration (YAML/JSON)",
+                        "Employee Training Deck Outline",
+                        "Incident Response Plan for AI Hallucinations"
+                    ],
+                    rubric: [
+                        { criterion: "Comprehensive Coverage", description: "Policy covers Shadow AI, Data Privacy, and Code Generation", weight: 30 },
+                        { criterion: "Technical Alignment", description: "Policy rules map directly to technical guardrails", weight: 30 },
+                        { criterion: "Clarity", description: "Rules are unambiguous and enforceable", weight: 20 },
+                        { criterion: "Risk Mitigation", description: "Clearly addresses high-risk scenarios", weight: 20 }
+                    ],
+                    resources: [
+                        { title: "NIST AI Risk Management Framework", url: "https://www.nist.gov/itl/ai-risk-management-framework" },
+                        { title: "OWASP Top 10 for LLM Applications", url: "https://owasp.org/www-project-top-10-for-large-language-model-applications/" }
+                    ],
+                    estimatedHours: 5,
+                    skills: ["Governance", "Risk Management", "Policy Writing", "System Architecture"]
                 }
             }
         ]

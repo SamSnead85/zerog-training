@@ -812,3 +812,190 @@ model IndividualSession {
   @@map("individual_sessions")
 }
 
+// =============================================================================
+// ENTERPRISE INVOICES & QUOTES
+// =============================================================================
+
+model EnterpriseQuote {
+  id              String   @id @default(cuid())
+  quoteNumber     String   @unique
+  status          QuoteStatus @default(DRAFT)
+  
+  // Customer Info
+  companyName     String
+  contactName     String
+  contactEmail    String
+  contactPhone    String?
+  billingAddress  String?  @db.Text
+  
+  // Quote Details
+  userCount       Int
+  pricePerUser    Int      // In cents
+  discountPercent Float    @default(0)
+  subtotal        Int      // In cents
+  discountAmount  Int      @default(0)  // In cents
+  totalAmount     Int      // In cents
+  
+  // Terms
+  paymentTerms    PaymentTerms @default(NET_30)
+  validUntil      DateTime
+  notes           String?  @db.Text
+  
+  // Stripe
+  stripeQuoteId   String?  @unique
+  stripeCustomerId String?
+  
+  // Tracking
+  createdById     String
+  organizationId  String?
+  
+  sentAt          DateTime?
+  acceptedAt      DateTime?
+  declinedAt      DateTime?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  invoices        EnterpriseInvoice[]
+  lineItems       QuoteLineItem[]
+  
+  @@index([status])
+  @@index([companyName])
+  @@map("enterprise_quotes")
+}
+
+model QuoteLineItem {
+  id              String   @id @default(cuid())
+  quoteId         String
+  quote           EnterpriseQuote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  
+  description     String
+  quantity        Int
+  unitPriceInCents Int
+  totalInCents    Int
+  
+  @@map("quote_line_items")
+}
+
+model EnterpriseInvoice {
+  id              String   @id @default(cuid())
+  invoiceNumber   String   @unique
+  status          InvoiceStatus @default(DRAFT)
+  
+  // Customer Info
+  companyName     String
+  contactName     String
+  contactEmail    String
+  contactPhone    String?
+  billingAddress  String?  @db.Text
+  
+  // Invoice Details
+  userCount       Int
+  pricePerUser    Int      // In cents
+  discountPercent Float    @default(0)
+  subtotal        Int      // In cents
+  discountAmount  Int      @default(0)  // In cents
+  taxAmount       Int      @default(0)  // In cents
+  totalAmount     Int      // In cents
+  amountPaid      Int      @default(0)  // In cents
+  amountDue       Int      // In cents
+  
+  // Payment Terms
+  paymentTerms    PaymentTerms @default(NET_30)
+  issueDate       DateTime @default(now())
+  dueDate         DateTime
+  paidAt          DateTime?
+  
+  // Notes
+  notes           String?  @db.Text
+  internalNotes   String?  @db.Text
+  
+  // Stripe Integration
+  stripeInvoiceId String?  @unique
+  stripeCustomerId String?
+  stripePaymentIntentId String?
+  hostedInvoiceUrl String?
+  invoicePdfUrl   String?
+  
+  // References
+  quoteId         String?
+  quote           EnterpriseQuote? @relation(fields: [quoteId], references: [id])
+  organizationId  String?
+  createdById     String
+  
+  // Tracking
+  sentAt          DateTime?
+  viewedAt        DateTime?
+  reminderSentAt  DateTime?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  lineItems       InvoiceLineItem[]
+  payments        InvoicePayment[]
+  
+  @@index([status])
+  @@index([companyName])
+  @@index([dueDate])
+  @@map("enterprise_invoices")
+}
+
+model InvoiceLineItem {
+  id              String   @id @default(cuid())
+  invoiceId       String
+  invoice         EnterpriseInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  
+  description     String
+  quantity        Int
+  unitPriceInCents Int
+  totalInCents    Int
+  
+  @@map("invoice_line_items")
+}
+
+model InvoicePayment {
+  id              String   @id @default(cuid())
+  invoiceId       String
+  invoice         EnterpriseInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  
+  amountInCents   Int
+  paymentMethod   String   // credit_card, ach, wire, check
+  transactionId   String?
+  notes           String?
+  
+  paidAt          DateTime @default(now())
+  
+  @@map("invoice_payments")
+}
+
+enum QuoteStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  DECLINED
+  EXPIRED
+  CONVERTED  // Converted to invoice
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  VIEWED
+  PAID
+  PARTIALLY_PAID
+  OVERDUE
+  VOID
+  REFUNDED
+}
+
+enum PaymentTerms {
+  DUE_ON_RECEIPT
+  NET_15
+  NET_30
+  NET_45
+  NET_60
+  NET_90
+}
+

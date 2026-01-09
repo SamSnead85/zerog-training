@@ -112,6 +112,18 @@ function CertificationPathCard({
             badge: "bg-amber-500/10 text-amber-400 border-amber-500/30",
             icon: "⚡"
         },
+        leader: {
+            gradient: "from-rose-500/20 to-rose-600/10",
+            border: "border-rose-500/20",
+            badge: "bg-rose-500/10 text-rose-400 border-rose-500/30",
+            icon: "🚀"
+        },
+        data: {
+            gradient: "from-cyan-500/20 to-cyan-600/10",
+            border: "border-cyan-500/20",
+            badge: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
+            icon: "🔷"
+        },
     };
 
     const config = levelConfig[track.level];
