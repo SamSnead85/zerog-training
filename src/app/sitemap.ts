@@ -209,6 +209,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
         // More Roles (Batch 3)
         { url: '/ai-training-data-teams', priority: 0.8, changeFrequency: 'weekly' as const },
+        { url: '/ai-training-engineering-teams', priority: 0.8, changeFrequency: 'weekly' as const },
+
+        // Emerging Tech Verticals
+        { url: '/climatetech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/robotics-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/iot-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
+        { url: '/automotivetech-ai-training', priority: 0.85, changeFrequency: 'weekly' as const },
     ];
 
     // Training & Learning pages
